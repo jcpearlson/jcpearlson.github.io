@@ -1,4 +1,3 @@
 # jcpearlson.github.io
 
-
-This website is currently a work in progress
+Personal website hosted at www.joshpearlson.com
