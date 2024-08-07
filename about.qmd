@@ -6,6 +6,7 @@ title: "Josh Pearlson"
 image: jpPhoto3.jpeg
   
 about:
+  id: hero-heading
   template: trestles
   # image-width: 60%
   links:
@@ -18,10 +19,15 @@ about:
 
 ---
 
+:::{#hero-heading}
+My name is Josh, and I am a senior studying Computer Science and Finance at Washington University in St. Louis. My interests span capital markets, data science, and artificial intelligence. I love meeting and connecting with new people, so feel free to reach out {insert email icon and link email} !
+
 ## Education 
 
-Sample
+Washington University in St. Louis | St. Louis, MO | BS in Computer Science & Finance | August 2021 - May 2025 
 
 ## Experience
 
 sample
+
+:::
