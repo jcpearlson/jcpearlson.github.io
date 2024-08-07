@@ -1,5 +1,5 @@
 ---
-title: "docs"
+# title: "Josh Pearlson"
 listing:
   contents: posts
   sort: "date desc"
@@ -12,3 +12,22 @@ title-block-banner: true
 ---
 
 
+
+::: {style="font-size:1.0em; text-align: center;"}
+
+[[ This website is under construction! ]{.dim-text style="font-family:'IBM Plex Sans', sans-serif;"}]{style="font-size: 6rem; color: var(--dim-text)!important; padding-bottom: 0pt; font-family: 'IBM Plex Sans Condensed'; font-weight: 500;"}
+
+[[ Hi, I'm Josh!]{.dim-text style="font-family:'IBM Plex Sans', sans-serif;"}]{style="font-size: 1.5rem; color: var(--dim-text)!important; padding-bottom: 0pt; font-family: 'IBM Plex Sans Condensed'; font-weight: 500;"}
+
+<!-- ::: {style="display: flex; flex-direction: row; align-items: center; text-align: center!important; justify-content: center; background-color: var(--link-bg-color);"}
+
+[[[{{< iconify ph house-line-duotone >}}]{.icon style="background-color:rgba(0,0,0,0.0);!important"}](https://samforeman.me)]{.icon style="font-size:1.5rem; padding-right: 0pt;"}
+
+[[{{< iconify ph twitter-logo-duotone >}}](https://www.twitter.com/saforem2)]{.icon style="font-size:1.5rem; padding-left: 0pt; padding-right: 0pt"}
+
+[[{{< iconify ph envelope-open-duotone >}}](mailto:///foremans@anl.gov)]{.icon style="font-size:1.5rem; padding-left: 0pt; padding-right: 0pt"}
+
+[[{{< iconify ph linkedin-logo-duotone >}}](https://linkedin.com/in/saforem2)]{.icon style="font-size:1.5rem; padding-left: 0pt; padding-right: 0pt"} -->
+
+
+:::
