@@ -16,9 +16,9 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "Josh Pearlson",
     "section": "",
-    "text": "About this blog"
+    "text": "sampletext sampletext sampletext sampletext sampletext sampletext sampletext sampletext sampletext. sampletext sampletext sampletext sampletext sampletext sampletext."
   },
   {
     "objectID": "posts/welcome/index.html",
@@ -47,5 +47,26 @@
     "title": "Writings",
     "section": "",
     "text": "Post With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nAug 6, 2024\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nAug 3, 2024\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html#educatition",
+    "href": "about.html#educatition",
+    "title": "Josh Pearlson",
+    "section": "",
+    "text": "Sample"
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "Josh Pearlson",
+    "section": "Experience",
+    "text": "Experience\nsample"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "Josh Pearlson",
+    "section": "Education",
+    "text": "Education\nSample"
   }
 ]

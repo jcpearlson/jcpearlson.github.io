@@ -1,8 +1,13 @@
 ---
-title: "About"
-image: jpPhoto.png
+title: "Josh Pearlson"
+# image: jpPhoto2.png
+# image-width: 600%
+
+image: jpPhoto2.png
+  
 about:
-  template: trestles
+  template: solana
+  image-width: 60%
   links:
     - icon: linkedin
       text: LinkedIn
@@ -13,4 +18,12 @@ about:
 
 ---
 
-About this blog
+sampletext sampletext sampletext sampletext sampletext sampletext sampletext sampletext sampletext. sampletext sampletext sampletext sampletext sampletext sampletext.
+
+## Education 
+
+Sample
+
+## Experience
+
+sample
