@@ -1,6 +1,6 @@
 ---
-title: "Josh Pearlson"
-image: profile.jpg
+title: "About"
+image: jpPhoto.png
 about:
   template: trestles
   links:
