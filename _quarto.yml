@@ -7,14 +7,12 @@ website:
   navbar:
     right:
       - about.qmd
-      - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+      - blog.qmd
+      - icon: linkedin
+        href: https://linkedin.com/in/josh-pearlson
 format:
   html:
     theme: cosmo
     css: styles.css
-
 
 
