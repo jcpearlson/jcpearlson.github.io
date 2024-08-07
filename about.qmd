@@ -1,12 +1,12 @@
 ---
-title: "About"
+title: "Josh Pearlson"
 image: profile.jpg
 about:
-  template: jolla
+  template: trestles
   links:
     - icon: linkedin
       text: LinkedIn
-      href: https://linkedin.com
+      href: https://linkedin.com/in/josh-pearlson
     - icon: github
       text: Github
       href: https://github.com
