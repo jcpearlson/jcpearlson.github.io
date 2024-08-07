@@ -7,7 +7,7 @@ image: jpPhoto3.jpeg
   
 about:
   template: trestles
-  image-width: 60%
+  # image-width: 60%
   links:
     - icon: linkedin
       text: LinkedIn
@@ -17,8 +17,6 @@ about:
       href: https://github.com
 
 ---
-
-sampletext sampletext sampletext sampletext sampletext sampletext sampletext sampletext sampletext. sampletext sampletext sampletext sampletext sampletext sampletext.
 
 ## Education 
 

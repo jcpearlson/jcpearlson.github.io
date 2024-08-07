@@ -12,7 +12,10 @@ website:
         href: https://linkedin.com/in/josh-pearlson
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme:
+      dark: darkly
+      light: litera
+    # theme: cosmo
+    # css: styles.css
 
 
