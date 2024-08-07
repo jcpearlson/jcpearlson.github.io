@@ -3,10 +3,10 @@ title: "Josh Pearlson"
 # image: jpPhoto2.png
 # image-width: 600%
 
-image: jpPhoto2.png
+image: jpPhoto3.jpeg
   
 about:
-  template: solana
+  template: trestles
   image-width: 60%
   links:
     - icon: linkedin
