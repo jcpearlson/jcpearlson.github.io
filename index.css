@@ -1,0 +1,9 @@
+/* index.css */
+body {
+    color: white;
+    background-image: url("\UltraDeepField.jpg");
+    background-size: cover; /* This makes the image cover the entire background */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-attachment: fixed; /* Keeps the background image fixed while scrolling */
+    background-position: center; /* Centers the background image */
+  }

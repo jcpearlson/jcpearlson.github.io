@@ -1,5 +1,5 @@
 ---
-title: "Writings"
+title: ""
 listing:
   contents: posts
   sort: "date desc"
@@ -8,6 +8,10 @@ listing:
   sort-ui: false
   filter-ui: false
 page-layout: full
-# title-block-banner: true
+title-block-banner: false
+
 ---
 
+::: {style="font-size:3rem;text-align:center;"}
+Work In Progress
+:::

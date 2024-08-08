@@ -3,7 +3,6 @@ title: "Josh Pearlson"
 # image: jpPhoto2.png
 # image-width: 600%
 
-
 about: 
   template: trestles
   image: jpPhoto3.jpeg

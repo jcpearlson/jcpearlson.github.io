@@ -6,9 +6,10 @@ website:
   title: "Josh Pearlson"
   navbar:
     right:
+      - text: "Articles"
+        href: blog.qmd
       - text: "About"
         href: about.qmd
-      - blog.qmd
       - icon: linkedin
         href: https://linkedin.com/in/josh-pearlson
 format:

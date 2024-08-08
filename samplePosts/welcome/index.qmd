@@ -1,6 +1,6 @@
 ---
-title: "Welcome To My Blog"
-author: "Tristan O'Malley"
+title: "Title"
+author: "Josh Pearlson"
 date: "2024-08-03"
 categories: [news]
 ---

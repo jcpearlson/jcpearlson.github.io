@@ -1,25 +1,19 @@
 ---
-# title: "Josh Pearlson"
-
+title: " "
+css: index.css
 ---
 
 
+::: {style="font-size:1.5rem; text-align: center;"}
 
-::: {style="font-size:1.0em; text-align: center;"}
 
-[[ This website is under construction! ]{.dim-text style="font-family:'IBM Plex Sans', sans-serif;"}]{style="font-size: 6rem; color: var(--dim-text)!important; padding-bottom: 0pt; font-family: 'IBM Plex Sans Condensed'; font-weight: 500;"}
+[[ Hi, I'm Josh!]{.dim-text style="font-family:'IBM Plex Sans', sans-serif;"}]{style="font-size: 5rem; color: var(--dim-text)!important; padding-bottom: 0pt; font-family: 'IBM Plex Sans Condensed'; font-weight: 500; background-color:  rgba(0, 0, 0, 0.5); color: white; padding: 2px 5px;"}
 
-[[ Hi, I'm Josh!]{.dim-text style="font-family:'IBM Plex Sans', sans-serif;"}]{style="font-size: 1.5rem; color: var(--dim-text)!important; padding-bottom: 0pt; font-family: 'IBM Plex Sans Condensed'; font-weight: 500;"}
+:::
 
-<!-- ::: {style="display: flex; flex-direction: row; align-items: center; text-align: center!important; justify-content: center; background-color: var(--link-bg-color);"}
 
-[[[{{< iconify ph house-line-duotone >}}]{.icon style="background-color:rgba(0,0,0,0.0);!important"}](https://samforeman.me)]{.icon style="font-size:1.5rem; padding-right: 0pt;"}
+::: {style="font-size:2.0em; text-align: left; background-color:  rgba(0, 0, 0, 0.5); color: white; padding: 2px 5px;"}
 
-[[{{< iconify ph twitter-logo-duotone >}}](https://www.twitter.com/saforem2)]{.icon style="font-size:1.5rem; padding-left: 0pt; padding-right: 0pt"}
-
-[[{{< iconify ph envelope-open-duotone >}}](mailto:///foremans@anl.gov)]{.icon style="font-size:1.5rem; padding-left: 0pt; padding-right: 0pt"}
-
-[[{{< iconify ph linkedin-logo-duotone >}}](https://linkedin.com/in/saforem2)]{.icon style="font-size:1.5rem; padding-left: 0pt; padding-right: 0pt"} -->
-
+Weclome to my personal site, feel free to learn a bit more [about me](about.qmd) or read any of my current [articles](blog.qmd). In the future this site will also host some projects of mine as well!
 
 :::
