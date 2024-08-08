@@ -1,14 +1,12 @@
 ---
-title: "About Me"
+title: "Josh Pearlson"
 # image: jpPhoto2.png
 # image-width: 600%
 
-image: jpPhoto3.jpeg
 
-about:
-  # id: hero-heading
+about: 
   template: trestles
-  # image-width: 60%
+  image: jpPhoto3.jpeg
   links:
     - icon: linkedin
       text: LinkedIn
