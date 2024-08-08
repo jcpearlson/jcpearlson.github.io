@@ -1,12 +1,12 @@
 ---
-title: "Josh Pearlson"
+title: "About Me"
 # image: jpPhoto2.png
 # image-width: 600%
 
 image: jpPhoto3.jpeg
-  
+
 about:
-  id: hero-heading
+  # id: hero-heading
   template: trestles
   # image-width: 60%
   links:
@@ -16,18 +16,52 @@ about:
     - icon: github
       text: Github
       href: https://github.com
+    - icon: envelope
+      text: Email
+      href: mailto:jcpearlson@gmail.com
 
 ---
+<!-- :::{#hero-heading} -->
 
-:::{#hero-heading}
-My name is Josh, and I am a senior studying Computer Science and Finance at Washington University in St. Louis. My interests span capital markets, data science, and artificial intelligence. I love meeting and connecting with new people, so feel free to reach out {insert email icon and link email} !
+My name is Josh, and I am a senior studying Computer Science and Finance at Washington University in St. Louis. My interests span capital markets, data science, and artificial intelligence. I love meeting and connecting with new people, so feel free to [email me](mailto:jcpearlson@gmail.com)!
 
-## Education 
+## Education
 
-Washington University in St. Louis | St. Louis, MO | BS in Computer Science & Finance | August 2021 - May 2025 
+**Washington University in St. Louis** <br>BS in Computer Science & Finance <br>August 2021 - May 2025
+
+
+::: {.panel-tabset}
 
 ## Experience
 
-sample
+**BlackRock** <br>Financial Engineering Intern | Summer 2024 <br> <br>
+**Washington University Natural Language Processing Laboratory** <br>Research Lab Member | August 2022 - August 2024 <br><br>
+**Moody's Analytics** <br>Software Engineering Intern | Summer 2023 <br><br>
+**PlayBook (Startup)** <br>Data Science Intern | Summer 2022 <br><br>
+**Harvard Surgical Navigation and Robotics Laboratory** <br>Research Intern | Summer 2020 <br><br>
+
+
+## Awards
+
+**Outstanding Junior Award** | Department of Computer Science <br><br>
+**Hackathon WashU 2023 Winner** | Social Connections Category <br><br>
+**Dean's List** | All Semesters <br><br>
+
+## Papers
+
+**Large Language Models Recognize Decentralized Finance Entities** 
+<br>Lead Author - Data Problems for Foundation Models at International Conference on Learning Representations 2024<br> [Link](https://openreview.net/forum?id=sfnz81T3pm) <br><br>
+
+**Mapping Lesions from MP-MRI using Convolution Neural Network**
+<br>Lead Author - SPIE Medical Imaging 2020<br> [Link](https://doi.org/10.1117/12.2582228)<br><br>
+
 
 :::
+
+## Hobbies 
+
+- Poker (Game Theory, PLO, NLTH, HU)
+- Chess
+- Basketball (go Celtics)
+- Tennis
+- Gym (former Powerlifter for 3 years)
