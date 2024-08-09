@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Josh Pearlson",
     "section": "",
-    "text": "Hi, I’m Josh!\n\n\nWeclome to my personal site, feel free to learn a bit more about me or read any of my current articles. In the future this site will also host some projects of mine as well!"
+    "text": "Hi, I’m Josh!\n\n\nWelcome to my personal site, feel free to learn a bit more about me or read any of my current articles. In the future this site will also host some projects of mine as well!\n\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib as plt\nimport yfinance as yf\nprint('import done')\n\nimport done"
   },
   {
     "objectID": "posts/post-with-code/index.html",

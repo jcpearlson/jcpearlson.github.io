@@ -14,6 +14,14 @@ css: index.css
 
 ::: {style="font-size:2.0em; text-align: left; background-color:  rgba(0, 0, 0, 0.5); color: white; padding: 2px 5px;"}
 
-Weclome to my personal site, feel free to learn a bit more [about me](about.qmd) or read any of my current [articles](blog.qmd). In the future this site will also host some projects of mine as well!
+Welcome to my personal site, feel free to learn a bit more [about me](about.qmd) or read any of my current [articles](blog.qmd). In the future this site will also host some projects of mine as well!
 
 :::
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib as plt
+import yfinance as yf
+print('import done')
+```
