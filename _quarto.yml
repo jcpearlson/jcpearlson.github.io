@@ -7,9 +7,15 @@ website:
   navbar:
     right:
       - text: "Articles"
-        href: blog.qmd
+        href: articles/blog.qmd
+      - text: "Projects"
+        menu:
+          - text: "example Project 1"
+            href: projects/projects.qmd
+          - text: "example project 2"
+            href: projects/exampleProject2.qmd 
       - text: "About"
-        href: about.qmd
+        href: aboutPage/about.qmd
       - icon: linkedin
         href: https://linkedin.com/in/josh-pearlson
 format:

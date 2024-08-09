@@ -7,111 +7,6 @@
     "text": "Hi, I’m Josh!\n\n\nWelcome to my personal site, feel free to learn a bit more about me or read any of my current articles. In the future this site will also host some projects of mine as well!\n\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib as plt\nimport yfinance as yf\nprint('import done')\n\nimport done"
   },
   {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
-    "section": "",
-    "text": "This is a post with executable code."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "Josh Pearlson",
-    "section": "",
-    "text": "My name is Josh, and I am a senior studying Computer Science and Finance at Washington University in St. Louis. My interests span capital markets, data science, and artificial intelligence. I love meeting and connecting with new people, so feel free to email me!"
-  },
-  {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "Title",
-    "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
-  },
-  {
-    "objectID": "example.html",
-    "href": "example.html",
-    "title": "Example page",
-    "section": "",
-    "text": "this page is meant to serve as an example\nthis page is a work in progresss"
-  },
-  {
-    "objectID": "example.html#example-page",
-    "href": "example.html#example-page",
-    "title": "Example page",
-    "section": "",
-    "text": "this page is meant to serve as an example\nthis page is a work in progresss"
-  },
-  {
-    "objectID": "blog.html",
-    "href": "blog.html",
-    "title": "Josh Pearlson",
-    "section": "",
-    "text": "Work In Progress\n\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "about.html#educatition",
-    "href": "about.html#educatition",
-    "title": "Josh Pearlson",
-    "section": "",
-    "text": "Sample"
-  },
-  {
-    "objectID": "about.html#experience",
-    "href": "about.html#experience",
-    "title": "Josh Pearlson",
-    "section": "",
-    "text": "BlackRock Financial Engineering Intern | Summer 2024   Washington University Natural Language Processing Laboratory Research Lab Member | August 2022 - August 2024  Moody’s Analytics Software Engineering Intern | Summer 2023  PlayBook (Startup) Data Science Intern | Summer 2022  Harvard Surgical Navigation and Robotics Laboratory Research Intern | Summer 2020"
-  },
-  {
-    "objectID": "about.html#education",
-    "href": "about.html#education",
-    "title": "Josh Pearlson",
-    "section": "Education",
-    "text": "Education\nWashington University in St. Louis BS in Computer Science & Finance August 2021 - May 2025\n\nExperienceAwardsPapers\n\n\nBlackRock Financial Engineering Intern | Summer 2024   Washington University Natural Language Processing Laboratory Research Lab Member | August 2022 - August 2024  Moody’s Analytics Software Engineering Intern | Summer 2023  PlayBook (Startup) Data Science Intern | Summer 2022  Harvard Surgical Navigation and Robotics Laboratory Research Intern | Summer 2020 \n\n\nOutstanding Junior Award | Department of Computer Science  Hackathon WashU 2023 Winner | Social Connections Category  Dean’s List | All Semesters \n\n\nLarge Language Models Recognize Decentralized Finance Entities Lead Author - Data Problems for Foundation Models at International Conference on Learning Representations 2024 Link \nMapping Lesions from MP-MRI using Convolution Neural Network Lead Author - SPIE Medical Imaging 2020 Link"
-  },
-  {
-    "objectID": "spellCheck.html",
-    "href": "spellCheck.html",
-    "title": "Josh Pearlson",
-    "section": "",
-    "text": "My name is Josh, and I am a senior studying Computer Science and Finance at Washington University in St. Louis. My interests span capital markets, data science, and artificial intelligence. I love meeting and connecting with new people, so feel free to reach out {insert email icon and link email} !\n\n\nWashington University in St. Louis | St. Louis, MO | BS in Computer Science & Finance | August 2021 - May 2025\n\n\n\nBlackRock | Financial Engineering Intern | May 2024 - August 2024 Washington University Natural Language Processing Laboratory | Research Lab Member | August 2022 - August 2024 Moody’s Analytics | Software Engineering Intern | May 2023 - August 2023 PlayBook (Startup) | Data Science Intern | May 2022 - August 2022 Harvard Surgical Navigation and Robotics Laboratory | Research Intern | May 2020 - August 2020\nOutstanding Junior Award | Department of Computer Science Hackathon WashU 2023 Winner | Social Connections Category\n\n\n\nLarge Language Models Recognize Decentralized Finance Entities Lead Author - Data Problems for Foundation Models @ International Conference on Learning Representations 2024\n**Mapping Lesions from MP-MRI using Convolution Neural Network Lead Author - SPIE Medical Imaging 2020"
-  },
-  {
-    "objectID": "spellCheck.html#education",
-    "href": "spellCheck.html#education",
-    "title": "Josh Pearlson",
-    "section": "",
-    "text": "Washington University in St. Louis | St. Louis, MO | BS in Computer Science & Finance | August 2021 - May 2025"
-  },
-  {
-    "objectID": "spellCheck.html#experience",
-    "href": "spellCheck.html#experience",
-    "title": "Josh Pearlson",
-    "section": "",
-    "text": "BlackRock | Financial Engineering Intern | May 2024 - August 2024 Washington University Natural Language Processing Laboratory | Research Lab Member | August 2022 - August 2024 Moody’s Analytics | Software Engineering Intern | May 2023 - August 2023 PlayBook (Startup) | Data Science Intern | May 2022 - August 2022 Harvard Surgical Navigation and Robotics Laboratory | Research Intern | May 2020 - August 2020\nOutstanding Junior Award | Department of Computer Science Hackathon WashU 2023 Winner | Social Connections Category"
-  },
-  {
-    "objectID": "about.html#hobbies",
-    "href": "about.html#hobbies",
-    "title": "Josh Pearlson",
-    "section": "Hobbies",
-    "text": "Hobbies\n\nPoker (Game Theory, PLO, NLTH, HU)\nChess\nBasketball (go Celtics)\nTennis\nGym (former Powerlifter for 3 years)"
-  },
-  {
-    "objectID": "spellCheck.html#papers",
-    "href": "spellCheck.html#papers",
-    "title": "Josh Pearlson",
-    "section": "",
-    "text": "Large Language Models Recognize Decentralized Finance Entities Lead Author - Data Problems for Foundation Models @ International Conference on Learning Representations 2024\n**Mapping Lesions from MP-MRI using Convolution Neural Network Lead Author - SPIE Medical Imaging 2020"
-  },
-  {
-    "objectID": "index.html#section",
-    "href": "index.html#section",
-    "title": "Josh Pearlson",
-    "section": "",
-    "text": "This website is under construction!\nHi, I’m Josh!"
-  },
-  {
     "objectID": "samplePosts/welcome/index.html",
     "href": "samplePosts/welcome/index.html",
     "title": "Title",
@@ -119,10 +14,66 @@
     "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
   },
   {
+    "objectID": "miscFiles/spellCheck.html",
+    "href": "miscFiles/spellCheck.html",
+    "title": "Josh Pearlson",
+    "section": "",
+    "text": "My name is Josh, and I am a senior studying Computer Science and Finance at Washington University in St. Louis. My interests span capital markets, data science, and artificial intelligence. I love meeting and connecting with new people, so feel free to reach out {insert email icon and link email} !\n\n\nWashington University in St. Louis | St. Louis, MO | BS in Computer Science & Finance | August 2021 - May 2025\n\n\n\nBlackRock | Financial Engineering Intern | May 2024 - August 2024 Washington University Natural Language Processing Laboratory | Research Lab Member | August 2022 - August 2024 Moody’s Analytics | Software Engineering Intern | May 2023 - August 2023 PlayBook (Startup) | Data Science Intern | May 2022 - August 2022 Harvard Surgical Navigation and Robotics Laboratory | Research Intern | May 2020 - August 2020\nOutstanding Junior Award | Department of Computer Science Hackathon WashU 2023 Winner | Social Connections Category\n\n\n\nLarge Language Models Recognize Decentralized Finance Entities Lead Author - Data Problems for Foundation Models @ International Conference on Learning Representations 2024\n**Mapping Lesions from MP-MRI using Convolution Neural Network Lead Author - SPIE Medical Imaging 2020"
+  },
+  {
+    "objectID": "miscFiles/spellCheck.html#education",
+    "href": "miscFiles/spellCheck.html#education",
+    "title": "Josh Pearlson",
+    "section": "",
+    "text": "Washington University in St. Louis | St. Louis, MO | BS in Computer Science & Finance | August 2021 - May 2025"
+  },
+  {
+    "objectID": "miscFiles/spellCheck.html#experience",
+    "href": "miscFiles/spellCheck.html#experience",
+    "title": "Josh Pearlson",
+    "section": "",
+    "text": "BlackRock | Financial Engineering Intern | May 2024 - August 2024 Washington University Natural Language Processing Laboratory | Research Lab Member | August 2022 - August 2024 Moody’s Analytics | Software Engineering Intern | May 2023 - August 2023 PlayBook (Startup) | Data Science Intern | May 2022 - August 2022 Harvard Surgical Navigation and Robotics Laboratory | Research Intern | May 2020 - August 2020\nOutstanding Junior Award | Department of Computer Science Hackathon WashU 2023 Winner | Social Connections Category"
+  },
+  {
+    "objectID": "miscFiles/spellCheck.html#papers",
+    "href": "miscFiles/spellCheck.html#papers",
+    "title": "Josh Pearlson",
+    "section": "",
+    "text": "Large Language Models Recognize Decentralized Finance Entities Lead Author - Data Problems for Foundation Models @ International Conference on Learning Representations 2024\n**Mapping Lesions from MP-MRI using Convolution Neural Network Lead Author - SPIE Medical Imaging 2020"
+  },
+  {
     "objectID": "samplePosts/post-with-code/index.html",
     "href": "samplePosts/post-with-code/index.html",
     "title": "Post With Code",
     "section": "",
     "text": "This is a post with executable code."
+  },
+  {
+    "objectID": "articles/blog.html",
+    "href": "articles/blog.html",
+    "title": "Josh Pearlson",
+    "section": "",
+    "text": "Work In Progress\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "aboutPage/about.html",
+    "href": "aboutPage/about.html",
+    "title": "Josh Pearlson",
+    "section": "",
+    "text": "My name is Josh, and I am a senior studying Computer Science and Finance at Washington University in St. Louis. My interests span capital markets, data science, and artificial intelligence. I love meeting and connecting with new people, so feel free to email me!"
+  },
+  {
+    "objectID": "aboutPage/about.html#education",
+    "href": "aboutPage/about.html#education",
+    "title": "Josh Pearlson",
+    "section": "Education",
+    "text": "Education\nWashington University in St. Louis BS in Computer Science & Finance August 2021 - May 2025\n\nExperienceAwardsPapers\n\n\nBlackRock Financial Engineering Intern | Summer 2024   Washington University Natural Language Processing Laboratory Research Lab Member | August 2022 - August 2024  Moody’s Analytics Software Engineering Intern | Summer 2023  PlayBook (Startup) Data Science Intern | Summer 2022  Harvard Surgical Navigation and Robotics Laboratory Research Intern | Summer 2020 \n\n\nOutstanding Junior Award | Department of Computer Science  Hackathon WashU 2023 Winner | Social Connections Category  Dean’s List | All Semesters \n\n\nLarge Language Models Recognize Decentralized Finance Entities Lead Author - Data Problems for Foundation Models at International Conference on Learning Representations 2024 Link \nMapping Lesions from MP-MRI using Convolution Neural Network Lead Author - SPIE Medical Imaging 2020 Link"
+  },
+  {
+    "objectID": "aboutPage/about.html#hobbies",
+    "href": "aboutPage/about.html#hobbies",
+    "title": "Josh Pearlson",
+    "section": "Hobbies",
+    "text": "Hobbies\n\nPoker (Game Theory, PLO, NLTH, HU)\nChess\nBasketball (go Celtics)\nTennis\nGym (former Powerlifter for 3 years)"
   }
 ]

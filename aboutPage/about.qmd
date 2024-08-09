@@ -1,11 +1,9 @@
 ---
 title: "Josh Pearlson"
-# image: jpPhoto2.png
-# image-width: 600%
 
 about: 
   template: trestles
-  image: jpPhoto3.jpeg
+  image: ../media/jpPhoto3.jpeg
   links:
     - icon: linkedin
       text: LinkedIn
@@ -16,9 +14,7 @@ about:
     - icon: envelope
       text: Email
       href: mailto:jcpearlson@gmail.com
-
 ---
-<!-- :::{#hero-heading} -->
 
 My name is Josh, and I am a senior studying Computer Science and Finance at Washington University in St. Louis. My interests span capital markets, data science, and artificial intelligence. I love meeting and connecting with new people, so feel free to [email me](mailto:jcpearlson@gmail.com)!
 
