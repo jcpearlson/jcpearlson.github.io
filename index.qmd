@@ -17,11 +17,3 @@ css: index.css
 Welcome to my personal site, feel free to learn a bit more [about me](aboutPage/about.qmd) or read any of my current [articles](articles/blog.qmd). In the future this site will also host some projects of mine as well!
 
 :::
-
-```{python}
-import pandas as pd
-import numpy as np
-import matplotlib as plt
-import yfinance as yf
-print('import done')
-```
