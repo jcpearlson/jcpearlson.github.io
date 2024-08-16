@@ -8,12 +8,12 @@ website:
     right:
       - text: "Articles"
         href: articles/blog.qmd
-      - text: "Projects"
-        menu:
-          - text: "example Project 1"
-            href: projects/projects.qmd
-          - text: "example project 2"
-            href: projects/exampleProject2.qmd 
+      # - text: "Projects"
+        # menu:
+          # - text: "example Project 1"
+          #   href: projects/projects.qmd
+          # - text: "example project 2"
+          #   href: projects/exampleProject2.qmd 
       - text: "About"
         href: aboutPage/about.qmd
       - icon: linkedin

@@ -1,0 +1,12 @@
+{
+  "hash": "58d99df0e430bbdfe2f100afe8a5f80d",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Post With Code\"\nauthor: \"Harlow Malloc\"\ndate: \"2024-08-06\"\ncategories: [python, analysis]\n# image: \"modelCoinFlipGame.ipynb\"\n---\n\n```{embed}\narticles/posts/coin-flip-game/modelCoinFlipGame.ipynb\n```\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

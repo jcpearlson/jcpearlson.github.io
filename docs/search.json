@@ -53,7 +53,7 @@
     "href": "articles/blog.html",
     "title": "Josh Pearlson",
     "section": "",
-    "text": "Work In Progress\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Modeling a Coin Flip Game\n\n\n\n\n\n\npython\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nAug 16, 2024\n\n\nJosh Pearlson\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "aboutPage/about.html",
@@ -75,5 +75,68 @@
     "title": "Josh Pearlson",
     "section": "Hobbies",
     "text": "Hobbies\n\nPoker (Game Theory, PLO, NLTH, HU)\nChess\nBasketball (go Celtics)\nTennis\nGym (former Powerlifter for 3 years)"
+  },
+  {
+    "objectID": "modelCoinFlipGame.html",
+    "href": "modelCoinFlipGame.html",
+    "title": "Coin Flip Game",
+    "section": "",
+    "text": "This is a program I made to simulate a game came across preparing for job interviews. The idea of the game is this: - If you flip a coin until you decide to stop and you want to maximize the ratio of heads to total flips, what is that expected ratio?"
+  },
+  {
+    "objectID": "modelCoinFlipGame.html#my-strategy",
+    "href": "modelCoinFlipGame.html#my-strategy",
+    "title": "Coin Flip Game",
+    "section": "My strategy",
+    "text": "My strategy\n\nif we have greater than .5 of ratio of heads/totalFlips we stop else we keep flipping\n\nhowever I will also model out different stopRatios to see if any others have greater expected values\n\nTo avoid recursive depth problems with python if we have flipped more than 1000 times in a single simulation I will equate this to a ratio of .5 since if we keep flipping till infinity we approach a ratio of .5 heads to total flips.\n\n\nimport random\nimport pandas as pd\nfrom datetime import datetime\n\n\n\ndef runFlipSimulation(numRuns:int, stopRatio:float) -&gt; float:\n    averageSimulationOutcome = 0\n    for i in range(numRuns):\n        averageSimulationOutcome += (runSingleSimulation(0,0,stopRatio)/numRuns)\n    \n    return round(averageSimulationOutcome,4)\n\ndef runSingleSimulation(numPreviousFlips:int,numHeads:int,stopRatio:float) -&gt; float:\n    # here we are calling 0 tails and 1 heads\n    coin_flip = random.randint(0,1)\n    numPreviousFlips+=1\n\n    if coin_flip == 1:\n        numHeads+=1\n    \n    currentRatio = numHeads/numPreviousFlips\n\n    if currentRatio &gt; stopRatio:\n        return currentRatio\n\n    # if depth &gt;1000 then lets call it .5 as the ratio (long run result anyway)\n    # this depth limit stops us from bricking python \n    if numPreviousFlips&gt;=1000:\n        # Either return current ratio or long run ratio of .5\n        return max(.5,currentRatio)\n    \n    return runSingleSimulation(numPreviousFlips,numHeads,stopRatio)\n\n\n# This method will run tests with stopRatio being between 50% and 60% inclusive steping by 1% with every new test\ndef run_ten_stopNumber_tests() -&gt; pd.DataFrame:\n    # Test run with 100K flips\n    numRuns = 100000\n\n    # get a unique identifier for our run\n    now = datetime.now()\n    unique_string = str(int(now.timestamp() * 1000)) \n    df = pd.DataFrame()\n    # run test\n    for i in range(0,11):\n        stopRatio = round(i/100+.5,2)\n        simResult = round(runFlipSimulation(numRuns,stopRatio),5)\n\n        df = df._append(pd.DataFrame({ f'Expected Value Test_ID:{unique_string}':simResult }, index=[stopRatio]))\n\n    return df\n\n\n# gather an array of dataframes that we generate through testing\ndfStorageArr = []\nnumTests = 10\nfor i in range(numTests):\n    dfStorageArr.append(run_ten_stopNumber_tests())"
+  },
+  {
+    "objectID": "leverageInTrading.html",
+    "href": "leverageInTrading.html",
+    "title": "Josh Pearlson",
+    "section": "",
+    "text": "# Show here that the cost of leverage must be less than the expected return on leverage (over the same time frame) for leverage to ever be worth it"
+  },
+  {
+    "objectID": "CentralLimitTheorem.html",
+    "href": "CentralLimitTheorem.html",
+    "title": "Josh Pearlson",
+    "section": "",
+    "text": "# Show here how the CLT holds and why it holds for sample sizes &gt;1"
+  },
+  {
+    "objectID": "volSurface.html",
+    "href": "volSurface.html",
+    "title": "Josh Pearlson",
+    "section": "",
+    "text": "# Import Libraries\nimport numpy as np\nimport pandas as pd\nimport yfinance as yf\nimport datetime as dt\nimport matplotlib.pyplot as plt\n\n\ndef option_chains(ticker):\n    \"\"\"\n    \"\"\"\n    asset = yf.Ticker(ticker)\n    expirations = asset.options\n    \n    chains = pd.DataFrame()\n    \n    for expiration in expirations:\n        # tuple of two dataframes\n        opt = asset.option_chain(expiration)\n        \n        calls = opt.calls\n        calls['optionType'] = \"call\"\n        \n        puts = opt.puts\n        puts['optionType'] = \"put\"\n        \n        chain = pd.concat([calls, puts])\n        chain['expiration'] = pd.to_datetime(expiration) + pd.DateOffset(hours=23, minutes=59, seconds=59)\n        \n        chains = pd.concat([chains, chain])\n    \n    chains[\"daysToExpiration\"] = (chains.expiration - dt.datetime.today()).dt.days + 1\n    \n    return chains\n\n\nticker = \"SPY\"\n\nspy_options_chain = option_chains(ticker)\ncalls = spy_options_chain[spy_options_chain[\"optionType\"]==\"call\"]\n\nexpirations = set(calls.expiration)\nprint(sorted(expirations))\n\n[Timestamp('2024-08-13 23:59:59'), Timestamp('2024-08-14 23:59:59'), Timestamp('2024-08-15 23:59:59'), Timestamp('2024-08-16 23:59:59'), Timestamp('2024-08-19 23:59:59'), Timestamp('2024-08-20 23:59:59'), Timestamp('2024-08-21 23:59:59'), Timestamp('2024-08-22 23:59:59'), Timestamp('2024-08-23 23:59:59'), Timestamp('2024-08-30 23:59:59'), Timestamp('2024-09-06 23:59:59'), Timestamp('2024-09-13 23:59:59'), Timestamp('2024-09-20 23:59:59'), Timestamp('2024-09-27 23:59:59'), Timestamp('2024-09-30 23:59:59'), Timestamp('2024-10-18 23:59:59'), Timestamp('2024-10-31 23:59:59'), Timestamp('2024-11-15 23:59:59'), Timestamp('2024-11-29 23:59:59'), Timestamp('2024-12-20 23:59:59'), Timestamp('2024-12-31 23:59:59'), Timestamp('2025-01-17 23:59:59'), Timestamp('2025-01-31 23:59:59'), Timestamp('2025-03-21 23:59:59'), Timestamp('2025-03-31 23:59:59'), Timestamp('2025-04-17 23:59:59'), Timestamp('2025-06-20 23:59:59'), Timestamp('2025-06-30 23:59:59'), Timestamp('2025-08-15 23:59:59'), Timestamp('2025-09-19 23:59:59'), Timestamp('2025-12-19 23:59:59'), Timestamp('2026-01-16 23:59:59'), Timestamp('2026-06-18 23:59:59'), Timestamp('2026-12-18 23:59:59')]\n\n\n\ndaysToExpiration = 3\noneDTE_calls = calls[calls['daysToExpiration'] == daysToExpiration]\n\n# check to see if there are any cases of extreme outliers in implied vol\nprint(oneDTE_calls[oneDTE_calls[\"impliedVolatility\"] &lt; .000001])\noneDTE_calls = oneDTE_calls[oneDTE_calls['impliedVolatility'] &gt; .000001]\n\ncurrent_ask_price_rf_adjusted = round(yf.Ticker(ticker).info['ask'] * (1 + (.039 * (daysToExpiration/365))),4)\n\n\n#get \nax = oneDTE_calls[['strike','impliedVolatility']].set_index('strike').plot(title=f\"Implied vol skew of {ticker} 1dte\")\n\n#add in vertical line for previous market close price\nax.axvline(x=current_ask_price_rf_adjusted, color='red', linestyle='--', linewidth=2,)\nax.text(current_ask_price_rf_adjusted-10, ax.get_ylim()[1]*0.6, f'Current Ask (adjusted rf): {current_ask_price_rf_adjusted}', \n        rotation=90, verticalalignment='center', horizontalalignment='left', color='red')\nax.plot()\n\nEmpty DataFrame\nColumns: [contractSymbol, lastTradeDate, strike, lastPrice, bid, ask, change, percentChange, volume, openInterest, impliedVolatility, inTheMoney, contractSize, currency, optionType, expiration, daysToExpiration]\nIndex: []\n\n\n\n\n\n\n\n\n\n\n# pivot the dataframe\nfilteredCalls = calls[calls['impliedVolatility'] &gt; 0.001]\n\nsurface = (\n    filteredCalls[['daysToExpiration', 'strike', 'impliedVolatility']]\n    .pivot_table(values='impliedVolatility', index='strike', columns='daysToExpiration')\n    .dropna()\n)\n\n# create the figure object\nfig = plt.figure(figsize=(10, 8))\n\n# add the subplot with projection argument\nax = fig.add_subplot(111, projection='3d')\n\n# get the 1d values from the pivoted dataframe\nx, y, z = surface.columns.values, surface.index.values, surface.values\n\n# return coordinate matrices from coordinate vectors\nX, Y = np.meshgrid(x, y)\n\n# set labels\nax.set_xlabel('Days to expiration')\nax.set_ylabel('Strike price')\nax.set_zlabel('Implied volatility')\nax.set_title('Call implied volatility surface')\n\n# plot\nax.plot_surface(X, Y, z)"
+  },
+  {
+    "objectID": "articles/posts/coin-flip-game/index.html",
+    "href": "articles/posts/coin-flip-game/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "articles/posts/coin-flip-game/modelCoinFlipGame.ipynb"
+  },
+  {
+    "objectID": "articles/posts/coin-flip-game/modelCoinFlipGame.html",
+    "href": "articles/posts/coin-flip-game/modelCoinFlipGame.html",
+    "title": "Modeling a Coin Flip Game",
+    "section": "",
+    "text": "If you flip a coin until you decide to stop and you want to maximize the ratio of heads to total flips, what is the expected ratio?"
+  },
+  {
+    "objectID": "articles/posts/coin-flip-game/modelCoinFlipGame.html#my-strategy",
+    "href": "articles/posts/coin-flip-game/modelCoinFlipGame.html#my-strategy",
+    "title": "Modeling a Coin Flip Game",
+    "section": "My strategy",
+    "text": "My strategy\nAt first glace the problem seems easy, but as you start modeling you realize it is quite complicated. Initially I came up with a maximum ratio .75 as my estimate. This comes from the idea that there is a 50% chance we get heads on our first flip (a ratio of 1 heads / 1 total flips = 100%) and stop, or a 50% chance we get tails then keep flipping till in the long run we get a ratio of .5 (since we expect to get 1 heads for every 2 flips we do). This will give us \\(.5*1 + .5*.5 = .75\\) \nNow lets go and try to model this idea and see if we can improve on it at all: \n\nif we have greater than some stopRatio X of heads/totalFlips (my intuition tells me this should be .50 since that is the long run ev) we will stop\n\nif we do not hit this threshold we just keep flipping till we do\n\nModel out which number works best as a stopRatio X to set as a threshold for achieving the best results possible\nTo avoid recursive depth problems with python if we have flipped more than 1000 times in a single simulation I will equate this to a ratio of max(currentRatio, .5) since if we keep flipping till infinity we approach a ratio of .5 heads to total flips.\n\n\nimport random\nimport pandas as pd\nfrom datetime import datetime\n\n\n\ndef runFlipSimulation(numRuns:int, stopRatio:float) -&gt; float:\n    averageSimulationOutcome = 0\n    for i in range(numRuns):\n        averageSimulationOutcome += (runSingleSimulation(0,0,stopRatio)/numRuns)\n    \n    return round(averageSimulationOutcome,4)\n\ndef runSingleSimulation(numPreviousFlips:int,numHeads:int,stopRatio:float) -&gt; float:\n    # here we are calling 0 tails and 1 heads\n    coin_flip = random.randint(0,1)\n    numPreviousFlips+=1\n\n    if coin_flip == 1:\n        numHeads+=1\n    \n    currentRatio = numHeads/numPreviousFlips\n\n    if currentRatio &gt; stopRatio:\n        return currentRatio\n\n    # if depth &gt;1000 then lets call it .5 as the ratio (long run result anyway)\n    # this depth limit stops us from bricking python \n    if numPreviousFlips&gt;=1000:\n        # Either return current ratio or long run ratio of .5\n        return max(.5,currentRatio)\n    \n    return runSingleSimulation(numPreviousFlips,numHeads,stopRatio)\n\n\n# This method will run tests with stopRatio being between 50% and 60% inclusive steping by 1% with every new test\ndef run_ten_stopNumber_tests() -&gt; pd.DataFrame:\n    # Test run with 100K flips\n    numRuns = 100000\n\n    # get a unique identifier for our run\n    now = datetime.now()\n    unique_string = str(int(now.timestamp() * 1000)) \n    df = pd.DataFrame()\n    # run test\n    for i in range(0,11):\n        stopRatio = round(i/100+.5,2)\n        simResult = round(runFlipSimulation(numRuns,stopRatio),5)\n\n        df = df._append(pd.DataFrame({ f'Expected Value Test_ID:{unique_string}':simResult }, index=[stopRatio]))\n\n    return df\n\n\n# gather an array of dataframes that we generate through testing\ndfStorageArr = []\nnumTests = 10\nfor i in range(numTests):\n    dfStorageArr.append(run_ten_stopNumber_tests())"
+  },
+  {
+    "objectID": "articles/posts/coin-flip-game/modelCoinFlipGame.html#coin-flip-game",
+    "href": "articles/posts/coin-flip-game/modelCoinFlipGame.html#coin-flip-game",
+    "title": "Modeling a Coin Flip Game",
+    "section": "Coin Flip Game",
+    "text": "Coin Flip Game\nThis is a program I made to simulate a game I came across preparing for job interviews. The idea of the game is this:  If you flip a coin until you decide to stop and you want to maximize the ratio of heads to total flips, what is the expected ratio?"
   }
 ]

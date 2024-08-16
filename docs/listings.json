@@ -1,6 +1,8 @@
 [
   {
     "listing": "/articles/blog.html",
-    "items": []
+    "items": [
+      "/articles/posts/coin-flip-game/modelCoinFlipGame.html"
+    ]
   }
 ]

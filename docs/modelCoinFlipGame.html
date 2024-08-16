@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>quarto-inputa4a9668b475cdafd – Josh Pearlson</title>
+<title>Coin Flip Game – Josh Pearlson</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,10 +20,44 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -68,9 +102,11 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
-<link rel="stylesheet" href="index.css">
 </head>
 
 <body class="nav-fixed fullcontent">
@@ -94,6 +130,21 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./articles/blog.html"> 
 <span class="menu-text">Articles</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="./projects/projects.qmd">
+ <span class="dropdown-text">example Project 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./projects/exampleProject2.qmd">
+ <span class="dropdown-text">example project 2</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="./aboutPage/about.html"> 
 <span class="menu-text">About</span></a>
@@ -119,17 +170,231 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-
-
-
-<div style="font-size:1.5rem; text-align: center;">
-<p><span style="font-size: 5rem; color: var(--dim-text)!important; padding-bottom: 0pt; font-family: 'IBM Plex Sans Condensed'; font-weight: 500; background-color:  rgba(0, 0, 0, 0.5); color: white; padding: 2px 5px;"><span class="dim-text" style="font-family:'IBM Plex Sans', sans-serif;">Hi, I’m Josh!</span></span></p>
-</div>
-<div style="font-size:2.0em; text-align: left; background-color:  rgba(0, 0, 0, 0.5); color: white; padding: 2px 5px;">
-<p>Welcome to my personal site, feel free to learn a bit more <a href="./aboutPage/about.html">about me</a> or read any of my current <a href="./articles/blog.html">articles</a>. In the future this site will also host some projects of mine as well!</p>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Coin Flip Game</h1>
 </div>
 
 
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This is a program I made to simulate a game came across preparing for job interviews. The idea of the game is this: - If you flip a coin until you decide to stop and you want to maximize the ratio of heads to total flips, what is that expected ratio?</p>
+<section id="my-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="my-strategy">My strategy</h2>
+<ul>
+<li>if we have greater than .5 of ratio of heads/totalFlips we stop else we keep flipping
+<ul>
+<li>however I will also model out different stopRatios to see if any others have greater expected values</li>
+</ul></li>
+<li>To avoid recursive depth problems with python if we have flipped more than 1000 times in a single simulation I will equate this to a ratio of .5 since if we keep flipping till infinity we approach a ratio of .5 heads to total flips.</li>
+</ul>
+<div id="cell-2" class="cell" data-execution_count="204">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-3" class="cell" data-execution_count="205">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> runFlipSimulation(numRuns:<span class="bu">int</span>, stopRatio:<span class="bu">float</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    averageSimulationOutcome <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(numRuns):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        averageSimulationOutcome <span class="op">+=</span> (runSingleSimulation(<span class="dv">0</span>,<span class="dv">0</span>,stopRatio)<span class="op">/</span>numRuns)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">round</span>(averageSimulationOutcome,<span class="dv">4</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> runSingleSimulation(numPreviousFlips:<span class="bu">int</span>,numHeads:<span class="bu">int</span>,stopRatio:<span class="bu">float</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># here we are calling 0 tails and 1 heads</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    coin_flip <span class="op">=</span> random.randint(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    numPreviousFlips<span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> coin_flip <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        numHeads<span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    currentRatio <span class="op">=</span> numHeads<span class="op">/</span>numPreviousFlips</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> currentRatio <span class="op">&gt;</span> stopRatio:</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> currentRatio</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if depth &gt;1000 then lets call it .5 as the ratio (long run result anyway)</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this depth limit stops us from bricking python </span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> numPreviousFlips<span class="op">&gt;=</span><span class="dv">1000</span>:</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Either return current ratio or long run ratio of .5</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">max</span>(<span class="fl">.5</span>,currentRatio)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> runSingleSimulation(numPreviousFlips,numHeads,stopRatio)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-4" class="cell" data-execution_count="206">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This method will run tests with stopRatio being between 50% and 60% inclusive steping by 1% with every new test</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_ten_stopNumber_tests() <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test run with 100K flips</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    numRuns <span class="op">=</span> <span class="dv">100000</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get a unique identifier for our run</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    now <span class="op">=</span> datetime.now()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    unique_string <span class="op">=</span> <span class="bu">str</span>(<span class="bu">int</span>(now.timestamp() <span class="op">*</span> <span class="dv">1000</span>)) </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># run test</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">11</span>):</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        stopRatio <span class="op">=</span> <span class="bu">round</span>(i<span class="op">/</span><span class="dv">100</span><span class="op">+</span><span class="fl">.5</span>,<span class="dv">2</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        simResult <span class="op">=</span> <span class="bu">round</span>(runFlipSimulation(numRuns,stopRatio),<span class="dv">5</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> df._append(pd.DataFrame({ <span class="ss">f'Expected Value Test_ID:</span><span class="sc">{</span>unique_string<span class="sc">}</span><span class="ss">'</span>:simResult }, index<span class="op">=</span>[stopRatio]))</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-5" class="cell" data-execution_count="207">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gather an array of dataframes that we generate through testing</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dfStorageArr <span class="op">=</span> []</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>numTests <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(numTests):</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    dfStorageArr.append(run_ten_stopNumber_tests())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<div id="cell-7" class="cell" data-execution_count="208">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># concat all results into one dataframe joining on the index(stopRatio)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_all_results <span class="op">=</span> pd.concat(dfStorageArr,axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df_all_results.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="208">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723830103687</th>
+<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723830403945</th>
+<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723830705809</th>
+<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723831009492</th>
+<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723831309161</th>
+<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723831624928</th>
+<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723831945790</th>
+<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723832266780</th>
+<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723832589264</th>
+<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723832901556</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.50</td>
+<td>0.7859</td>
+<td>0.7860</td>
+<td>0.7842</td>
+<td>0.7851</td>
+<td>0.7839</td>
+<td>0.7859</td>
+<td>0.7862</td>
+<td>0.7856</td>
+<td>0.7858</td>
+<td>0.7862</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.51</td>
+<td>0.7850</td>
+<td>0.7864</td>
+<td>0.7863</td>
+<td>0.7854</td>
+<td>0.7876</td>
+<td>0.7853</td>
+<td>0.7869</td>
+<td>0.7861</td>
+<td>0.7869</td>
+<td>0.7859</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.52</td>
+<td>0.7880</td>
+<td>0.7879</td>
+<td>0.7873</td>
+<td>0.7865</td>
+<td>0.7868</td>
+<td>0.7869</td>
+<td>0.7878</td>
+<td>0.7878</td>
+<td>0.7868</td>
+<td>0.7869</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.53</td>
+<td>0.7871</td>
+<td>0.7875</td>
+<td>0.7877</td>
+<td>0.7885</td>
+<td>0.7875</td>
+<td>0.7864</td>
+<td>0.7871</td>
+<td>0.7878</td>
+<td>0.7876</td>
+<td>0.7889</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.54</td>
+<td>0.7883</td>
+<td>0.7888</td>
+<td>0.7889</td>
+<td>0.7896</td>
+<td>0.7884</td>
+<td>0.7881</td>
+<td>0.7867</td>
+<td>0.7880</td>
+<td>0.7877</td>
+<td>0.7888</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-8" class="cell" data-execution_count="217">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_all_results.plot(kind<span class="op">=</span><span class="st">'line'</span>,figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>),title<span class="op">=</span><span class="st">'Heads to Total Flips ratio of 10 seperate 100k samples across each stopRatio'</span>,xlabel<span class="op">=</span><span class="st">'Stop Ratio'</span>,ylabel <span class="op">=</span> <span class="st">'Heads / Total Flips'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="modelCoinFlipGame_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-9" class="cell" data-execution_count="218">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_all_results[<span class="st">'Row_Average'</span>] <span class="op">=</span> df_all_results.mean(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Plot the averages</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df_all_results[<span class="st">'Row_Average'</span>].plot(kind<span class="op">=</span><span class="st">'line'</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>), marker<span class="op">=</span><span class="st">'o'</span>, title<span class="op">=</span><span class="st">'Heads to Total Flips ratio of 1M samples across each stopRatio'</span>,xlabel<span class="op">=</span><span class="st">'Stop Ratio'</span>,ylabel <span class="op">=</span> <span class="st">'Heads / Total Flips'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="modelCoinFlipGame_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="findings" class="level1">
+<h1>Findings</h1>
+<p>It appears that we can find a new optimal strategy for this game that I find suprising: - We only accept a ratio of better than 56% heads/total flips - This means that if we are at a situation like TH where we have had two flips and 1 - The best long run result I was able to acheve was 78.9% heads/total flips ratio</p>
+</section>
+<section id="future-work" class="level1">
+<h1>Future Work</h1>
+<p>This was a naive method only considering that there has to be some constant ratio of heads/total flips at which we accept it. I also however could forsee a situation where our heads/total flips ratio might want to be lower or higher. An example of this might be: we are 1M flips out and our current ratio is 52% this might be considered good since our variance per flip is extremly low and our long run expectancy is 50%. Versus if we are currently in the start and have only flipped 25 times so far and our ratio is 52% (13 heads/25 flips) we might be more inclied to want a higher number since our variance per flip is much higher.</p>
+<p>This is just some inital thoughts by me and am open to discussion! Feel free to reach out to me if you have any comments or ideas on the idea of a constant/variable stopRatio or any other improvements!</p>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -11,7 +11,3 @@ page-layout: full
 title-block-banner: false
 
 ---
-
-::: {style="font-size:3rem;text-align:center;"}
-Work In Progress
-:::

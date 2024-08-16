@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>quarto-inputa4a9668b475cdafd – Josh Pearlson</title>
+<title>volsurface – Josh Pearlson</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -70,7 +104,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="index.css">
 </head>
 
 <body class="nav-fixed fullcontent">
@@ -94,6 +127,21 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./articles/blog.html"> 
 <span class="menu-text">Articles</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="./projects/projects.qmd">
+ <span class="dropdown-text">example Project 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./projects/exampleProject2.qmd">
+ <span class="dropdown-text">example project 2</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="./aboutPage/about.html"> 
 <span class="menu-text">About</span></a>
@@ -122,11 +170,123 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<div style="font-size:1.5rem; text-align: center;">
-<p><span style="font-size: 5rem; color: var(--dim-text)!important; padding-bottom: 0pt; font-family: 'IBM Plex Sans Condensed'; font-weight: 500; background-color:  rgba(0, 0, 0, 0.5); color: white; padding: 2px 5px;"><span class="dim-text" style="font-family:'IBM Plex Sans', sans-serif;">Hi, I’m Josh!</span></span></p>
+<div id="cell-0" class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime <span class="im">as</span> dt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div style="font-size:2.0em; text-align: left; background-color:  rgba(0, 0, 0, 0.5); color: white; padding: 2px 5px;">
-<p>Welcome to my personal site, feel free to learn a bit more <a href="./aboutPage/about.html">about me</a> or read any of my current <a href="./articles/blog.html">articles</a>. In the future this site will also host some projects of mine as well!</p>
+<div id="cell-1" class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> option_chains(ticker):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    asset <span class="op">=</span> yf.Ticker(ticker)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    expirations <span class="op">=</span> asset.options</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    chains <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> expiration <span class="kw">in</span> expirations:</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># tuple of two dataframes</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        opt <span class="op">=</span> asset.option_chain(expiration)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        calls <span class="op">=</span> opt.calls</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        calls[<span class="st">'optionType'</span>] <span class="op">=</span> <span class="st">"call"</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        puts <span class="op">=</span> opt.puts</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        puts[<span class="st">'optionType'</span>] <span class="op">=</span> <span class="st">"put"</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        chain <span class="op">=</span> pd.concat([calls, puts])</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        chain[<span class="st">'expiration'</span>] <span class="op">=</span> pd.to_datetime(expiration) <span class="op">+</span> pd.DateOffset(hours<span class="op">=</span><span class="dv">23</span>, minutes<span class="op">=</span><span class="dv">59</span>, seconds<span class="op">=</span><span class="dv">59</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        chains <span class="op">=</span> pd.concat([chains, chain])</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    chains[<span class="st">"daysToExpiration"</span>] <span class="op">=</span> (chains.expiration <span class="op">-</span> dt.datetime.today()).dt.days <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> chains</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-2" class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ticker <span class="op">=</span> <span class="st">"SPY"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>spy_options_chain <span class="op">=</span> option_chains(ticker)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>calls <span class="op">=</span> spy_options_chain[spy_options_chain[<span class="st">"optionType"</span>]<span class="op">==</span><span class="st">"call"</span>]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>expirations <span class="op">=</span> <span class="bu">set</span>(calls.expiration)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">sorted</span>(expirations))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[Timestamp('2024-08-13 23:59:59'), Timestamp('2024-08-14 23:59:59'), Timestamp('2024-08-15 23:59:59'), Timestamp('2024-08-16 23:59:59'), Timestamp('2024-08-19 23:59:59'), Timestamp('2024-08-20 23:59:59'), Timestamp('2024-08-21 23:59:59'), Timestamp('2024-08-22 23:59:59'), Timestamp('2024-08-23 23:59:59'), Timestamp('2024-08-30 23:59:59'), Timestamp('2024-09-06 23:59:59'), Timestamp('2024-09-13 23:59:59'), Timestamp('2024-09-20 23:59:59'), Timestamp('2024-09-27 23:59:59'), Timestamp('2024-09-30 23:59:59'), Timestamp('2024-10-18 23:59:59'), Timestamp('2024-10-31 23:59:59'), Timestamp('2024-11-15 23:59:59'), Timestamp('2024-11-29 23:59:59'), Timestamp('2024-12-20 23:59:59'), Timestamp('2024-12-31 23:59:59'), Timestamp('2025-01-17 23:59:59'), Timestamp('2025-01-31 23:59:59'), Timestamp('2025-03-21 23:59:59'), Timestamp('2025-03-31 23:59:59'), Timestamp('2025-04-17 23:59:59'), Timestamp('2025-06-20 23:59:59'), Timestamp('2025-06-30 23:59:59'), Timestamp('2025-08-15 23:59:59'), Timestamp('2025-09-19 23:59:59'), Timestamp('2025-12-19 23:59:59'), Timestamp('2026-01-16 23:59:59'), Timestamp('2026-06-18 23:59:59'), Timestamp('2026-12-18 23:59:59')]</code></pre>
+</div>
+</div>
+<div id="cell-3" class="cell" data-execution_count="118">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>daysToExpiration <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>oneDTE_calls <span class="op">=</span> calls[calls[<span class="st">'daysToExpiration'</span>] <span class="op">==</span> daysToExpiration]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># check to see if there are any cases of extreme outliers in implied vol</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(oneDTE_calls[oneDTE_calls[<span class="st">"impliedVolatility"</span>] <span class="op">&lt;</span> <span class="fl">.000001</span>])</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>oneDTE_calls <span class="op">=</span> oneDTE_calls[oneDTE_calls[<span class="st">'impliedVolatility'</span>] <span class="op">&gt;</span> <span class="fl">.000001</span>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>current_ask_price_rf_adjusted <span class="op">=</span> <span class="bu">round</span>(yf.Ticker(ticker).info[<span class="st">'ask'</span>] <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> (<span class="fl">.039</span> <span class="op">*</span> (daysToExpiration<span class="op">/</span><span class="dv">365</span>))),<span class="dv">4</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#get </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> oneDTE_calls[[<span class="st">'strike'</span>,<span class="st">'impliedVolatility'</span>]].set_index(<span class="st">'strike'</span>).plot(title<span class="op">=</span><span class="ss">f"Implied vol skew of </span><span class="sc">{</span>ticker<span class="sc">}</span><span class="ss"> 1dte"</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#add in vertical line for previous market close price</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>ax.axvline(x<span class="op">=</span>current_ask_price_rf_adjusted, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">2</span>,)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>ax.text(current_ask_price_rf_adjusted<span class="op">-</span><span class="dv">10</span>, ax.get_ylim()[<span class="dv">1</span>]<span class="op">*</span><span class="fl">0.6</span>, <span class="ss">f'Current Ask (adjusted rf): </span><span class="sc">{</span>current_ask_price_rf_adjusted<span class="sc">}</span><span class="ss">'</span>, </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        rotation<span class="op">=</span><span class="dv">90</span>, verticalalignment<span class="op">=</span><span class="st">'center'</span>, horizontalalignment<span class="op">=</span><span class="st">'left'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>ax.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Empty DataFrame
+Columns: [contractSymbol, lastTradeDate, strike, lastPrice, bid, ask, change, percentChange, volume, openInterest, impliedVolatility, inTheMoney, contractSize, currency, optionType, expiration, daysToExpiration]
+Index: []</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="volSurface_files/figure-html/cell-5-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-4" class="cell" data-execution_count="103">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pivot the dataframe</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>filteredCalls <span class="op">=</span> calls[calls[<span class="st">'impliedVolatility'</span>] <span class="op">&gt;</span> <span class="fl">0.001</span>]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>surface <span class="op">=</span> (</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    filteredCalls[[<span class="st">'daysToExpiration'</span>, <span class="st">'strike'</span>, <span class="st">'impliedVolatility'</span>]]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    .pivot_table(values<span class="op">=</span><span class="st">'impliedVolatility'</span>, index<span class="op">=</span><span class="st">'strike'</span>, columns<span class="op">=</span><span class="st">'daysToExpiration'</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    .dropna()</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># create the figure object</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># add the subplot with projection argument</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>, projection<span class="op">=</span><span class="st">'3d'</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># get the 1d values from the pivoted dataframe</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>x, y, z <span class="op">=</span> surface.columns.values, surface.index.values, surface.values</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># return coordinate matrices from coordinate vectors</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>X, Y <span class="op">=</span> np.meshgrid(x, y)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># set labels</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Days to expiration'</span>)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Strike price'</span>)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">'Implied volatility'</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Call implied volatility surface'</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>ax.plot_surface(X, Y, z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="volSurface_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 
 
