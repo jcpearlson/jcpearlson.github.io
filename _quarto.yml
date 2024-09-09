@@ -4,16 +4,21 @@ project:
 
 website:
   title: "Josh Pearlson"
+  favicon: media/jcp_logo2.png
+
   navbar:
+    logo: media/jcp_logo2.png
     right:
       - text: "Articles"
         href: articles/blog.qmd
+
       # - text: "Projects"
         # menu:
           # - text: "example Project 1"
           #   href: projects/projects.qmd
           # - text: "example project 2"
           #   href: projects/exampleProject2.qmd 
+
       - text: "About"
         href: aboutPage/about.qmd
       - icon: linkedin
