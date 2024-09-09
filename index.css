@@ -8,6 +8,6 @@ body {
     background-position: center; /* Centers the background image */
   }
 
-.quarto-title > h1.title {
+.quarto-title{
   opacity: 0 !important;
 }
