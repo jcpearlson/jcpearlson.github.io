@@ -4,6 +4,17 @@ import cv2
 import pyautogui
 from time import sleep
 
+
+# 
+# This python doc will control the screen
+# Essentially its tasks boil down to
+# - Locate the start button on the linkedin page
+# - Click start button 
+# - Take screenshot of the board and pass it to load_board
+# - make mouse movement as required by game_board
+# - place queens or x's depending on the mode!
+# 
+
 # #No cooldown time
 pyautogui.PAUSE = 0
 
