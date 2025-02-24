@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Josh Pearlson">
-<meta name="dcterms.date" content="2024-08-16">
 
-<title>Modeling a Coin Flip Game – Josh Pearlson</title>
+<title>volsurface – Josh Pearlson</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -59,25 +57,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../">
-<link href="../../../media/jcp_logo2.png" rel="icon" type="image/png">
-<script src="../../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../media/jcp_logo2.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -105,54 +103,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="style.css">
 </head>
 
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../../media/jcp_logo2.png" alt="" class="navbar-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../media/jcp_logo2.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Josh Pearlson</span>
     </a>
   </div>
@@ -163,11 +128,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../articles/blog.html"> 
+    <a class="nav-link" href="../articles/blog.html"> 
 <span class="menu-text">Articles</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../aboutPage/about.html"> 
+    <a class="nav-link" href="../aboutPage/about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -184,265 +149,136 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">Modeling a Coin Flip Game</h1>
-                                <div class="quarto-categories">
-                <div class="quarto-category">python</div>
-                <div class="quarto-category">analysis</div>
-              </div>
-                  </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
-
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Josh Pearlson </p>
-            </div>
-    </div>
-      
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">August 16, 2024</p>
-      </div>
-    </div>
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 
 
 
-
-<p>If you flip a coin until you decide to stop and you want to maximize the ratio of heads to total flips, what is the expected ratio?</p>
-<section id="coin-flip-game" class="level2">
-<h2 class="anchored" data-anchor-id="coin-flip-game">Coin Flip Game</h2>
-<p>This is a program I made to simulate a game I came across preparing for job interviews. The idea of the game is this: <br><br> If you flip a coin until you decide to stop and you want to maximize the ratio of heads to total flips, what is the expected ratio?</p>
-</section>
-<section id="my-strategy" class="level2">
-<h2 class="anchored" data-anchor-id="my-strategy">My strategy</h2>
-<p>At first glace the problem seems easy, but as you start modeling you realize it is quite complicated. Initially I came up with a maximum ratio .75 as my estimate. This comes from the idea that there is a 50% chance we get heads on our first flip (a ratio of 1 heads / 1 total flips = 100%) and stop, or a 50% chance we get tails then keep flipping till in the long run we get a ratio of .5 (since we expect to get 1 heads for every 2 flips we do).<br><br> This will give us <span class="math inline">\(.5*1 + .5*.5 = .75\)</span> <br></p>
-<p>Now lets go and try to model this idea and see if we can improve on it at all: <br></p>
-<ul>
-<li><p>if we have greater than some stopRatio X of heads/totalFlips (my intuition tells me this should be .50 since that is the long run ev) we will stop</p>
-<ul>
-<li>if we do not hit this threshold we just keep flipping till we do</li>
-</ul></li>
-<li><p>Model out which number works best as a stopRatio X to set as a threshold for achieving the best results possible</p></li>
-<li><p>To avoid recursive depth problems with python if we have flipped more than 1000 times in a single simulation I will equate this to a ratio of max(currentRatio, .5) since if we keep flipping till infinity we approach a ratio of .5 heads to total flips.</p></li>
-</ul>
-<div id="cell-2" class="cell" data-execution_count="204">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-0" class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime <span class="im">as</span> dt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-3" class="cell" data-execution_count="205">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> runFlipSimulation(numRuns:<span class="bu">int</span>, stopRatio:<span class="bu">float</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    averageSimulationOutcome <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(numRuns):</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        averageSimulationOutcome <span class="op">+=</span> (runSingleSimulation(<span class="dv">0</span>,<span class="dv">0</span>,stopRatio)<span class="op">/</span>numRuns)</span>
+<div id="cell-1" class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> option_chains(ticker):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    asset <span class="op">=</span> yf.Ticker(ticker)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    expirations <span class="op">=</span> asset.options</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">round</span>(averageSimulationOutcome,<span class="dv">4</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> runSingleSimulation(numPreviousFlips:<span class="bu">int</span>,numHeads:<span class="bu">int</span>,stopRatio:<span class="bu">float</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># here we are calling 0 tails and 1 heads</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    coin_flip <span class="op">=</span> random.randint(<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    numPreviousFlips<span class="op">+=</span><span class="dv">1</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> coin_flip <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        numHeads<span class="op">+=</span><span class="dv">1</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    currentRatio <span class="op">=</span> numHeads<span class="op">/</span>numPreviousFlips</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> currentRatio <span class="op">&gt;</span> stopRatio:</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> currentRatio</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if depth &gt;1000 then lets call it .5 as the ratio (long run result anyway)</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this depth limit stops us from bricking python </span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> numPreviousFlips<span class="op">&gt;=</span><span class="dv">1000</span>:</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Either return current ratio or long run ratio of .5</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">max</span>(<span class="fl">.5</span>,currentRatio)</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> runSingleSimulation(numPreviousFlips,numHeads,stopRatio)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    chains <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> expiration <span class="kw">in</span> expirations:</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># tuple of two dataframes</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        opt <span class="op">=</span> asset.option_chain(expiration)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        calls <span class="op">=</span> opt.calls</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        calls[<span class="st">'optionType'</span>] <span class="op">=</span> <span class="st">"call"</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        puts <span class="op">=</span> opt.puts</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        puts[<span class="st">'optionType'</span>] <span class="op">=</span> <span class="st">"put"</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        chain <span class="op">=</span> pd.concat([calls, puts])</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        chain[<span class="st">'expiration'</span>] <span class="op">=</span> pd.to_datetime(expiration) <span class="op">+</span> pd.DateOffset(hours<span class="op">=</span><span class="dv">23</span>, minutes<span class="op">=</span><span class="dv">59</span>, seconds<span class="op">=</span><span class="dv">59</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        chains <span class="op">=</span> pd.concat([chains, chain])</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    chains[<span class="st">"daysToExpiration"</span>] <span class="op">=</span> (chains.expiration <span class="op">-</span> dt.datetime.today()).dt.days <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> chains</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-4" class="cell" data-execution_count="206">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This method will run tests with stopRatio being between 50% and 60% inclusive steping by 1% with every new test</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_ten_stopNumber_tests() <span class="op">-&gt;</span> pd.DataFrame:</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test run with 100K flips</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    numRuns <span class="op">=</span> <span class="dv">100000</span></span>
+<div id="cell-2" class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ticker <span class="op">=</span> <span class="st">"SPY"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>spy_options_chain <span class="op">=</span> option_chains(ticker)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>calls <span class="op">=</span> spy_options_chain[spy_options_chain[<span class="st">"optionType"</span>]<span class="op">==</span><span class="st">"call"</span>]</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get a unique identifier for our run</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    now <span class="op">=</span> datetime.now()</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    unique_string <span class="op">=</span> <span class="bu">str</span>(<span class="bu">int</span>(now.timestamp() <span class="op">*</span> <span class="dv">1000</span>)) </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame()</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># run test</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">11</span>):</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        stopRatio <span class="op">=</span> <span class="bu">round</span>(i<span class="op">/</span><span class="dv">100</span><span class="op">+</span><span class="fl">.5</span>,<span class="dv">2</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        simResult <span class="op">=</span> <span class="bu">round</span>(runFlipSimulation(numRuns,stopRatio),<span class="dv">5</span>)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> df._append(pd.DataFrame({ <span class="ss">f'Expected Value Test_ID:</span><span class="sc">{</span>unique_string<span class="sc">}</span><span class="ss">'</span>:simResult }, index<span class="op">=</span>[stopRatio]))</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>expirations <span class="op">=</span> <span class="bu">set</span>(calls.expiration)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">sorted</span>(expirations))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[Timestamp('2024-08-13 23:59:59'), Timestamp('2024-08-14 23:59:59'), Timestamp('2024-08-15 23:59:59'), Timestamp('2024-08-16 23:59:59'), Timestamp('2024-08-19 23:59:59'), Timestamp('2024-08-20 23:59:59'), Timestamp('2024-08-21 23:59:59'), Timestamp('2024-08-22 23:59:59'), Timestamp('2024-08-23 23:59:59'), Timestamp('2024-08-30 23:59:59'), Timestamp('2024-09-06 23:59:59'), Timestamp('2024-09-13 23:59:59'), Timestamp('2024-09-20 23:59:59'), Timestamp('2024-09-27 23:59:59'), Timestamp('2024-09-30 23:59:59'), Timestamp('2024-10-18 23:59:59'), Timestamp('2024-10-31 23:59:59'), Timestamp('2024-11-15 23:59:59'), Timestamp('2024-11-29 23:59:59'), Timestamp('2024-12-20 23:59:59'), Timestamp('2024-12-31 23:59:59'), Timestamp('2025-01-17 23:59:59'), Timestamp('2025-01-31 23:59:59'), Timestamp('2025-03-21 23:59:59'), Timestamp('2025-03-31 23:59:59'), Timestamp('2025-04-17 23:59:59'), Timestamp('2025-06-20 23:59:59'), Timestamp('2025-06-30 23:59:59'), Timestamp('2025-08-15 23:59:59'), Timestamp('2025-09-19 23:59:59'), Timestamp('2025-12-19 23:59:59'), Timestamp('2026-01-16 23:59:59'), Timestamp('2026-06-18 23:59:59'), Timestamp('2026-12-18 23:59:59')]</code></pre>
 </div>
-<div id="cell-5" class="cell" data-execution_count="207">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gather an array of dataframes that we generate through testing</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dfStorageArr <span class="op">=</span> []</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>numTests <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(numTests):</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    dfStorageArr.append(run_ten_stopNumber_tests())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="results" class="level1">
-<h1>Results</h1>
-<div id="cell-7" class="cell" data-execution_count="208">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># concat all results into one dataframe joining on the index(stopRatio)</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_all_results <span class="op">=</span> pd.concat(dfStorageArr,axis<span class="op">=</span><span class="dv">1</span>)</span>
+<div id="cell-3" class="cell" data-execution_count="118">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>daysToExpiration <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>oneDTE_calls <span class="op">=</span> calls[calls[<span class="st">'daysToExpiration'</span>] <span class="op">==</span> daysToExpiration]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df_all_results.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="208">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723830103687</th>
-<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723830403945</th>
-<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723830705809</th>
-<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723831009492</th>
-<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723831309161</th>
-<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723831624928</th>
-<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723831945790</th>
-<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723832266780</th>
-<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723832589264</th>
-<th data-quarto-table-cell-role="th">Expected Value Test_ID:1723832901556</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0.50</td>
-<td>0.7859</td>
-<td>0.7860</td>
-<td>0.7842</td>
-<td>0.7851</td>
-<td>0.7839</td>
-<td>0.7859</td>
-<td>0.7862</td>
-<td>0.7856</td>
-<td>0.7858</td>
-<td>0.7862</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">0.51</td>
-<td>0.7850</td>
-<td>0.7864</td>
-<td>0.7863</td>
-<td>0.7854</td>
-<td>0.7876</td>
-<td>0.7853</td>
-<td>0.7869</td>
-<td>0.7861</td>
-<td>0.7869</td>
-<td>0.7859</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0.52</td>
-<td>0.7880</td>
-<td>0.7879</td>
-<td>0.7873</td>
-<td>0.7865</td>
-<td>0.7868</td>
-<td>0.7869</td>
-<td>0.7878</td>
-<td>0.7878</td>
-<td>0.7868</td>
-<td>0.7869</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">0.53</td>
-<td>0.7871</td>
-<td>0.7875</td>
-<td>0.7877</td>
-<td>0.7885</td>
-<td>0.7875</td>
-<td>0.7864</td>
-<td>0.7871</td>
-<td>0.7878</td>
-<td>0.7876</td>
-<td>0.7889</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0.54</td>
-<td>0.7883</td>
-<td>0.7888</td>
-<td>0.7889</td>
-<td>0.7896</td>
-<td>0.7884</td>
-<td>0.7881</td>
-<td>0.7867</td>
-<td>0.7880</td>
-<td>0.7877</td>
-<td>0.7888</td>
-</tr>
-</tbody>
-</table>
-
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># check to see if there are any cases of extreme outliers in implied vol</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(oneDTE_calls[oneDTE_calls[<span class="st">"impliedVolatility"</span>] <span class="op">&lt;</span> <span class="fl">.000001</span>])</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>oneDTE_calls <span class="op">=</span> oneDTE_calls[oneDTE_calls[<span class="st">'impliedVolatility'</span>] <span class="op">&gt;</span> <span class="fl">.000001</span>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>current_ask_price_rf_adjusted <span class="op">=</span> <span class="bu">round</span>(yf.Ticker(ticker).info[<span class="st">'ask'</span>] <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> (<span class="fl">.039</span> <span class="op">*</span> (daysToExpiration<span class="op">/</span><span class="dv">365</span>))),<span class="dv">4</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#get </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> oneDTE_calls[[<span class="st">'strike'</span>,<span class="st">'impliedVolatility'</span>]].set_index(<span class="st">'strike'</span>).plot(title<span class="op">=</span><span class="ss">f"Implied vol skew of </span><span class="sc">{</span>ticker<span class="sc">}</span><span class="ss"> 1dte"</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#add in vertical line for previous market close price</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>ax.axvline(x<span class="op">=</span>current_ask_price_rf_adjusted, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">2</span>,)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>ax.text(current_ask_price_rf_adjusted<span class="op">-</span><span class="dv">10</span>, ax.get_ylim()[<span class="dv">1</span>]<span class="op">*</span><span class="fl">0.6</span>, <span class="ss">f'Current Ask (adjusted rf): </span><span class="sc">{</span>current_ask_price_rf_adjusted<span class="sc">}</span><span class="ss">'</span>, </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        rotation<span class="op">=</span><span class="dv">90</span>, verticalalignment<span class="op">=</span><span class="st">'center'</span>, horizontalalignment<span class="op">=</span><span class="st">'left'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>ax.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Empty DataFrame
+Columns: [contractSymbol, lastTradeDate, strike, lastPrice, bid, ask, change, percentChange, volume, openInterest, impliedVolatility, inTheMoney, contractSize, currency, optionType, expiration, daysToExpiration]
+Index: []</code></pre>
 </div>
-</div>
-</div>
-<div id="cell-8" class="cell" data-execution_count="217">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_all_results.plot(kind<span class="op">=</span><span class="st">'line'</span>,figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>),title<span class="op">=</span><span class="st">'Heads to Total Flips ratio of 10 seperate 100k samples across each stopRatio'</span>,xlabel<span class="op">=</span><span class="st">'Stop Ratio'</span>,ylabel <span class="op">=</span> <span class="st">'Heads / Total Flips'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="modelCoinFlipGame_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="volSurface_files/figure-html/cell-5-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="218">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_all_results[<span class="st">'Row_Average'</span>] <span class="op">=</span> df_all_results.mean(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Plot the averages</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df_all_results[<span class="st">'Row_Average'</span>].plot(kind<span class="op">=</span><span class="st">'line'</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>), marker<span class="op">=</span><span class="st">'o'</span>, title<span class="op">=</span><span class="st">'Heads to Total Flips ratio of 1M samples across each stopRatio'</span>,xlabel<span class="op">=</span><span class="st">'Stop Ratio'</span>,ylabel <span class="op">=</span> <span class="st">'Heads / Total Flips'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-4" class="cell" data-execution_count="103">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pivot the dataframe</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>filteredCalls <span class="op">=</span> calls[calls[<span class="st">'impliedVolatility'</span>] <span class="op">&gt;</span> <span class="fl">0.001</span>]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>surface <span class="op">=</span> (</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    filteredCalls[[<span class="st">'daysToExpiration'</span>, <span class="st">'strike'</span>, <span class="st">'impliedVolatility'</span>]]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    .pivot_table(values<span class="op">=</span><span class="st">'impliedVolatility'</span>, index<span class="op">=</span><span class="st">'strike'</span>, columns<span class="op">=</span><span class="st">'daysToExpiration'</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    .dropna()</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># create the figure object</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># add the subplot with projection argument</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>, projection<span class="op">=</span><span class="st">'3d'</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># get the 1d values from the pivoted dataframe</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>x, y, z <span class="op">=</span> surface.columns.values, surface.index.values, surface.values</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># return coordinate matrices from coordinate vectors</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>X, Y <span class="op">=</span> np.meshgrid(x, y)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># set labels</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Days to expiration'</span>)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Strike price'</span>)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">'Implied volatility'</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Call implied volatility surface'</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>ax.plot_surface(X, Y, z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="modelCoinFlipGame_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="volSurface_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="findings" class="level1">
-<h1>Findings</h1>
-<p>It appears that we can find a new optimal strategy for this game that I find surprising: <br> - We only accept a ratio of better than 56% heads/total flips to stop</p>
-<ul>
-<li>The best long run result I was able to achieve was 78.9% heads/total flips ratio across 1M simulations!</li>
-</ul>
-</section>
-<section id="future-work" class="level1">
-<h1>Future Work</h1>
-<p>This was a naive method only considering that there has to be some constant ratio of heads/total flips at which we accept it. I also however could forsee a situation where our heads/total flips ratio might want to be lower or higher. <br> <br> An example of this might be: <br><br> we are 1M flips out and our current ratio is 52% this might be considered good since our variance per flip is extremely low and our long run expectancy is 50%. Versus if we are currently in the start and have only flipped 25 times so far and our ratio is 52% (13 heads/25 flips) we might be more inclined to want a higher number since our variance per flip is much higher. <br></p>
-<p>This is just some initial thoughts by me and am open to discussion! Feel free to reach out to <a href="mailto:jcpearlson@gmail.com">me</a> if you have any comments or ideas on the idea of a constant/variable stopRatio or any other improvements!</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
