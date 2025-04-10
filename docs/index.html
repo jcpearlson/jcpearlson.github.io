@@ -159,6 +159,11 @@ Hide Text
   // Define a margin so the user does not need to move mouse all the way to one wall.  
   const margin = 150; // Distance from every wall
 
+  // Use a smaller margin (or none) on narrower screens.
+  if (window.innerWidth < 768) {  
+    margin = 0;
+  }
+
   // Calculate effective dimensions of the tracking area:
   const effectiveWidth = window.innerWidth - margin * 2;
   const effectiveHeight = window.innerHeight - margin * 2;
@@ -212,7 +217,11 @@ Hide Text
   // Create the link element (once)
   const photoLink = document.createElement("a");
   photoLink.href = "https://science.nasa.gov/mission/hubble/science/universe-uncovered/hubble-deep-fields/";
-  photoLink.textContent = "Learn more about this photo";
+  if (window.innerWidth < 768) {
+    photoLink.innerHTML = "Learn more <br> about this <br> photo"
+  } else {
+    photoLink.textContent = "Learn more about this photo";
+  }
   photoLink.target = "_blank";
   photoLink.style.color = "white";
   photoLink.style.marginLeft = "1rem";
