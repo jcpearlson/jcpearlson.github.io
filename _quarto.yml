@@ -2,7 +2,6 @@ project:
   type: website
   output-dir: docs
 
-
 website:
   title: "Josh Pearlson"
   favicon: media/jcp_logo2.png
