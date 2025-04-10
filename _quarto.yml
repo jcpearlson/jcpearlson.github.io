@@ -5,6 +5,9 @@ project:
 website:
   title: "Josh Pearlson"
   favicon: media/jcp_logo2.png
+  
+  exclude:
+    - "future_projects/"
 
   navbar:
     logo: media/jcp_logo3.png
