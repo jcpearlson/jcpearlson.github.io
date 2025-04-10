@@ -30,6 +30,7 @@ Welcome to my personal site, feel free to learn a bit more [about me](aboutPage/
   // Use a smaller margin (or none) on narrower screens.
   if (window.innerWidth < 768) {  
     margin = 0;
+    return;
   }
 
   // Calculate effective dimensions of the tracking area:
