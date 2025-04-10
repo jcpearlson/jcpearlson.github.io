@@ -1,0 +1,19 @@
+/* index.css */
+body {
+  color: white;
+  background-image: url("../media/UltraDeepField.jpg");
+  background-size: 200%; /* Start with the image being zoomed-in for a better effect */
+  background-repeat: no-repeat;
+  background-position: center center; /* Default position */
+  background-attachment: fixed; /* Keeps the background fixed while scrolling */
+  transition: background-position 0.1s ease-out; /* Smooth transition */
+  }
+
+.quarto-title h1.title {
+  display: none;
+}
+
+.quarto-title{
+  display: none;
+}
+

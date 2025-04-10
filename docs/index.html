@@ -36,12 +36,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,7 +69,8 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/index.css">
 </head>
 
 <body class="nav-fixed fullcontent">
@@ -82,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./media/jcp_logo2.png" alt="" class="navbar-logo">
+    <img src="./media/jcp_logo3.png" alt="" class="navbar-logo">
     </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Josh Pearlson</span>
@@ -110,7 +109,6 @@ ul.task-list li input[type="checkbox"] {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -142,12 +140,182 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div id="home-content">
 <div style="font-size:1.5rem; text-align: center;">
 <p><span style="font-size: 5rem; color: var(--dim-text)!important; padding-bottom: 0pt; font-family: 'IBM Plex Sans Condensed'; font-weight: 500; background-color:  rgba(0, 0, 0, 0.5); color: white; padding: 2px 5px;"><span class="dim-text" style="font-family:'IBM Plex Sans', sans-serif;">Hi, I’m Josh!</span></span></p>
 </div>
 <div style="font-size:2.0em; text-align: left; background-color:  rgba(0, 0, 0, 0.5); color: white; padding: 2px 5px;">
 <p>Welcome to my personal site, feel free to learn a bit more <a href="./aboutPage/about.html">about me</a> or read any of my current <a href="./articles/blog.html">articles</a>. In the future this site will also host some projects of mine as well!</p>
 </div>
+</div>
+<!-- Toggle Button -->
+<button id="toggle-text" style="
+  color: white;">
+Hide Text
+</button>
+<!-- Zoom effect on main photo -->
+<script>
+  document.addEventListener('mousemove', function(e) {
+  // Define a margin so the user does not need to move mouse all the way to one wall.  
+  const margin = 150; // Distance from every wall
+
+  // Calculate effective dimensions of the tracking area:
+  const effectiveWidth = window.innerWidth - margin * 2;
+  const effectiveHeight = window.innerHeight - margin * 2;
+  
+  // Testing for window size
+  if (window.innerWidth <= margin * 2 || window.innerHeight <= margin * 2) {
+    console.log("Window width is not wide enough for a 150px buffer.")
+    console.log("No scrolling image for you lol.")
+    return; 
+  }
+  // Compute the position inside the tracking area:
+  // Subtract the margin so that 500px maps to 0.
+  let xPos = e.clientX - margin;
+  let yPos = e.clientY - margin;
+
+  // Clamp values to remain within [0, effectiveDimension]
+  xPos = Math.max(0, Math.min(xPos, effectiveWidth));
+  yPos = Math.max(0, Math.min(yPos, effectiveHeight));
+
+  // Calculate percentages relative to the effective area.
+  const xPercent = (xPos / effectiveWidth) * 100;
+  const yPercent = (yPos / effectiveHeight) * 100;
+
+    // Set the background position accordingly
+    document.body.style.backgroundPosition = `${xPercent.toFixed(2)}% ${yPercent.toFixed(2)}%`;
+
+    // If minimap marker exists then update its position.
+    if(window.minimapMarker && window.minimapContainer) {
+      const minimapWidth = window.minimapContainer.offsetWidth;
+      const minimapHeight = window.minimapContainer.offsetHeight;
+      // Given the main background is scaled at 200% (i.e. only 50% of the image is visible),
+      // set marker size to 50% of minimap dimensions:
+      const markerWidth = minimapWidth * 0.5;
+      const markerHeight = minimapHeight * 0.5;
+      // Calculate marker offsets (ensuring the marker stays within the minimap).
+      const markerLeft = (xPercent / 100) * (minimapWidth - markerWidth);
+      const markerTop  = (yPercent / 100) * (minimapHeight - markerHeight);
+      
+      window.minimapMarker.style.width = markerWidth + "px";
+      window.minimapMarker.style.height = markerHeight + "px";
+      window.minimapMarker.style.left = markerLeft + "px";
+      window.minimapMarker.style.top = markerTop + "px";
+    }
+  });
+</script>
+<!-- Toggle Script for Home Page Text and Button Position -->
+<script>
+  const toggleButton = document.getElementById("toggle-text");
+  const homeContent = document.getElementById("home-content");
+
+  // Create the link element (once)
+  const photoLink = document.createElement("a");
+  photoLink.href = "https://science.nasa.gov/mission/hubble/science/universe-uncovered/hubble-deep-fields/";
+  photoLink.textContent = "Learn more about this photo";
+  photoLink.target = "_blank";
+  photoLink.style.color = "white";
+  photoLink.style.marginLeft = "1rem";
+  photoLink.style.textDecoration = "underline";
+
+  
+ // Function to create the minimap overlay.
+  function createMinimap() {
+    // Create the container.
+    const minimap = document.createElement("div");
+    minimap.id = "minimap";
+    minimap.style.position = "absolute";
+    minimap.style.top = "75px";
+    minimap.style.right = "0px";
+    minimap.style.width = "200px";
+    minimap.style.height = "200px";
+    minimap.style.border = "2px solid #003300";
+    // Set the background to match the main background image.
+    minimap.style.backgroundImage = "url('media/UltraDeepField.jpg')";
+    minimap.style.backgroundSize = "contain";
+    minimap.style.backgroundPosition = "center";
+    minimap.style.backgroundRepeat = "no-repeat";
+    minimap.style.zIndex = "1000";  // Ensure it appears on top.
+    
+    // Create the viewport marker inside the minimap.
+    const marker = document.createElement("div");
+    marker.id = "minimap-marker";
+    marker.style.position = "absolute";
+    // A translucent indicator with a dashed white border.
+    marker.style.backgroundColor = "rgba(255,255,255,0.1)";
+    marker.style.border = "2px dashed white";
+    
+    // Append the marker to the minimap.
+    minimap.appendChild(marker);
+    
+    // Store them in global variables for later updates.
+    window.minimapContainer = minimap;
+    window.minimapMarker = marker;
+
+    // Add the minimap to the document.
+    document.body.appendChild(minimap);
+  }
+
+  // Track whether the text is visible.
+  let textVisible = true;
+  
+  toggleButton.addEventListener("click", function() {
+    textVisible = !textVisible;
+    if (textVisible) {
+      // When showing text:
+      homeContent.style.display = "block";
+      // Move the toggle button back into the natural flow (right after home-content)
+      homeContent.insertAdjacentElement('afterend', toggleButton);
+
+      if (photoLink.parentNode) {
+        photoLink.parentNode.removeChild(photoLink);
+      }
+
+      // Remove the minimap overlay if it exists:
+      if (window.minimapContainer && window.minimapContainer.parentNode) {
+        window.minimapContainer.parentNode.removeChild(window.minimapContainer);
+        window.minimapContainer = null;
+        window.minimapMarker = null;
+      }
+      // Clear any special positioning styles.
+      toggleButton.style.position = "";
+      toggleButton.style.top = "";
+      toggleButton.style.left = "";
+      toggleButton.style.marginTop = "1rem"; 
+      toggleButton.textContent = "Hide Text";
+      
+    } else {
+      // When hiding text:
+      homeContent.style.display = "none";
+      // Append the toggle button to the body.
+      document.body.appendChild(toggleButton);
+      // Apply absolute positioning so the button appears on the left below the header.
+      toggleButton.style.position = "absolute";
+      // May need to change this value depending on size of header 
+      toggleButton.style.top = "75px";
+      toggleButton.style.left = "0px";
+      toggleButton.style.marginTop = "0";
+      toggleButton.textContent = "Show Text";
+
+      document.body.appendChild(photoLink);
+      photoLink.style.position = "absolute";
+      photoLink.style.top = "105px";
+      photoLink.style.left = "-10px";
+      toggleButton.style.marginTop = "0";
+
+      // Create the minimap here
+      createMinimap();
+    }
+  });
+</script>
+<!-- A message to others like me! -->
+<script> 
+console.log("Nice, I also love checking on page elements!");
+console.log("If you're reading this, awesome!");
+console.log("Interested in learning how to make sites like this? Check out quarto.org")
+console.log("They have awesome docs and are a great place to start form!")
+console.log("Signing off. -JP")
+</script>
 
 
 
@@ -172,150 +340,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-      }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
-        }
-      });
-    }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = true;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {

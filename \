@@ -2,7 +2,7 @@
 title: "Josh Pearlson"
 
 css:
-  - ../css/about.css
+  - ../css/about.css 
 about: 
   template: trestles
   image: ../media/jpPhoto3.jpeg
@@ -52,8 +52,7 @@ My name is Josh, and I am a senior studying Computer Science and Finance at Wash
 
 
 :::
-</div>
-
+<\div>
 
 ## Hobbies 
 

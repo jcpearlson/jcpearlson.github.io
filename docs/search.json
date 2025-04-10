@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "JCP",
     "section": "",
-    "text": "Hi, I’m Josh!\n\n\nWelcome to my personal site, feel free to learn a bit more about me or read any of my current articles. In the future this site will also host some projects of mine as well!"
+    "text": "Hi, I’m Josh!\n\n\nWelcome to my personal site, feel free to learn a bit more about me or read any of my current articles. In the future this site will also host some projects of mine as well!\n\n\n\n\nHide Text"
   },
   {
     "objectID": "samplePosts/welcome/index.html",
@@ -67,14 +67,14 @@
     "href": "aboutPage/about.html#education",
     "title": "Josh Pearlson",
     "section": "Education",
-    "text": "Education\nWashington University in St. Louis BS in Computer Science & Finance August 2021 - May 2025\n\nExperienceAwardsPapers\n\n\nBlackRock Financial Engineering Intern | Summer 2024   Washington University Natural Language Processing Laboratory Research Lab Member | August 2022 - August 2024  Moody’s Analytics Software Engineering Intern | Summer 2023  PlayBook (Startup) Data Science Intern | Summer 2022  Harvard Surgical Navigation and Robotics Laboratory Research Intern | Summer 2020 \n\n\nOutstanding Junior Award | Department of Computer Science  Hackathon WashU 2023 Winner | Social Connections Category  Dean’s List | All Semesters \n\n\nLarge Language Models Recognize Decentralized Finance Entities Lead Author - Data Problems for Foundation Models at International Conference on Learning Representations 2024 Link \nMapping Lesions from MP-MRI using Convolution Neural Network Lead Author - SPIE Medical Imaging 2020 Link"
+    "text": "Education\nWashington University in St. Louis BS in Computer Science & Finance August 2021 - May 2025\n\n\nExperienceAwardsPapers\n\n\nBlackRock Financial Engineering Intern | Summer 2024   Washington University Natural Language Processing Laboratory Research Lab Member | August 2022 - August 2024  Moody’s Analytics Software Engineering Intern | Summer 2023  PlayBook (Startup) Data Science Intern | Summer 2022  Harvard Surgical Navigation and Robotics Laboratory Research Intern | Summer 2020 \n\n\nOutstanding Junior Award | Department of Computer Science  Hackathon WashU 2023 Winner | Social Connections Category  Dean’s List | All Semesters \n\n\nLarge Language Models Recognize Decentralized Finance Entities Lead Author - Data Problems for Foundation Models at International Conference on Learning Representations 2024 Link \nMapping Lesions from MP-MRI using Convolution Neural Network Lead Author - SPIE Medical Imaging 2020 Link"
   },
   {
     "objectID": "aboutPage/about.html#hobbies",
     "href": "aboutPage/about.html#hobbies",
     "title": "Josh Pearlson",
     "section": "Hobbies",
-    "text": "Hobbies\n\nPoker (Game Theory, PLO, NLTH, HU)\nChess\nBasketball (go Celtics)\nTennis\nGym (former Powerlifter for 3 years)"
+    "text": "Hobbies\n\nPoker (PLO, NLTH, HU)\nChess\nBasketball (go Celtics)\nTennis\nGym (former Powerlifter for 3 years)"
   },
   {
     "objectID": "modelCoinFlipGame.html",

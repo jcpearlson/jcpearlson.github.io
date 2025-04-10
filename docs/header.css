@@ -1,0 +1,14 @@
+/* header.css */
+.navbar.navbar-expand-lg {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.navbar-brand img {
+  max-height: 55px;
+  height: 55px;
+}
+
+.navbar {
+  background-color: #003300 ;
+}

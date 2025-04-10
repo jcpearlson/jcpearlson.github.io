@@ -7,7 +7,7 @@ website:
   favicon: media/jcp_logo2.png
 
   navbar:
-    logo: media/jcp_logo2.png
+    logo: media/jcp_logo3.png
     right:
       - text: "Articles"
         href: articles/blog.qmd
@@ -25,10 +25,9 @@ website:
         href: https://linkedin.com/in/josh-pearlson
 format:
   html:
-    theme:
-      dark: darkly
-      light: litera
-    # theme: cosmo
-    # css: styles.css
+    theme: cyborg
+      # dark: darkly
+      # light: cosmos
+    css: css/header.css
 
 

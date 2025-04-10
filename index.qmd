@@ -1,19 +1,189 @@
 ---
 title: "JCP"
-css: index.css
+css:
+  - css/index.css
 ---
 
-
+<div id="home-content">
 ::: {style="font-size:1.5rem; text-align: center;"}
-
-
 [[ Hi, I'm Josh!]{.dim-text style="font-family:'IBM Plex Sans', sans-serif;"}]{style="font-size: 5rem; color: var(--dim-text)!important; padding-bottom: 0pt; font-family: 'IBM Plex Sans Condensed'; font-weight: 500; background-color:  rgba(0, 0, 0, 0.5); color: white; padding: 2px 5px;"}
-
 :::
-
 
 ::: {style="font-size:2.0em; text-align: left; background-color:  rgba(0, 0, 0, 0.5); color: white; padding: 2px 5px;"}
-
 Welcome to my personal site, feel free to learn a bit more [about me](aboutPage/about.qmd) or read any of my current [articles](articles/blog.qmd). In the future this site will also host some projects of mine as well!
-
 :::
+</div>
+
+<!-- Toggle Button -->
+<button id="toggle-text" style="
+  color: white;">
+  Hide Text
+</button>
+
+
+<!-- Zoom effect on main photo -->
+<script>
+  document.addEventListener('mousemove', function(e) {
+  // Define a margin so the user does not need to move mouse all the way to one wall.  
+  const margin = 150; // Distance from every wall
+
+  // Calculate effective dimensions of the tracking area:
+  const effectiveWidth = window.innerWidth - margin * 2;
+  const effectiveHeight = window.innerHeight - margin * 2;
+  
+  // Testing for window size
+  if (window.innerWidth <= margin * 2 || window.innerHeight <= margin * 2) {
+    console.log("Window width is not wide enough for a 150px buffer.")
+    console.log("No scrolling image for you lol.")
+    return; 
+  }
+  // Compute the position inside the tracking area:
+  // Subtract the margin so that 500px maps to 0.
+  let xPos = e.clientX - margin;
+  let yPos = e.clientY - margin;
+
+  // Clamp values to remain within [0, effectiveDimension]
+  xPos = Math.max(0, Math.min(xPos, effectiveWidth));
+  yPos = Math.max(0, Math.min(yPos, effectiveHeight));
+
+  // Calculate percentages relative to the effective area.
+  const xPercent = (xPos / effectiveWidth) * 100;
+  const yPercent = (yPos / effectiveHeight) * 100;
+
+    // Set the background position accordingly
+    document.body.style.backgroundPosition = `${xPercent.toFixed(2)}% ${yPercent.toFixed(2)}%`;
+
+    // If minimap marker exists then update its position.
+    if(window.minimapMarker && window.minimapContainer) {
+      const minimapWidth = window.minimapContainer.offsetWidth;
+      const minimapHeight = window.minimapContainer.offsetHeight;
+      // Given the main background is scaled at 200% (i.e. only 50% of the image is visible),
+      // set marker size to 50% of minimap dimensions:
+      const markerWidth = minimapWidth * 0.5;
+      const markerHeight = minimapHeight * 0.5;
+      // Calculate marker offsets (ensuring the marker stays within the minimap).
+      const markerLeft = (xPercent / 100) * (minimapWidth - markerWidth);
+      const markerTop  = (yPercent / 100) * (minimapHeight - markerHeight);
+      
+      window.minimapMarker.style.width = markerWidth + "px";
+      window.minimapMarker.style.height = markerHeight + "px";
+      window.minimapMarker.style.left = markerLeft + "px";
+      window.minimapMarker.style.top = markerTop + "px";
+    }
+  });
+</script>
+
+
+<!-- Toggle Script for Home Page Text and Button Position -->
+<script>
+  const toggleButton = document.getElementById("toggle-text");
+  const homeContent = document.getElementById("home-content");
+
+  // Create the link element (once)
+  const photoLink = document.createElement("a");
+  photoLink.href = "https://science.nasa.gov/mission/hubble/science/universe-uncovered/hubble-deep-fields/";
+  photoLink.textContent = "Learn more about this photo";
+  photoLink.target = "_blank";
+  photoLink.style.color = "white";
+  photoLink.style.marginLeft = "1rem";
+  photoLink.style.textDecoration = "underline";
+
+  
+ // Function to create the minimap overlay.
+  function createMinimap() {
+    // Create the container.
+    const minimap = document.createElement("div");
+    minimap.id = "minimap";
+    minimap.style.position = "absolute";
+    minimap.style.top = "75px";
+    minimap.style.right = "0px";
+    minimap.style.width = "200px";
+    minimap.style.height = "200px";
+    minimap.style.border = "2px solid #003300";
+    // Set the background to match the main background image.
+    minimap.style.backgroundImage = "url('media/UltraDeepField.jpg')";
+    minimap.style.backgroundSize = "contain";
+    minimap.style.backgroundPosition = "center";
+    minimap.style.backgroundRepeat = "no-repeat";
+    minimap.style.zIndex = "1000";  // Ensure it appears on top.
+    
+    // Create the viewport marker inside the minimap.
+    const marker = document.createElement("div");
+    marker.id = "minimap-marker";
+    marker.style.position = "absolute";
+    // A translucent indicator with a dashed white border.
+    marker.style.backgroundColor = "rgba(255,255,255,0.1)";
+    marker.style.border = "2px dashed white";
+    
+    // Append the marker to the minimap.
+    minimap.appendChild(marker);
+    
+    // Store them in global variables for later updates.
+    window.minimapContainer = minimap;
+    window.minimapMarker = marker;
+
+    // Add the minimap to the document.
+    document.body.appendChild(minimap);
+  }
+
+  // Track whether the text is visible.
+  let textVisible = true;
+  
+  toggleButton.addEventListener("click", function() {
+    textVisible = !textVisible;
+    if (textVisible) {
+      // When showing text:
+      homeContent.style.display = "block";
+      // Move the toggle button back into the natural flow (right after home-content)
+      homeContent.insertAdjacentElement('afterend', toggleButton);
+
+      if (photoLink.parentNode) {
+        photoLink.parentNode.removeChild(photoLink);
+      }
+
+      // Remove the minimap overlay if it exists:
+      if (window.minimapContainer && window.minimapContainer.parentNode) {
+        window.minimapContainer.parentNode.removeChild(window.minimapContainer);
+        window.minimapContainer = null;
+        window.minimapMarker = null;
+      }
+      // Clear any special positioning styles.
+      toggleButton.style.position = "";
+      toggleButton.style.top = "";
+      toggleButton.style.left = "";
+      toggleButton.style.marginTop = "1rem"; 
+      toggleButton.textContent = "Hide Text";
+      
+    } else {
+      // When hiding text:
+      homeContent.style.display = "none";
+      // Append the toggle button to the body.
+      document.body.appendChild(toggleButton);
+      // Apply absolute positioning so the button appears on the left below the header.
+      toggleButton.style.position = "absolute";
+      // May need to change this value depending on size of header 
+      toggleButton.style.top = "75px";
+      toggleButton.style.left = "0px";
+      toggleButton.style.marginTop = "0";
+      toggleButton.textContent = "Show Text";
+
+      document.body.appendChild(photoLink);
+      photoLink.style.position = "absolute";
+      photoLink.style.top = "105px";
+      photoLink.style.left = "-10px";
+      toggleButton.style.marginTop = "0";
+
+      // Create the minimap here
+      createMinimap();
+    }
+  });
+</script>
+
+<!-- A message to others like me! -->
+<script> 
+console.log("Nice, I also love checking on page elements!");
+console.log("If you're reading this, awesome!");
+console.log("Interested in learning how to make sites like this? Check out quarto.org")
+console.log("They have awesome docs and are a great place to start form!")
+console.log("Signing off. -JP")
+</script>
