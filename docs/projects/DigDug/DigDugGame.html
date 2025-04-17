@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Dig Dug – Minecraft Edition</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100vh;
+    }
+
+    #gameCanvas {
+      border: 1px solid #444;
+    }
+
+    /* Sidebar holds both boxes */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;           /* space between boxes */
+      margin-left: 20px;
+    }
+
+    .panel {
+      padding: 8px;
+      width: 450px;
+      background: #111;
+      color: #eee;
+      font-family: sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      border: 1px solid #444;
+      box-shadow: 0 0 10px rgba(0,0,0,0.8);
+      border-radius: 4px;
+    }
+
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 25px;
+      text-align: center;
+      color: #6cbe6c;
+    }
+
+    .panel ul {
+      list-style-type: disc;
+      padding-left: 18px;
+      margin: 0;
+    }
+
+    .panel li {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .panel strong {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="600" height="770"></canvas>
+
+  <div class="sidebar">
+    <!-- How to Play panel -->
+    <div class="panel">
+      <h2>Game Instructions</h2>
+    <ul>
+      <li>🎮 Use the <strong>arrow keys</strong> to move Steve around.</li>
+      <li>🪨 Dig paths to drop rocks and crush the ghosts!</li>
+      <li>🥕 Eat red carrots to gain a life; 👻 contact with ghosts costs you one.</li>
+      <li>⏳ Red carrots re-spawn <strong>30 seconds</strong> after being eaten.</li>
+      <li>🌸 Lives: shown as flower icons (🌸) top‑right and a number bottom‑right.</li>
+    </ul>
+
+    </div>
+
+    <!-- New "About the Game" panel -->
+    <div class="panel">
+      <h2>About Dig Dug</h2>
+      <ul>
+        <li>🕹️ Dig Dug is a classic arcade game my dad and I both loved.</li>
+        <li>🎓 I made this game as a high school project inspired by Dig Dug.</li>
+        <li>🧠 The ghosts use <strong>Dijkstra's algorithm</strong> to chase the player!</li>
+        <li>💻 Ported from Java to JavaScript.</li>
+        <li>⚡ How fast can you defeat the ghosts?</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+
+    // Game constants
+    const rows = 25;
+    const columns = 20;
+    const cellSize = 30;
+    const ghostSleepTime = 250; // milliseconds between ghost moves
+    let waitTime = 60;          // intro countdown in seconds
+
+    // Game state variables
+    let board = [];
+    let numObstacles = 8;
+    let ghostDead = 0;
+    let numGhost = 4;         // can increase the number of ghosts
+    let gameWin = false;
+    let gameLoss = false;
+    let intro = true;
+    let dotAte = false;
+    let numLives = 1;
+    let timer = waitTime;     // initial timer countdown for the intro; later becomes game time
+    let restart = false
+
+    // Position variables for player and ghost moves
+    let playerR = 0, playerC = 0;
+    let newRow = 0, newColumn = 0;
+    let oldRow = 16, oldColumn = 9; // default initial positions
+
+    // Preload images (make sure these files exist in the same folder)
+    const ghostPic = new Image();
+    ghostPic.src = "Dig_Dug_pooka.png";
+    const rockPic = new Image();
+    rockPic.src = "Dig_Dug_rock.png";
+    const carrotPic = new Image();
+    carrotPic.src = "Dig_Dug_Carrot_achievement.png";
+    const flowerPic = new Image();
+    flowerPic.src = "flower.png";
+    const startUpPic = new Image();
+    startUpPic.src = "loading screen.png";
+    const benPic = new Image();
+    benPic.src = "benny.png";
+
+    // Get the canvas and context
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    // --- INITIALIZATION ---
+    function initBoard() {
+
+      //reset any potentially used variables
+        board = [];
+        ghostDead = 0;
+        gameWin = false;
+        gameLoss = false;
+        dotAte = false;
+        numLives = 1;
+
+      // Create a 2D array filled with zeros.
+      board = Array.from({ length: rows }, () => Array(columns).fill(0));
+
+      // Set up the gradient background over rows 5 to 24
+      for (let r = 5; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+          if (r >= 5 && r <= 9)
+            board[r][c] = 0;
+          else if (r >= 10 && r <= 18)
+            board[r][c] = 5;
+          else if (r >= 19 && r <= 24)
+            board[r][c] = 6;
+        }
+      }
+
+      // Top rows are blue (value 4)
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < columns; c++) {
+          board[r][c] = 4;
+        }
+      }
+
+      // Pre-dug out spots
+      for (let c = 2; c < 8; c++)
+        board[21][c] = 7;
+      for (let r = 6; r < 13; r++)
+        board[r][1] = 7;
+      for (let c = 13; c < 19; c++)
+        board[7][c] = 7;
+      for (let r = 16; r < 23; r++)
+        board[r][14] = 7;
+
+      // Dig out middle column and starting area for Steve
+      for (let r = 4; r < 17; r++)
+        board[r][9] = 7;
+      for (let c = 7; c < 12; c++)
+        board[16][c] = 7;
+      
+      // Place the dot (carrot) randomly (board value 9)
+      let finished = false;
+      while (!finished) {
+        let r = Math.floor(Math.random() * (rows - 4) + 4);
+        let c = Math.floor(Math.random() * columns);
+        if (board[r][c] === 0 || board[r][c] === 5 || board[r][c] === 6) {
+          board[r][c] = 9;
+          finished = true;
+        }
+      }
+
+      // Place obstacles (board value 3) in random empty spots.
+      for (let n = 0; n < numObstacles; n++) {
+        let r = Math.floor(Math.random() * (rows - 10) + 5);
+        let c = Math.floor(Math.random() * (columns - 2) + 1);
+        if ((board[r][c] === 0 || board[r][c] === 5 || board[r][c] === 6) &&
+            board[r+1][c] !== 7 &&
+            board[r][c-1] !== 7 &&
+            board[r][c+1] !== 7) {
+          board[r][c] = 3;
+        } else {
+          n--; // try again
+        }
+      }
+
+      // Place ghost(s) (board value 2)
+      finished = false;
+
+      // We use a loop to place the desired number of ghosts
+      let placedGhosts = 0;
+      while (!finished && placedGhosts < numGhost) {
+        let r = Math.floor(Math.random() * (rows - 4) + 4);
+        let c = Math.floor(Math.random() * columns);
+        if (r - 1 >= 0 &&
+            board[r-1][c] !== 3 &&
+            board[r][c] === 7 &&
+            (c < 7 || c > 11)) {
+          board[r][c] = 2;
+          placedGhosts++;
+        }
+      }
+      
+      // Place Steve (player) at a fixed position on board
+      board[16][9] = 1;
+      playerR = 16
+      playerC = 9
+    }
+
+    // --- GAME LOOP TIMERS --- 
+    // In Java, separate threads were used.
+    // Here we use several intervals to mimic those behaviors.
+    let ghostInterval, timerInterval, rockInterval, dotInterval, flowerInterval;
+
+    // Helper: run BFS on the board from (sr,sc) to (tr,tc), only through cells === 7 or === 1
+    function findPathBFS(board, sr, sc, tr, tc, rows, columns) {
+      const dirs = [
+        { dr: -1, dc:  0 },
+        { dr:  1, dc:  0 },
+        { dr:  0, dc: -1 },
+        { dr:  0, dc:  1 },
+      ];
+      // visited + parent pointers
+      let visited = Array.from({ length: rows }, () => Array(columns).fill(false));
+      let parent  = Array.from({ length: rows }, () => Array(columns).fill(null));
+      let queue = [];
+
+      visited[sr][sc] = true;
+      queue.push({ r: sr, c: sc });
+
+      while (queue.length) {
+        const { r, c } = queue.shift();
+        if (r === tr && c === tc) {
+          // Reconstruct path: from target back to start
+          let path = [];
+          let cur = { r, c };
+          while (cur) {
+            path.push(cur);
+            cur = parent[cur.r][cur.c];
+          }
+          path.reverse();
+          return path;  // path[0] is start, path[1] is the first move
+        }
+        for (let {dr,dc} of dirs) {
+          let nr = r + dr, nc = c + dc;
+          if (
+            nr >= 0 && nr < rows &&
+            nc >= 0 && nc < columns &&
+            !visited[nr][nc] &&
+            (board[nr][nc] === 7 || board[nr][nc] === 1)
+          ) {
+            visited[nr][nc] = true;
+            parent[nr][nc] = { r, c };
+            queue.push({ r: nr, c: nc });
+          }
+        }
+      }
+      // no path found:
+      return null;
+    }
+
+    function ghostMove() {
+      if (gameWin || gameLoss || intro) return;
+
+      // Copy board for updates
+      let board2 = board.map(row => row.slice());
+
+      // Find Steve's position
+      let playerR, playerC;
+      outer:
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+          if (board[r][c] === 1) {
+            playerR = r;
+            playerC = c;
+            break outer;
+          }
+        }
+      }
+
+      // For each ghost...
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+          if (board[r][c] !== 2) continue;
+          let newRow = r, newCol = c;
+
+          // Try to find a path of 7's to Steve
+          const path = findPathBFS(board, r, c, playerR, playerC, rows, columns);
+
+          if (path && path.length >= 2) {
+            // take the first step toward Steve
+            newRow = path[1].r;
+            newCol = path[1].c;
+          } else {
+            // no path: look for any adjacent dug‐out cells
+            const options = [];
+            [[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc]) => {
+              let nr = r+dr, nc = c+dc;
+              if (
+                nr >= 0 && nr < rows &&
+                nc >= 0 && nc < columns &&
+                board[nr][nc] === 7
+              ) options.push({r: nr, c: nc});
+            });
+            if (options.length) {
+              const choice = options[Math.floor(Math.random()*options.length)];
+              newRow = choice.r;
+              newCol = choice.c;
+            }
+          }
+
+          // keep within bounds (optional, since BFS already checks)
+          newRow = Math.min(Math.max(newRow, 4), rows-1);
+          newCol = Math.min(Math.max(newCol, 0), columns-1);
+
+          // move only if not into an obstacle (3) or dot (9) or not a ghost in board2(2)
+          if (board[newRow][newCol] !== 3 && board[newRow][newCol] !== 9 && board2[newRow][newCol] !== 2) {
+            if (board[newRow][newCol] === 1) {
+              // ghost caught Steve: same respawn logic as before
+              board2[r][c] = 7;
+              board2[newRow][newCol] = 2;
+              numLives--;
+              if (numLives >= 1) {
+                let placed = false;
+                while (!placed) {
+                  let rr = Math.floor(Math.random()*(rows-4)+4);
+                  let cc = Math.floor(Math.random()*columns);
+                  if ((board[rr][cc]===0||board[rr][cc]===5||board[rr][cc]===6||board[rr][cc]===7)
+                      && board[rr][cc]!==4
+                      && board[rr-1] && board[rr+1]
+                      && board[rr][cc-1]!==2 && board[rr][cc+1]!==2
+                      && board[rr-1][cc]!==2 && board[rr+1][cc]!==2) {
+                    board2[rr][cc] = 1;
+                    placed = true;
+                  }
+                }
+              }
+            } else if (board[newRow][newCol] === 7) {
+              // normal move into dug‐out
+              board2[r][c] = 7;
+              board2[newRow][newCol] = 2;
+            }
+          }
+        }
+      }
+
+      board = board2;
+      drawGame();
+    }
+
+    // Timer interval: counts down during intro then counts game time.
+    function updateTimer() {
+      if (intro) {
+        timer--;  // countdown by 1 every second
+        if (timer <= 0) {
+          intro = false;
+          // Restart timer as game time. (We reuse timer variable.)
+          timer = 0;
+        }
+      } else if (restart) {
+        // if we restarted the game reset the timer!
+        timer = 0
+        restart = false
+      } else if (!gameLoss && !gameWin) {
+        // Increase game timer by 0.1 second increments
+        timer += 0.1;
+      }
+      drawGame()
+    }
+
+    // Rock falling interval: make obstacles fall.
+    function updateRocks() {
+      if (gameLoss || gameWin || intro) return;
+      let board2 = board.map(row => row.slice());
+      // Loop through board to check for falling rocks.
+      for (let r = 0; r < rows - 1; r++) {
+        for (let c = 0; c < columns; c++) {
+          if (board[r][c] === 3 && board[r+1][c] === 7 && board[r+1][c] !== 2) {
+            newRow = r;
+            newColumn = c;
+            while (newRow < rows - 1 && board[newRow][newColumn] === 3 && board[newRow+1][newColumn] === 7) {
+              newRow++;
+            }
+            board2[r][c] = 7;
+            board2[newRow][newColumn] = 3;
+          }
+          if (board[r][c] === 3 && board[r+1][c] === 2) {
+            newRow = r + 1;
+            newColumn = c;
+            board2[r][c] = 7;
+            board2[newRow][newColumn] = 3;
+            // If a rock hits the ghost, win the game.
+            ghostDead += 1
+            if (ghostDead == numGhost){
+                gameWin = true
+            }
+          }
+        }
+      }
+      board = board2;
+      drawGame();
+    }
+
+    // Dot refresh: if dot was eaten, wait 20 seconds then reposition it.
+    function updateDot() {
+      if (!gameLoss && !gameWin && !intro && dotAte) {
+        setTimeout(() => {
+          // Place a new dot in a random valid cell
+          for (let attempt = 0; attempt < 10; attempt++) {
+            let r = Math.floor(Math.random() * (rows - 4) + 4);
+            let c = Math.floor(Math.random() * columns);
+            if (board[r][c] === 0 || board[r][c] === 5 || board[r][c] === 6 || board[r][c] === 7) {
+              board[r][c] = 9;
+              dotAte = false;
+              break;
+            }
+          }
+          drawGame();
+        }, 20000);
+      }
+    }
+
+    // Flower update: update the top row (row 3) with flowers corresponding to lives.
+    function updateFlowers() {
+      if (gameLoss || gameWin || intro) return;
+      for (let i = 0; i < columns; i++) {
+        board[3][i] = 4;
+      }
+      for (let i = 0; i < numLives; i++) {
+        board[3][columns - 1 - i] = 11;
+      }
+      // (Since this is visually done, we refresh constantly.)
+      drawGame();
+    }
+
+    // --- DRAWING FUNCTION ---
+    function drawGame() {
+      // Clear the canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Check for game win or loss conditions
+      if (ghostDead === numGhost) {
+        gameWin = true;
+      }
+      if (numLives <= 0) {
+        gameLoss = true;
+      }
+      // If not intro, draw game board and items.
+      if (!intro) {
+        // Loop over each cell and draw based on board value and row ranges.
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < columns; c++) {
+            let cellVal = board[r][c];
+            let x = c * cellSize;
+            let y = r * cellSize;
+            // Background dirt colors based on shades
+            if (cellVal === 0) {
+              ctx.fillStyle = "rgb(240,192,70)";
+              ctx.fillRect(x, y, cellSize, cellSize);
+            }
+            if (cellVal === 5) {
+              ctx.fillStyle = "rgb(213,109,43)";
+              ctx.fillRect(x, y, cellSize, cellSize);
+            }
+            if (cellVal === 6) {
+              ctx.fillStyle = "rgb(173,48,23)";
+              ctx.fillRect(x, y, cellSize, cellSize);
+            }
+            // Dug out area and player background (value 7 or 1)
+            if (cellVal === 7 || cellVal === 1) {
+              ctx.fillStyle = "black";
+              ctx.fillRect(x, y, cellSize, cellSize);
+              if (cellVal === 1) {
+                // Draw Steve (the player) using polygon shapes
+                drawSteve(x, y);
+              }
+            }
+            // Draw ghost image for value 2
+            if (cellVal === 2) {
+              // Adjust Y offset similar to original (+6 pixels)
+              ctx.drawImage(ghostPic, x, y + 6, cellSize, cellSize);
+            }
+            // Draw obstacles (rock) - different color shades based on row.
+            if (cellVal === 3) {
+              // For rows less than 10 use first shade
+              if (r < 10) {
+                if (board[r][c-1] === 0 && board[r][c+1] === 0) {
+                  ctx.fillStyle = "rgb(240,192,70)";
+                  ctx.fillRect(x, y, cellSize, cellSize);
+                }
+                ctx.drawImage(rockPic, x, y + 5, cellSize, cellSize);
+              } else if (r > 9 && r < 19) {
+                if (board[r][c-1] === 5 && board[r][c+1] === 5) {
+                  ctx.fillStyle = "rgb(213,109,43)";
+                  ctx.fillRect(x, y, cellSize, cellSize);
+                }
+                ctx.drawImage(rockPic, x, y + 5, cellSize, cellSize);
+              } else if (r > 18 && r < 25) {
+                if (board[r][c-1] === 6 && board[r][c+1] === 6) {
+                  ctx.fillStyle = "rgb(173,48,23)";
+                  ctx.fillRect(x, y, cellSize, cellSize);
+                }
+                ctx.drawImage(rockPic, x, y + 5, cellSize, cellSize);
+              }
+            }
+            // Draw the top blue bar (value 4)
+            if (cellVal === 4) {
+              ctx.fillStyle = "rgb(0,14,145)";
+              ctx.fillRect(x, y, cellSize, cellSize);
+            }
+            // Draw carrot dot (value 9) with row-based background shades.
+            if (cellVal === 9) {
+              if (r < 10) {
+                ctx.fillStyle = "rgb(240,192,70)";
+                ctx.fillRect(x, y, cellSize, cellSize);
+              } else if (r > 9 && r < 19) {
+                ctx.fillStyle = "rgb(213,109,43)";
+                ctx.fillRect(x, y, cellSize, cellSize);
+              } else if (r > 18 && r < 25) {
+                ctx.fillStyle = "rgb(173,48,23)";
+                ctx.fillRect(x, y, cellSize, cellSize);
+              }
+              ctx.drawImage(carrotPic, x, y, cellSize, cellSize);
+            }
+            // Draw flower for lives display (value 11)
+            if (cellVal === 11) {
+              ctx.fillStyle = "rgb(0,14,145)";
+              ctx.fillRect(x, y, cellSize, cellSize);
+              ctx.drawImage(flowerPic, x, y + 2, cellSize, cellSize);
+            }
+          }
+        }
+        // Draw status text (timer and lives)
+        ctx.fillStyle = gameWin ? "green" : (gameLoss ? "red" : "yellow");
+        ctx.font = "16px Arial";
+        // Format timer as minutes:seconds.tenth (adjust math as needed)
+        let totalSeconds = Math.floor(timer);
+        let minutes = Math.floor(totalSeconds / 60);
+        let seconds = totalSeconds % 60;
+        // Get one digit fraction from timer:
+        let fraction = Math.floor((timer - totalSeconds) * 10);
+        ctx.fillText("Time: " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds + "." + fraction, 5, rows * cellSize + 15);
+        ctx.fillText("Lives: " + numLives, canvas.width - 70, rows * cellSize + 15);
+
+        if (gameWin) {
+          ctx.fillStyle = "green";
+          ctx.font = "40px Arial Black";
+          ctx.fillText("You Won.", 210, 50);
+          ctx.font = "17px Arial Black";
+            if (minutes == 1 && seconds == 1){
+                ctx.fillText("You Defeated The Ghost In: " + minutes + " Minute And " + seconds + "." + fraction + " Second.", 12, 100);
+            } else if (minutes == 1) {
+                ctx.fillText("You Defeated The Ghost In: " + minutes + " Minute And " + seconds + "." + fraction + " Seconds.", 12, 100);
+            } else if (seconds == 1) {
+                ctx.fillText("You Defeated The Ghost In: " + minutes + " Minutes And " + seconds + "." + fraction + " Second.", 12, 100);
+            } else {
+                ctx.fillText("You Defeated The Ghost In: " + minutes + " Minutes And " + seconds + "." + fraction + " Seconds.", 12, 100);
+            }
+            ctx.fillStyle = "white";
+            ctx.fillText("Play again? Press 'r' to restart game!", 130, 740);
+        } else if (gameLoss) {
+          ctx.fillStyle = "red";
+          ctx.font = "40px Arial Black";
+          ctx.fillText("You Lost.", 200, 50);
+          ctx.font = "17px Arial Black";
+          if (minutes == 1 && seconds == 1){
+                ctx.fillText("You Were Eaten By The Ghost In: " + minutes + " Minute And " + seconds + "." + fraction + " Second.", 12, 100);
+            } else if (minutes == 1) {
+                ctx.fillText("You Were Eaten By The Ghost In: " + minutes + " Minute And " + seconds + "." + fraction + " Seconds.", 12, 100);
+            } else if (seconds == 1) {
+                ctx.fillText("You Were Eaten By The Ghost In: " + minutes + " Minutes And " + seconds + "." + fraction + " Second.", 12, 100);
+            } else {
+                ctx.fillText("You Were Eaten By The Ghost In: " + minutes + " Minutes And " + seconds + "." + fraction + " Seconds.", 12, 100);
+            }
+            ctx.fillStyle = "white";
+            ctx.fillText("Play again? Press 'r' to restart game!", 130, 740);
+        }
+      } else {
+        // Draw the intro screen with the startup image and instructions.
+        ctx.fillStyle = "rgba(255, 255, 255, 1)";
+        ctx.fillRect(35, 35, 515, 35);
+
+        ctx.drawImage(startUpPic, 0, 80, canvas.width, canvas.height - 80);
+
+        ctx.fillStyle = "green";
+        ctx.font = "28px Arial Black";
+        ctx.fillText("Dig Dug Will Start In: " + timer + " Seconds", 40, 60);
+
+        ctx.fillStyle = "rgba(255, 255, 255, 1)";
+        ctx.fillRect(160, 356, 266, 28);
+
+        ctx.fillStyle = "red";
+        ctx.fillText("Minecraft Edition", 160, 380);
+
+        ctx.fillStyle = "rgba(255, 255, 255, .7)";
+        ctx.fillRect(10, 705, 500, 35);
+
+        ctx.fillStyle = "green";
+        ctx.font = "35px Arial Black";
+        ctx.fillText("Press 'Q' to skip the intro.", 10, 734);
+
+        // ctx.fillStyle = "rgba(255, 255, 255, .8)";
+        // ctx.fillRect(100, 562, 175, 25);
+
+        // ctx.font = "25px Arial Black";
+        // ctx.fillStyle = "red";
+        // ctx.fillText("Instructions:", 100, 583);
+
+
+        // ctx.fillStyle = "rgba(255, 255, 255, .8)";
+        // ctx.fillRect(10, 618, 380, 120);
+
+        // ctx.font = "12px Arial Black";
+        // ctx.fillStyle = "green";
+        // ctx.fillText("Use keyboard to move Steve around the game.", 10, 629);
+        // ctx.fillText("Lives will be shown by the number of flowers in", 10, 644);
+        // ctx.fillText("the top right corner as well as the number at", 10, 659);
+        // ctx.fillText("the bottom right corner.", 10, 674);
+        // ctx.fillText("You can gain lives by eating the red carrot and", 10, 689);
+        // ctx.fillText("lose them by coming in contact with the ghost.", 10, 704);
+        // ctx.fillText("Red carrots will respawn 30 seconds after being eaten.", 10, 719);
+        // ctx.fillText("In order to win you must have the rock fall on the ghost.", 10, 734);
+        ctx.drawImage(benPic, 400, 555, cellSize, cellSize);
+        // Draw Minecraft Steve on the intro screen (similar polygon drawing as below).
+        drawSteve(50, 300, 95 / 8.0);
+      }
+    }
+
+    // Draw Steve using polygon shapes.
+    // x,y: top left of cell; scale: optional scaling factor (default based on cellSize/8)
+    function drawSteve(x, y, scaleFactor) {
+      let scale = scaleFactor || (cellSize / 8.0);
+      // Adjust startingX to mimic original code offset
+      let startingX = x + scale * 8;
+      let startingY = y;
+      // Draw hair polygon
+      ctx.fillStyle = "rgb(101,67,33)";
+      ctx.beginPath();
+      ctx.moveTo(startingX, startingY);
+      ctx.lineTo(startingX, startingY + scale * 3);
+      ctx.lineTo(startingX - scale, startingY + scale * 3);
+      ctx.lineTo(startingX - scale, startingY + scale * 2);
+      ctx.lineTo(startingX - scale * 7, startingY + scale * 2);
+      ctx.lineTo(startingX - scale * 7, startingY + scale * 3);
+      ctx.lineTo(startingX - scale * 8, startingY + scale * 3);
+      ctx.lineTo(startingX - scale * 8, startingY);
+      ctx.closePath();
+      ctx.fill();
+
+      // Draw face polygon
+      ctx.fillStyle = "rgb(225,172,150)";
+      ctx.beginPath();
+      ctx.moveTo(startingX, startingY + scale * 3);
+      ctx.lineTo(startingX - scale, startingY + scale * 3);
+      ctx.lineTo(startingX - scale, startingY + scale * 2);
+      ctx.lineTo(startingX - scale * 7, startingY + scale * 2);
+      ctx.lineTo(startingX - scale * 7, startingY + scale * 3);
+      ctx.lineTo(startingX - scale * 8, startingY + scale * 3);
+      ctx.lineTo(startingX - scale * 8, startingY + scale * 8);
+      ctx.lineTo(startingX, startingY + scale * 8);
+      ctx.closePath();
+      ctx.fill();
+
+      // Draw mouth polygon
+      ctx.fillStyle = "rgb(101,67,33)";
+      ctx.beginPath();
+      ctx.moveTo(startingX - scale * 6, startingY + scale * 8);
+      ctx.lineTo(startingX - scale * 6, startingY + scale * 6);
+      ctx.lineTo(startingX - scale * 5, startingY + scale * 6);
+      ctx.lineTo(startingX - scale * 5, startingY + scale * 7);
+      ctx.lineTo(startingX - scale * 3, startingY + scale * 7);
+      ctx.lineTo(startingX - scale * 3, startingY + scale * 6);
+      ctx.lineTo(startingX - scale * 2, startingY + scale * 6);
+      ctx.lineTo(startingX - scale * 2, startingY + scale * 8);
+      ctx.closePath();
+      ctx.fill();
+
+      // Eyes and nose
+      // Eye 1
+      ctx.fillStyle = "white";
+      ctx.fillRect(startingX - scale * 2, startingY + scale * 4, scale, scale);
+      ctx.fillStyle = "blue";
+      ctx.fillRect(startingX - scale * 3, startingY + scale * 4, scale, scale);
+      // Eye 2
+      ctx.fillStyle = "white";
+      ctx.fillRect(startingX - scale * 7, startingY + scale * 4, scale, scale);
+      ctx.fillStyle = "blue";
+      ctx.fillRect(startingX - scale * 6, startingY + scale * 4, scale, scale);
+      // Nose
+      ctx.fillStyle = "rgb(150,120,80)";
+      ctx.fillRect(startingX - scale * 5, startingY + scale * 5, scale * 2, scale);
+    }
+
+    // --- KEYBOARD HANDLER ---
+    // Arrow keys to move Steve and "Q" to skip intro.
+    window.addEventListener("keydown", function (e) {
+      const key = e.key;
+      //skip intro
+      if (intro && (key === 'q' || key === 'Q')) {
+        timer = 1; // skip the intro countdown
+      }
+
+      //if game is currently active
+      if (!gameWin && !gameLoss && !intro) {
+        // Find the current position of Steve.
+        let found = false;
+        for (let r = 0; r < rows && !found; r++) {
+          for (let c = 0; c < columns && !found; c++) {
+            if (board[r][c] === 1) {
+              oldRow = r;
+              oldColumn = c;
+              newRow = r;
+              newColumn = c;
+              found = true;
+            }
+          }
+        }
+        // Update newRow/newColumn based on arrow keys.
+        if (key === "ArrowDown") newRow += 1;
+        else if (key === "ArrowUp") newRow -= 1;
+        else if (key === "ArrowLeft") newColumn -= 1;
+        else if (key === "ArrowRight") newColumn += 1;
+
+        // Constrain movement to board boundaries:
+        if (newRow > 24) newRow = 24;
+        if (newRow < 4) newRow = 4;
+        if (newColumn > 19) newColumn = 19;
+        if (newColumn < 0) newColumn = 0;
+        
+        // If target cell is not an obstacle (3), ghost (2), or dot (9), move Steve.
+        if (board[newRow][newColumn] !== 3 && board[newRow][newColumn] !== 2 && board[newRow][newColumn] !== 9) {
+          board[oldRow][oldColumn] = 7;
+          board[newRow][newColumn] = 1;
+        } else if (board[newRow][newColumn] === 2) {
+          // Collision with ghost: lose a life and reposition Steve.
+          board[oldRow][oldColumn] = 7;
+          board[newRow][newColumn] = 2;
+          numLives--;
+          if (numLives >= 1) {
+            let placed = false;
+            while (!placed) {
+              let rNew = Math.floor(Math.random() * (rows - 4) + 4);
+              let cNew = Math.floor(Math.random() * columns);
+              if ((board[rNew][cNew] === 0 || board[rNew][cNew] === 5 ||
+                   board[rNew][cNew] === 6 || board[rNew][cNew] === 7) && board[rNew][cNew] !== 4) {
+                board[rNew][cNew] = 1;
+                placed = true;
+              }
+            }
+          }
+        } else if (board[newRow][newColumn] === 9) {
+          // Eating the dot (carrot) gives an extra life.
+          board[oldRow][oldColumn] = 7;
+          board[newRow][newColumn] = 1;
+          numLives++;
+          dotAte = true;
+          updateDot(); // trigger dot repositioning
+        }
+        drawGame();
+      }
+
+      if ((key === 'r' | key == 'R') && (gameLoss | gameWin)) {
+            // Restart the game if it's over
+            restart = true
+            initBoard();
+            //reset the timer
+            drawGame();
+
+        }
+    });
+
+    // --- INITIALIZE & START GAME ---
+    function initGame() {
+      initBoard();
+      drawGame();
+
+      // Start intervals (each mimics one of the Java threads).
+      ghostInterval = setInterval(ghostMove, ghostSleepTime);
+      timerInterval = setInterval(updateTimer, 1000);  // intro countdown every second; later game time is updated every 100ms below
+      // For game time, when intro is done, update faster
+      setInterval(() => {
+        if (!intro && !gameLoss && !gameWin) {
+          updateTimer();
+        }
+      }, 100);
+      rockInterval = setInterval(updateRocks, 70);
+      flowerInterval = setInterval(updateFlowers, 10);
+    }
+
+    // Start game when page loads.
+    window.onload = initGame;
+  </script>
+</body>
+</html>
