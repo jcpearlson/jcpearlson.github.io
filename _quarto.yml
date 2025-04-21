@@ -1,8 +1,9 @@
 project:
   type: website
   output-dir: docs
-  resources: 
+  resources:
     - "projects/*"
+    - "media/*"
 
 website:
   title: "Josh Pearlson"
@@ -17,8 +18,8 @@ website:
       - text: "Projects"
         menu:
           - text: "DigDug game"
-            href: projects/DigDug/DigDugGame.html          # - text: "example project 2"
-          #   href: projects/exampleProject2.qmd 
+            href: projects/DigDug/DigDugGame.html # - text: "example project 2"
+          #   href: projects/exampleProject2.qmd
 
       - text: "About"
         href: aboutPage/about.qmd
@@ -26,8 +27,8 @@ website:
         href: https://linkedin.com/in/josh-pearlson
 format:
   html:
-    theme: cyborg
+    theme:
+      cyborg
       # dark: darkly
       # light: cosmos
     css: css/header.css
-
