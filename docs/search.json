@@ -2,23 +2,9 @@
   {
     "objectID": "aboutPage/about.html",
     "href": "aboutPage/about.html",
-    "title": "Josh Pearlson",
+    "title": "Hi, I’m Josh Pearlson",
     "section": "",
-    "text": "My name is Josh, and I am a senior studying Computer Science and Finance at Washington University in St. Louis. My interests span capital markets, data science, and artificial intelligence. I love meeting and connecting with new people, so feel free to email me!"
-  },
-  {
-    "objectID": "aboutPage/about.html#education",
-    "href": "aboutPage/about.html#education",
-    "title": "Josh Pearlson",
-    "section": "Education",
-    "text": "Education\nWashington University in St. Louis BS in Computer Science & Finance August 2021 - May 2025\n\n\nExperienceAwardsPapers\n\n\nBlackRock Financial Engineering Intern | Summer 2024   Washington University Natural Language Processing Laboratory Research Lab Member | August 2022 - August 2024  Moody’s Analytics Software Engineering Intern | Summer 2023  PlayBook (Startup) Data Science Intern | Summer 2022  Harvard Surgical Navigation and Robotics Laboratory Research Intern | Summer 2020 \n\n\nOutstanding Junior Award | Department of Computer Science  Hackathon WashU 2023 Winner | Social Connections Category  Dean’s List | All Semesters \n\n\nLarge Language Models Recognize Decentralized Finance Entities Lead Author - Data Problems for Foundation Models at International Conference on Learning Representations 2024 Link \nMapping Lesions from MP-MRI using Convolution Neural Network Lead Author - SPIE Medical Imaging 2020 Link"
-  },
-  {
-    "objectID": "aboutPage/about.html#hobbies",
-    "href": "aboutPage/about.html#hobbies",
-    "title": "Josh Pearlson",
-    "section": "Hobbies",
-    "text": "Hobbies\n\nPoker (PLO, NLTH, HU)\nChess\nBasketball (go Celtics)\nTennis\nGym (former Powerlifter for 3 years)"
+    "text": "I currently work in finance in NYC creating and applying advanced analytics to problems in fundamental and systematic investing. Previously, I graduated from Washington University in St. Louis where I studied Computer Science and Finance. My main interests are modeling, machine learning, and capital markets. I love meeting and connecting with new people, so feel free to email me or LinkedIn message me!\n\n\n\n\nExperienceAwardsPapersEducationHobbies\n\n\nBlackRock Analyst | Summer 2025 - Current | New York, NY \nBlackRock Intern | Summer 2024 | New York, NY  &gt; Securities lending optimization\nWashington University Natural Language Processing Laboratory Research Lab Member | August 2022 - August 2024  &gt; Joined pre-ChatGPT. Conducted NLP research using HPC to train and evaluate LLMs, supporting several research projects (including my own: DPFM@ICLR 2024).\nMoody’s Analytics Software Engineering Intern | Summer 2023 | New York, NY &gt; Worked on the NewsEdge team (NewsEdge) delivering ultra-low-latency news data.\nPlayBook (Startup) Data Science Intern | Summer 2022 | Boston, MA\nHarvard Surgical Navigation and Robotics Laboratory Research Intern | Summer 2020 | Boston, MA\n\n\nOutstanding Junior Award | Department of Computer Science  Hackathon WashU 2023 Winner | Social Connections Category  Dean’s List | All Semesters \n\n\nLarge Language Models Recognize Decentralized Finance Entities Lead Author - Data Problems for Foundation Models at International Conference on Learning Representations 2024 Link \nMapping Lesions from MP-MRI using Convolution Neural Network Lead Author - SPIE Medical Imaging 2020 Link\n\n\nWashington University in St. Louis BS in Computer Science & Finance August 2021 - May 2025\n\n\n\nPoker (PLO, NLTH, HU)\nChess\nBasketball (go Celtics)\nTennis\nGym (former Powerlifter for 3 years)"
   },
   {
     "objectID": "articles/blog.html",
@@ -53,6 +39,6 @@
     "href": "index.html",
     "title": "JCP",
     "section": "",
-    "text": "Hi, I’m Josh!\n\n\nWelcome to my personal site, feel free to learn a bit more about me or read any of my current articles. In the future this site will also host some projects of mine as well!\n\n\n\n\nHide Text"
+    "text": "jcp@home:~\n\n\n\n\n\n\n\n\n 🌌"
   }
 ]

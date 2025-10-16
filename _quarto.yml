@@ -23,8 +23,6 @@ website:
 
       - text: "About"
         href: aboutPage/about.qmd
-      - icon: linkedin
-        href: https://linkedin.com/in/josh-pearlson
 format:
   html:
     theme:
@@ -32,3 +30,4 @@ format:
       # dark: darkly
       # light: cosmos
     css: css/header.css
+    include-after-body: javaScript/console.html

@@ -1,10 +1,10 @@
 ---
-title: "Josh Pearlson"
+title: "Hi, I'm Josh Pearlson"
 
 css:
   - ../css/about.css
 about: 
-  template: trestles
+  template: solana 
   image: ../media/jpPhoto3.jpeg
   links:
     - icon: linkedin
@@ -15,25 +15,37 @@ about:
       href: https://github.com/jcpearlson 
     - icon: envelope
       text: Email
-      href: mailto:jcpearlson@gmail.com
+      href: mailto:jcp@joshpearlson.com
 ---
 
-My name is Josh, and I am a senior studying Computer Science and Finance at Washington University in St. Louis. My interests span capital markets, data science, and artificial intelligence. I love meeting and connecting with new people, so feel free to [email me](mailto:jcpearlson@gmail.com)!
+::: {style="font-size:1.5rem; color: white;"}
+ I currently work in finance in NYC creating and applying advanced analytics to problems in fundamental and systematic investing. Previously, I graduated from Washington University in St. Louis where I studied Computer Science and Finance. My main interests are modeling, machine learning, and capital markets. I love meeting and connecting with new people, so feel free to [email me](mailto:jcp@joshpearlson.com) or [LinkedIn message me](https://linkedin.com/in/josh-pearlson)!
 
-## Education
 
-**Washington University in St. Louis** <br>BS in Computer Science & Finance <br>August 2021 - May 2025
+:::
+<br>
 
 <div id="tabset_panels">
-::: {.panel-tabset}
+::: {.panel-tabset style="font-size:1rem; color: white;"}
 
 ## Experience
 
-**BlackRock** <br>Financial Engineering Intern | Summer 2024 <br> <br>
-**Washington University Natural Language Processing Laboratory** <br>Research Lab Member | August 2022 - August 2024 <br><br>
-**Moody's Analytics** <br>Software Engineering Intern | Summer 2023 <br><br>
-**PlayBook (Startup)** <br>Data Science Intern | Summer 2022 <br><br>
-**Harvard Surgical Navigation and Robotics Laboratory** <br>Research Intern | Summer 2020 <br><br>
+**BlackRock** <br>Analyst | Summer 2025 - Current | New York, NY <br>
+
+**BlackRock** <br>Intern | Summer 2024 | New York, NY <br>
+> _Securities lending optimization_
+
+**Washington University Natural Language Processing Laboratory** <br>Research Lab Member | August 2022 - August 2024 <br>
+> _Joined pre-ChatGPT. Conducted NLP research using HPC to train and evaluate LLMs, supporting several research projects (including my own: [DPFM@ICLR 2024](https://iclr.cc/virtual/2024/22409))._
+
+
+**Moody's Analytics** <br>Software Engineering Intern | Summer 2023 | New York, NY<br>
+> _Worked on the NewsEdge team ([NewsEdge](https://newsedge.com/)) delivering ultra-low-latency news data._
+
+
+**PlayBook (Startup)** <br>Data Science Intern | Summer 2022 | Boston, MA
+
+**Harvard Surgical Navigation and Robotics Laboratory** <br>Research Intern | Summer 2020 | Boston, MA 
 
 
 ## Awards
@@ -50,9 +62,9 @@ My name is Josh, and I am a senior studying Computer Science and Finance at Wash
 **Mapping Lesions from MP-MRI using Convolution Neural Network**
 <br>Lead Author - SPIE Medical Imaging 2020<br> [Link](https://doi.org/10.1117/12.2582228)<br><br>
 
+## Education
 
-:::
-</div>
+**Washington University in St. Louis** <br>BS in Computer Science & Finance <br>August 2021 - May 2025
 
 
 ## Hobbies 
@@ -62,3 +74,7 @@ My name is Josh, and I am a senior studying Computer Science and Finance at Wash
 - Basketball (go Celtics)
 - Tennis
 - Gym (former Powerlifter for 3 years)
+:::
+</div>
+
+

@@ -1,0 +1,55 @@
+<script>
+(function() {
+  'use strict';
+
+  function initBgInfo() {
+    const toggle = document.getElementById('bg-info-toggle');
+    const card = document.getElementById('bg-info-card');
+    const closeBtn = document.getElementById('bg-info-close');
+
+    if (!toggle || !card || !closeBtn) {
+      return;
+    }
+
+    // Toggle card visibility on button click (use capture for priority)
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const isHidden = card.classList.contains('hidden');
+      if (isHidden) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    }, true);
+
+    // Close button handler (use capture for priority)
+    closeBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      card.classList.add('hidden');
+    }, true);
+
+    // Close when clicking outside the widget
+    document.addEventListener('click', function(e) {
+      const widget = document.getElementById('bg-info-widget');
+      if (!widget) return;
+
+      const isClickInside = widget.contains(e.target);
+      const isCardVisible = !card.classList.contains('hidden');
+
+      if (!isClickInside && isCardVisible) {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBgInfo);
+  } else {
+    // DOM already loaded
+    setTimeout(initBgInfo, 100);
+  }
+})();
+</script>

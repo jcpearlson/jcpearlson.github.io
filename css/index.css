@@ -1,19 +1,394 @@
+/* Import retro monospace fonts (fall back to system monospace) */
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap");
+
 /* index.css */
 body {
-  color: white;
   background-image: url("../media/UltraDeepField.jpg");
-  background-size: 200%; /* Start with the image being zoomed-in for a better effect */
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position: center center; /* Default position */
-  background-attachment: fixed; /* Keeps the background fixed while scrolling */
-  transition: background-position 0.1s ease-out; /* Smooth transition */
-  }
+  background-position: center center;
+  background-attachment: fixed;
+}
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 199;
+    display: none;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#logo-splash {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 201;
+    display: none;
+    width: 200px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
 
 .quarto-title h1.title {
   display: none;
 }
 
-.quarto-title{
+.quarto-title {
   display: none;
 }
 
+:root {
+  --bg-1: #030406;
+  --bg-2: #00110a;
+  --text: #4AF626; /* classic terminal green */
+  --muted: rgba(74, 246, 38, 0.15);
+  --accent: #2ECC40;
+  --panel: rgba(0, 0, 0, 0.55);
+  --glass: rgba(255, 255, 255, 0.02);
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* page base */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  color: var(--text);
+  font-family: "Inconsolata", "IBM Plex Mono", monospace;
+  overflow: hidden;
+}
+
+/* terminal container */
+#terminal-wrapper {
+  width: 100%;
+  height: 90%; /* Make it fill the screen height */
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* This will center the terminal horizontally */
+  justify-content: center; /* This will center the terminal vertically */
+  position: relative;
+  bottom: 10px;
+}
+
+/* window */
+.terminal-window {
+  width: 70vw;
+  height: 80vh; 
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9));
+  overflow: hidden;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+/* top bar */
+.terminal-top {
+  display: flex;
+  align-items: center;
+  height: 25px;
+  gap: 1rem;
+  padding: 0.5rem 0.8rem;
+  background: linear-gradient(
+    180deg,
+    #4a4a4a,
+    #3a3a3a 
+  ); 
+  border-bottom: 1px solid rgba(0, 255, 0, 0.03);
+}
+
+.traffic {
+  display: flex;
+  align-items: center;
+  position: relative;
+  top:9px;
+}
+.dot {
+  width: 12px;
+  height: 13px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5) inset;
+}
+.dot.red {
+  background: #ff6b6b;
+}
+.dot.yellow {
+  background: #ffd86b;
+}
+.dot.green {
+  background: #64ff64;
+}
+
+.dot + .dot {
+  margin-left: 4px;
+}
+
+.terminal-title {
+  margin-left: auto;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(124, 255, 0, 0.95);
+  font-size: 1rem;
+}
+
+/* body area */
+.terminal-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1.1rem 1.2rem;
+  font-size: 1.3rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.02));
+}
+
+/* Custom scrollbar for terminal body */
+.terminal-body::-webkit-scrollbar {
+  width: 14px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+  background: var(--bg-1); /* Dark background from your variables */
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+  background-color: var(--accent); /* Neon green accent color */
+  border-radius: 6px;
+  border: 3px solid var(--bg-1); /* Creates a nice padding effect */
+}
+
+/* lines and outputs */
+.terminal-line {
+  margin: 6px 0;
+  color: var(--text);
+}
+.terminal-line.static {
+  opacity: 0.95;
+  font-weight: 500;
+}
+.terminal-output {
+  margin: 8px 0;
+  color: rgba(124, 255, 0, 0.95);
+}
+
+/* prompt + input */
+.prompt-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.prompt-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.right-prompt {
+  display: flex;
+  gap: 1rem;
+}
+
+.prompt-line {
+  display: flex;
+  align-items: center;
+}
+
+.prompt {
+  color: var(--accent);
+  font-weight: 700;
+  padding-right: 0.2rem;
+}
+
+/* hidden real input visually moved to top but we create a nice mirrored 'cursor' effect */
+input.terminal-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1.3rem;
+  width: 100%;
+  caret-color: var(--accent);
+}
+
+/* typed / cursor used by JS when rendering; kept visually consistent */
+.typed {
+  display: inline;
+}
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 1.4rem;
+  margin-left: 3px;
+  background: linear-gradient(180deg, var(--text), rgba(124, 255, 0, 0.6));
+  animation: blink 1s steps(2, start) infinite;
+  vertical-align: bottom;
+  border-radius: 2px;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* hints, errors */
+.hint {
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.12);
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin: 0 3px;
+  font-size: 0.95em;
+}
+.bad {
+  color: #ff6b6b;
+}
+
+/* Matrix effect styling */
+.matrix-container {
+  margin: 2rem 0;
+  padding: 1rem;
+}
+
+.matrix-line {
+  font-family: "IBM Plex Mono", "Inconsolata", monospace;
+  letter-spacing: 0.05em;
+}
+
+/* visual CRT flicker */
+body.no-flicker .terminal-window {
+  filter: none;
+  animation: none;
+}
+.terminal-window {
+  animation: subtleFlicker 6s infinite;
+  will-change: filter, transform;
+}
+@keyframes subtleFlicker {
+  0% {
+    filter: brightness(1) contrast(1);
+    transform: translateY(0);
+  }
+  30% {
+    filter: brightness(0.98) contrast(1.02) saturate(1);
+  }
+  60% {
+    filter: brightness(1.02) contrast(0.99);
+  }
+  100% {
+    filter: brightness(1) contrast(1);
+  }
+}
+
+/* footer controls */
+.terminal-footer {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+}
+.terminal-footer button {
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text);
+  border: 1px solid rgba(124, 255, 0, 0.06);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.terminal-footer button:hover {
+  background: rgba(124, 255, 0, 0.04);
+}
+
+/* Background Info Widget */
+.bg-info-link-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(124, 255, 0, 0.3);
+  border-radius: 50%;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.bg-info-link-button:hover {
+  background: rgba(0, 0, 0, 0.85);
+  border-color: var(--accent);
+  box-shadow: 0 0 15px rgba(124, 255, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.bg-info-icon {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 0 8px rgba(124, 255, 0, 0.4));
+}
+
+/* Custom tooltip - appears instantly on hover */
+.bg-info-link-button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-8px);
+  margin-left: 12px;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.92);
+  border: 1px solid rgba(124, 255, 0, 0.4);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  font-family: "IBM Plex Mono", "Inconsolata", monospace;
+  z-index: 1001;
+}
+
+.bg-info-link-button:hover::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* responsiveness */
+@media (max-width: 680px) {
+  .terminal-body {
+    font-size: 1.1rem;
+    padding: 0.8rem;
+    min-height: 45vh;
+  }
+  .terminal-top {
+    padding: 0.45rem 0.6rem;
+  }
+
+  .bg-info-link-button {
+    bottom: 10px;
+    left: 10px;
+    width: 42px;
+    height: 42px;
+  }
+
+  .bg-info-icon {
+    font-size: 1.3rem;
+  }
+}
