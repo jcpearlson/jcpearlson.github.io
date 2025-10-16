@@ -48,11 +48,8 @@ ul.task-list li input[type="checkbox"] {
   "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
+    "f"
   ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -775,6 +772,8 @@ ul.task-list li input[type="checkbox"] {
               break;
             }
             case "articles":
+              await smoothNavigate("articles/blog.html");
+              break;
             case "blog":
               await smoothNavigate("articles/blog.html");
               break;
