@@ -10,19 +10,16 @@ website:
   favicon: media/jcp_logo2.png
   search:
     keyboard-shortcut: ["f"]
-
   navbar:
     logo: media/jcp_logo3.png
     right:
       - text: "Articles"
         href: articles/blog.qmd
-
       - text: "Projects"
         menu:
           - text: "DigDug game"
             href: projects/DigDug/DigDugGame.html # - text: "example project 2"
           #   href: projects/exampleProject2.qmd
-
       - text: "About"
         href: aboutPage/about.qmd
 format:
