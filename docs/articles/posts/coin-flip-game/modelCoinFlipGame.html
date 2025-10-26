@@ -426,7 +426,7 @@ EV_{strategy} &amp;= \frac{\pi}{4} - 0.75 \approx 0.0354 \\
 <p>First, let’s tackle modeling the ‘stop when heads/total flips &gt; X’ strategy. I wrote a simple python simulation to model this game and test various stopping points. The code is as follows:</p>
 <section id="python-simulation-for-stop-when-headstotal-flips-x-strategy" class="level3">
 <h3 class="anchored" data-anchor-id="python-simulation-for-stop-when-headstotal-flips-x-strategy">Python Simulation for ‘Stop When Heads/Total Flips &gt; X’ Strategy</h3>
-<div id="cell-5" class="cell">
+<div id="cell-5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_numpy_simulation(num_simulations: <span class="bu">int</span>, max_flips: <span class="bu">int</span>, stop_ratio: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    flips <span class="op">=</span> np.random.randint(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="dv">0</span>, <span class="co"># Inclusive lower bound</span></span>
