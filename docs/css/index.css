@@ -80,7 +80,7 @@ body {
 /* window */
 .terminal-window {
   width: 70vw;
-  height: 80vh; 
+  height: 80dvh;
   border-radius: 10px;
   box-shadow: var(--shadow);
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9));
