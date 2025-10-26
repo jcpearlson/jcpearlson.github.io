@@ -514,6 +514,6 @@ body.no-flicker .terminal-window {
 /* Screens with small height */
 @media (max-height: 700px) and (max-width: 768px) {
   .terminal-window {
-    height: 80vh;
+    height: 70vh;
   }
 }
