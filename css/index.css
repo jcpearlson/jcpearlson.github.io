@@ -370,25 +370,143 @@ body.no-flicker .terminal-window {
   transform: translateY(-50%) translateX(0);
 }
 
-/* responsiveness */
-@media (max-width: 680px) {
-  .terminal-body {
-    font-size: 1.1rem;
-    padding: 0.8rem;
-    min-height: 45vh;
-  }
-  .terminal-top {
-    padding: 0.45rem 0.6rem;
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  /* Terminal wrapper - fixed position to prevent shifting */
+  #terminal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    height: 100dvh; /* Use dynamic viewport height for mobile browsers */
+    width: 100vw;
+    padding: 0;
+    margin: 0;
   }
 
+  /* Terminal window - nearly full screen */
+  .terminal-window {
+    width: 95vw;
+    height: 85vh;
+    height: 85dvh; /* Use dynamic viewport height */
+    max-height: 85vh;
+    border-radius: 6px;
+    animation: none; /* Disable flicker on mobile to save battery */
+  }
+
+  /* Terminal body - smaller text, tighter spacing */
+  .terminal-body {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.7rem;
+    line-height: 1.35;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    position: relative;
+  }
+
+  /* Terminal top bar - compact */
+  .terminal-top {
+    height: 20px;
+    padding: 0.4rem 0.6rem;
+  }
+
+  /* Terminal title - smaller */
+  .terminal-title {
+    font-size: 0.75rem;
+  }
+
+  /* Traffic lights - slightly smaller */
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* Prompt - stack vertically, hide timestamp */
+  .prompt-info {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .right-prompt {
+    display: none; /* Hide user and timestamp on mobile */
+  }
+
+  /* Input - prevent iOS zoom and ensure readability */
+  input.terminal-input {
+    font-size: 16px; /* iOS won't zoom if >= 16px */
+  }
+
+  /* Hints - smaller badges */
+  .hint {
+    font-size: 0.85em;
+    padding: 1px 4px;
+    margin: 0 2px;
+  }
+
+  /* Terminal output - compact */
+  .terminal-output {
+    margin: 6px 0;
+    font-size: 0.85rem;
+  }
+
+  .terminal-line {
+    margin: 4px 0;
+  }
+
+  /* Scrollbar - thinner on mobile */
+  .terminal-body::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .terminal-body::-webkit-scrollbar-thumb {
+    border-width: 2px;
+  }
+
+  /* Background info widget - smaller and less intrusive */
   .bg-info-link-button {
+    width: 40px;
+    height: 40px;
     bottom: 10px;
     left: 10px;
-    width: 42px;
-    height: 42px;
   }
 
   .bg-info-icon {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+  }
+
+  /* Hide tooltip on mobile (too much clutter) */
+  .bg-info-link-button::after {
+    display: none;
+  }
+
+  /* Images in cat command - full width on mobile */
+  .terminal-output img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+  .terminal-window {
+    width: 98vw;
+    height: 92vh;
+    border-radius: 4px;
+  }
+
+  .terminal-body {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+
+  .terminal-title {
+    font-size: 0.7rem;
+  }
+
+  input.terminal-input {
+    font-size: 16px; /* Keep at 16px to prevent zoom */
   }
 }

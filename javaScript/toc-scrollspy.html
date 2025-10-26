@@ -1,0 +1,71 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Only run on post pages (where there is a title banner)
+  if (!document.querySelector('.quarto-title-banner')) {
+    return;
+  }
+
+  const mainContainer = document.querySelector('#quarto-content');
+  const articleContent = mainContainer.querySelector('main#quarto-document-content');
+  const headings = articleContent.querySelectorAll('h2, h3');
+
+  if (!mainContainer || !articleContent || headings.length < 2) {
+    return; // Exit if key elements are missing or not enough headings
+  }
+
+  // --- 1. CREATE THE TOC STRUCTURE ---
+  const tocNav = document.createElement('nav');
+  tocNav.className = 'scrollspy-nav';
+
+  const tocList = document.createElement('ol');
+  tocList.className = 'scrollspy-list';
+
+  headings.forEach(heading => {
+    if (!heading.id) {
+      // Assign an ID if the heading doesn't have one
+      const slug = heading.textContent.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+      heading.id = slug;
+    }
+
+    const tocItem = document.createElement('li');
+    tocItem.className = `scrollspy-item toc-level-${heading.tagName.toLowerCase()}`;
+
+    const tocLink = document.createElement('a');
+    tocLink.href = `#${heading.id}`;
+    tocLink.textContent = heading.textContent;
+    tocLink.className = 'scrollspy-link';
+
+    tocItem.appendChild(tocLink);
+    tocList.appendChild(tocItem);
+  });
+
+  tocNav.appendChild(tocList);
+  // Insert the ToC as the first child of the main container
+  mainContainer.prepend(tocNav);
+
+  // --- 2. SETUP INTERSECTION OBSERVER ---
+  const observerOptions = {
+    root: null, // relative to the viewport
+    rootMargin: '0px 0px -75% 0px', // Trigger when heading is in the top 25% of the viewport
+    threshold: 1.0
+  };
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      const id = entry.target.getAttribute('id');
+      const tocLink = document.querySelector(`.scrollspy-link[href="#${id}"]`);
+
+      if (entry.isIntersecting && tocLink) {
+        // Remove active from all, then add to the current one
+        document.querySelectorAll('.scrollspy-link.active').forEach(link => link.classList.remove('active'));
+        tocLink.classList.add('active');
+      }
+    });
+  }, observerOptions);
+
+  // Observe all the headings
+  headings.forEach(heading => {
+    observer.observe(heading);
+  });
+});
+</script>

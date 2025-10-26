@@ -6,3 +6,10 @@ freeze: true
 
 # Enable banner style title blocks
 title-block-banner: true
+
+format:
+  html:
+    css: ../../css/posts.css
+    include-after-body: 
+      - ../../javaScript/share.html
+      - ../../javaScript/toc-scrollspy.html

@@ -219,9 +219,17 @@ ul.task-list li input[type="checkbox"] {
         .replace(/>/g, "&gt;");
     }
 
+    function isMobile() {
+      const mobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const narrowScreen = window.innerWidth <= 768;
+      const touchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      return mobileUserAgent || (narrowScreen && touchDevice);
+    }
+
     /* ----- Terminal configuration ----- */
+    const IS_MOBILE = isMobile();
     const WELCOME_LINES = [
-        "Welcome to Josh's Terminal Portfolio",
+        "Welcome to Josh's Terminal",
         "========================================",
         "",
         "This is an interactive terminal interface to my website.",
@@ -335,6 +343,18 @@ ul.task-list li input[type="checkbox"] {
             line.className = "terminal-line";
             terminalBody.appendChild(line);
 
+            // Mobile: instant display
+            if (IS_MOBILE) {
+                if (/<[a-z][\s\S]*>/i.test(text)) {
+                    line.innerHTML = text;
+                } else {
+                    line.textContent = text;
+                }
+                scrollToBottom();
+                return;
+            }
+
+            // Desktop: typing animation
             if (/<[a-z][\s\S]*>/i.test(text)) {
                 line.innerHTML = text;
                 scrollToBottom();
@@ -355,6 +375,11 @@ ul.task-list li input[type="checkbox"] {
         }
 
         async function drawAsciiArt(artLines) {
+            // Skip on mobile to improve performance
+            if (IS_MOBILE) {
+                return;
+            }
+
             // Create canvas for matrix rain effect
             const canvas = document.createElement('canvas');
             canvas.id = 'terminal-matrix-canvas';
@@ -497,6 +522,19 @@ ul.task-list li input[type="checkbox"] {
         }
 
         (async function boot() {
+          if (IS_MOBILE) {
+            // Mobile: instant display without animations
+            terminalBody.innerHTML = "";
+            for (let line of WELCOME_LINES) {
+              const div = document.createElement("div");
+              div.className = "terminal-line";
+              div.innerHTML = line.replace(/`([^`]+)`/g, '<span class="hint">$1</span>');
+              terminalBody.appendChild(div);
+            }
+            scrollToBottom();
+            createPrompt();
+          } else {
+            // Desktop: full boot sequence with animations
             await typeLine("BOOT SEQUENCE INITIATED", 50);
             await sleep(500);
             await typeLine("SYSTEM CHECK...               PASS", 50);
@@ -504,26 +542,27 @@ ul.task-list li input[type="checkbox"] {
             await typeLine("LOADING...                           READY", 30);
             await sleep(500);
 
-          // Clear the terminal before showing ASCII art
-          terminalBody.innerHTML = "";
+            // Clear the terminal before showing ASCII art
+            terminalBody.innerHTML = "";
 
-          const asciiArt = [
-            "      _   ____  ____ ",
-            "     | | / ___||  _ \ ",
-            "  _  | || |    | |_) |",
-            " | |_| || |___ |  __/ ",
-            "  \___/  \____||_|   "
-          ];
+            const asciiArt = [
+              "      _   ____  ____ ",
+              "     | | / ___||  _ \ ",
+              "  _  | || |    | |_) |",
+              " | |_| || |___ |  __/ ",
+              "  \___/  \____||_|   "
+            ];
 
-          await drawAsciiArt(asciiArt,10000);
-          await sleep(100);
+            await drawAsciiArt(asciiArt,10000);
+            await sleep(100);
 
-          terminalBody.innerHTML = "";
-          for (let line of WELCOME_LINES) {
-            await typeLine(line.replace(/`([^`]+)`/g, '<span class="hint">$1</span>'), 20);
+            terminalBody.innerHTML = "";
+            for (let line of WELCOME_LINES) {
+              await typeLine(line.replace(/`([^`]+)`/g, '<span class="hint">$1</span>'), 20);
+            }
+            await sleep(300);
+            createPrompt();
           }
-          await sleep(300);
-          createPrompt();
         })();
 
         function renderPromptInfo() {
@@ -531,19 +570,30 @@ ul.task-list li input[type="checkbox"] {
             promptInfo.className = "prompt-info";
             const path = document.createElement("span");
             path.style.color = "red";
-            path.textContent = "~" + currentDir;
-            const rightPrompt = document.createElement("span");
-            rightPrompt.className = "right-prompt";
-            const user = document.createElement("span");
-            user.style.color = "purple";
-            user.textContent = "jcp";
-            const time = document.createElement("span");
-            time.style.color = "white";
-            time.textContent = new Date().toLocaleTimeString();
-            rightPrompt.appendChild(user);
-            rightPrompt.appendChild(time);
-            promptInfo.appendChild(path);
-            promptInfo.appendChild(rightPrompt);
+
+            if (IS_MOBILE) {
+                // Mobile: simplified path without user/time
+                const shortPath = currentDir.replace('/home/josh/', '~/');
+                path.textContent = shortPath;
+                promptInfo.appendChild(path);
+            } else {
+                // Desktop: full path with user and time
+                path.textContent = "~" + currentDir;
+                promptInfo.appendChild(path); // Add path first (on the left)
+
+                const rightPrompt = document.createElement("span");
+                rightPrompt.className = "right-prompt";
+                const user = document.createElement("span");
+                user.style.color = "purple";
+                user.textContent = "jcp";
+                const time = document.createElement("span");
+                time.style.color = "white";
+                time.textContent = new Date().toLocaleTimeString();
+                rightPrompt.appendChild(user);
+                rightPrompt.appendChild(time);
+                promptInfo.appendChild(rightPrompt); // Add right prompt last (on the right)
+            }
+
             return promptInfo;
         }
 
@@ -815,7 +865,9 @@ ul.task-list li input[type="checkbox"] {
           if (e.target.closest('button, a, .bg-info-widget')) return;
 
           const input = terminalBody.querySelector(".terminal-input:not([disabled])");
-          if (input) input.focus();
+          if (input) {
+            input.focus();
+          }
         });
 
         updateTerminalTitle();

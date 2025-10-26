@@ -1,0 +1,241 @@
+/* css/posts.css */
+
+/* ========== TITLE & BANNER ========== */
+
+.quarto-title-banner.page-columns.page-full {
+  background-color: rgba(0, 51, 0, 0.2) !important;
+  border-bottom: 1px solid rgba(124, 255, 0, 0.3);
+}
+
+.quarto-title.column-body h1.title,
+.quarto-title-block-header h1.title {
+    color: rgba(124, 255, 0, 0.95) !important;
+    text-shadow: 0 0 10px rgba(124, 255, 0, 0.3);
+    font-weight: 600;
+}
+
+/* ========== MOBILE-FIRST LAYOUT & TYPOGRAPHY ========== */
+
+/* Default: single column, ToC is hidden */
+.scrollspy-nav {
+  display: none;
+}
+
+main#quarto-document-content {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 15px; /* Padding for mobile */
+}
+
+#quarto-content p, 
+#quarto-content li {
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  font-size: 1rem; /* Mobile-friendly font size */
+}
+
+/* ========== WIDE-SCREEN LAYOUT (DESKTOP) ========== */
+
+@media (min-width: 1200px) {
+  #quarto-content.page-layout-article {
+      display: grid;
+      grid-template-columns: 1fr 800px 1fr; /* Centered content column */
+      gap: 40px;
+      padding: 0 20px;
+  }
+
+  .scrollspy-nav {
+    display: block; /* Show the ToC on wide screens */
+    grid-column: 1 / 2;
+    justify-self: end;
+    align-self: start;
+    position: sticky;
+    top: 100px;
+    width: 240px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    background: rgba(0, 20, 0, 0.5);
+    border: 1px solid rgba(124, 255, 0, 0.2);
+    border-radius: 8px;
+    padding: 15px;
+  }
+
+  main#quarto-document-content {
+      grid-column: 2 / 3;
+      padding: 0; /* Grid gap handles spacing */
+      max-width: 800px; /* Reading width on desktop */
+  }
+
+  /* Increase font size for desktop */
+  #quarto-content p, 
+  #quarto-content li {
+    font-size: 1.1rem;
+  }
+}
+
+/* ========== SCROLLSPY STYLES (Applies only when visible) ========== */
+
+.scrollspy-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.scrollspy-item {
+  margin-bottom: 5px;
+}
+
+.scrollspy-link {
+  color: rgba(124, 255, 0, 0.7);
+  text-decoration: none;
+  display: block;
+  padding: 5px 10px;
+  border-left: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.scrollspy-link:hover {
+  color: rgba(124, 255, 0, 1);
+  background-color: rgba(0, 51, 0, 0.3);
+}
+
+.scrollspy-link.active {
+  color: rgba(124, 255, 0, 1);
+  font-weight: 600;
+  border-left: 3px solid rgba(124, 255, 0, 0.95);
+  box-shadow: inset 5px 0 10px -5px rgba(124, 255, 0, 0.2);
+}
+
+.toc-level-h3 {
+  padding-left: 15px;
+}
+
+/* ========== CORE BODY & TEXT STYLES ========== */
+
+#quarto-content h1, 
+#quarto-content h2, 
+#quarto-content h3, 
+#quarto-content h4, 
+#quarto-content h5, 
+#quarto-content h6 {
+  color: rgba(124, 255, 0, 0.95);
+  text-shadow: 0 0 8px rgba(124, 255, 0, 0.3);
+}
+
+#quarto-content a {
+  color: rgba(124, 255, 0, 0.95);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(124, 255, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+#quarto-content a:hover {
+  border-bottom: 1px solid rgba(124, 255, 0, 0.95);
+  text-shadow: 0 0 5px rgba(124, 255, 0, 0.5);
+}
+
+/* ========== CONTENT ELEMENTS ========== */
+
+/* Blockquotes */
+#quarto-content blockquote {
+  border-left: 3px solid rgba(124, 255, 0, 0.95) !important;
+  background: rgba(0, 51, 0, 0.1);
+  padding: 15px 20px;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.9) !important;
+  margin: 20px 0;
+}
+
+/* Strong/bold text */
+#quarto-content strong {
+  color: rgba(124, 255, 0, 0.95) !important;
+  font-weight: 600;
+}
+
+/* List markers */
+#quarto-content li::marker {
+  color: rgba(124, 255, 0, 0.95);
+}
+
+/* ========== CODE BLOCKS ========== */
+
+/* Code block container */
+.quarto-figure.quarto-figure-center,
+.cell-output.cell-output-stdout,
+div.sourceCode {
+  background: #001a00 !important; /* Dark green background */
+  border: 1px solid rgba(124, 255, 0, 0.3) !important;
+  border-radius: 8px;
+  padding: 1.2em;
+  margin: 20px 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/*
+  ==================================================================
+  DEFINITIVE CODE WRAPPING FIX
+  This is a hyper-specific rule to override Quarto's default
+  no-wrap behavior for code blocks. It targets the <pre> element
+  directly and forces it to wrap content to prevent horizontal
+  scrolling on all screen sizes.
+  ==================================================================
+*/
+div.sourceCode > pre.sourceCode {
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important; /* Legacy */
+    overflow-wrap: break-word !important; /* Standard */
+}
+
+/* The code itself */
+div.sourceCode pre.sourceCode.numberSource code,
+.cell-output.cell-output-stdout pre code {
+  color: #e6e6e6; /* Light gray code for contrast */
+  text-shadow: 0 0 2px #000;
+}
+
+/* Line numbers */
+.sourceCode .line-numbers {
+  color: rgba(124, 255, 0, 0.5); /* Dimmer green for line numbers */
+}
+
+/* Make output text green */
+.cell-output.cell-output-stdout pre {
+    color: rgba(124, 255, 0, 0.95);
+}
+
+/* ========== SHARE ARTICLE BUTTON ========== */
+
+.share-article-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  padding-bottom: 30px; /* Added padding */
+  border-top: 1px solid rgba(124, 255, 0, 0.2);
+}
+
+.share-article-button {
+  background-color: transparent;
+  border: 1px solid rgba(124, 255, 0, 0.7);
+  color: rgba(124, 255, 0, 0.85);
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.share-article-button:hover {
+  background-color: rgba(0, 51, 0, 0.3);
+  color: rgba(124, 255, 0, 1);
+  border-color: rgba(124, 255, 0, 1);
+  box-shadow: 0 0 15px rgba(124, 255, 0, 0.3);
+}
+
+.share-article-button.copied {
+  background-color: rgba(124, 255, 0, 0.95);
+  color: #003300;
+  border-color: rgba(124, 255, 0, 0.95);
+  cursor: default;
+}

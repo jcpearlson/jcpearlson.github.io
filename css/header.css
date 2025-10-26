@@ -31,3 +31,56 @@
 #quarto-document-content {
   font-family: "Lato";
 }
+
+/* Mobile navbar optimizations */
+@media (max-width: 768px) {
+  /* Smaller navbar padding */
+  .navbar.navbar-expand-lg {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  /* Smaller logo */
+  .navbar-brand img {
+    max-height: 35px;
+    height: 35px;
+  }
+
+  /* Smaller font size for navbar */
+  .navbar {
+    font-size: 1rem;
+  }
+
+  /* Smaller navbar title */
+  .navbar-title {
+    font-size: 1rem;
+    padding-left: 3px;
+  }
+
+  /* Smaller navbar links */
+  .navbar-nav .nav-link {
+    font-size: 0.9rem;
+    padding: 0.3rem 0.5rem;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+  /* Even smaller for very small screens */
+  .navbar-brand img {
+    max-height: 30px;
+    height: 30px;
+  }
+
+  .navbar {
+    font-size: 0.9rem;
+  }
+
+  .navbar-title {
+    font-size: 0.9rem;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 0.85rem;
+  }
+}

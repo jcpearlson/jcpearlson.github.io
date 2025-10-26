@@ -1,0 +1,69 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Don't run on the main listing page
+  if (document.querySelector('.quarto-listing-container-default')) {
+    return;
+  }
+
+  const contentArea = document.querySelector('main#quarto-document-content');
+  if (!contentArea) {
+    return; // Exit if the main content area isn't found
+  }
+
+  // --- 1. GATHER METADATA ---
+  const title = document.querySelector('.quarto-title.column-body h1.title')?.textContent.trim() || 'Article';
+  let author = 'Josh Pearlson'; // Default author
+  let date = ''; // Default date
+  const url = window.location.href;
+
+  const metaHeadings = document.querySelectorAll('.quarto-title-meta-heading');
+  metaHeadings.forEach(heading => {
+    const headingText = heading.textContent.trim();
+    const contentsEl = heading.nextElementSibling;
+    if (contentsEl && contentsEl.classList.contains('quarto-title-meta-contents')) {
+      if (headingText === 'Author') {
+        author = contentsEl.querySelector('p')?.textContent.trim() || author;
+      }
+      if (headingText === 'Published') {
+        date = contentsEl.querySelector('p.date')?.textContent.trim() || date;
+      }
+    }
+  });
+
+  // --- 2. CREATE THE SHARE BUTTON ---
+  const shareContainer = document.createElement('div');
+  shareContainer.className = 'share-article-container';
+
+  const shareButton = document.createElement('button');
+  shareButton.className = 'share-article-button';
+  shareButton.textContent = 'Share this Article';
+
+  shareContainer.appendChild(shareButton);
+  contentArea.appendChild(shareContainer);
+
+  // --- 3. ADD CLICK EVENT LISTENER ---
+  shareButton.addEventListener('click', function() {
+    const shareText = `"${title}" by ${author} (Published: ${date}): ${url}`;
+
+    navigator.clipboard.writeText(shareText).then(() => {
+      // --- 4. PROVIDE FEEDBACK ---
+      const originalText = shareButton.textContent;
+      shareButton.textContent = 'Copied to clipboard!';
+      shareButton.classList.add('copied');
+
+      setTimeout(() => {
+        shareButton.textContent = originalText;
+        shareButton.classList.remove('copied');
+      }, 3000); // Revert after 3 seconds
+    }).catch(err => {
+      console.error('Failed to copy text: ', err);
+      // Optional: Provide error feedback to the user
+      const originalText = shareButton.textContent;
+      shareButton.textContent = 'Copy failed!';
+      setTimeout(() => {
+        shareButton.textContent = originalText;
+      }, 3000);
+    });
+  });
+});
+</script>

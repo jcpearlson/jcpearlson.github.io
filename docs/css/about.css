@@ -1,4 +1,200 @@
 /* about.css */
+
+/* ========== PHASE 1: CIRCULAR PHOTO WITH GREEN ACCENT ========== */
+
+/* Circular photo with animated green border */
+.about-entity .about-image img,
+.about-entity img {
+  border-radius: 50% !important;
+  border: 3px solid rgba(124, 255, 0, 0.95);
+  box-shadow: 0 0 20px rgba(124, 255, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.about-entity .about-image img:hover,
+.about-entity img:hover {
+  border: 4px solid rgba(124, 255, 0, 0.95);
+  box-shadow: 0 0 30px rgba(124, 255, 0, 0.5);
+  transform: scale(1.02);
+}
+
+/* ========== PHASE 2: GREEN THEME INTEGRATION ========== */
+
+/* A. Headings & Title */
+.about-entity .about-heading,
+h1.title {
+  color: rgba(124, 255, 0, 0.95) !important;
+  text-shadow: 0 0 10px rgba(124, 255, 0, 0.3);
+  font-weight: 600;
+}
+
+/* Section headers in tabs */
+.panel-tabset h2 {
+  color: rgba(124, 255, 0, 0.95) !important;
+  border-bottom: 2px solid rgba(124, 255, 0, 0.3);
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+
+/* B. Tab Navigation Enhancement */
+/* Inactive tabs - subtle green */
+.panel-tabset .nav-link {
+  color: rgba(124, 255, 0, 0.7) !important;
+  border: 1px solid rgba(124, 255, 0, 0.2) !important;
+  transition: all 0.3s ease;
+  margin-right: 5px;
+}
+
+/* Active tab - full green */
 .panel-tabset .nav-link.active {
   background-color: #003300 !important;
+  color: rgba(124, 255, 0, 0.95) !important;
+  border: 1px solid rgba(124, 255, 0, 0.95) !important;
+  box-shadow: 0 0 10px rgba(124, 255, 0, 0.3);
+}
+
+/* Hover effect */
+.panel-tabset .nav-link:hover {
+  color: rgba(124, 255, 0, 0.95) !important;
+  border-color: rgba(124, 255, 0, 0.5) !important;
+  background-color: rgba(0, 51, 0, 0.3) !important;
+}
+
+/* C. Links & Interactive Elements */
+/* All links on about page */
+.about-entity a,
+#quarto-document-content a {
+  color: rgba(124, 255, 0, 0.95);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.about-entity a:hover,
+#quarto-document-content a:hover {
+  border-bottom: 1px solid rgba(124, 255, 0, 0.95);
+  text-shadow: 0 0 5px rgba(124, 255, 0, 0.5);
+}
+
+/* Social links (LinkedIn, GitHub, Email) */
+.about-links a {
+  border: 1px solid rgba(124, 255, 0, 0.3) !important;
+  background: rgba(0, 51, 0, 0.2) !important;
+  transition: all 0.3s ease;
+  color: rgba(124, 255, 0, 0.95) !important;
+}
+
+.about-links a:hover {
+  border-color: rgba(124, 255, 0, 0.95) !important;
+  background: rgba(0, 51, 0, 0.4) !important;
+  box-shadow: 0 0 15px rgba(124, 255, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+/* D. Content Accents */
+/* Blockquotes (job descriptions) */
+blockquote {
+  border-left: 3px solid rgba(124, 255, 0, 0.95) !important;
+  background: rgba(0, 51, 0, 0.1);
+  padding-left: 15px;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.9) !important;
+  margin: 15px 0;
+}
+
+/* Company/organization names (bold text) */
+strong {
+  color: rgba(124, 255, 0, 0.95) !important;
+  font-weight: 600;
+}
+
+/* List items (hobbies) */
+li::marker {
+  color: rgba(124, 255, 0, 0.95);
+}
+
+/* E. Card-Style Sections */
+/* Each tab content area */
+.panel-tabset .tab-content {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(124, 255, 0, 0.2);
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  margin-top: 15px;
+}
+
+/* ========== PHASE 3: SPACING & HIERARCHY ========== */
+
+/* Intro paragraph (the large text at top) */
+div[style*="font-size:1.5rem"] {
+  line-height: 1.8 !important;
+  margin-bottom: 30px !important;
+  padding: 20px !important;
+  background: rgba(0, 51, 0, 0.1) !important;
+  border-left: 4px solid rgba(124, 255, 0, 0.95) !important;
+  border-radius: 4px !important;
+}
+
+/* Better spacing between sections */
+.panel-tabset .tab-pane {
+  padding-top: 20px;
+}
+
+/* Individual entries in tabs */
+.panel-tabset p {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(124, 255, 0, 0.1);
+}
+
+.panel-tabset p:last-child {
+  border-bottom: none;
+}
+
+/* Job titles/positions get more space */
+.panel-tabset br + strong {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* ========== RESPONSIVE: MOBILE ADJUSTMENTS ========== */
+/* Prevent text from centering on smaller screens */
+@media (max-width: 992px) {
+  #quarto-document-content,
+  #quarto-content,
+  .page-columns,
+  .column-body,
+  body,
+  p,
+  h1, h2, h3, h4, h5, h6,
+  ul, ol, li,
+  div {
+    text-align: left !important;
+  }
+
+  /* Ensure the main content container is left-aligned */
+  #quarto-content {
+    display: block !important;
+  }
+
+  /* Add left padding to prevent text from touching the wall */
+  #quarto-document-content,
+  #quarto-content,
+  .page-columns,
+  .column-body {
+    padding-left: 5px !important;
+  }
+
+  /* Adjust photo size on mobile */
+  .about-entity .about-image img,
+  .about-entity img {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  /* Tab navigation stacks better on mobile */
+  .panel-tabset .nav-link {
+    margin-bottom: 5px;
+  }
 }
