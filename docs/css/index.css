@@ -510,3 +510,10 @@ body.no-flicker .terminal-window {
     font-size: 16px; /* Keep at 16px to prevent zoom */
   }
 }
+
+/* Screens with small height */
+@media (max-height: 700px) and (max-width: 768px) {
+  .terminal-window {
+    height: 80vh;
+  }
+}
