@@ -2,6 +2,7 @@
   {
     "listing": "/articles/blog.html",
     "items": [
+      "/articles/posts/deepseek-ocr/deepseek-ocr.html",
       "/articles/posts/coin-flip-game/modelCoinFlipGame.html"
     ]
   }

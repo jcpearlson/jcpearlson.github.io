@@ -84,3 +84,13 @@
     font-size: 0.85rem;
   }
 }
+
+/* Styling for active and inactive navigation links */
+.navbar-nav .nav-link {
+  color: white; /* Default color for inactive links */
+}
+
+.navbar-nav .nav-link.active {
+  color: rgba(124, 255, 0, 0.95); /* Bright color for active link */
+}
+

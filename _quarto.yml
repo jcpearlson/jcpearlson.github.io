@@ -16,16 +16,16 @@ website:
       - text: "Articles"
         href: articles/blog.qmd
       - text: "Projects"
-        menu:
-          - text: "DigDug game"
-            href: projects/DigDug/DigDugGame.html # - text: "example project 2"
-          #   href: projects/exampleProject2.qmd
+        href: projects/projects.qmd
       - text: "About"
         href: aboutPage/about.qmd
 format:
   html:
     theme:
-      cyborg
+      # cyborg
+      # darkly
+      slate
+      # superhero
       # dark: darkly
       # light: cosmos
     css: css/header.css

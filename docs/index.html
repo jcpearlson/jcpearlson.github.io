@@ -94,17 +94,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./articles/blog.html"> 
 <span class="menu-text">Articles</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Projects</span>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-projects">    
-        <li>
-    <a class="dropdown-item" href="./projects/DigDug/DigDugGame.html">
- <span class="dropdown-text">DigDug game</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="./projects/projects.html"> 
+<span class="menu-text">Projects</span></a>
   </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link" href="./aboutPage/about.html"> 
 <span class="menu-text">About</span></a>
@@ -275,13 +268,13 @@ ul.task-list li input[type="checkbox"] {
       },
       "/home/josh/projects/": {
         type: "directory",
-        contents: ["digdug.md"],
+        contents: ["projects.html"],
       },
-      "/home/josh/projects/digdug.md": {
+      "/home/josh/projects/projects.html": {
         type: "file",
-        content: "Navigating to Dig Dug...",
+        content: "Navigating to Projects page...",
         action: "navigate",
-        url: "projects/DigDug/DigDugGame.html"
+        url: "projects/projects.html"
       },
       "/home/josh/gallery/": {
         type: "directory",
@@ -810,17 +803,9 @@ ul.task-list li input[type="checkbox"] {
             case "about":
               await smoothNavigate("aboutPage/about.html");
               break;
-            case "projects": {
-              const targetPath = "/home/josh/projects/";
-              const target = VFS[targetPath];
-              if (target && target.type === 'directory') {
-                  const items = target.contents.map(item => `<span class="hint">${item}</span>`);
-                  appendOutput("<strong>Projects:</strong><br>" + items.join("  "));
-              } else {
-                  appendOutput("Error: Projects directory not found.");
-              }
+            case "projects":
+              await smoothNavigate("projects/projects.html");
               break;
-            }
             case "articles":
               await smoothNavigate("articles/blog.html");
               break;
@@ -843,7 +828,7 @@ ul.task-list li input[type="checkbox"] {
               appendOutput("TerminalOS 1.0.0 (Josh's Portfolio)");
               break;
             case "tree":
-              appendOutput(`/home/josh/<br>├── <span style="color: #D3D3D3;">README.md</span><br>├── <span style="color: #89CFF0;">projects/</span><br>│   └── <span style="color: #D3D3D3;">digdug.md</span><br>└── <span style="color: #89CFF0;">gallery/</span><br>    ├── <span style="color: #D3D3D3;">jcp_logo2.png</span><br>    ├── <span style="color: #D3D3D3;">ultraDeepField.jpg</span><br>    └── <span style="color: #D3D3D3;">404.png</span>`);
+              appendOutput(`/home/josh/<br>├── <span style="color: #D3D3D3;">README.md</span><br>├── <span style="color: #89CFF0;">projects/</span><br>│   └── <span style="color: #D3D3D3;">projects.html</span><br>└── <span style="color: #89CFF0;">gallery/</span><br>    ├── <span style="color: #D3D3D3;">jcp_logo2.png</span><br>    ├── <span style="color: #D3D3D3;">ultraDeepField.jpg</span><br>    └── <span style="color: #D3D3D3;">404.png</span>`);
               break;
             default:
               appendOutput(`Command not found: <span class="bad">${escapeText(cmd)}</span>. Type <span class="hint">help</span> for available commands.`);
