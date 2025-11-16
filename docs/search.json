@@ -112,34 +112,6 @@
     "text": "webrtc.js: WebRTC connection improvements and heartbeat mechanism\n6cardgolf.js: Game logic fixes and validation\n6cardgolfUI.js: UI improvements and better state management\nstyle.css: Enhanced responsive design\nindex.html: No changes needed\n\nAll improvements maintain backward compatibility and don’t break existing functionality."
   },
   {
-    "objectID": "projects/6CardGolf/GEMINI.html",
-    "href": "projects/6CardGolf/GEMINI.html",
-    "title": "6 Card Golf",
-    "section": "",
-    "text": "This project is a web-based, two-player card game called “6 Card Golf”. The game is implemented using HTML, CSS, and vanilla JavaScript. It uses WebRTC for peer-to-peer communication between the two players, which means it doesn’t require a central server for gameplay after the initial connection is established.\nThe game is fully playable and includes features like a chat box for players to communicate.\n\n\n\nThis is a static web project. To run the game, you need to serve the files using a local web server. You can use any simple web server, like Python’s built-in http.server.\n\nNavigate to the project directory: bash     cd /Users/joshuacarterpearlson/Desktop/6CardGolf\nStart a local web server:\n\nIf you have Python 3, run: bash     python3 -m http.server\nIf you have Python 2, run: bash     python -m SimpleHTTPServer\n\nOpen the game in your browser: Open your web browser and go to http://localhost:8000 (or the port specified by your web server).\nPlay the game: To play the game, you need two players on the same network.\n\nPlayer 1 (Host): Clicks “Create Game” and sends the generated “Offer Code” to Player 2.\nPlayer 2 (Client): Pastes the “Offer Code” and sends the generated “Answer Code” back to Player 1.\nPlayer 1 (Host): Pastes the “Answer Code” to establish the connection.\n\n\n\n\n\n\nThe project uses vanilla JavaScript, with no external libraries or frameworks.\nThe code is organized into three main files:\n\n6cardgolf.js: Core game logic.\n6cardgolfUI.js: UI manipulation and event handling.\nwebrtc.js: WebRTC connection management.\n\nThe code is well-commented and includes debugging functions."
-  },
-  {
-    "objectID": "projects/6CardGolf/GEMINI.html#project-overview",
-    "href": "projects/6CardGolf/GEMINI.html#project-overview",
-    "title": "6 Card Golf",
-    "section": "",
-    "text": "This project is a web-based, two-player card game called “6 Card Golf”. The game is implemented using HTML, CSS, and vanilla JavaScript. It uses WebRTC for peer-to-peer communication between the two players, which means it doesn’t require a central server for gameplay after the initial connection is established.\nThe game is fully playable and includes features like a chat box for players to communicate."
-  },
-  {
-    "objectID": "projects/6CardGolf/GEMINI.html#building-and-running",
-    "href": "projects/6CardGolf/GEMINI.html#building-and-running",
-    "title": "6 Card Golf",
-    "section": "",
-    "text": "This is a static web project. To run the game, you need to serve the files using a local web server. You can use any simple web server, like Python’s built-in http.server.\n\nNavigate to the project directory: bash     cd /Users/joshuacarterpearlson/Desktop/6CardGolf\nStart a local web server:\n\nIf you have Python 3, run: bash     python3 -m http.server\nIf you have Python 2, run: bash     python -m SimpleHTTPServer\n\nOpen the game in your browser: Open your web browser and go to http://localhost:8000 (or the port specified by your web server).\nPlay the game: To play the game, you need two players on the same network.\n\nPlayer 1 (Host): Clicks “Create Game” and sends the generated “Offer Code” to Player 2.\nPlayer 2 (Client): Pastes the “Offer Code” and sends the generated “Answer Code” back to Player 1.\nPlayer 1 (Host): Pastes the “Answer Code” to establish the connection."
-  },
-  {
-    "objectID": "projects/6CardGolf/GEMINI.html#development-conventions",
-    "href": "projects/6CardGolf/GEMINI.html#development-conventions",
-    "title": "6 Card Golf",
-    "section": "",
-    "text": "The project uses vanilla JavaScript, with no external libraries or frameworks.\nThe code is organized into three main files:\n\n6cardgolf.js: Core game logic.\n6cardgolfUI.js: UI manipulation and event handling.\nwebrtc.js: WebRTC connection management.\n\nThe code is well-commented and includes debugging functions."
-  },
-  {
     "objectID": "projects/projects.html",
     "href": "projects/projects.html",
     "title": "Projects",

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6 Card Golf - P2P Card Game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="connectionSetup" class="connection-setup">
+        <div id="initialView">
+          <div class="connection-instructions">
+            <h1> Welcome to 6 Card Golf! </h1>
+            <img src="6cardGolfLogo.png" class="logo-image">
+            <details class="rules-dropdown">
+              <summary>Rules of the Game</summary>
+              <div class="rules-content">
+                <h3>1. Objective</h3>
+                <p>The primary goal is to minimize your score. This is achieved by swapping high-value cards for lower-value ones and by forming pairs of cards with the same rank in vertical columns or full horizontal columns, which score zero points.</p>
+
+                <h3>2. Setup</h3>
+                <ol>
+                  <li><b>Dealing:</b> The dealer shuffles the deck and deals six cards face down to each player.</li>
+                  <li><b>Card Arrangement:</b> Each player arranges their six cards in a 3x2 grid (two rows of three cards) in front of them, without looking at them.</li>
+                  <li><b>Stock and Discard Piles:</b> The remaining cards form the face-down "stock pile" in the center of the table. The top card of the stock pile is then turned face up to start the "discard pile" next to it.</li>
+                  <li><b>Initial Reveal:</b> Before play begins, each player turns exactly two of their six face-down cards face up.</li>
+                </ol>
+
+                <h3>3. Gameplay</h3>
+                <ol>
+                  <li><b>Starting Player:</b> The player to the left of the dealer begins the round, and play proceeds clockwise.</li>
+                  <li><b>Player's Turn:</b> On their turn, a player has three main options:
+                    <ul>
+                      <li><b>Draw from Stock Pile:</b> Draw the top card from the face-down stock pile.</li>
+                      <li><b>Draw from Discard Pile:</b> Take the top card from the face-up discard pile.</li>
+                    </ul>
+                  </li>
+                  <li><b>Using a Drawn Card:</b>
+                    <ul>
+                      <li>If a player draws a card (either from the stock or discard pile) and wishes to keep it, they must swap it with one of their six cards. The card they swap in remains face up. The card they replaced is then placed face up on the discard pile.</li>
+                      <li>If a player draws a card from the stock pile and does not wish to keep it, they can immediately discard it face up onto the discard pile without swapping it with any of their own cards.</li>
+                    </ul>
+                  </li>
+                  <li><b>Ending a Round:</b> A round ends when one player has all six of their cards turned face up. Once this happens, every other player gets one final turn. After all players have had their last turn, all remaining face-down cards are revealed, and scores are tallied.</li>
+                  <li><b>Running Out of Stock Pile:</b> If the stock pile runs out all players turn their cards face up and the game ends.</li>
+                </ol>
+
+                <h3>4. Scoring</h3>
+                <p>The goal is to have the lowest score. Card values are as follows:</p>
+                <ul>
+                  <li><b>2s:</b> -2 points (in some variations, 2s are worth 2 points and Jokers are -2)</li>
+                  <li><b>Kings:</b> 0 points (making them highly desirable)</li>
+                  <li><b>Aces:</b> 1 point</li>
+                  <li><b>3s through 10s:</b> Face value</li>
+                  <li><b>Jacks and Queens:</b> 10 points</li>
+                </ul>
+                <p><b>Special Scoring Rule: Pairs</b><br>If two cards in the same vertical column have the same rank (e.g., two 7s, two Aces), the entire column scores 0 points, regardless of the cards' individual values.</p>
+                <p><b>Special Scoring Rule: Rows</b><br>If three cards in the same horizontal row have the same rank (e.g., three 7s, three Aces), the entire row scores 0 points, regardless of the cards' individual values.</p>
+                <p><b>Special Scoring Rule: Box</b><br>If Four cards fill two adjacent vertical columns with the same rank (e.g., four 7s, four Aces), both columns scores -20 points, regardless of the cards' individual values.</p>
+              </div>
+            </details>
+            <h2>🎮 How to Play Online (2 players only)</h2>
+            <br>
+            <ul>
+              <li><b>Player 1 (Host):</b> Click "Create Game".</li>
+              <li><b>Player 2 (Client):</b> Click "Join Game".</li>
+            </ol>
+            <br>
+            <p>Follow the on-screen instructions to connect!</p>
+          </div>
+          <div class="connection-controls">
+            <button id="showHostViewBtn" class="button-success">
+              🎯 Create Game (Host)
+            </button>
+            <button id="showJoinViewBtn" class="button-success">
+              🚀 Join Game (Client)
+            </button>
+          </div>
+        </div>
+
+        <div id="hostView" style="display: none">
+          <div class="connection-instructions">
+            <p>
+              <b>Step 1:</b> Click the button below to generate an Offer Code.
+            </p>
+          </div>
+          <button id="createGameBtn">Generate Offer Code</button>
+          <div id="hostStep2" class="code-display" style="display: none">
+            <hr style="width: 100%; margin: 20px 0" />
+            <p>
+              <b>Step 2:</b> Copy this Offer Code and send it to the other
+              player.
+            </p>
+            <div class="code-container">
+              <textarea id="offerCode" rows="4" readonly></textarea>
+              <button id="copyOfferBtn">Copy</button>
+            </div>
+            <p>
+              <b>Step 3:</b> Paste their Answer Code below and click Confirm.
+            </p>
+            <div class="code-container">
+              <textarea
+                id="answerCode"
+                placeholder="Paste Answer Code here..."
+                rows="4"
+              ></textarea>
+            </div>
+            <button id="confirmConnectionBtn" class="button-success">
+              🤝 Confirm Connection
+            </button>
+          </div>
+        </div>
+
+        <div id="joinView" style="display: none">
+          <div class="connection-instructions">
+            <p>
+              <b>Step 1:</b> Paste the Offer Code from the host below and click
+              "Create Answer".
+            </p>
+          </div>
+          <div class="code-container">
+            <textarea
+              id="pastedOfferCode"
+              placeholder="Paste Offer Code here..."
+              rows="4"
+            ></textarea>
+          </div>
+          <button id="joinGameBtn">Create Answer Code</button>
+          <div id="joinStep2" class="code-display" style="display: none">
+            <hr style="width: 100%; margin: 20px 0" />
+            <p>
+              <b>Step 2:</b> Almost there! Copy this Answer Code and send it
+              back to the host.
+            </p>
+            <div class="code-container">
+              <textarea id="generatedAnswerCode" rows="4" readonly></textarea>
+              <button id="copyAnswerBtn">Copy</button>
+            </div>
+            <p>The game will start once the host confirms.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="gameContainer" class="game-container">
+        <div class="game-header">
+          <h2>6 Card Golf</h2>
+          <div id="connectionStatus" class="connection-status disconnected">
+            Connecting...
+          </div>
+        </div>
+
+
+
+        <div class="game-content">
+          <div class="game-area">
+            <div class="status-area">
+              <div id="turnIndicator" class="turn-indicator">
+                Waiting for connection...
+              </div>
+              <div id="gameStatus" class="game-status">
+                Connect with a friend to start playing!
+              </div>
+            </div>
+        
+            <div class="opponent-area player-area">
+              <div class="hand-label">🎯 Opponent's Hand</div>
+              <div id="opponentHand" class="hand"></div>
+              <div id="opponentScore" class="score">Score: ?</div>
+            </div>
+
+            <div class="piles">
+              <div id="drawnCardDisplay" class="pile drawn-card-display">
+                <div>✨<br />Drawn</div>
+              </div>
+              <div id="drawPile" class="pile">
+                <div>📚<br />Draw</div>
+              </div>
+              <div id="discardPile" class="pile">
+                <div>🗑️<br />Discard</div>
+              </div>
+            </div>
+
+            <div class="player-area">
+              <div class="hand-label">🎮 Your Hand</div>
+              <div id="playerHand" class="hand"></div>
+              <div id="playerScore" class="score">Score: 0</div>
+            </div>
+
+            <div id="controls" class="controls">
+              <button id="takeDiscardBtn" style="display: none">
+                Take from Discard
+              </button>
+              <button id="takeDrawBtn" style="display: none">
+                Take from Draw Pile
+              </button>
+              <button id="endTurnBtn" style="display: none">End Turn</button>
+              <button id="flipCardsBtn" style="display: none">
+                Flip All Cards
+              </button>
+              <button
+                id="newGameBtn"
+                style="display: none"
+                class="button-success"
+              >
+                New Game
+              </button>
+            </div>
+          </div>
+
+          <div class="chat-area">
+            <div class="chat-header">💬 Chat</div>
+            <div id="chatMessages" class="chat-messages"></div>
+            <div class="chat-input-area">
+              <input
+                type="text"
+                id="chatInput"
+                class="chat-input"
+                placeholder="Type a message..."
+                maxlength="200"
+              />
+              <button id="chatSendBtn" class="chat-send">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="webrtc.js"></script>
+    <script src="6cardgolf.js"></script>
+    <script src="6cardgolfUI.js"></script>
+  </body>
+</html>
