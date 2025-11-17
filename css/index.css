@@ -379,8 +379,9 @@ body.no-flicker .terminal-window {
     height: 100vh;
     height: 100dvh; /* Use dynamic viewport height for mobile browsers */
     width: 100vw;
-    padding: 0;
+    padding: 30px 0 0 0; /* Change padding to 15px to the top */
     margin: 0;
+    box-sizing: border-box; /* Ensure padding is included in the element's total height */
   }
 
   /* Terminal window - nearly full screen */
