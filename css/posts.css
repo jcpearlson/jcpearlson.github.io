@@ -157,6 +157,44 @@ main#quarto-document-content {
   color: rgba(124, 255, 0, 0.95);
 }
 
+/* Tables */
+#quarto-content table {
+  width: 100%; /* Ensure table takes full width */
+  border-collapse: collapse; /* Collapse borders for a clean look */
+  margin-bottom: 1em; /* Space below the table */
+  color: rgba(255, 255, 255, 0.85); /* Default text color for table body */
+  background-color: rgba(0, 0, 0, 0.2); /* Subtle dark background */
+}
+
+#quarto-content th {
+  background-color: rgba(0, 51, 0, 0.7); /* Darker theme green background */
+  color: rgba(124, 255, 0, 0.95); /* Bright theme green text */
+  font-weight: bold;
+  padding: 0.8em 0.5em;
+  text-align: left;
+  border: 1px solid rgba(124, 255, 0, 0.3); /* Green border */
+}
+
+#quarto-content td {
+  padding: 0.6em 0.5em;
+  border: 1px solid rgba(124, 255, 0, 0.15); /* Lighter green border */
+}
+
+#quarto-content tbody tr.odd {
+  background-color: rgba(0, 51, 0, 0.3); /* Slightly darker for odd rows */
+}
+
+#quarto-content tbody tr.even {
+  background-color: rgb(58 203 58 / 10%); /* Lighter for even rows */
+}
+
+#quarto-content .caption-top {
+  color: rgba(124, 255, 0, 0.95); /* Theme green for caption */
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 0.5em;
+}
+
 /* ========== CODE BLOCKS ========== */
 
 /* Code block container */
@@ -169,6 +207,7 @@ div.sourceCode {
   padding: 1.2em;
   margin: 20px 0;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  overflow-x: auto; /* Enable horizontal scrolling */
 }
 
 /*
@@ -186,11 +225,72 @@ div.sourceCode > pre.sourceCode {
     overflow-wrap: break-word !important; /* Standard */
 }
 
-/* The code itself */
-div.sourceCode pre.sourceCode.numberSource code,
-.cell-output.cell-output-stdout pre code {
-  color: #e6e6e6; /* Light gray code for contrast */
-  text-shadow: 0 0 2px #000;
+/* Base style for all code block text (unhighlighted parts) */
+div.sourceCode pre {
+  color: rgba(255, 255, 255, 0.85); /* Off-white for base code text */
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  background-color: transparent; /* Make inner background transparent */
+  line-height: 1.5; /* Improved readability */
+}
+
+/* Syntax Highlighting to match theme */
+#quarto-content div.sourceCode .kw { /* Keywords */
+  color: rgba(124, 255, 0, 0.95);
+}
+#quarto-content div.sourceCode .st { /* Strings */
+  color: #add8e6; /* Light Blue */
+}
+#quarto-content div.sourceCode .co { /* Comments */
+  color: rgba(124, 255, 0, 0.5);
+  font-style: italic;
+}
+#quarto-content div.sourceCode .dv,
+#quarto-content div.sourceCode .fl { /* Numbers (integers, floats) */
+  color: rgba(124, 255, 0, 0.95); /* Bright theme green */
+}
+#quarto-content div.sourceCode .op { /* Operators */
+  color: rgba(255, 255, 255, 0.95);
+}
+#quarto-content div.sourceCode .bu { /* Builtins */
+  color: #add8e6;
+}
+#quarto-content div.sourceCode .fu { /* Functions */
+  color: rgba(124, 255, 0, 0.95);
+}
+#quarto-content div.sourceCode .dt { /* Data Types */
+  color: rgba(124, 255, 0, 0.95);
+}
+#quarto-content div.sourceCode .at { /* Arguments/Attributes */
+  color: #add8e6;
+}
+#quarto-content div.sourceCode .va { /* Variables */
+  color: rgba(255, 255, 255, 0.95);
+}
+#quarto-content div.sourceCode .bn { /* Boolean */
+  color: rgba(124, 255, 0, 0.95);
+}
+#quarto-content div.sourceCode .cn { /* Constant */
+  color: rgba(124, 255, 0, 0.95);
+}
+#quarto-content div.sourceCode .ty { /* Type */
+  color: #add8e6;
+}
+#quarto-content div.sourceCode .ch { /* Character */
+  color: #add8e6;
+}
+#quarto-content div.sourceCode .al { /* Alert/Error */
+  color: #ff6347; /* Tomato red for errors */
+}
+
+
+/* Style for inline code snippets (high specificity) */
+#quarto-content :not(pre) > code {
+  background-color: rgba(0, 51, 0, 0.5) !important;
+  color: mintcream !important;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 /* Line numbers */
@@ -198,10 +298,53 @@ div.sourceCode pre.sourceCode.numberSource code,
   color: rgba(124, 255, 0, 0.5); /* Dimmer green for line numbers */
 }
 
-/* Make output text green */
+/* Ensure raw cell output is also green */
 .cell-output.cell-output-stdout pre {
     color: rgba(124, 255, 0, 0.95);
 }
+
+/*
+  ==================================================================
+  SCROLLBAR STYLING (Webkit - Chrome, Safari, Edge)
+  Customizes the appearance of scrollbars for code and output blocks.
+  ==================================================================
+*/
+
+/* The entire scrollbar */
+#quarto-content div.sourceCode::-webkit-scrollbar,
+#quarto-content .cell-output.cell-output-stdout::-webkit-scrollbar {
+  height: 10px; /* Height of horizontal scrollbar */
+  width: 10px;  /* Width of vertical scrollbar */
+  background-color: transparent; /* Make the overall scrollbar area transparent */
+}
+
+/* Track (background) of the scrollbar */
+#quarto-content div.sourceCode::-webkit-scrollbar-track,
+#quarto-content .cell-output.cell-output-stdout::-webkit-scrollbar-track {
+  background-color: #000000; /* Black track */
+  border-radius: 5px;
+}
+
+/* Thumb (draggable part) of the scrollbar */
+#quarto-content div.sourceCode::-webkit-scrollbar-thumb,
+#quarto-content .cell-output.cell-output-stdout::-webkit-scrollbar-thumb {
+  background-color: rgba(124, 255, 0, 0.95); /* Neon green thumb */
+  border-radius: 5px;
+  border: 2px solid #000000; /* Black border around thumb */
+}
+
+/* Handle for when hovered */
+#quarto-content div.sourceCode::-webkit-scrollbar-thumb:hover,
+#quarto-content .cell-output.cell-output-stdout::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(124, 255, 0, 1); /* Brighter neon green on hover */
+}
+
+/* Corner where scrollbars meet (optional, but good for completeness) */
+#quarto-content div.sourceCode::-webkit-scrollbar-corner,
+#quarto-content .cell-output.cell-output-stdout::-webkit-scrollbar-corner {
+  background-color: #000000; /* Black corner */
+}
+
 
 /* ========== SHARE ARTICLE BUTTON ========== */
 

@@ -9,9 +9,9 @@
   {
     "objectID": "articles/blog.html",
     "href": "articles/blog.html",
-    "title": "Articles",
+    "title": "Priors",
     "section": "",
-    "text": "Getting a Mortgage from the Market\n\n\n\n\n\n\nFinance\n\n\nOptions\n\n\n\n\n\n\n\n\n\nNov 22, 2025\n\n\nJosh Pearlson\n\n\n\n\n\n\n\n\n\n\n\n\nThe Future of Context, DeepSeek OCR\n\n\n\n\n\n\nMachine Learning\n\n\nLLM\n\n\n\n\n\n\n\n\n\nOct 31, 2025\n\n\nJosh Pearlson\n\n\n\n\n\n\n\n\n\n\n\n\nModeling a Coin Flip Game\n\n\n\n\n\n\nPython\n\n\nProbability\n\n\n\n\n\n\n\n\n\nAug 16, 2024\n\n\nJosh Pearlson\n\n\n\n\n\n\nNo matching items"
+    "text": "The Six-Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”\n\n\n\n\n\n\nLLM\n\n\n\n\n\n\n\n\n\nDec 19, 2025\n\n\nJosh Pearlson\n\n\n\n\n\n\n\n\n\n\n\n\nGetting a Mortgage from the Market\n\n\n\n\n\n\nFinance\n\n\nOptions\n\n\n\n\n\n\n\n\n\nNov 22, 2025\n\n\nJosh Pearlson\n\n\n\n\n\n\n\n\n\n\n\n\nThe Future of Context, DeepSeek OCR\n\n\n\n\n\n\nMachine Learning\n\n\nLLM\n\n\n\n\n\n\n\n\n\nOct 31, 2025\n\n\nJosh Pearlson\n\n\n\n\n\n\n\n\n\n\n\n\nModeling a Coin Flip Game\n\n\n\n\n\n\nPython\n\n\nProbability\n\n\n\n\n\n\n\n\n\nAug 16, 2024\n\n\nJosh Pearlson\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "articles/posts/coin-flip-game/modelCoinFlipGame.html",
@@ -56,11 +56,39 @@
     "text": "Future Work\nThe strategies explored in this article, while profitable, are based on a static stopping rule. This opens the door to several avenues for more advanced research and optimization.\n\nDynamic Stopping Policy:\n\nThe primary limitation of the current model is its use of a constant stopping ratio. A more sophisticated approach would be to implement a dynamic policy where the decision to stop or continue depends on the current state of the game (i.e., the number of heads and the total number of flips). For instance, a 52% ratio after 1,000 flips is far more statistically significant and secure than a 52% ratio after only 25 flips.\n\nAnalysis with a Biased Coin:\n\nThe analysis could be extended to scenarios involving a biased coin (where P(Heads) ≠ 0.5). This would require recalculating the expected values and likely shift the optimal stopping thresholds, providing insight into how the strategy adapts to different underlying probabilities.\n\nRisk-Adjusted Strategies:\n\nThe current work focuses exclusively on maximizing expected value. A real-world player might be risk-averse and prefer a strategy that, for example, maximizes the probability of breaking even or minimizes the chance of a significant loss. Future analysis could incorporate utility theory to develop strategies that align with different risk profiles.\n\nExploring Different Payout Structures:\n\nHow would the optimal strategy change if the casino altered the payout function? Investigating non-linear payouts (e.g., (heads/total_flips)^2) or introducing different cost structures would test the robustness of our findings and lead to more generalized solutions for this class of optionality-based games.\n\nThese are just some initial thoughts by me and I am open to discussion. As always, feel free to reach out to me for suggestions on future articles or comments."
   },
   {
-    "objectID": "projects/projects.html",
-    "href": "projects/projects.html",
-    "title": "Projects",
+    "objectID": "articles/posts/base-64-encoding/base_64_encoding.html",
+    "href": "articles/posts/base-64-encoding/base_64_encoding.html",
+    "title": "The Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”",
     "section": "",
-    "text": "6 Card Golf \n       P2P 1v1 card game with a chat. \n    \n  \n\n  \n    \n       \n      \n       Dig Dug Game \n      A classic arcade game recreation."
+    "text": "A journey from the 7-bit limitations of early dial-up to the multimodal prompts of today, exploring why ‘ASCII Armor’ remains the essential glue for modern AI."
+  },
+  {
+    "objectID": "articles/posts/base-64-encoding/base_64_encoding.html#the-six-bit-bridge-why-modern-ai-still-speaks-in-1970s-ascii-armor",
+    "href": "articles/posts/base-64-encoding/base_64_encoding.html#the-six-bit-bridge-why-modern-ai-still-speaks-in-1970s-ascii-armor",
+    "title": "The Six-Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”",
+    "section": "The Six-Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”",
+    "text": "The Six-Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”\nIn the world of Generative AI, we often focus on the new developments: neural networks, transformer architectures, and trillion-parameter models. But if you peek under the hood of a request sent to GPT-5 or Gemini 3, you’ll find a relic from ages ago.\nIt looks like a wall of digital noise:\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...\nTo the uninitiated, this is gibberish. To a developer, it’s Base64. But to a computer historian, it goes by a more popular name: “ASCII Armor.”"
+  },
+  {
+    "objectID": "articles/posts/base-64-encoding/base_64_encoding.html#the-missing-eighth-bit",
+    "href": "articles/posts/base-64-encoding/base_64_encoding.html#the-missing-eighth-bit",
+    "title": "The Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”",
+    "section": "The Missing Eighth Bit",
+    "text": "The Missing Eighth Bit\nIn the 1970s, the internet was a “fragile” place. Early networks were designed for 7-bit ASCII, perfect for English text, but catastrophic for 8-bit binary files.\nData transmission historically was expensive and slow. To save space, engineers used 7-bit ASCII for text representation. 7 bits can represent \\(2^7\\), or 128 different values (0 to 127). This was enough to represent the full english alphabet (A-Z, a-z), numbers (0-9), basic punctuation, and ‘control characters’ like Enter or Tab.\nHowever, most computers at the time typically used 8-bit (1 byte) systems. If you tried to send a raw image, the network would often “strip” the eighth bit of every byte to save space. It was like removing every third letter from a sentence; the data arrived shredded. Worse, binary sequences could accidentally trigger “control codes”, which were bits of data that told a printer to stop or a modem to hang up.\nAs a solution, developers began “armoring” their data. By disguising binary files as a safe string of alphanumeric text, they ensured the data could survive the journey across imperfect networks. And thus, Base64 was created."
+  },
+  {
+    "objectID": "articles/posts/base-64-encoding/base_64_encoding.html#what-is-base64",
+    "href": "articles/posts/base-64-encoding/base_64_encoding.html#what-is-base64",
+    "title": "The Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”",
+    "section": "What is Base64?",
+    "text": "What is Base64?\nTo solve the problem of sending raw data across the internet via traditional methods Base64 creates a mapping between the world of bits and bytes and the world of text and symbols.\nHere is how it works. Lets first take 3 bytes of information, containing 24 individual bits. With these 24 bits we will then split them into 4 groups of 6 bits. For each of the 6-bit groups we will map them to one real char (shown below in the table).\n\n\n\nValue Range\nBinary Range\nCharacters\n\n\n\n\n0–25\n000000–011001\nA–Z\n\n\n26–51\n011010–110011\na–z\n\n\n52–61\n110100–111101\n0–9\n\n\n62\n111110\n+\n\n\n63\n111111\n/\n\n\n\nThis does come at a cost however. For each 3 bytes of information, you will notice that this process created 4 characters. You may ask, well why don’t we just use more characters to the point where we can represent each byte with a single character.\nThis is a great question, the key problem is that representing each number in a fully byte requires \\(2^8\\) or 256 different values. We do not have that many ‘clean’ char values that are supported over standard text mechanisms."
+  },
+  {
+    "objectID": "articles/posts/base-64-encoding/base_64_encoding.html#what-does-base64-have-to-do-with-llms-and-modern-ai",
+    "href": "articles/posts/base-64-encoding/base_64_encoding.html#what-does-base64-have-to-do-with-llms-and-modern-ai",
+    "title": "The Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”",
+    "section": "What does Base64 have to do with LLMs and modern AI?",
+    "text": "What does Base64 have to do with LLMs and modern AI?\nWell, these days we sure do love API’s. For the uninitiated, API stands for application program interface. With API’s we can abstractly send a request to a server and receive a desired response. Modern API developers love a format called JSON. This format is very similar (often times interchangeable) with a generic nested form of Python dictionaries and lists.\n\njson_obj = {\n  \"key1\": \"value1\",\n  \"key2\": 123,\n  \"key3\": true,\n  \"key4\": [\n    \"item1\",\n    \"item2\"\n  ],\n  \"key5\": {\n    \"nestedKey\": \"nestedValue\"\n  }\n}\nHowever when sending JSON requests, it becomes very hard to include raw data in the form of a file. And even if you could just include raw bytes, this represents a serious security issue. This would be allowing a random API user to execute arbitrary bytes of data on your computer or server. Very bad stuff. However thankfully instead we can turn to Base64 and old fashioned ASCII Armor to fix this problem."
   },
   {
     "objectID": "projects/6CardGolf/IMPROVEMENTS.html",
@@ -119,6 +147,13 @@
     "text": "webrtc.js: WebRTC connection improvements and heartbeat mechanism\n6cardgolf.js: Game logic fixes and validation\n6cardgolfUI.js: UI improvements and better state management\nstyle.css: Enhanced responsive design\nindex.html: No changes needed\n\nAll improvements maintain backward compatibility and don’t break existing functionality."
   },
   {
+    "objectID": "projects/projects.html",
+    "href": "projects/projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "6 Card Golf \n       P2P 1v1 card game with a chat. \n    \n  \n\n  \n    \n       \n      \n       Dig Dug Game \n      A classic arcade game recreation."
+  },
+  {
     "objectID": "articles/posts/mortgage-from-market/mortgage-from-market.html",
     "href": "articles/posts/mortgage-from-market/mortgage-from-market.html",
     "title": "Getting a Mortgage from the Market",
@@ -159,5 +194,12 @@
     "title": "JCP",
     "section": "",
     "text": "jcp@home:~\n\n\n\n\n\n\n\n\n 🌌"
+  },
+  {
+    "objectID": "articles/posts/base-64-encoding/base_64_encoding.html#the-bit-bridge-why-modern-ai-still-speaks-in-1970s-ascii-armor",
+    "href": "articles/posts/base-64-encoding/base_64_encoding.html#the-bit-bridge-why-modern-ai-still-speaks-in-1970s-ascii-armor",
+    "title": "The Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”",
+    "section": "The Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”",
+    "text": "The Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”\nIn the world of Generative AI, we often focus on the new developments: neural networks, transformer architectures, and trillion-parameter models. But if you peek under the hood of a request sent to GPT-5 or Gemini 3, you’ll find a relic from ages ago.\nIt looks like a wall of digital noise:\ndata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...\nTo the uninitiated, this is gibberish. To a developer, it’s Base64. But to a computer historian, it goes by a more popular name: “ASCII Armor.”"
   }
 ]
