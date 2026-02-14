@@ -2,6 +2,7 @@
   {
     "listing": "/articles/blog.html",
     "items": [
+      "/articles/posts/crypto-perps/crypto-perps.html",
       "/articles/posts/base-64-encoding/base_64_encoding.html",
       "/articles/posts/mortgage-from-market/mortgage-from-market.html",
       "/articles/posts/deepseek-ocr/deepseek-ocr.html",
