@@ -5,7 +5,16 @@ css:
 ---
 
 ```{=html}
+
 <div class="projects-grid">
+
+<div class="project-tile">
+    <a href="../articles/blog.html">
+      <img src="/media/priors_homepage.png">
+      <h1> priors </h1>
+      <p>personal blog</p>
+    </a>
+  </div>
 
  <div class="project-tile">
     <a href="6CardGolf/index.html">
@@ -17,7 +26,6 @@ css:
 
   <div class="project-tile">
     <a href="DigDug/DigDugGame.html">
-      <span style="line-height: 5.0em;">&nbsp;</span>
       <img src="DigDug/loading screen.png" >
       <h1> Dig Dug Game </h1>
       <p>A classic arcade game recreation.</p>

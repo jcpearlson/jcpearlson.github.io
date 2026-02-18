@@ -24,16 +24,17 @@
 }
 
 .project-tile img {
-  max-width: 100%; /* Added max-width */
-  height: auto; /* Changed height to auto */
+  width: 100%;
+  height: 350px;
   object-fit: cover;
+  object-position: center;
+  display: block;
   /* background-color: black; */
 }
 
 .project-tile h1 {
   margin: 15px 0 5px;
   font-size: 2em;
-  margin-top: auto; /* Push text to bottom */
   color: rgba(124, 255, 0, 0.95); /* Bright color for active link */
 }
 
