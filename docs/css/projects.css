@@ -32,6 +32,11 @@
   /* background-color: black; */
 }
 
+.project-tile img.pomo-img {
+  object-fit: contain;
+  background-color: black;
+}
+
 .project-tile h1 {
   margin: 15px 0 5px;
   font-size: 2em;

@@ -16,6 +16,14 @@ css:
     </a>
   </div>
 
+  <div class="project-tile">
+    <a href="https://pomo.joshpearlson.com">
+      <img src="/media/pomo.png" class="pomo-img">
+      <h1> POMO </h1>
+      <p>Pomodoro timer</p>
+    </a>
+  </div>
+
  <div class="project-tile">
     <a href="6CardGolf/index.html">
       <img src="6CardGolf/6cardGolfLogo.png" >
