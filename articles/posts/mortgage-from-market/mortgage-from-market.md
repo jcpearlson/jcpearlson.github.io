@@ -2,7 +2,7 @@
 title: "Getting a Mortgage from the Market"
 author: "Josh Pearlson"
 date: "2025-11-22"
-categories: ["Finance", "Options"]
+categories: ["Finance", "Derivatives"]
 ---
 
 Articles showcase a select group using options to borrow money rather than a traditional Agency mortgage. Are advertisements of $0 down and near treasury-rate mortgages a fact or fiction?   

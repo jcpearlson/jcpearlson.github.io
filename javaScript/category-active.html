@@ -1,0 +1,33 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const pills = Array.from(document.querySelectorAll('.category-default .category'));
+  if (!pills.length) return;
+
+  function setActive(activePill) {
+    pills.forEach(p => p.classList.remove('quarto-active'));
+    activePill.classList.add('quarto-active');
+  }
+
+  function activateFromHash() {
+    const hash = decodeURIComponent(window.location.hash); // e.g. "#category=Probability"
+    const match = hash.match(/^#category=(.+)$/i);
+    if (match) {
+      const categoryName = match[1].toLowerCase();
+      const pill = pills.find(p => p.textContent.trim().toLowerCase().startsWith(categoryName));
+      if (pill) { setActive(pill); return; }
+    }
+    // No hash or no match — fall back to "All"
+    const allPill = pills.find(p => p.textContent.trim().startsWith('All'));
+    if (allPill) setActive(allPill);
+  }
+
+  activateFromHash();
+
+  // On click, immediately highlight the clicked pill
+  pills.forEach(pill => {
+    pill.addEventListener('click', function() {
+      setActive(this);
+    });
+  });
+});
+</script>

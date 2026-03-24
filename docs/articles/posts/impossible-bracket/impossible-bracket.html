@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Josh Pearlson">
-<meta name="dcterms.date" content="2025-11-22">
+<meta name="dcterms.date" content="2026-03-21">
 
-<title>Getting a Mortgage from the Market – Josh Pearlson</title>
+<title>The Impossible Bracket – Josh Pearlson</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -144,10 +144,9 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Getting a Mortgage from the Market</h1>
+      <h1 class="title">The Impossible Bracket</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Finance</div>
-                <div class="quarto-category">Derivatives</div>
+                <div class="quarto-category">Probability</div>
               </div>
                   </div>
   </div>
@@ -165,7 +164,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 22, 2025</p>
+        <p class="date">March 21, 2026</p>
       </div>
     </div>
     
@@ -184,84 +183,196 @@ window.Quarto = {
 
 
 
-<p>Articles showcase a select group using options to borrow money rather than a traditional Agency mortgage. Are advertisements of $0 down and near treasury-rate mortgages a fact or fiction?</p>
+<p>The odds of a perfect March Madness bracket are 1 in 9.2 quintillion. Warren Buffett bet a billion dollars on it, and he was never worried about paying out.</p>
 <hr>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../../media/mortgageMarketHeader.png" class="img-fluid figure-img"></p>
-<figcaption>Mortgage from the Market</figcaption>
+<p><img src="../../../media/impossible-bracket-header.png" class="img-fluid figure-img"></p>
+<figcaption>The Impossible Bracket</figcaption>
 </figure>
 </div>
-<p>Imagine securing a loan for your dream home with a 0% down payment and an interest rate that rivals the U.S. Treasury. It sounds like a financial fantasy, but a niche corner of the options market, the ‘box spread’, has been touted online as a secret Wall Street trick to do just that. But is this a golden ticket for the average homebuyer, or a high-stakes gamble reserved for a select few? Let’s break down the math, the hype, and the hidden dangers.</p>
-<p>Today the average 30-year fixed rate mortgage is around <a href="https://finance.yahoo.com/personal-finance/mortgages/article/mortgage-refinance-rates-today-thursday-november-20-2025-110030633.html?utm_source=chatgpt.com&amp;guccounter=1&amp;guce_referrer=aHR0cHM6Ly9jaGF0Z3B0LmNvbS8&amp;guce_referrer_sig=AQAAAGThrdddEj7J49b2DIvcxNFIX9q4DI1ccJvBuVneynvn5U9rVmMrs-uBmQ8tCZVZyPfk0uTu0i0Frgl5jbbCwGEqric4V2QxIsW8kq6QF4d280RB4vYzTpDpPrtEe230APncCw1ufLbZputPUC7NGxXCpBMxl02T61-VZw3ciI-f">6.3%</a> yearly. Generally for mortgages it is recommended that buyers have around 20% to put as a ‘down payment’ at the start of the mortgage term. When trying to purchase a $1M house the math looks like the following:</p>
-<p>Home cost: <br> <strong>$1M</strong> <br> Down payment: <br> 20% * $1M = <strong>$200K</strong> <br> Loan value: <br> $1M - $200K = <strong>$800K</strong> <br> Interest rate monthly: <br> 6.3%/12 = <strong>.525% monthly</strong> <br> Length of payments in months: <br> 30 years * 12 = <strong>360 months</strong> <br> Monthly payment: <br> $800K * .525% / (1-(1 + .525%)^-360) = <strong>$4,951.78</strong> <br> Total interest paid: <br> $4,951.78 * 360 - $800K = <strong>$982,640.8</strong></p>
-<p>There are good and bad things associated with this:</p>
-<p><strong>[good]</strong> <br></p>
-<ol type="1">
-<li><p>You have effectively lowered the initial cost burden of purchasing a home. Now instead of paying $1M today, I can pay $200K today and own a home for $5K in fixed payments per month.</p></li>
-<li><p>I get to enjoy the appreciation of equity value if my house raises in value. If rates decline or my home value increases, I may then be able to re-finance my home enjoying even lower rates or payments.</p></li>
-</ol>
-<p><strong>[bad]</strong><br></p>
-<ol type="1">
-<li><p>I have to come up with $200K today. This may not be a problem for me financially, however, I don’t want to have to sell large chunks of stocks or my retirement accounts in order to get the cash on hand.</p></li>
-<li><p>If I for some reason cannot make my payments the bank will take my house. I will lose all of the value I had built up in home equity and still have paid lots of principal and interest for nothing.</p></li>
-<li><p>If I keep to my payments and everything goes according to plan I will likely have a $800K loan that costs me $982K in interest over time to borrow that money. That is a ton of interest, more than 120% of the loan value spent and pocketed by a bank.</p></li>
-</ol>
-<section id="the-box-spread-mortgage" class="level2">
-<h2 class="anchored" data-anchor-id="the-box-spread-mortgage">The Box Spread Mortgage</h2>
-<p>First let’s clarify, I am not suggesting you do this. In fact, today I am going to argue why this is not the Goldilocks scenario it is documented as in articles online. Please do not take this article as advice to go out and try and trade millions of dollars of notional volume of options to try and create yourself one of these.</p>
-<p>Now that that is out of the way, here is the box spread mortgage:</p>
+<p>Every March, millions of people fill out NCAA Basketball brackets convinced that this is their year. In 2014, Warren Buffet <a href="https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket">offered a billion dollars</a> to anyone who could pick every one of the 63 games correctly. Kalshi has revived this offer by running the <a href="https://kalshi.com/billion-dollar-bracket">same bet this year</a>, backed by some of the sharpest minds in trading at <a href="https://sig.com/">SIG</a>. Here is the quick math explaining why everyone offering this “prize” knows they are never going to pay it out.</p>
+<section id="the-structure-of-the-bracket" class="level2">
+<h2 class="anchored" data-anchor-id="the-structure-of-the-bracket">The Structure of the Bracket</h2>
+<p>The NCAA Tournament’s main bracket involves 64 teams competing across six rounds. Each game has exactly two possible outcomes. That means the bracket is a sequence of binary decisions, a string of ones and zeros, one bit per game.</p>
+<p>How many games are there? In a single-elimination tournament with 64 teams, every game eliminates exactly one team. To go from 64 to 1 champion, you need to eliminate 63 teams. Therefore: 63 games, 63 binary decisions.</p>
+<p><span class="math display">\[\text{Total possible brackets} = 2^{63}\]</span></p>
+<p>That resolves to:</p>
+<p><span class="math display">\[9{,}223{,}372{,}036{,}854{,}775{,}808\]</span></p>
+<p>Nine quintillion, two hundred twenty-three quadrillion, roughly <span class="math inline">\(9.2 \times 10^{18}\)</span>.</p>
+<p>For reference, that number is ~22.5 Million times larger than the number of stars in the Milky Way. Let that land for a second.</p>
+</section>
+<section id="the-billion-dollar-bets" class="level2">
+<h2 class="anchored" data-anchor-id="the-billion-dollar-bets">The Billion Dollar Bets</h2>
+<p>In 2014, Warren Buffett and Quicken Loans offered <a href="https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket">$1 billion</a> to anyone who could submit a perfect bracket. The prize was backed by Berkshire Hathaway. Buffett, who has made a career out of understanding risk better than almost anyone alive, was not worried about paying out. By the end of the contest the ~8 million entrants did not come close to perfection.</p>
+<p>This March, Kalshi launched a similar challenge: a <strong>$1 billion prize</strong> for a perfect bracket, backed in part by Susquehanna International Group (<a href="https://sig.com/">SIG</a>), one of the most sophisticated quantitative trading firms in the world. SIG is not known for charitably giving away their prop trading capital base within the context of markets. They are known for pricing risk extremely precisely and taking the other side of bets when the odds are overwhelmingly in their favor.</p>
+<p>When a firm full of people who do math for a living are happy to insure your perfect bracket for a shot at a billion dollars, you should pay attention to what they’re implying about the probability.</p>
+<p>They are, in the most literal sense, selling insurance against an event they know will almost certainly never happen. The expected payout is so close to zero that the marketing value of the promotion likely exceeds the actuarial risk. That’s not a criticism, that’s just elegant business. But it tells you something important about the numbers underneath.</p>
+</section>
+<section id="what-are-the-chances-of-a-perfect-bracket" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-the-chances-of-a-perfect-bracket">What Are the Chances of a Perfect Bracket?</h2>
+<p>The 1-in-9.2-quintillion figure assumes pure randomness, one coin flip per game. It is also only the probability for just one bracket being perfect. In reality, we are concerned with the probability that <strong>many brackets are all not perfect brackets</strong>! In the case of the Buffett/Quicken Loans contest there were millions of brackets. At its peak roughly 8 million people entered, all of them with at least some knowledge of basketball (and thus potentially better than 50% odds of guessing a given game). So let’s ask the right question:</p>
 <blockquote class="blockquote">
-<p>A <strong>box-spread mortgage</strong> is a synthetic borrowing mechanism in which a long-dated options box spread provides capital upfront in exchange for a contractually fixed repayment at maturity, effectively replicating a mortgage’s economic profile via derivative pricing.</p>
+<p>With 8 million entrants picking at different levels of skill (probability of guessing games correctly), what’s the probability that at least one of them ended up with a perfect bracket?</p>
 </blockquote>
-<section id="creating-a-box-spread-mortgage" class="level3">
-<h3 class="anchored" data-anchor-id="creating-a-box-spread-mortgage">Creating a Box Spread Mortgage</h3>
-<p>Simply put to create a box spread we go long a call and short a put option at a strike <span class="math inline">\(k_1\)</span> and short a call and long a put at strike <span class="math inline">\(k_2\)</span>. At strike <span class="math inline">\(k_1\)</span> you have effectively created a synthetic long forward. At strike <span class="math inline">\(k_2\)</span> you have created a short forward.</p>
-<p>It is important that the options that comprise this trade are European options. American options allow for exercising an option early, allowing for your ‘balanced hedge’ to fall apart whenever your counterparty decides.</p>
-<p>Going long a forward is equivalent to agreeing to buy an asset at a fixed-price <span class="math inline">\(k_1\)</span> in the future. Going short a forward is agreeing to sell an asset at a fixed-price <span class="math inline">\(k_2\)</span> in the future.</p>
-<p>Thus, when <span class="math inline">\(k_2\)</span> &gt; <span class="math inline">\(k_1\)</span> we receive a fixed future payoff of <span class="math inline">\(k_2 - k_1\)</span>. We also collect upfront the present value of this payoff discounted at the risk-free rate (or 10s of bps higher as market makers need to profit) this upfront cash flow is <span class="math inline">\(PV(k_2 - k_1)\)</span>.</p>
-<p>So in this trade we get paid <span class="math inline">\(PV(k_2 - k_1)\)</span> and have to pay <span class="math inline">\(k_2 - k_1\)</span> in the future. This is the exact same as borrowing <span class="math inline">\(k_2 - k_1\)</span> dollars at/near the risk-free interest rate <span class="math inline">\(r_f\)</span>.</p>
-<p>In simpler terms you can think of it this way: you simultaneously make two deals for a future date.</p>
-<ol type="1">
-<li><p>Deal 1: You agree to buy an asset for $1,000.</p></li>
-<li><p>Deal 2: You agree to sell the exact same asset for $1,050.</p></li>
-</ol>
-<p>No matter what the asset’s price is on that future date, you are guaranteed to make a $50 profit. The market recognizes this guaranteed future profit and gives you its present value today: say, $48 as cash in your pocket.</p>
-<p>Congratulations, you’ve just received $48 upfront in exchange for paying back $50 later. In essence, you’ve taken out a loan at a very low interest rate, with the loan amount being the present value of the spread between your two deals.</p>
+<p>Each individual bracket has a:</p>
+<p><span class="math display">\[P(\text{Perfect Bracket | Random choosing}) = \frac{1}{2^{63}} =  0.5^{63} = \frac{1}{9.22 \times 10^{18}}\]</span></p>
+<p>With 8 million entrants, the probability that at least one submits a perfect bracket is:</p>
+<p><span class="math display">\[P(\text{At least one perfect | 8,000,000 entrants}) = 1 - P(\text{No perfect bracket | 8,000,000 entrants})\]</span></p>
+<p><span class="math display">\[P(\text{No perfect brackets | 8,000,000 entrants}) = (1 - P(\text{One perfect bracket}))^\text{8,000,000 entrants}\]</span></p>
+<p>Putting all of this together we get the following:</p>
+<p><span class="math display">\[P(\text{At least one perfect | 8,000,000 entrants}) = 1 - (1 - P(\text{One perfect bracket}))^\text{8,000,000 entrants} \]</span></p>
+<p>When choosing randomly. This ended up being ~0.00000000008%, about 10 trillion to 1 odds. Buffett was insuring 1-in-10-trillion odds bet for a billion dollars. Not exactly a nail-biter. The EV of this 1 Billion dollar liability is about <strong>$0.0001 dollars</strong>. In other words, if someone offered you this deal and said they would pay you a penny to run the contest, you should be very excited to say yes.</p>
+<p>8 million people was the 2014 figure but what about with this years 36 million brackets. I know its likely there are fewer unique brackets (many users picking similar brackets) but lets evaluate as if the worst scenario is among us (as insurers).</p>
+<p>Let’s also give the entrants some credit. Suppose every one of those 8 or 36 million people had genuine edge, correctly predicting each game with 55%, 60%, or even 70% accuracy! Better than most people, even better than most statistical models. Their per-bracket odds become:</p>
+<p><span class="math display">\[0.55^{63} \approx 4.39 \times 10^{-17}\]</span></p>
+<p><span class="math display">\[0.60^{63} \approx 1.05 \times 10^{-14}\]</span></p>
+<p><span class="math display">\[0.70^{63} \approx 1.74 \times 10^{-10}\]</span></p>
+<p>These odds are as follows, 55% -&gt; 1 in 23 quadrillion, 60% -&gt; 1 in 100 trillion, 70% -&gt; 1 in 5 billion.</p>
+<p>This year there were 36 million total brackets, however the Kalshi contest was limited to a mere 10 million brackets. Given all of these entrants and the potential for skilled bracket creation Kalshi contest the numbers shift, but not enough to make anyone at SIG nervous. Here’s the full picture across skill levels and pool sizes:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 16%">
+<col style="width: 17%">
+<col style="width: 18%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Accuracy per game</th>
+<th>Odds, one bracket</th>
+<th>Odds with 8M entrants</th>
+<th>Odds with 36M entrants</th>
+<th>EV of $1B (10M entrants)</th>
+<th>EV of $1B (36M entrants)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>50% (random)</td>
+<td>1 in 9.2 quintillion</td>
+<td>1 in 1.15 trillion</td>
+<td>1 in 256 billion</td>
+<td>$0.001</td>
+<td>$0.004</td>
+</tr>
+<tr class="even">
+<td>55%</td>
+<td>1 in 23 quadrillion</td>
+<td>1 in 2.85 billion</td>
+<td>1 in 633 million</td>
+<td>$0.44</td>
+<td>$1.58</td>
+</tr>
+<tr class="odd">
+<td>60%</td>
+<td>1 in 95 trillion</td>
+<td>1 in 12 million</td>
+<td>1 in 2.6 million</td>
+<td>$106</td>
+<td>$380</td>
+</tr>
+<tr class="even">
+<td>67%</td>
+<td>1 in 90.6 billion</td>
+<td>1 in 9,064</td>
+<td>1 in 2,518</td>
+<td>$110,329</td>
+<td>$397,126</td>
+</tr>
+<tr class="odd">
+<td>70%</td>
+<td>1 in 5.7 billion</td>
+<td>1 in 718</td>
+<td>1 in 160</td>
+<td>$1,740,998</td>
+<td>$6,253,419</td>
+</tr>
+</tbody>
+</table>
+<p>The 70% row is where things start to look interesting, 1-in-160 with 36 million entrants is a number that would make an insurer sweat (obviously depending on how much money you were paid for the contract). On the far right hand side you can see the expected value of the $1 Billion dollar liability at every probability level. If the prediction accuracy per game is worse than 67% and there are less than 10M entrants, you should feel relatively comfortable accepting between $100 and $100,000. This range is quite wide but depends heavily on the inputs.</p>
+<p>But nobody (especially not your average Joe) predicts March Madness at 67% per game. The whole point of the tournament is that upsets happen constantly and unpredictably. A 12-seed beats a 5-seed roughly a third of the time. Cinderella stories aren’t anomalies, they’re the product. The bracket is essentially designed to punish sustained accuracy, which is exactly why billion-dollar prize offers are such comfortable positions to be in.</p>
 </section>
-<section id="how-much" class="level3">
-<h3 class="anchored" data-anchor-id="how-much">How Much?</h3>
-<p>Just how far from <span class="math inline">\(r_f\)</span> can you borrow? Due to recent increase in volume in the SPX box spread market, this <a href="https://www.cboe.com/insights/posts/long-dated-box-spreads-a-better-way-to-buy-a-home-updated/">CBOE article</a> (which I recommend reading if you are interested in this) says to expect 30-50bps higher than treasury rates! This is astonishingly low with the 5yr sitting at 3.6% on the high end you could expect to borrow at <strong>4.1% interest</strong>! This is 2.2% lower than the traditional mortgage I showed earlier.</p>
-<p>Not to mention there are other benefits as well. I mentioned that you get paid upfront whatever you want, let’s say the full 1M value of the home. In 5 years you repay <span class="math inline">\(\$1M * (1.041)^5 = \$1,222,513.45\)</span>. Costing you ~200K to loan 1M over 5 years. At the comparable interest rate for the traditional mortgage this would cost around <span class="math inline">\(\$1M * (1.063^5) - \$1M = \$357k\)</span>. No monthly payments as well with the box spread, just the lump sum payment at a future date of over a million dollars.</p>
+<section id="how-much-storage-would-every-bracket-require" class="level2">
+<h2 class="anchored" data-anchor-id="how-much-storage-would-every-bracket-require">How Much Storage Would Every Bracket Require?</h2>
+<p>Here is a very fun hypothetical, lets say I now let you generate every single bracket possible but you have to have it stored somewhere in a physical location (computer memory is allowed). I will still offer the same deal. One Billion dollars if you generate the perfect bracket! But, now there is a catch:</p>
+<blockquote class="blockquote">
+<p>I will only pay you the billion dollars if you have every single bracket stored somewhere.</p>
+</blockquote>
+<p>You laugh and jump in joy thinking of the yachts and super cars you will buy with your fortune.</p>
+<p>First, let’s make the number concrete. Each bracket requires exactly 63 bits of data, one bit per game outcome. So the total storage to represent every possible bracket is:</p>
+<p><span class="math display">\[63 \text{ bits} \times 2^{63} \text{ brackets} = 581,072,438,321,850,875,904 \text{ bits}\]</span></p>
+<p>Let’s convert that into something recognizable:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Unit</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bits</td>
+<td><span class="math inline">\(\approx 5.81 \times 10^{20}\)</span></td>
+</tr>
+<tr class="even">
+<td>Bytes</td>
+<td><span class="math inline">\(\approx 7.26 \times 10^{19}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Gigabytes (GB)</td>
+<td><span class="math inline">\(\approx 72{,}634{,}054{,}790\)</span> GB</td>
+</tr>
+<tr class="even">
+<td>Terabytes (TB)</td>
+<td><span class="math inline">\(\approx 72{,}634{,}055\)</span> TB</td>
+</tr>
+<tr class="odd">
+<td>Petabytes (PB)</td>
+<td><span class="math inline">\(\approx 72{,}634\)</span> PB</td>
+</tr>
+<tr class="even">
+<td><strong>Exabytes (EB)</strong></td>
+<td><strong><span class="math inline">\(\approx 72.6\)</span> EB</strong></td>
+</tr>
+</tbody>
+</table>
+<p>To put that in context: as of 2025, this figure would be at least <strong>10% of global AWS storage</strong>.</p>
+<p>We’re not in terabyte territory (or even petabyte for that matter). We’re in exabyte territory. That’s 72,600 terabytes just to store the bracket data, to say nothing of the hardware, indexing, or retrieval infrastructure needed to actually use it.</p>
+<p>I had Opus 4.6 (LLM) generate a cost estimate for writing, storing, and retrieving this data. It came up with a figure in the 4-10 billion dollar range.</p>
 </section>
-<section id="all-the-problems" class="level3">
-<h3 class="anchored" data-anchor-id="all-the-problems">All the Problems</h3>
-<p>Ok first off in order to actually get one of these box loans your strategy (as a retail trader) will need to be fully collateralized at all times. This means if you are to do the $1M loan you need $1.2M+ in assets in your same brokerage account at all times. This is ok for some people however it requires a lot of capital depending on how volatile a person’s investments are.</p>
-<p>I would also guess that there is a correlation between using a box spread as a mortgage and having a higher risk appetite, but I digress.</p>
-<p>In a bad market downturn the stock market can fall ~50% so to be safe let’s say we will need to have $2.4M in equities or less if you are including less volatile fixed-income products as well. Immediately we have moved from ‘easily accessible risk-free rate mortgage’ to ‘you need double or more in retirement assets to reasonably attempt this’.</p>
-<p>Let’s say we are fully collateralized, we are very certain we will be able to meet the liability in 5 years safely. Now we have another problem, we have to meet a 5 year liability of greater than our loan size settled in pure cash! If you were worried about selling 20% of your home value in portfolio value how about selling 120% of your home value in portfolio value in just 5 years!</p>
-<p>Now this is not fully fair as there are likely strategies to ‘kick the cash flow down the road’ like rolling into a new 5 year box spread borrowing the new amount (collateralized fully by at least a 2x multiple). However, it’s still said that at some point you need to present a large quantity of cash in order to settle this contract. The only way to come up with that level of cash is by selling assets or making incremental payments to set aside for the large future negative cash flow you expect. This is why in a traditional mortgage you are expected to pay down a fixed cost monthly which goes to both repaying interest and the principal which you loaned out.</p>
-<p>In order to effectively execute this strategy you need to be very wealthy in retirement assets which you can use as collateral covering the loan size multiple times over if you have a more volatile portfolio. You also need to have a strategy to meet the expected large negative cash flow in the future.</p>
-<p>If in 5 years, you need to have some plan to come up with $1.2M then rather than just coming up with the $1M today? Given you are this consumer who has vast riches in assets and is not concerned with the future cash liability why not just pay off the house today? Pushing the house/sale of retirement assets out 5 years even at the risk-free rate does not seem as worth it for this consumer since they <strong>already have more than enough money for the loan anyway</strong>.</p>
-<p>Well, there are some reasons. Here are the reasons why you would want to do this. First, the interest payments show up as a loss in an options trade. This <strong>loss is tax deductible</strong>! This means if you are wealthy you can likely write off a large portion of the interest (leading to an almost free loan). So let’s say you are fully collateralized with an investment account however you expect to have to sell off some assets in 5 years that have appreciated (incurring a capital gains tax). You also happen to be making a large purchase that you could have done outright anyway. Now we have a great scenario for you to go out to the market, borrow money using box spreads, and then generate a loss at the end of the period allowing you to:</p>
-<ol type="1">
-<li><p>Borrow money today so that you don’t have to sell assets.</p></li>
-<li><p>Align your planned sale of assets (likely with capital gains tax) and offset it with the loss you will generate in the synthetic loan strategy (interest payment).</p></li>
-<li><p>Pay off the full cost of the loan at the end of the period rather than the start.</p></li>
-</ol>
-<p>This now looks like a great trade.</p>
-<p>Once again though I want to reiterate, this is not a good strategy for people who are under-collateralized. It is in fact an awful strategy. If the market drops and your collateral falls bellow whatever threshold your broker allows you wont be losing some fancy new home, you will be losing your life savings (and all investments). This is not a good trade for that level of risk.</p>
+<section id="the-lottery-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="the-lottery-comparison">The Lottery Comparison</h2>
+<p>Most people intuitively understand that the lottery is hard to win. The odds of winning Powerball are roughly 1 in 292 million. That feels impossibly small.</p>
+<p>The odds of randomly picking a perfect bracket are 1 in 9.2 quintillion. That’s roughly <strong>31 billion times harder than winning Powerball</strong>.</p>
+<p>Let’s try another angle. If every person on Earth (all 8 billion of us) filled out one bracket per second, continuously, the expected time to exhaust all possible combinations would be approximately:</p>
+<p><span class="math display">\[\frac{2^{63}}{8 \times 10^9 \text{ people} \times 3.156 \times 10^7 \text{ seconds/year}} \approx 36.5 \text{ years}\]</span></p>
+<p>About 36 and a half years. Every person on Earth filling out a bracket every single second would need the better part of a lifetime to exhaust all combinations. And that assumes nobody sleeps.</p>
 </section>
-<section id="conclusion" class="level3">
-<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
-<p>There is a select group who could benefit from the box spread mortgage (or loan).</p>
-<p>This select group is over-collateralized, has planned selling with tax implications in the future, and wants to make a purchase today. This group is <strong>not the everyday person</strong>, in fact far from it! Most people get a mortgage because they want to convert the large upfront cost burden of owning a home to a delayed fixed cost burden spread over many years.</p>
-<p>This consumer does not have enough to buy the house outright and likely does not have enough to buy several of the house within their retirement assets. Thus, if they tried the box spread mortgage they would likely get margin called during a large drawdown in the equity markets and lose everything.</p>
-<p>As always, till next time.</p>
-<p>JCP</p>
+<section id="what-sig-and-buffett-actually-know" class="level2">
+<h2 class="anchored" data-anchor-id="what-sig-and-buffett-actually-know">What SIG and Buffett Actually Know</h2>
+<p>There’s a useful framing from insurance that applies here. An insurer takes on a probability of loss in exchange for a premium today. The math only works if the premium is priced above the expected loss. If the expected loss is $0, any premium at all is pure margin.</p>
+<p>When Buffett offered $1 billion for a perfect bracket, the actuarial cost of that promise was basically zero. The probability that any entrant would submit a perfect bracket, even with millions of entries, was vanishingly small. You don’t need a billion dollars in reserves when your expected payout rounds to nothing.</p>
+<p>SIG knows this game cold. They make markets in options and other derivatives, where pricing low-probability events accurately is literally the job. Running a billion dollar bracket challenge backed by SIG is not a bet on sports. It’s a bet on math. And the math is so one-sided that the promotional upside of running the contest dwarfs any actuarial concern about the payout.</p>
+<p>The same logic applies to why bracket challenges in general are financially sound for the people running them. Even offering a $1 million prize for a perfect bracket, with millions of entrants, the expected payout is trivially small. You’re not insuring against a hurricane. You’re insuring against something that has never happened and almost certainly will not happen in any of our lifetimes.</p>
+</section>
+<section id="takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
+<p>The impossible bracket is a beautiful collision of combinatorics and human optimism. A few things worth holding onto:</p>
+<ul>
+<li>The number of possible brackets, <span class="math inline">\(2^{63}\)</span>, is large enough to break human intuition, exceed practical storage capacity, and make brute-force approaches absurd.</li>
+<li>Smart money, from Buffett to SIG, has been happy to offer billion-dollar prizes because the expected cost is essentially zero. When that many smart people are on one side of a bet, it’s worth understanding why.</li>
+<li>Skill helps. A 70% accurate predictor has odds of 1 in 700,000 rather than 1 in 9 quintillion. But 1 in 700,000 is still not good.</li>
+<li>The annual ritual of filling out brackets is not irrational. Bracket pools are won by people who pick better than average, not by people who pick perfectly. You don’t need a perfect bracket to win your office pool. You just need to be right more often than everyone else. That’s a very different problem.</li>
+</ul>
+<p>The March Madness bracket is a masterclass in why we’re bad at big numbers. We hear “9.2 quintillion” and nod, but we don’t really feel it. The storage math helps. The lottery comparison helps. The Buffett angle helps. But ultimately, <span class="math inline">\(2^{63}\)</span> is just genuinely bigger than our intuition is built to handle, and no amount of explanation fully closes that gap.</p>
+<p>Which is, honestly, part of what makes March so fun.</p>
+<hr>
+<p><em>Note: This analysis covers the standard 64-team single-elimination bracket with 63 games. The NCAA Tournament’s First Four play-in games add 4 more decision points, bringing the true total closer to <span class="math inline">\(2^{67}\)</span>, roughly 147 quintillion. We’ll leave that as an exercise for the truly deranged.</em></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

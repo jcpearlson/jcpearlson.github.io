@@ -2,7 +2,7 @@
 title: "The Future of Context, DeepSeek OCR"
 author: "Josh Pearlson"
 date: "2025-10-31"
-categories: ["Machine Learning", "LLM"]
+categories: [ "LLM"]
 ---
 
 A breakthrough in optical character recognition (OCR) has profound implications for the future of LLMs.

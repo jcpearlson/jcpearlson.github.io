@@ -3,22 +3,57 @@
 /* ========== TITLE & BANNER ========== */
 
 .quarto-title-banner.page-columns.page-full {
-  background-color: rgba(0, 51, 0, 0.2) !important;
-  border-bottom: 1px solid rgba(124, 255, 0, 0.3);
+  background-color: transparent !important;
+  border-bottom: none;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .quarto-title.column-body h1.title,
 .quarto-title-block-header h1.title {
     color: rgba(124, 255, 0, 0.95) !important;
-    text-shadow: 0 0 10px rgba(124, 255, 0, 0.3);
     font-weight: 600;
 }
 
-/* Article metadata (author and date) */
-.quarto-title-meta-heading,
+/* Article metadata — pull up tight to the title, no gap */
+.quarto-title-meta {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0 !important;
+  flex-wrap: nowrap;
+  margin-top: 0 !important;
+  padding: 4px 0 20px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Hide the "Author" / "Published" labels — redundant */
+.quarto-title-meta-heading {
+  display: none !important;
+}
+
+/* Each meta group sits inline */
+.quarto-title-meta > div {
+  display: flex !important;
+  align-items: center;
+}
+
+/* Separator dot between author and date */
+.quarto-title-meta > div + div::before {
+  content: "·";
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.85rem;
+  padding: 0 10px;
+}
+
+/* Author and date values */
 .quarto-title-meta-contents,
 .quarto-title-meta-contents p {
-    color: rgba(124, 255, 0, 0.7) !important;
+  color: rgba(255, 255, 255, 0.45) !important;
+  font-size: 0.78rem !important;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace !important;
+  letter-spacing: 0.03em !important;
+  margin: 0 !important;
 }
 
 /* ========== MOBILE-FIRST LAYOUT & TYPOGRAPHY ========== */
@@ -36,7 +71,7 @@ main#quarto-document-content {
 
 #quarto-content p, 
 #quarto-content li {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.92);
   line-height: 1.7;
   font-size: 1rem; /* Mobile-friendly font size */
 }
@@ -82,6 +117,16 @@ main#quarto-document-content {
 
 /* ========== SCROLLSPY STYLES (Applies only when visible) ========== */
 
+.scrollspy-header {
+  color: rgba(124, 255, 0, 0.95);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 10px 10px;
+  padding: 0;
+}
+
 .scrollspy-list {
   list-style: none;
   padding: 0;
@@ -92,24 +137,27 @@ main#quarto-document-content {
   margin-bottom: 5px;
 }
 
-.scrollspy-link {
-  color: rgba(124, 255, 0, 0.7);
+#quarto-content .scrollspy-link {
+  color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
+  border-bottom: none;
   display: block;
   padding: 5px 10px;
   border-left: 3px solid transparent;
   transition: all 0.3s ease;
 }
 
-.scrollspy-link:hover {
-  color: rgba(124, 255, 0, 1);
-  background-color: rgba(0, 51, 0, 0.3);
+#quarto-content .scrollspy-link:hover {
+  color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-bottom: none;
 }
 
-.scrollspy-link.active {
-  color: rgba(124, 255, 0, 1);
+#quarto-content .scrollspy-link.active {
+  color: rgba(124, 255, 0, 0.95);
   font-weight: 600;
   border-left: 3px solid rgba(124, 255, 0, 0.95);
+  border-bottom: none;
   box-shadow: inset 5px 0 10px -5px rgba(124, 255, 0, 0.2);
 }
 
@@ -119,26 +167,48 @@ main#quarto-document-content {
 
 /* ========== CORE BODY & TEXT STYLES ========== */
 
-#quarto-content h1, 
-#quarto-content h2, 
-#quarto-content h3, 
-#quarto-content h4, 
-#quarto-content h5, 
-#quarto-content h6 {
+#quarto-content h1,
+#quarto-content h2 {
   color: rgba(124, 255, 0, 0.95);
-  text-shadow: 0 0 8px rgba(124, 255, 0, 0.3);
+}
+
+#quarto-content h3,
+#quarto-content h4,
+#quarto-content h5,
+#quarto-content h6 {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 #quarto-content a {
-  color: rgba(124, 255, 0, 0.95);
+  color: rgba(255, 200, 80, 0.95);
   text-decoration: none;
-  border-bottom: 1px dashed rgba(124, 255, 0, 0.5);
+  border-bottom: 1px solid rgba(255, 200, 80, 0.3);
   transition: all 0.3s ease;
 }
 
 #quarto-content a:hover {
-  border-bottom: 1px solid rgba(124, 255, 0, 0.95);
-  text-shadow: 0 0 5px rgba(124, 255, 0, 0.5);
+  border-bottom: 1px solid rgba(255, 200, 80, 0.95);
+}
+
+/* ========== FIGURES & CAPTIONS ========== */
+
+#quarto-content figure {
+  max-width: 75%;
+  margin: 2rem auto;
+}
+
+#quarto-content figure img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+#quarto-content figcaption {
+  text-align: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-top: 8px;
 }
 
 /* ========== CONTENT ELEMENTS ========== */
@@ -146,7 +216,7 @@ main#quarto-document-content {
 /* Blockquotes */
 #quarto-content blockquote {
   border-left: 3px solid rgba(124, 255, 0, 0.95) !important;
-  background: rgba(0, 51, 0, 0.1);
+  background: rgba(0, 51, 0, 0.4);
   padding: 15px 20px;
   font-style: italic;
   color: rgba(255, 255, 255, 0.9) !important;
@@ -155,8 +225,8 @@ main#quarto-document-content {
 
 /* Strong/bold text */
 #quarto-content strong {
-  color: rgba(124, 255, 0, 0.95) !important;
-  font-weight: 600;
+  color: rgba(255, 200, 80, 0.95) !important;
+  font-weight: 700;
 }
 
 /* List markers */
@@ -179,12 +249,12 @@ main#quarto-document-content {
   font-weight: bold;
   padding: 0.8em 0.5em;
   text-align: left;
-  border: 1px solid rgba(124, 255, 0, 0.3); /* Green border */
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #quarto-content td {
   padding: 0.6em 0.5em;
-  border: 1px solid rgba(124, 255, 0, 0.15); /* Lighter green border */
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #quarto-content tbody tr.odd {

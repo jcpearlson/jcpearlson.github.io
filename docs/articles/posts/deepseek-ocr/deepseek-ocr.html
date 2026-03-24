@@ -146,7 +146,6 @@ window.Quarto = {
     <div class="quarto-title column-body">
       <h1 class="title">The Future of Context, DeepSeek OCR</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Machine Learning</div>
                 <div class="quarto-category">LLM</div>
               </div>
                   </div>
@@ -403,9 +402,10 @@ E_D(x) = \frac{1}{n} \sum_{i=1}^{n} (g(x_i) - x_i^{2})
   console.log(
     "Interested in learning how to make sites like this? Check out quarto.org",
   );
-  console.log("They have awesome docs and are a great place to start form!");
+  console.log("They have awesome docs and are a great place to start from!");
   console.log("Signing off. -JP");
 </script>
+<script data-goatcounter="https://joshpearlson.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   // Don't run on the main listing page
@@ -478,28 +478,28 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   // Only run on post pages (where there is a title banner)
-  if (!document.querySelector('.quarto-title-banner')) {
-    return;
-  }
+  if (!document.querySelector('.quarto-title-banner')) return;
 
   const mainContainer = document.querySelector('#quarto-content');
   const articleContent = mainContainer.querySelector('main#quarto-document-content');
   const headings = articleContent.querySelectorAll('h2, h3');
 
-  if (!mainContainer || !articleContent || headings.length < 2) {
-    return; // Exit if key elements are missing or not enough headings
-  }
+  if (!mainContainer || !articleContent || headings.length < 2) return;
 
   // --- 1. CREATE THE TOC STRUCTURE ---
   const tocNav = document.createElement('nav');
   tocNav.className = 'scrollspy-nav';
+
+  const tocHeader = document.createElement('p');
+  tocHeader.className = 'scrollspy-header';
+  tocHeader.textContent = 'Contents';
+  tocNav.appendChild(tocHeader);
 
   const tocList = document.createElement('ol');
   tocList.className = 'scrollspy-list';
 
   headings.forEach(heading => {
     if (!heading.id) {
-      // Assign an ID if the heading doesn't have one
       const slug = heading.textContent.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
       heading.id = slug;
     }
@@ -517,33 +517,67 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   tocNav.appendChild(tocList);
-  // Insert the ToC as the first child of the main container
   mainContainer.prepend(tocNav);
 
-  // --- 2. SETUP INTERSECTION OBSERVER ---
-  const observerOptions = {
-    root: null, // relative to the viewport
-    rootMargin: '0px 0px -75% 0px', // Trigger when heading is in the top 25% of the viewport
-    threshold: 1.0
-  };
+  // --- 2. SCROLL-BASED HIGHLIGHT LOGIC ---
+  const tocLinks = tocList.querySelectorAll('.scrollspy-link');
+  // OFFSET must account for the navbar height (~91px) plus the extra scroll
+  // compensation the browser applies when the navbar slides back in after a
+  // scroll-up click. In practice the heading can land ~230px from the top, so
+  // we use navbar height * 3 as a safe ceiling.
+  const navbar = document.querySelector('nav.navbar');
+  const OFFSET = navbar ? navbar.offsetHeight * 3 : 280;
 
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      const id = entry.target.getAttribute('id');
-      const tocLink = document.querySelector(`.scrollspy-link[href="#${id}"]`);
+  // When the user clicks a TOC link, we lock onto that heading ID.
+  // The lock only releases once the scroll naturally catches up to that section,
+  // preventing the scroll listener from overriding the click mid-animation.
+  let lockedHeadingId = null;
 
-      if (entry.isIntersecting && tocLink) {
-        // Remove active from all, then add to the current one
-        document.querySelectorAll('.scrollspy-link.active').forEach(link => link.classList.remove('active'));
-        tocLink.classList.add('active');
+  function setActive(link) {
+    tocLinks.forEach(l => l.classList.remove('active'));
+    if (link) link.classList.add('active');
+  }
+
+  function getCurrentHeading() {
+    let current = null;
+    headings.forEach(heading => {
+      if (heading.getBoundingClientRect().top <= OFFSET) {
+        current = heading;
       }
     });
-  }, observerOptions);
+    return current || headings[0];
+  }
 
-  // Observe all the headings
-  headings.forEach(heading => {
-    observer.observe(heading);
+  function updateActive() {
+    const current = getCurrentHeading();
+
+    // If we clicked a link, hold on that heading until the scroll
+    // naturally arrives at it — then release the lock
+    if (lockedHeadingId) {
+      if (current.id === lockedHeadingId) {
+        lockedHeadingId = null; // arrived — hand back to scroll tracking
+      } else {
+        return; // still animating, don't override
+      }
+    }
+
+    const activeLink = tocList.querySelector(`.scrollspy-link[href="#${current.id}"]`);
+    setActive(activeLink);
+  }
+
+  // On click: immediately highlight + lock onto target heading
+  tocLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      setActive(this);
+      lockedHeadingId = this.getAttribute('href').slice(1);
+    });
   });
+
+  // Set initial state on load
+  updateActive();
+
+  // Update on scroll
+  window.addEventListener('scroll', updateActive, { passive: true });
 });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">

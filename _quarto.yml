@@ -29,4 +29,6 @@ format:
       # dark: darkly
       # light: cosmos
     css: css/header.css
-    include-after-body: javaScript/console.html
+    include-after-body:
+      - javaScript/console.html
+      - javaScript/analytics.html

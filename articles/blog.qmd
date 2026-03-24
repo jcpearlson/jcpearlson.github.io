@@ -4,10 +4,15 @@ listing:
   contents: posts
   sort: "date desc"
   type: default
-  categories: true 
+  categories: true
   sort-ui: false
   filter-ui: false
 page-layout: full
 title-block-banner: false
 css: ../css/blog_homepage.css
+include-after-body: ../javaScript/category-active.html
+---
+::: {.blog-description}
+Updating beliefs on markets and machines
+:::
 ---
