@@ -547,6 +547,8 @@ div.sourceCode pre {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     max-width: 100%;
+    border-top: none !important;
+    border-bottom: none !important;
   }
 
   /* Display math equations: horizontal scroll instead of overflow */
