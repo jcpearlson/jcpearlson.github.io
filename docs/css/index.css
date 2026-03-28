@@ -389,19 +389,18 @@ body.no-flicker .terminal-window {
     box-sizing: border-box; /* Ensure padding is included in the element's total height */
   }
 
-  /* Terminal window - nearly full screen */
+  /* Terminal window - nearly full screen, leave room for Hubble button */
   .terminal-window {
     width: 95vw;
-    height: 85vh;
-    height: 85dvh; /* Use dynamic viewport height */
-    max-height: 85vh;
+    height: 78dvh;
+    max-height: 78dvh;
     border-radius: 6px;
     animation: none; /* Disable flicker on mobile to save battery */
   }
 
   /* Terminal body - smaller text, tighter spacing */
   .terminal-body {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     padding: 0.6rem 0.7rem;
     line-height: 1.35;
     overflow-y: auto;
@@ -418,7 +417,7 @@ body.no-flicker .terminal-window {
 
   /* Terminal title - smaller */
   .terminal-title {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
 
   /* Traffic lights - slightly smaller */
@@ -437,9 +436,9 @@ body.no-flicker .terminal-window {
     display: none; /* Hide user and timestamp on mobile */
   }
 
-  /* Input - prevent iOS zoom and ensure readability */
+  /* Input - 1.2rem (~19px) stays above iOS zoom threshold */
   input.terminal-input {
-    font-size: 16px; /* iOS won't zoom if >= 16px */
+    font-size: 1.2rem;
   }
 
   /* Hints - smaller badges */
@@ -452,7 +451,7 @@ body.no-flicker .terminal-window {
   /* Terminal output - compact */
   .terminal-output {
     margin: 6px 0;
-    font-size: 0.85rem;
+    font-size: 1.15rem;
   }
 
   .terminal-line {
@@ -496,21 +495,22 @@ body.no-flicker .terminal-window {
 @media (max-width: 480px) {
   .terminal-window {
     width: 98vw;
-    height: 92vh;
+    height: 78dvh;
+    max-height: 78dvh;
     border-radius: 4px;
   }
 
   .terminal-body {
-    font-size: 0.85rem;
+    font-size: 1.15rem;
     padding: 0.5rem;
   }
 
   .terminal-title {
-    font-size: 0.7rem;
+    font-size: 0.85rem;
   }
 
   input.terminal-input {
-    font-size: 16px; /* Keep at 16px to prevent zoom */
+    font-size: 1.15rem; /* ~18px, above iOS zoom threshold */
   }
 }
 

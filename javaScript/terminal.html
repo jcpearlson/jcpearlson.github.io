@@ -54,7 +54,7 @@
     const IS_MOBILE = isMobile();
     const WELCOME_LINES = [
         "Welcome to Josh's Terminal",
-        "========================================",
+        IS_MOBILE ? "===================================" : "========================================",
         "",
         "This is an interactive terminal interface to my website.",
         "Type `help` to see the full list of commands.",

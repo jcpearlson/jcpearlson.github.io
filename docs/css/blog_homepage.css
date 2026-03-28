@@ -4,7 +4,7 @@
 
 #title-block-header h1.title {
   color: rgba(255, 255, 255, 0.95) !important;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   margin-bottom: 0.2em;
@@ -250,7 +250,7 @@
 @media (max-width: 768px) {
   /* Page title smaller */
   #title-block-header h1.title {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   /* Card layout: stack thumbnail above content */

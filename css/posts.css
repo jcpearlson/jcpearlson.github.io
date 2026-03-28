@@ -139,6 +139,7 @@ main#quarto-document-content {
 
 #quarto-content .scrollspy-link {
   color: rgba(255, 255, 255, 0.55);
+  font-size: 0.95rem;
   text-decoration: none;
   border-bottom: none;
   display: block;
@@ -206,7 +207,7 @@ main#quarto-document-content {
 #quarto-content figcaption {
   text-align: center;
   color: rgba(255, 255, 255, 1);
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-style: italic;
   margin-top: 8px;
 }
