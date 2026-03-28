@@ -369,6 +369,11 @@ body.no-flicker .terminal-window {
 
 /* Mobile optimizations */
 @media (max-width: 768px) {
+  /* Fix background-attachment: fixed causing GPU repaint jank on mobile */
+  body {
+    background-attachment: scroll;
+  }
+
   /* Terminal wrapper - fixed position to prevent shifting */
   #terminal-wrapper {
     position: fixed;

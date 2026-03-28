@@ -191,7 +191,7 @@ window.Quarto = {
 <figcaption>The Impossible Bracket</figcaption>
 </figure>
 </div>
-<p>Every March, millions of people fill out NCAA Basketball brackets convinced that this is their year. In 2014, Warren Buffet <a href="https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket">offered a billion dollars</a> to anyone who could pick every one of the 63 games correctly. Kalshi has revived this offer by running the <a href="https://kalshi.com/billion-dollar-bracket">same bet this year</a>, backed by some of the sharpest minds in trading at <a href="https://sig.com/">SIG</a>. Here is the quick math explaining why everyone offering this “prize” knows they are never going to pay it out.</p>
+<p>Every March, millions of people fill out NCAA Basketball brackets convinced that this is their year. In 2014, Warren Buffett <a href="https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket">offered a billion dollars</a> to anyone who could pick every one of the 63 games correctly. Kalshi has revived this offer by running the <a href="https://kalshi.com/billion-dollar-bracket">same bet this year</a>, backed by some of the sharpest minds in trading at <a href="https://sig.com/">SIG</a>. Here is the quick math explaining why everyone offering this “prize” knows they are never going to pay it out.</p>
 <section id="the-structure-of-the-bracket" class="level2">
 <h2 class="anchored" data-anchor-id="the-structure-of-the-bracket">The Structure of the Bracket</h2>
 <p>The NCAA Tournament’s main bracket involves 64 teams competing across six rounds. Each game has exactly two possible outcomes. That means the bracket is a sequence of binary decisions, a string of ones and zeros, one bit per game.</p>
@@ -222,13 +222,13 @@ window.Quarto = {
 <p><span class="math display">\[P(\text{No perfect brackets | 8,000,000 entrants}) = (1 - P(\text{One perfect bracket}))^\text{8,000,000 entrants}\]</span></p>
 <p>Putting all of this together we get the following:</p>
 <p><span class="math display">\[P(\text{At least one perfect | 8,000,000 entrants}) = 1 - (1 - P(\text{One perfect bracket}))^\text{8,000,000 entrants} \]</span></p>
-<p>When choosing randomly. This ended up being ~0.00000000008%, about 10 trillion to 1 odds. Buffett was insuring 1-in-10-trillion odds bet for a billion dollars. Not exactly a nail-biter. The EV of this 1 Billion dollar liability is about <strong>$0.0001 dollars</strong>. In other words, if someone offered you this deal and said they would pay you a penny to run the contest, you should be very excited to say yes.</p>
+<p>When choosing randomly. This ended up being ~0.00000000009%, about 1.15 trillion to 1 odds. Buffett was insuring 1-in-1.15-trillion odds bet for a billion dollars. Not exactly a nail-biter. The EV of this 1 Billion dollar liability is about <strong>$0.0009 dollars</strong>. In other words, if someone offered you this deal and said they would pay you a penny to run the contest, you should be very excited to say yes.</p>
 <p>8 million people was the 2014 figure but what about with this years 36 million brackets. I know its likely there are fewer unique brackets (many users picking similar brackets) but lets evaluate as if the worst scenario is among us (as insurers).</p>
 <p>Let’s also give the entrants some credit. Suppose every one of those 8 or 36 million people had genuine edge, correctly predicting each game with 55%, 60%, or even 70% accuracy! Better than most people, even better than most statistical models. Their per-bracket odds become:</p>
 <p><span class="math display">\[0.55^{63} \approx 4.39 \times 10^{-17}\]</span></p>
 <p><span class="math display">\[0.60^{63} \approx 1.05 \times 10^{-14}\]</span></p>
 <p><span class="math display">\[0.70^{63} \approx 1.74 \times 10^{-10}\]</span></p>
-<p>These odds are as follows, 55% -&gt; 1 in 23 quadrillion, 60% -&gt; 1 in 100 trillion, 70% -&gt; 1 in 5 billion.</p>
+<p>These odds are as follows, 55% -&gt; 1 in 23 quadrillion, 60% -&gt; 1 in 95 trillion, 70% -&gt; 1 in 6 billion.</p>
 <p>This year there were 36 million total brackets, however the Kalshi contest was limited to a mere 10 million brackets. Given all of these entrants and the potential for skilled bracket creation Kalshi contest the numbers shift, but not enough to make anyone at SIG nervous. Here’s the full picture across skill levels and pool sizes:</p>
 <table class="caption-top table">
 <colgroup>
@@ -277,7 +277,7 @@ window.Quarto = {
 <tr class="even">
 <td>67%</td>
 <td>1 in 90.6 billion</td>
-<td>1 in 9,064</td>
+<td>1 in 11,330</td>
 <td>1 in 2,518</td>
 <td>$110,329</td>
 <td>$397,126</td>
@@ -340,7 +340,7 @@ window.Quarto = {
 </tbody>
 </table>
 <p>To put that in context: as of 2025, this figure would be at least <strong>10% of global AWS storage</strong>.</p>
-<p>We’re not in terabyte territory (or even petabyte for that matter). We’re in exabyte territory. That’s 72,600 terabytes just to store the bracket data, to say nothing of the hardware, indexing, or retrieval infrastructure needed to actually use it.</p>
+<p>We’re not in terabyte territory (or even petabyte for that matter). We’re in exabyte territory. That’s 72.6 million terabytes just to store the bracket data, to say nothing of the hardware, indexing, or retrieval infrastructure needed to actually use it.</p>
 <p>I had Opus 4.6 (LLM) generate a cost estimate for writing, storing, and retrieving this data. It came up with a figure in the 4-10 billion dollar range.</p>
 </section>
 <section id="the-lottery-comparison" class="level2">
@@ -364,7 +364,7 @@ window.Quarto = {
 <ul>
 <li>The number of possible brackets, <span class="math inline">\(2^{63}\)</span>, is large enough to break human intuition, exceed practical storage capacity, and make brute-force approaches absurd.</li>
 <li>Smart money, from Buffett to SIG, has been happy to offer billion-dollar prizes because the expected cost is essentially zero. When that many smart people are on one side of a bet, it’s worth understanding why.</li>
-<li>Skill helps. A 70% accurate predictor has odds of 1 in 700,000 rather than 1 in 9 quintillion. But 1 in 700,000 is still not good.</li>
+<li>Skill helps. A 70% accurate predictor has odds of 1 in 5.7 billion rather than 1 in 9 quintillion. But 1 in 5.7 billion is still not good.</li>
 <li>The annual ritual of filling out brackets is not irrational. Bracket pools are won by people who pick better than average, not by people who pick perfectly. You don’t need a perfect bracket to win your office pool. You just need to be right more often than everyone else. That’s a very different problem.</li>
 </ul>
 <p>The March Madness bracket is a masterclass in why we’re bad at big numbers. We hear “9.2 quintillion” and nod, but we don’t really feel it. The storage math helps. The lottery comparison helps. The Buffett angle helps. But ultimately, <span class="math inline">\(2^{63}\)</span> is just genuinely bigger than our intuition is built to handle, and no amount of explanation fully closes that gap.</p>

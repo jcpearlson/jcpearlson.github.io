@@ -428,7 +428,7 @@ div.sourceCode pre {
 .article-footer {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 30px;
   margin-top: 40px;
@@ -445,8 +445,8 @@ div.sourceCode pre {
   gap: 10px;
 }
 
-.subscribe-label {
-  color: rgba(255, 255, 255, 0.55);
+.subscribe-section .subscribe-label {
+  color: rgba(255, 200, 80, 0.95) !important;
   font-size: 0.85rem;
   margin: 0;
 }
@@ -531,4 +531,58 @@ div.sourceCode pre {
   color: #003300;
   border-color: rgba(124, 255, 0, 0.95);
   cursor: default;
+}
+
+/* ========== MOBILE (≤768px) ========== */
+
+@media (max-width: 768px) {
+  /* Figures: full width on mobile (was 75%) */
+  #quarto-content figure {
+    max-width: 100%;
+  }
+
+  /* Tables: horizontal scroll instead of overflow */
+  #quarto-content table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+
+  /* Display math equations: horizontal scroll instead of overflow */
+  mjx-container[display="true"] {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+    padding-bottom: 4px; /* prevent scrollbar overlapping descenders */
+  }
+
+  /* Article footer: vertical stack, all full-width */
+  .article-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .subscribe-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .subscribe-form input[type="email"] {
+    width: 100%;
+  }
+
+  .subscribe-form button[type="submit"] {
+    width: 100%;
+  }
+
+  .share-article-container {
+    width: 100%;
+  }
+
+  .share-article-button {
+    width: 100%;
+  }
 }

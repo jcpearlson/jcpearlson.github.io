@@ -11,7 +11,7 @@ The odds of a perfect March Madness bracket are 1 in 9.2 quintillion. Warren Buf
 
 ![The Impossible Bracket](../../../media/impossible-bracket-header.png)
 
-Every March, millions of people fill out NCAA Basketball brackets convinced that this is their year. In 2014, Warren Buffet [offered a billion dollars](https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket) to anyone who could pick every one of the 63 games correctly. Kalshi has revived this offer by running the [same bet this year](https://kalshi.com/billion-dollar-bracket), backed by some of the sharpest minds in trading at [SIG](https://sig.com/). Here is the quick math explaining why everyone offering this "prize" knows they are never going to pay it out. 
+Every March, millions of people fill out NCAA Basketball brackets convinced that this is their year. In 2014, Warren Buffett [offered a billion dollars](https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket) to anyone who could pick every one of the 63 games correctly. Kalshi has revived this offer by running the [same bet this year](https://kalshi.com/billion-dollar-bracket), backed by some of the sharpest minds in trading at [SIG](https://sig.com/). Here is the quick math explaining why everyone offering this "prize" knows they are never going to pay it out. 
 
 ## The Structure of the Bracket
 
@@ -59,7 +59,7 @@ Putting all of this together we get the following:
 
 $$P(\text{At least one perfect | 8,000,000 entrants}) = 1 - (1 - P(\text{One perfect bracket}))^\text{8,000,000 entrants} $$
 
-When choosing randomly. This ended up being ~0.00000000008%, about 10 trillion to 1 odds. Buffett was insuring 1-in-10-trillion odds bet for a billion dollars. Not exactly a nail-biter. The EV of this 1 Billion dollar liability is about **$0.0001 dollars**. In other words, if someone offered you this deal and said they would pay you a penny to run the contest, you should be very excited to say yes. 
+When choosing randomly. This ended up being ~0.00000000009%, about 1.15 trillion to 1 odds. Buffett was insuring 1-in-1.15-trillion odds bet for a billion dollars. Not exactly a nail-biter. The EV of this 1 Billion dollar liability is about **$0.0009 dollars**. In other words, if someone offered you this deal and said they would pay you a penny to run the contest, you should be very excited to say yes. 
 
 8 million people was the 2014 figure but what about with this years 36 million brackets. I know its likely there are fewer unique brackets (many users picking similar brackets) but lets evaluate as if the worst scenario is among us (as insurers).
 
@@ -71,7 +71,7 @@ $$0.60^{63} \approx 1.05 \times 10^{-14}$$
 
 $$0.70^{63} \approx 1.74 \times 10^{-10}$$
 
-These odds are as follows, 55% -> 1 in 23 quadrillion, 60% -> 1 in 100 trillion, 70% -> 1 in 5 billion.
+These odds are as follows, 55% -> 1 in 23 quadrillion, 60% -> 1 in 95 trillion, 70% -> 1 in 6 billion.
 
 This year there were 36 million total brackets, however the Kalshi contest was limited to a mere 10 million brackets. Given all of these entrants and the potential for skilled bracket creation Kalshi contest the numbers shift, but not enough to make anyone at SIG nervous. Here's the full picture across skill levels and pool sizes:
 
@@ -80,7 +80,7 @@ This year there were 36 million total brackets, however the Kalshi contest was l
 | 50% (random) | 1 in 9.2 quintillion | 1 in 1.15 trillion | 1 in 256 billion | $0.001 | $0.004 |
 | 55% | 1 in 23 quadrillion | 1 in 2.85 billion | 1 in 633 million | $0.44 | $1.58 |
 | 60% | 1 in 95 trillion | 1 in 12 million | 1 in 2.6 million | $106 | $380 |
-| 67% | 1 in 90.6 billion | 1 in 9,064 | 1 in 2,518 | $110,329 | $397,126 |
+| 67% | 1 in 90.6 billion | 1 in 11,330 | 1 in 2,518 | $110,329 | $397,126 |
 | 70% | 1 in 5.7 billion | 1 in 718 | 1 in 160 | $1,740,998 | $6,253,419 |
 
 The 70% row is where things start to look interesting, 1-in-160 with 36 million entrants is a number that would make an insurer sweat (obviously depending on how much money you were paid for the contract). On the far right hand side you can see the expected value of the $1 Billion dollar liability at every probability level. If the prediction accuracy per game is worse than 67% and there are less than 10M entrants, you should feel relatively comfortable accepting between $100 and $100,000. This range is quite wide but depends heavily on the inputs. 
@@ -113,7 +113,7 @@ Let's convert that into something recognizable:
 
 To put that in context: as of 2025, this figure would be at least **10% of global AWS storage**.  
 
-We're not in terabyte territory (or even petabyte for that matter). We're in exabyte territory. That's 72,600 terabytes just to store the bracket data, to say nothing of the hardware, indexing, or retrieval infrastructure needed to actually use it.
+We're not in terabyte territory (or even petabyte for that matter). We're in exabyte territory. That's 72.6 million terabytes just to store the bracket data, to say nothing of the hardware, indexing, or retrieval infrastructure needed to actually use it.
 
 I had Opus 4.6 (LLM) generate a cost estimate for writing, storing, and retrieving this data. It came up with a figure in the 4-10 billion dollar range. 
 
@@ -145,7 +145,7 @@ The impossible bracket is a beautiful collision of combinatorics and human optim
 
 - The number of possible brackets, $2^{63}$, is large enough to break human intuition, exceed practical storage capacity, and make brute-force approaches absurd.
 - Smart money, from Buffett to SIG, has been happy to offer billion-dollar prizes because the expected cost is essentially zero. When that many smart people are on one side of a bet, it's worth understanding why.
-- Skill helps. A 70% accurate predictor has odds of 1 in 700,000 rather than 1 in 9 quintillion. But 1 in 700,000 is still not good.
+- Skill helps. A 70% accurate predictor has odds of 1 in 5.7 billion rather than 1 in 9 quintillion. But 1 in 5.7 billion is still not good.
 - The annual ritual of filling out brackets is not irrational. Bracket pools are won by people who pick better than average, not by people who pick perfectly. You don't need a perfect bracket to win your office pool. You just need to be right more often than everyone else. That's a very different problem.
 
 The March Madness bracket is a masterclass in why we're bad at big numbers. We hear "9.2 quintillion" and nod, but we don't really feel it. The storage math helps. The lottery comparison helps. The Buffett angle helps. But ultimately, $2^{63}$ is just genuinely bigger than our intuition is built to handle, and no amount of explanation fully closes that gap.
