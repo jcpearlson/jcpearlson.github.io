@@ -186,8 +186,61 @@
 /* ========== PAGE DESCRIPTION ========== */
 
 .blog-description {
-  color: rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 0.6);
   font-size: 1.1rem;
   margin-top: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* ========== BLOG HOMEPAGE SUBSCRIBE FORM ========== */
+
+.blog-subscribe {
+  margin-bottom: 2.5rem;
+}
+
+.blog-subscribe .subscribe-form {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+.blog-subscribe .subscribe-form input[type="email"] {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  width: 240px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.blog-subscribe .subscribe-form input[type="email"]::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.blog-subscribe .subscribe-form input[type="email"]:focus {
+  border-color: rgba(124, 255, 0, 0.5);
+}
+
+.blog-subscribe .subscribe-form button[type="submit"] {
+  background: transparent;
+  border: 1px solid rgba(124, 255, 0, 0.6);
+  border-radius: 5px;
+  color: rgba(124, 255, 0, 0.9);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.blog-subscribe .subscribe-form button[type="submit"]:hover {
+  background: rgba(0, 51, 0, 0.3);
+  border-color: rgba(124, 255, 0, 0.95);
+  color: rgba(124, 255, 0, 1);
+  box-shadow: 0 0 10px rgba(124, 255, 0, 0.15);
 }

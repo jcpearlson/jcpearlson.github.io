@@ -18,7 +18,7 @@ about:
       href: mailto:jcp@joshpearlson.com
 ---
 
-::: {style="font-size:1.5rem; color: white;"}
+::: {.about-bio}
  I currently work in finance in NYC creating and applying advanced analytics to problems in fundamental and systematic investing. Previously, I graduated from Washington University in St. Louis where I studied Computer Science and Finance. My main interests are modeling, machine learning, and capital markets. I love meeting and connecting with new people, so feel free to [email me](mailto:jcp@joshpearlson.com) or [LinkedIn message me](https://linkedin.com/in/josh-pearlson)!
 
 
@@ -45,8 +45,21 @@ about:
 
 **PlayBook (Startup)** <br>Data Science Intern | Summer 2022 | Boston, MA
 
-**Harvard Surgical Navigation and Robotics Laboratory** <br>Research Intern | Summer 2020 | Boston, MA 
+**Harvard Surgical Navigation and Robotics Laboratory** <br>Research Intern | Summer 2020 | Boston, MA
 
+
+## Education
+
+**Washington University in St. Louis** <br>BS in Computer Science & Finance <br>August 2021 - May 2025
+
+
+## Papers
+
+**Large Language Models Recognize Decentralized Finance Entities**
+<br>Lead Author - Data Problems for Foundation Models at International Conference on Learning Representations 2024<br> [Link](https://openreview.net/forum?id=sfnz81T3pm) <br><br>
+
+**Mapping Lesions from MP-MRI using Convolution Neural Network**
+<br>Lead Author - SPIE Medical Imaging 2020<br> [Link](https://doi.org/10.1117/12.2582228)<br><br>
 
 ## Awards
 
@@ -54,20 +67,7 @@ about:
 **Hackathon WashU 2023 Winner** | Social Connections Category <br><br>
 **Dean's List** | All Semesters <br><br>
 
-## Papers
-
-**Large Language Models Recognize Decentralized Finance Entities** 
-<br>Lead Author - Data Problems for Foundation Models at International Conference on Learning Representations 2024<br> [Link](https://openreview.net/forum?id=sfnz81T3pm) <br><br>
-
-**Mapping Lesions from MP-MRI using Convolution Neural Network**
-<br>Lead Author - SPIE Medical Imaging 2020<br> [Link](https://doi.org/10.1117/12.2582228)<br><br>
-
-## Education
-
-**Washington University in St. Louis** <br>BS in Computer Science & Finance <br>August 2021 - May 2025
-
-
-## Hobbies 
+## Hobbies
 
 - Poker (PLO, NLTH, HU)
 - Chess

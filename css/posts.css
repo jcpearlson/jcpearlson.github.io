@@ -423,15 +423,88 @@ div.sourceCode pre {
 }
 
 
+/* ========== ARTICLE FOOTER (subscribe + share) ========== */
+
+.article-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 40px;
+  padding-top: 24px;
+  padding-bottom: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+}
+
+/* Subscribe section */
+.subscribe-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subscribe-label {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* Shared form style (used in articles and blog homepage) */
+.subscribe-form {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+.subscribe-form input[type="email"] {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  width: 220px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.subscribe-form input[type="email"]::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.subscribe-form input[type="email"]:focus {
+  border-color: rgba(124, 255, 0, 0.5);
+}
+
+.subscribe-form button[type="submit"] {
+  background: transparent;
+  border: 1px solid rgba(124, 255, 0, 0.6);
+  border-radius: 5px;
+  color: rgba(124, 255, 0, 0.9);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.subscribe-form button[type="submit"]:hover {
+  background: rgba(0, 51, 0, 0.3);
+  border-color: rgba(124, 255, 0, 0.95);
+  color: rgba(124, 255, 0, 1);
+  box-shadow: 0 0 10px rgba(124, 255, 0, 0.15);
+}
+
 /* ========== SHARE ARTICLE BUTTON ========== */
 
 .share-article-container {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
-  padding-top: 20px;
-  padding-bottom: 30px; /* Added padding */
-  border-top: 1px solid rgba(124, 255, 0, 0.2);
+  flex-shrink: 0;
 }
 
 .share-article-button {

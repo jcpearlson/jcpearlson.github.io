@@ -201,6 +201,24 @@ window.Quarto = {
 <div class="blog-description">
 <p>Updating beliefs on markets and machines</p>
 </div>
+<div class="blog-subscribe">
+  <form action="https://buttondown.com/api/emails/embed-subscribe/jcp" method="post" class="subscribe-form" target="_blank">
+    <input type="email" name="email" placeholder="your@email.com" required="">
+    <button type="submit">Subscribe →</button>
+  </form>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var form = document.querySelector('.blog-subscribe .subscribe-form');
+  if (form) {
+    form.addEventListener('submit', function() {
+      if (window.goatcounter && window.goatcounter.count) {
+        window.goatcounter.count({ path: 'subscribe-blog', title: 'Newsletter Signup - Blog', event: true });
+      }
+    });
+  }
+});
+</script>
 <hr>
 
 
