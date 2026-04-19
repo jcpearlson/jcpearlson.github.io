@@ -1,305 +1,176 @@
-/* blog_homepage.css */
+/* ============================================================
+   blog_homepage.css — Articles listing (Priors)
+   ============================================================ */
 
-/* ========== PAGE TITLE ========== */
+.quarto-listing { display: none !important; }
 
-#title-block-header h1.title {
-  color: rgba(255, 255, 255, 0.95) !important;
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  margin-bottom: 0.2em;
+.jcp-art-h2 {
+  color: var(--t-accent);
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  margin: 0 0 26px;
+  font-weight: 600;
 }
 
-/* ========== ARTICLE LISTING: DEFAULT LAYOUT ========== */
-
-/* Container for the article list */
-.quarto-listing-container-default .list {
+/* Subscribe */
+.jcp-subscribe {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* Individual article item */
-.quarto-listing-container-default .quarto-post {
-  background: rgba(0, 0, 0, 0.25) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-radius: 8px !important;
-  padding: 20px !important;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-  display: grid !important;
-  grid-template-columns: 210px 1fr;
-  grid-template-rows: 1fr auto;
-  grid-template-areas:
-    "thumb body"
-    "thumb meta";
-  gap: 0 26px;
-  margin-bottom: 10px;
-}
-
-/* Post thumbnail */
-.quarto-listing-container-default .thumbnail {
-  grid-area: thumb;
-  align-self: center;
-}
-
-/* Post body */
-.quarto-listing-container-default .body {
-  grid-area: body;
-  align-self: start;
-}
-
-/* Hover effect */
-.quarto-listing-container-default .quarto-post:hover {
-  border-color: rgba(124, 255, 0, 0.4) !important;
-  background: rgba(0, 40, 0, 0.2) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-}
-
-/* Article title */
-.quarto-listing-container-default .listing-title {
-  color: rgba(124, 255, 0, 0.95);
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 5px;
-  line-height: 1.3;
-}
-
-.quarto-listing-container-default .listing-title a {
-  color: rgba(124, 255, 0, 0.95);
-}
-
-/* Article metadata — sits below body content */
-.quarto-listing-container-default .metadata {
-  grid-area: meta;
-  align-self: end;
-  padding-top: 10px;
-}
-
-/* The <a> wrapping date + author — lay them out inline */
-.quarto-listing-container-default .metadata a {
-  display: flex;
-  flex-direction: row;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 16px 22px;
+  margin-bottom: 28px;
+  background: var(--t-panel);
+  border: 1px solid var(--t-line);
+}
+.jcp-sub-label {
+  color: var(--t-accent);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.jcp-sub-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 240px;
+}
+.jcp-sub-input {
+  flex: 1;
+  background: transparent;
+  border: 1px solid var(--t-line);
+  color: var(--t-ink-bright);
+  font-family: inherit;
+  font-size: 16px;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color .2s;
+}
+.jcp-sub-input:focus { border-color: var(--t-accent); }
+.jcp-sub-input::placeholder { color: #5c6a5a; }
+.jcp-sub-btn {
+  background: transparent;
+  border: 1px solid var(--t-accent);
+  color: var(--t-accent);
+  font-family: inherit;
+  font-size: 17px;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.jcp-sub-btn:hover { background: var(--t-accent); color: var(--t-bg); }
+.jcp-sub-hint { color: var(--t-ink-dim); font-size: 14px; }
+
+/* Filter pills */
+.jcp-catrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.jcp-filter-label {
+  color: var(--t-ink-dim);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  margin-right: 4px;
+}
+.jcp-cat {
+  background: transparent;
+  border: 1px solid var(--t-line);
+  color: #8fa28a;
+  font-family: inherit;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.jcp-cat:hover { border-color: var(--t-accent); color: var(--t-ink-bright); }
+.jcp-cat-sel {
+  background: var(--t-accent);
+  border-color: var(--t-accent);
+  color: var(--t-bg);
+  font-weight: 600;
+}
+
+/* Articles table */
+.jcp-art-tbl {
+  border: 1px solid var(--t-line);
+  background: var(--t-panel);
+}
+.jcp-art-head,
+.jcp-art-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 240px;
+  gap: 24px;
+  padding: 16px 22px;
+  align-items: start;
+}
+.jcp-art-head {
+  color: var(--t-ink-dim);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  border-bottom: 1px solid var(--t-line);
+  background: #0c100a;
+}
+.jcp-art-head > div:last-child { text-align: right; }
+.jcp-art-row {
+  border-bottom: 1px dashed var(--t-line-dim);
   text-decoration: none;
+  color: inherit;
+  transition: background .15s;
 }
+.jcp-art-row:last-child { border-bottom: none; }
+.jcp-art-row:hover { background: #0f140d; }
 
-.quarto-listing-container-default .listing-date,
-.quarto-listing-container-default .listing-author {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.75rem;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  letter-spacing: 0.03em;
+.jcp-art-date {
+  color: var(--t-ink-dim);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  padding-top: 3px;
 }
-
-/* Inline category tags on cards */
-.quarto-listing-container-default .listing-categories {
+.jcp-art-title {
+  color: var(--t-ink-bright);
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+.jcp-art-arrow { color: var(--t-accent); margin-right: 8px; }
+.jcp-art-exc {
+  color: #8fa28a;
+  font-size: 15px;
+  margin-top: 6px;
+  line-height: 1.65;
+}
+.jcp-art-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 10px;
+  justify-content: flex-end;
 }
-
-.quarto-listing-container-default .listing-category {
-  color: rgba(255, 255, 255, 0.6) !important;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-  padding: 2px 7px;
-  font-size: 0.68rem;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  letter-spacing: 0.06em;
+.jcp-tag-sm {
+  border: 1px solid var(--t-line);
+  color: #8fa28a;
+  padding: 4px 8px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  cursor: default;
+}
+.jcp-art-empty {
+  padding: 32px 22px;
+  color: var(--t-ink-dim);
+  font-size: 15px;
+  text-align: center;
 }
 
-/* Article description */
-.quarto-listing-container-default .listing-description {
-  color: rgba(255, 255, 255, 1);
-  font-size: 0.9rem;
-  line-height: 1.75;
-  margin-top: 6px;
-}
-
-/* Article thumbnail image */
-.quarto-listing-container-default .thumbnail img {
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-/* Link reset for cards */
-.quarto-listing-container-default .quarto-post a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* ========== CATEGORIES SIDEBAR ========== */
-
-/* Align Categories sidebar with listing */
-#quarto-margin-sidebar {
-  padding-top: 65px;
-}
-
-/* "Categories" heading */
-.quarto-listing-category-title {
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-}
-
-/* Individual category pills */
-.category-default .category {
-  color: rgba(255, 255, 255, 0.55) !important;
-  background-color: transparent;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px 5px 0;
-  margin-bottom: 2px;
-  display: block;
-  text-align: left;
-  transition: color 0.2s ease;
-  cursor: pointer;
-}
-
-.category-default .category:hover {
-  color: rgba(255, 255, 255, 0.9) !important;
-  background-color: transparent;
-}
-
-/* Active/selected category */
-.category-default .category.quarto-active {
-  color: rgba(124, 255, 0, 0.95) !important;
-  background-color: rgba(0, 51, 0, 0.25);
-  border: 1px solid rgba(124, 255, 0, 0.45);
-  border-radius: 20px;
-  padding: 5px 14px 5px 12px;
-  font-weight: 600;
-  box-shadow: 0 0 10px rgba(124, 255, 0, 0.1);
-}
-
-/* ========== PAGE DESCRIPTION ========== */
-
-.blog-description {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 1.1rem;
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-
-/* ========== BLOG HOMEPAGE SUBSCRIBE FORM ========== */
-
-.blog-subscribe {
-  margin-bottom: 2.5rem;
-}
-
-.blog-subscribe .subscribe-form {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center;
-}
-
-.blog-subscribe .subscribe-form input[type="email"] {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 5px;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 0.85rem;
-  padding: 8px 12px;
-  width: 240px;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.blog-subscribe .subscribe-form input[type="email"]::placeholder {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.blog-subscribe .subscribe-form input[type="email"]:focus {
-  border-color: rgba(124, 255, 0, 0.5);
-}
-
-.blog-subscribe .subscribe-form button[type="submit"] {
-  background: transparent;
-  border: 1px solid rgba(124, 255, 0, 0.6);
-  border-radius: 5px;
-  color: rgba(124, 255, 0, 0.9);
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 8px 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.blog-subscribe .subscribe-form button[type="submit"]:hover {
-  background: rgba(0, 51, 0, 0.3);
-  border-color: rgba(124, 255, 0, 0.95);
-  color: rgba(124, 255, 0, 1);
-  box-shadow: 0 0 10px rgba(124, 255, 0, 0.15);
-}
-
-/* ========== MOBILE (≤768px) ========== */
-
-@media (max-width: 768px) {
-  /* Page title smaller */
-  #title-block-header h1.title {
-    font-size: 1.5rem;
-  }
-
-  /* Card layout: stack thumbnail above content */
-  .quarto-listing-container-default .quarto-post {
-    grid-template-columns: 1fr !important;
-    grid-template-rows: auto auto auto !important;
-    grid-template-areas:
-      "thumb"
-      "body"
-      "meta" !important;
-    padding: 14px !important;
-  }
-
-  /* Thumbnail spans full width, constrained height */
-  .quarto-listing-container-default .thumbnail {
-    width: 100%;
-    max-height: 180px;
-    overflow: hidden;
-    border-radius: 4px;
-    margin-bottom: 12px;
-  }
-
-  .quarto-listing-container-default .thumbnail img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-  }
-
-  /* Smaller title on mobile */
-  .quarto-listing-container-default .listing-title {
-    font-size: 1.1rem;
-  }
-
-  /* Hide categories sidebar on mobile */
-  #quarto-margin-sidebar {
-    display: none;
-  }
-
-  /* Subscribe form: stack input and button vertically */
-  .blog-subscribe .subscribe-form {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .blog-subscribe .subscribe-form input[type="email"] {
-    width: 100%;
-  }
-
-  .blog-subscribe .subscribe-form button[type="submit"] {
-    width: 100%;
-  }
+@media (max-width: 900px) {
+  .jcp-art-head { display: none; }
+  .jcp-art-row { grid-template-columns: 1fr; gap: 6px; }
+  .jcp-art-date { font-size: 13px; }
+  .jcp-art-tags { justify-content: flex-start; }
+  .jcp-subscribe { flex-direction: column; align-items: stretch; }
+  .jcp-sub-form { min-width: 0; }
 }

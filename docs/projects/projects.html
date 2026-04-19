@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Projects – Josh Pearlson</title>
+<title>Projects — Josh Pearlson – Josh Pearlson</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,10 +67,11 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/index.css">
 <link rel="stylesheet" href="../css/projects.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -102,6 +103,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../aboutPage/about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../contact/contact.html"> 
+<span class="menu-text">Contact</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -110,12 +115,12 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -124,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page">
 
     
   
@@ -136,42 +141,98 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-
-<div class="projects-grid">
-
-<div class="project-tile">
-    <a href="../articles/blog.html">
-      <img src="../media/priors_homepage.png">
-      <h1>Priors</h1>
-      <p>Personal blog</p>
-    </a>
+<div class="jcp-terminal" id="jcp-terminal">
+  <div class="t-tabs">
+    <a href="../" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>home</a>
+    <a href="../aboutPage/about.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>about</a>
+    <a href="../articles/blog.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>articles</a>
+    <a href="../projects/projects.html" class="t-tab t-tab-active"><span class="t-tab-indicator">▸</span>projects</a>
+    <a href="../contact/contact.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>contact</a>
+    <div class="t-tabs-spacer"></div>
+    <div class="t-title" id="t-title">jcp@joshpearlson: ~/projects</div>
   </div>
+  <div class="t-body" id="t-body" data-page="other">
 
-  <div class="project-tile">
-    <a href="https://pomo.joshpearlson.com">
-      <img src="../media/pomo.png" class="pomo-img">
-      <h1>Pomo</h1>
-      <p>Pomodoro timer</p>
-    </a>
-  </div>
+    <div class="jcp-h2"># projects</div>
 
- <div class="project-tile">
-    <a href="6CardGolf/index.html">
-      <img src="6CardGolf/6cardGolfLogo.png">
-      <h1>6 Card Golf</h1>
-      <p>P2P 1v1 card game with a chat</p>
-    </a>
-  </div>
+    <div class="jcp-proj-grid">
 
-  <div class="project-tile">
-    <a href="DigDug/DigDugGame.html">
-      <img src="DigDug/loading screen.png">
-      <h1>Dig Dug Game</h1>
-      <p>Classic arcade game recreation</p>
-    </a>
+      <a href="../articles/blog.html" class="jcp-proj-card">
+        <div class="jcp-proj-meta">
+          <span class="jcp-proj-year">2024+</span>
+          <span class="jcp-proj-tag">Blog · Writing</span>
+        </div>
+        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>Priors</div>
+        <div class="jcp-proj-desc">Personal blog on markets, ML, and probability.</div>
+        <div class="jcp-proj-sep"></div>
+        <div class="jcp-proj-path">› ./articles/blog</div>
+      </a>
+
+      <a href="https://pomo.joshpearlson.com" class="jcp-proj-card">
+        <div class="jcp-proj-meta">
+          <span class="jcp-proj-year">2025+</span>
+          <span class="jcp-proj-tag">Web app · JS</span>
+        </div>
+        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>Pomo</div>
+        <div class="jcp-proj-desc">Minimal Pomodoro timer. Live at pomo.joshpearlson.com.</div>
+        <div class="jcp-proj-sep"></div>
+        <div class="jcp-proj-path">› pomo.joshpearlson.com</div>
+      </a>
+
+      <a href="https://openreview.net/forum?id=sfnz81T3pm" class="jcp-proj-card">
+        <div class="jcp-proj-meta">
+          <span class="jcp-proj-year">2024</span>
+          <span class="jcp-proj-tag">Research · LLM</span>
+        </div>
+        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>DPFM @ ICLR 2024</div>
+        <div class="jcp-proj-desc">LLMs recognizing DeFi entities. Lead author, DPFM workshop @ ICLR 2024.</div>
+        <div class="jcp-proj-sep"></div>
+        <div class="jcp-proj-path">› openreview.net/forum?id=sfnz81T3pm</div>
+      </a>
+
+      <a href="https://doi.org/10.1117/12.2582228" class="jcp-proj-card">
+        <div class="jcp-proj-meta">
+          <span class="jcp-proj-year">2020</span>
+          <span class="jcp-proj-tag">Research · CNN</span>
+        </div>
+        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>MRI Lesion Mapping</div>
+        <div class="jcp-proj-desc">CNN-based lesion mapping from MP-MRI. Lead author, SPIE Medical Imaging.</div>
+        <div class="jcp-proj-sep"></div>
+        <div class="jcp-proj-path">› doi.org/10.1117/12.2582228</div>
+      </a>
+
+      <a href="6CardGolf/index.html" class="jcp-proj-card">
+        <div class="jcp-proj-meta">
+          <span class="jcp-proj-year">2023</span>
+          <span class="jcp-proj-tag">Card game · P2P</span>
+        </div>
+        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>6-Card Golf</div>
+        <div class="jcp-proj-desc">Browser-based 1v1 card game with P2P networking and in-game chat.</div>
+        <div class="jcp-proj-sep"></div>
+        <div class="jcp-proj-path">› ./projects/6CardGolf</div>
+      </a>
+
+      <a href="DigDug/DigDugGame.html" class="jcp-proj-card">
+        <div class="jcp-proj-meta">
+          <span class="jcp-proj-year">2022</span>
+          <span class="jcp-proj-tag">Arcade · Canvas</span>
+        </div>
+        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>Dig Dug</div>
+        <div class="jcp-proj-desc">Classic arcade game recreation in the browser.</div>
+        <div class="jcp-proj-sep"></div>
+        <div class="jcp-proj-path">› ./projects/DigDug</div>
+      </a>
+
+    </div>
+
   </div>
-  
-  <!-- Add more project tiles here manually -->
+  <div class="t-status">
+    <span><span class="t-status-dot">●</span> online</span>
+    <span id="t-status-count">— articles · — projects</span>
+    <span class="t-status-weather" id="t-status-weather">
+      <span class="t-weather-glyph">·</span> NYC --°F <span class="t-sep">·</span> 40.7128° N, 74.0060° W
+    </span>
+  </div>
 </div>
 
 
@@ -188,6 +249,233 @@ ul.task-list li input[type="checkbox"] {
   console.log("Signing off. -JP");
 </script>
 <script data-goatcounter="https://joshpearlson.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+<script>
+(function() {
+  const ASCII = String.raw`______/\\\\\\\\\\\________/\\\\\\\\\__/\\\\\\\\\\\\\___
+ _____\/////\\\///______/\\\////////__\/\\\/////////\\\_
+  _________\/\\\_______/\\\/___________\/\\\_______\/\\\_
+   _________\/\\\______/\\\_____________\/\\\\\\\\\\\\\/__
+    _________\/\\\_____\/\\\_____________\/\\\/////////____
+     _________\/\\\_____\//\\\____________\/\\\_____________
+      __/\\\___\/\\\______\///\\\__________\/\\\_____________
+       _\//\\\\\\\\\_________\////\\\\\\\\\_\/\\\_____________
+        __\/////////_____________\/////////__\///______________`;
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function rootUrl(path) {
+    return window.location.origin + '/' + path.replace(/^\/+/, '');
+  }
+
+  function buildTerminalChrome(tabKey) {
+    const tabs = ['home','about','articles','projects','contact'];
+    const hrefs = {
+      home: '/', about: '/aboutPage/about.html',
+      articles: '/articles/blog.html', projects: '/projects/projects.html',
+      contact: '/contact/contact.html'
+    };
+    const tabsHTML = tabs.map(t => {
+      const active = t === tabKey ? ' t-tab-active' : '';
+      const indicator = t === tabKey ? '&#9656;' : '&nbsp;';
+      return `<a href="${hrefs[t]}" class="t-tab${active}"><span class="t-tab-indicator">${indicator}</span>${t}</a>`;
+    }).join('');
+    const page = tabKey === 'home' ? '' : tabKey;
+    return `<div class="t-tabs">
+        ${tabsHTML}
+        <div class="t-tabs-spacer"></div>
+        <div class="t-title" id="t-title">jcp@joshpearlson: ~/${page}</div>
+      </div>`;
+  }
+
+  function buildStatusBar() {
+    return `<div class="t-status">
+        <span><span class="t-status-dot">&#9679;</span> online</span>
+        <span id="t-status-count">&#8212; articles &middot; &#8212; projects</span>
+        <span class="t-status-weather" id="t-status-weather">
+          <span class="t-weather-glyph">&middot;</span> NYC --&deg;F <span class="t-sep">&middot;</span> 40.7128&deg; N, 74.0060&deg; W
+        </span>
+      </div>`;
+  }
+
+  function renderHome(latest, articleCount) {
+    const mount = document.getElementById('jcp-terminal');
+    if (!mount) return;
+
+    let latestHTML = '';
+    if (latest) {
+      const catsHTML = (latest.cats || []).map(c => `<span class="t-chip">${esc(c)}</span>`).join('');
+      latestHTML = `<div class="t-promptblock"><span class="t-prompt">$</span> cat latest.md</div>
+        <a href="${esc(latest.href)}" class="t-latest-card">
+          <div class="t-latest-label">LATEST ARTICLE${latest.date ? ' &mdash; ' + esc(latest.date) : ''}</div>
+          <div class="t-latest-title">${esc(latest.title)}</div>
+          ${latest.excerpt ? `<div class="t-latest-excerpt">${esc(latest.excerpt)}</div>` : ''}
+          <div class="t-latest-meta">
+            ${catsHTML}
+            <span class="t-read-arrow">read &rarr;</span>
+          </div>
+        </a>`;
+    }
+
+    mount.innerHTML = buildTerminalChrome('home') +
+      `<div class="t-body" id="t-body">
+        <pre class="t-ascii">${ASCII}</pre>
+        <div class="t-hello">
+          <div class="t-promptblock"><span class="t-prompt">$</span> whoami</div>
+          <div class="t-out"><span class="t-name">Josh Pearlson</span> &middot; quant @ BlackRock &middot; writes about markets &amp; machines</div>
+          ${latestHTML}
+          <div class="t-promptblock"><span class="t-prompt">$</span> ls ./</div>
+          <div class="t-ls-grid">
+            <a href="/aboutPage/about.html" class="t-ls-cell">
+              <div class="t-ls-name"><span class="t-arrow">&#8250;</span> about/</div>
+              <div class="t-ls-path">/bio /experience /education</div>
+            </a>
+            <a href="/articles/blog.html" class="t-ls-cell">
+              <div class="t-ls-name"><span class="t-arrow">&#8250;</span> articles/</div>
+              <div class="t-ls-path">markets, ML, probability</div>
+            </a>
+            <a href="/projects/projects.html" class="t-ls-cell">
+              <div class="t-ls-name"><span class="t-arrow">&#8250;</span> projects/</div>
+              <div class="t-ls-path">things I built and shipped</div>
+            </a>
+            <a href="/contact/contact.html" class="t-ls-cell">
+              <div class="t-ls-name"><span class="t-arrow">&#8250;</span> contact/</div>
+              <div class="t-ls-path">email &middot; linkedin &middot; github</div>
+            </a>
+          </div>
+          <div class="t-promptblock"><span class="t-prompt">$</span> <span class="t-cursor"></span></div>
+        </div>
+      </div>` +
+      buildStatusBar();
+
+    const countEl = document.getElementById('t-status-count');
+    if (countEl && articleCount != null) {
+      countEl.textContent = `${articleCount} articles \u00b7 6 projects`;
+    }
+
+    updateClock();
+    updateWeather();
+  }
+
+  function updateClock() {
+    const clock = document.getElementById('t-clock');
+    if (!clock) return;
+    const now = new Date();
+    const hh = String(now.getUTCHours()).padStart(2,'0');
+    const mm = String(now.getUTCMinutes()).padStart(2,'0');
+    const ss = String(now.getUTCSeconds()).padStart(2,'0');
+    clock.textContent = `${hh}:${mm}:${ss} UTC`;
+  }
+
+  function updateWeather() {
+    const el = document.getElementById('t-status-weather');
+    if (!el) return;
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current=temperature_2m,weather_code&temperature_unit=fahrenheit')
+      .then(r => r.json())
+      .then(d => {
+        if (!d || !d.current) return;
+        const c = d.current.weather_code;
+        let glyph = '\u00b7';
+        if (c === 0) glyph = '\u2600';
+        else if ([1,2,3].includes(c)) glyph = '\u26c5';
+        else if ([45,48].includes(c)) glyph = '\u2248';
+        else if (c >= 51 && c <= 67) glyph = '\u2602';
+        else if (c >= 71 && c <= 77) glyph = '\u2744';
+        else if (c >= 80 && c <= 82) glyph = '\u2614';
+        else if (c >= 95) glyph = '\u26a1';
+        const temp = Math.round(d.current.temperature_2m) + '\u00b0F';
+        el.innerHTML = `<span class="t-weather-glyph">${glyph}</span> NYC ${temp} <span class="t-sep">&middot;</span> 40.7128&deg; N, 74.0060&deg; W`;
+      })
+      .catch(() => {});
+  }
+
+  function fetchHomeData(cb) {
+    fetch(rootUrl('/listings.json'))
+      .then(r => r.json())
+      .then(data => {
+        const blogEntry = data.find(e => e.listing && e.listing.includes('blog')) || data[0];
+        const items = blogEntry ? blogEntry.items : [];
+        const count = items.length;
+        const latestHref = items[0] || null;
+
+        if (!latestHref) { cb(null, count); return; }
+
+        fetch(rootUrl('/search.json'))
+          .then(r => r.json())
+          .then(searchData => {
+            const norm = h => h.replace(/^https?:\/\/[^/]+/, '').replace(/^\//, '');
+            const slug = norm(latestHref);
+            const entry = searchData.find(e => norm(e.href || e.objectID || '') === slug);
+            if (!entry) { cb(null, count); return; }
+
+            const raw = (entry.text || '').replace(/\s+/g, ' ').trim();
+            const LIMIT = 220;
+            let excerpt = raw;
+            if (raw.length > LIMIT) {
+              const cut = raw.slice(0, LIMIT);
+              const lastPeriod = cut.lastIndexOf('.');
+              excerpt = lastPeriod > 60 ? raw.slice(0, lastPeriod + 1) : cut.trimEnd() + '\u2026';
+            } else {
+              // Text under limit but may already trail off — snap to last period anyway
+              const lastPeriod = raw.lastIndexOf('.');
+              if (lastPeriod > 60 && lastPeriod < raw.length - 1) {
+                excerpt = raw.slice(0, lastPeriod + 1);
+              }
+            }
+
+            cb({
+              title: entry.title || 'Latest article',
+              href: '/' + slug,
+              excerpt,
+              date: '',
+              cats: []
+            }, count);
+          })
+          .catch(() => cb(null, count));
+      })
+      .catch(() => cb(null, null));
+  }
+
+  function isHomePage() {
+    const p = window.location.pathname.replace(/\/+$/, '');
+    return p === '' || p === '/index.html' || p.endsWith('/index.html');
+  }
+
+  function init() {
+    if (isHomePage()) {
+      renderHome(null, null);
+      setInterval(updateClock, 1000);
+      fetchHomeData(function(latest, count) {
+        renderHome(latest, count);
+      });
+    } else {
+      // Non-home pages: chrome already in HTML, just update dynamic parts
+      updateClock();
+      setInterval(updateClock, 1000);
+      updateWeather();
+
+      const countEl = document.getElementById('t-status-count');
+      if (countEl) {
+        fetch(rootUrl('/listings.json'))
+          .then(r => r.json())
+          .then(data => {
+            const blogEntry = data.find(e => e.listing && e.listing.includes('blog')) || data[0];
+            const count = blogEntry ? blogEntry.items.length : 0;
+            countEl.textContent = `${count} articles \u00b7 6 projects`;
+          })
+          .catch(() => { countEl.textContent = '\u2014 articles \u00b7 6 projects'; });
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

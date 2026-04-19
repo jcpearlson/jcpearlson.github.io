@@ -1,0 +1,85 @@
+---
+title: "Contact"
+pagetitle: "Contact — Josh Pearlson"
+title-block-banner: false
+page-layout: full
+css:
+  - ../css/index.css
+  - ../css/contact.css
+include-after-body:
+  - ../javaScript/terminal.html
+---
+
+```{=html}
+<div class="jcp-terminal" id="jcp-terminal">
+  <div class="t-tabs">
+    <a href="/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>home</a>
+    <a href="/aboutPage/about.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>about</a>
+    <a href="/articles/blog.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>articles</a>
+    <a href="/projects/projects.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>projects</a>
+    <a href="/contact/contact.html" class="t-tab t-tab-active"><span class="t-tab-indicator">▸</span>contact</a>
+    <div class="t-tabs-spacer"></div>
+    <div class="t-title" id="t-title">jcp@joshpearlson: ~/contact</div>
+  </div>
+  <div class="t-body" id="t-body" data-page="other">
+
+    <div class="jcp-contact-wrap">
+      <div class="jcp-h2"># contact</div>
+
+      <p class="jcp-contact-intro">
+        The best ways to reach me. I like meeting new people — a cold email or
+        LinkedIn message is always welcome.
+      </p>
+
+      <div class="jcp-contact-list">
+        <a href="https://linkedin.com/in/josh-pearlson" class="jcp-c-row">
+          <span class="jcp-c-label">LINKEDIN</span>
+          <span class="jcp-c-val">linkedin.com/in/josh-pearlson</span>
+          <span class="jcp-c-arrow">→</span>
+        </a>
+        <a href="https://github.com/jcpearlson" class="jcp-c-row">
+          <span class="jcp-c-label">GITHUB</span>
+          <span class="jcp-c-val">github.com/jcpearlson</span>
+          <span class="jcp-c-arrow">→</span>
+        </a>
+        <a href="mailto:jcpearlson@gmail.com" class="jcp-c-row">
+          <span class="jcp-c-label">EMAIL</span>
+          <span class="jcp-c-val">jcpearlson@gmail.com</span>
+          <span class="jcp-c-arrow">→</span>
+        </a>
+      </div>
+
+      <div class="jcp-contact-foot">
+        <div class="jcp-promptblock"><span class="jcp-prompt">$</span> cat .pgp_public_key</div>
+        <details class="jcp-pgp-details">
+          <summary class="jcp-pgp-summary">▸ BEGIN PGP PUBLIC KEY BLOCK — click to expand</summary>
+          <pre class="jcp-sig"># for verifying identity or sending encrypted mail
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+mDMEaeTnVxYJKwYBBAHaRw8BAQdARVFp9LoP+4AUEx1O3gODffsExyzGSe0IH1BL
+QCYpDsS0LUpvc2h1YSBDYXJ0ZXIgUGVhcmxzb24gPGpjcGVhcmxzb25AZ21haWwu
+Y29tPoivBBMWCgBXFiEEgWAjX4zTXG3leHTbYtplFo09g6sFAmnk51cbFIAAAAAA
+BAAObWFudTIsMi41KzEuMTIsMCwzAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMBAh4H
+AheAAAoJEGLaZRaNPYOrxrIBAI5ZdCEncR25Yv9auVRDdA7o8PiIzHmfUjMQ294a
+e0JpAP0dlUw3E8ZzKTQGMPiBImYWEfltQShRqgt7IH9Llf+aAbg4BGnk51cSCisG
+AQQBl1UBBQEBB0DypSAJXQuC38j4CYKdV6ofV2Nw3C0JsTLKce3QpMOjAQMBCAeI
+lAQYFgoAPBYhBIFgI1+M01xt5Xh022LaZRaNPYOrBQJp5OdXGxSAAAAAAAQADm1h
+bnUyLDIuNSsxLjEyLDAsMwIbDAAKCRBi2mUWjT2Dq4+GAQCGfO9kUi9aNDmO65RN
+Imr1Z3pdqoDsptaneScOaw7YpgEAyVpsp5toE8IzTiGO6vVTEu4yYngLJQTxUMdN
+jKjtrAQ=
+=YJ8n
+-----END PGP PUBLIC KEY BLOCK-----</pre>
+        </details>
+      </div>
+    </div>
+
+  </div>
+  <div class="t-status">
+    <span><span class="t-status-dot">●</span> online</span>
+    <span id="t-status-count">— articles · — projects</span>
+    <span class="t-status-weather" id="t-status-weather">
+      <span class="t-weather-glyph">·</span> NYC --°F <span class="t-sep">·</span> 40.7128° N, 74.0060° W
+    </span>
+  </div>
+</div>
+```
