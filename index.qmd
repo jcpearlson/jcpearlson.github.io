@@ -1,33 +1,14 @@
 ---
 title: "JCP"
+pagetitle: "Josh Pearlson"
+title-block-banner: false
+page-layout: full
 css:
   - css/index.css
 include-after-body:
   - javaScript/terminal.html
 ---
 
-<div id="terminal-wrapper">
-<div class="terminal-window" role="region" aria-labelledby="terminal-title">
-<div class="terminal-top">
-<div class="traffic">
-<span class="dot red"></span>
-<span class="dot yellow"></span>
-<span class="dot green"></span>
-</div>
-<div id="terminal-title" class="terminal-title">
-jcp@home:~
-</div>
-</div>
-<div id="terminal-body" class="terminal-body" aria-live="polite">
-</div>
-</div>
-</div>
-
-<!-- Background Info Widget -->
-<a href="https://science.nasa.gov/mission/hubble/science/universe-uncovered/hubble-deep-fields/"
-   target="_blank"
-   rel="noopener noreferrer"
-   class="bg-info-link-button"
-   data-tooltip="Background Image Information: Hubble Ultra Deep Field">
-  <span class="bg-info-icon">🌌</span>
-</a>
+```{=html}
+<div class="jcp-terminal" id="jcp-terminal"></div>
+```

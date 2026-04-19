@@ -1,5 +1,350 @@
 /* css/posts.css */
 
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --t-ink: #c9d1c6;
+  --t-ink-dim: #6f7d6c;
+  --t-ink-bright: #e8ebe5;
+  --t-bg: #0a0b09;
+  --t-panel: #0d110b;
+  --t-line: #22281f;
+  --t-line-dim: #1b211a;
+  --t-accent: #7cff00;
+}
+
+/* ── Article terminal chrome ── */
+
+/* jcp-article-page is added synchronously (before first paint) to prevent flash */
+body.jcp-article-page #quarto-header,
+body.jcp-article-page .navbar,
+body.jcp-article-page header.headroom {
+  visibility: hidden !important;
+  position: fixed !important;
+  top: -200px !important;
+  pointer-events: none !important;
+}
+
+body.jcp-article-page #title-block-header,
+body.jcp-article-page .quarto-title-banner,
+body.jcp-article-page .quarto-title,
+body.jcp-article-page .quarto-title-block {
+  display: none !important;
+}
+
+body.jcp-article-page {
+  background: var(--t-bg) !important;
+  color: var(--t-ink);
+  font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  padding-top: 44px !important;
+  padding-bottom: 38px !important;
+}
+
+/* keep :has() selectors for styles that depend on the injected tab bar element */
+body:has(.jcp-article-tabbar) #quarto-header,
+body:has(.jcp-article-tabbar) .navbar,
+body:has(.jcp-article-tabbar) header.headroom {
+  visibility: hidden !important;
+  position: fixed !important;
+  top: -200px !important;
+  pointer-events: none !important;
+}
+
+body:has(.jcp-article-tabbar) #title-block-header,
+body:has(.jcp-article-tabbar) .quarto-title-banner,
+body:has(.jcp-article-tabbar) .quarto-title,
+body:has(.jcp-article-tabbar) .quarto-title-block {
+  display: none !important;
+}
+
+body:has(.jcp-article-tabbar) {
+  background: var(--t-bg) !important;
+  color: var(--t-ink);
+  font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  padding-top: 44px !important;
+  padding-bottom: 38px !important;
+}
+
+.jcp-article-tabbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #0c0e0a;
+  border-bottom: 1px solid var(--t-line);
+  font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+}
+.jcp-article-tabbar .t-tabs {
+  display: flex;
+  align-items: stretch;
+  padding-left: 8px;
+}
+.jcp-article-tabbar .t-tab {
+  background: transparent;
+  border: none;
+  padding: 13px 22px;
+  color: #6f7d6c;
+  font-family: inherit;
+  font-size: 15px;
+  cursor: pointer;
+  border-right: 1px solid var(--t-line-dim);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.jcp-article-tabbar .t-tab:hover { color: #a6b0a0; }
+.jcp-article-tabbar .t-tab-active {
+  color: #d6dfd1 !important;
+  background: var(--t-bg);
+  box-shadow: inset 0 -2px 0 var(--t-accent);
+}
+.jcp-article-tabbar .t-tab-indicator {
+  color: var(--t-accent);
+  margin-right: 8px;
+  display: inline-block;
+  width: 1ch;
+}
+.jcp-article-tabbar .t-tabs-spacer { flex: 1; }
+.jcp-article-tabbar .t-title {
+  padding: 13px 18px;
+  font-size: 14px;
+  color: #5c6a5a;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.jcp-article-statusbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
+}
+.jcp-article-statusbar .t-status {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 7px 22px;
+  border-top: 1px solid var(--t-line);
+  background: #0c0e0a;
+  color: #6f7d6c;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  flex-wrap: wrap;
+}
+.jcp-article-statusbar .t-status-dot { color: var(--t-accent); }
+.jcp-article-statusbar .t-status-weather { margin-left: auto; font-variant-numeric: tabular-nums; }
+.jcp-article-statusbar .t-weather-glyph { color: var(--t-accent); margin-right: 6px; }
+.jcp-article-statusbar .t-sep { color: #5c6a5a; margin: 0 6px; }
+.jcp-article-statusbar .t-chip {
+  border: 1px solid var(--t-line);
+  color: #8fa28a;
+  padding: 2px 7px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+/* Article header block */
+.t-art-header {
+  margin: 0 0 36px;
+  padding: 28px 0 0;
+}
+.t-art-prompt {
+  font-size: 15px;
+  color: #6f7d6c;
+  margin-bottom: 14px;
+  font-family: "IBM Plex Mono", monospace;
+}
+.t-prompt { color: var(--t-accent); font-weight: 700; margin-right: 10px; }
+.t-art-title {
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--t-ink-bright);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.t-art-meta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+  font-size: 14px;
+}
+.t-art-date { color: var(--t-ink-dim); font-variant-numeric: tabular-nums; }
+.t-art-meta .t-chip {
+  border: 1px solid var(--t-line);
+  color: #8fa28a;
+  padding: 2px 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.t-art-rule {
+  border-top: 1px dashed var(--t-line);
+  margin-top: 4px;
+}
+
+/* ── TOC scrollspy — terminal reskin ── */
+body:has(.jcp-article-tabbar) .scrollspy-nav {
+  top: 68px !important;
+  background: transparent !important;
+  border: none !important;
+  border-left: 1px solid var(--t-line) !important;
+  padding-left: 16px !important;
+  padding-right: 0 !important;
+}
+body:has(.jcp-article-tabbar) .scrollspy-nav a {
+  color: var(--t-ink-dim) !important;
+  font-family: "IBM Plex Mono", monospace !important;
+  font-size: 14px !important;
+  letter-spacing: 0.02em !important;
+  text-decoration: none !important;
+  display: block !important;
+  padding: 3px 0 !important;
+  border: none !important;
+  background: transparent !important;
+  transition: color 0.15s;
+}
+body:has(.jcp-article-tabbar) .scrollspy-nav a:hover {
+  color: var(--t-ink) !important;
+}
+body:has(.jcp-article-tabbar) .scrollspy-nav a.active {
+  color: var(--t-accent) !important;
+}
+body:has(.jcp-article-tabbar) .scrollspy-title {
+  color: #5c6a5a !important;
+  font-family: "IBM Plex Mono", monospace !important;
+  font-size: 11px !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 8px !important;
+  display: block;
+}
+
+/* ── Share / subscribe footer — terminal reskin ── */
+body:has(.jcp-article-tabbar) .article-footer {
+  margin-top: 48px;
+  border-top: 1px dashed var(--t-line);
+  padding-top: 28px;
+  font-family: "IBM Plex Mono", monospace;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 12px !important;
+  align-items: stretch !important;
+}
+body:has(.jcp-article-tabbar) .article-footer .subscribe-section {
+  flex: 1 !important;
+  background: var(--t-panel) !important;
+  border: 1px solid var(--t-line) !important;
+  border-radius: 0 !important;
+  padding: 18px 22px !important;
+  margin-bottom: 0 !important;
+}
+body:has(.jcp-article-tabbar) .article-footer .share-article-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--t-panel) !important;
+  border: 1px solid var(--t-line) !important;
+  border-radius: 0 !important;
+  padding: 18px 28px !important;
+  margin-bottom: 0 !important;
+  flex-shrink: 0 !important;
+}
+body:has(.jcp-article-tabbar) .article-footer input[type="email"] {
+  background: transparent !important;
+  border: 1px solid var(--t-line) !important;
+  border-radius: 0 !important;
+  color: var(--t-ink) !important;
+  font-family: inherit !important;
+  font-size: 14px !important;
+  padding: 8px 12px !important;
+  outline: none !important;
+}
+body:has(.jcp-article-tabbar) .article-footer input[type="email"]:focus {
+  border-color: var(--t-accent) !important;
+}
+body:has(.jcp-article-tabbar) .article-footer button[type="submit"],
+body:has(.jcp-article-tabbar) .article-footer .share-article-button {
+  background: transparent !important;
+  border: 1px solid var(--t-accent) !important;
+  border-radius: 0 !important;
+  color: var(--t-accent) !important;
+  font-family: inherit !important;
+  font-size: 14px !important;
+  padding: 8px 18px !important;
+  cursor: pointer !important;
+  letter-spacing: 0.05em !important;
+  transition: background 0.15s, color 0.15s !important;
+}
+body:has(.jcp-article-tabbar) .article-footer button[type="submit"]:hover,
+body:has(.jcp-article-tabbar) .article-footer .share-article-button:hover {
+  background: var(--t-accent) !important;
+  color: var(--t-bg) !important;
+}
+body:has(.jcp-article-tabbar) .article-footer .subscribe-label {
+  color: var(--t-ink) !important;
+  font-size: 14px !important;
+  margin-bottom: 12px !important;
+}
+body:has(.jcp-article-tabbar) .article-footer a {
+  color: var(--t-ink-dim) !important;
+  text-decoration: none !important;
+}
+body:has(.jcp-article-tabbar) .article-footer a:hover {
+  color: var(--t-accent) !important;
+}
+@media (max-width: 700px) {
+  body:has(.jcp-article-tabbar) .article-footer {
+    flex-direction: column !important;
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .jcp-article-tabbar .t-tab { font-size: 14px; padding: 12px 18px; }
+}
+@media (max-width: 900px) {
+  .jcp-article-tabbar .t-title { display: none; }
+  .jcp-article-tabbar .t-tabs { flex-wrap: wrap; padding-left: 0; }
+  .jcp-article-tabbar .t-tab { padding: 10px 14px; font-size: 13px; }
+  .t-art-title { font-size: 26px; }
+  .jcp-article-statusbar .t-status-weather { display: none; }
+}
+@media (max-width: 520px) {
+  .t-art-title { font-size: 21px; }
+  .jcp-article-tabbar .t-tabs {
+    flex-wrap: nowrap !important;
+    overflow-x: hidden;
+    padding-left: 0;
+  }
+  .jcp-article-tabbar .t-tabs .t-tabs-spacer { display: none; }
+  .jcp-article-tabbar .t-tab {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    padding: 10px 4px;
+    font-size: 11px;
+  }
+  .jcp-article-tabbar .t-tab .t-tab-indicator { margin-right: 4px; }
+  .jcp-article-statusbar .t-status {
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: 12px;
+    font-size: 11px;
+  }
+  .jcp-article-statusbar .t-status > span:nth-child(2),
+  .jcp-article-statusbar .t-chip { display: none; }
+}
+
 /* ========== TITLE & BANNER ========== */
 
 .quarto-title-banner.page-columns.page-full {
@@ -237,11 +582,12 @@ main#quarto-document-content {
 
 /* Tables */
 #quarto-content table {
-  width: 100%; /* Ensure table takes full width */
-  border-collapse: collapse; /* Collapse borders for a clean look */
-  margin-bottom: 1em; /* Space below the table */
-  color: rgba(255, 255, 255, 0.85); /* Default text color for table body */
-  background-color: rgba(0, 0, 0, 0.2); /* Subtle dark background */
+  width: auto;
+  min-width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1em;
+  color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 #quarto-content th {
@@ -251,11 +597,13 @@ main#quarto-document-content {
   padding: 0.8em 0.5em;
   text-align: left;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
 }
 
 #quarto-content td {
   padding: 0.6em 0.5em;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
 }
 
 #quarto-content tbody tr.odd {
@@ -542,8 +890,9 @@ div.sourceCode pre {
     max-width: 100%;
   }
 
-  /* Tables: horizontal scroll instead of overflow */
+  /* Tables: shrink font first, scroll as fallback */
   #quarto-content table {
+    font-size: 12px;
     display: block;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -551,14 +900,19 @@ div.sourceCode pre {
     border-top: none !important;
     border-bottom: none !important;
   }
+  #quarto-content table th,
+  #quarto-content table td {
+    padding: 6px 8px !important;
+  }
 
-  /* Display math equations: horizontal scroll instead of overflow */
+  /* Display math equations: scale down first, scroll as fallback */
   mjx-container[display="true"] {
+    font-size: 90%;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     max-width: 100%;
-    padding-bottom: 4px; /* prevent scrollbar overlapping descenders */
+    padding-bottom: 4px;
   }
 
   /* Article footer: vertical stack, all full-width */
@@ -588,4 +942,9 @@ div.sourceCode pre {
   .share-article-button {
     width: 100%;
   }
+}
+
+@media (max-width: 520px) {
+  mjx-container[display="true"] { font-size: 80%; }
+  #quarto-content table { font-size: 11px; }
 }

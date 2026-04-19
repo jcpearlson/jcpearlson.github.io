@@ -1,60 +1,75 @@
-.quarto-title h1 {
-  color: rgba(124, 255, 0, 0.95); /* Bright color for active link */
+/* ============================================================
+   projects.css — Terminal project card grid
+   ============================================================ */
+
+.jcp-h2 {
+  color: var(--t-accent);
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  margin: 0 0 26px;
+  font-weight: 600;
 }
 
-.projects-grid {
+.jcp-proj-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
 }
 
-.project-tile {
-  border: 1px solid rgba(124, 255, 0, 0.95);
-  border-radius: 8px;
-  overflow: hidden;
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
-  color: red;
-}
-
-.project-tile:hover {
-  transform: translateY(-5px);
-}
-
-.project-tile img {
-  width: 100%;
-  height: 350px;
-  object-fit: cover;
-  object-position: center;
+.jcp-proj-card {
   display: block;
-  /* background-color: black; */
-}
-
-.project-tile img.pomo-img {
-  object-fit: contain;
-  background-color: black;
-}
-
-.project-tile h1 {
-  margin: 15px 0 5px;
-  font-size: 2em;
-  color: rgba(124, 255, 0, 0.95); /* Bright color for active link */
-}
-
-.project-tile p {
-  font-size: 1.1em; /* Increased font size */
-  /* color: white; /* Changed color to white */ */
-  padding: 0 15px 10px; /* Changed bottom padding to 10px */
-  margin-top: 0; /* Remove default margin that might interfere */
-  color: rgba(124, 255, 0, 0.95); /* Bright color for active link */
-}
-
-.project-tile a {
+  padding: 24px 26px;
+  background: var(--t-panel);
+  border: 1px solid var(--t-line);
   text-decoration: none;
-  display: flex; /* Make it a flex container */
-  flex-direction: column; /* Stack children vertically */
-  height: 100%; /* Ensure it takes full height of tile */
-  align-items: center; /* Center items horizontally */
+  color: inherit;
+  transition: border-color .2s, background .2s;
+}
+.jcp-proj-card:hover {
+  border-color: var(--t-accent);
+  background: #0f140d;
+}
+
+.jcp-proj-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: var(--t-ink-dim);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.jcp-proj-year { color: var(--t-ink-dim); font-variant-numeric: tabular-nums; }
+.jcp-proj-tag { color: #8fa28a; }
+
+.jcp-proj-title {
+  color: var(--t-ink-bright);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.jcp-proj-arrow { color: var(--t-accent); margin-right: 8px; }
+
+.jcp-proj-desc {
+  color: #a6b0a0;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.jcp-proj-sep {
+  border-top: 1px dashed var(--t-line-dim);
+  margin: 14px 0 10px;
+}
+
+.jcp-proj-path {
+  color: var(--t-ink-dim);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 760px) {
+  .jcp-proj-grid { grid-template-columns: 1fr; }
 }

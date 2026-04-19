@@ -1,0 +1,95 @@
+/* ============================================================
+   contact.css — Contact page
+   ============================================================ */
+
+.jcp-contact-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.jcp-h2 {
+  color: var(--t-accent);
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  margin: 0 0 18px;
+  font-weight: 600;
+}
+
+.jcp-contact-intro {
+  color: var(--t-ink);
+  font-size: 17px;
+  line-height: 1.8;
+  margin: 0 0 30px;
+}
+
+.jcp-contact-list {
+  border: 1px solid var(--t-line);
+  background: var(--t-panel);
+}
+.jcp-c-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 30px;
+  gap: 20px;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px dashed var(--t-line-dim);
+  text-decoration: none;
+  color: inherit;
+  transition: background .15s;
+}
+.jcp-c-row:last-child { border-bottom: none; }
+.jcp-c-row:hover { background: #0f140d; }
+.jcp-c-label {
+  color: var(--t-ink-dim);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+}
+.jcp-c-val {
+  color: var(--t-ink-bright);
+  font-size: 18px;
+}
+.jcp-c-arrow {
+  color: var(--t-accent);
+  text-align: right;
+  font-size: 18px;
+}
+
+.jcp-contact-foot {
+  margin-top: 36px;
+}
+.jcp-promptblock { color: #8fa28a; font-size: 16px; margin-bottom: 10px; }
+.jcp-prompt { color: var(--t-accent); font-weight: 700; margin-right: 10px; }
+.jcp-pgp-details {
+  border: 1px solid var(--t-line);
+  background: var(--t-panel);
+}
+.jcp-pgp-summary {
+  padding: 14px 22px;
+  cursor: pointer;
+  color: var(--t-accent);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  list-style: none;
+  user-select: none;
+  transition: background .15s;
+}
+.jcp-pgp-summary::-webkit-details-marker { display: none; }
+.jcp-pgp-summary:hover { background: #0f140d; }
+.jcp-pgp-details[open] .jcp-pgp-summary { border-bottom: 1px dashed var(--t-line); }
+
+.jcp-sig {
+  color: var(--t-ink);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+  padding: 16px 22px;
+  white-space: pre;
+  font-family: inherit;
+  overflow-x: auto;
+}
+
+@media (max-width: 520px) {
+  .jcp-c-row { grid-template-columns: 1fr 30px; }
+  .jcp-c-label { grid-column: 1 / -1; margin-bottom: 2px; }
+  .jcp-c-val { grid-column: 1; }
+}

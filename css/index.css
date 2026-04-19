@@ -1,522 +1,314 @@
-/* Import retro monospace fonts (fall back to system monospace) */
-@import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap");
+/* ============================================================
+   Terminal Refined — global terminal chrome + homepage content
+   ============================================================ */
 
-/* index.css */
-body {
-  background-image: url("../media/UltraDeepField.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: fixed;
-}
-#matrix-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  z-index: 199;
-  display: none;
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out;
-}
-
-#logo-splash {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 201;
-  display: none;
-  width: 200px;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.quarto-title h1.title {
-  display: none;
-}
-
-.quarto-title {
-  display: none;
-}
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-1: #030406;
-  --bg-2: #00110a;
-  --text: #4af626; /* classic terminal green */
-  --muted: rgba(74, 246, 38, 0.15);
-  --accent: #2ecc40;
-  --panel: rgba(0, 0, 0, 0.55);
-  --glass: rgba(255, 255, 255, 0.02);
-  --shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  --t-ink: #c9d1c6;
+  --t-ink-dim: #6f7d6c;
+  --t-ink-bright: #e8ebe5;
+  --t-bg: #0a0b09;
+  --t-panel: #0d110b;
+  --t-line: #22281f;
+  --t-line-dim: #1b211a;
+  --t-accent: #7cff00;
+  --dir1-accent: #7cff00;
 }
 
-/* page base */
-html,
-body {
-  height: 100%;
-  margin: 0;
-  color: var(--text);
-  font-family: "Inconsolata", "IBM Plex Mono", monospace;
+html, body {
+  background: var(--t-bg) !important;
+  color: var(--t-ink);
+  font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+}
+
+body:has(.jcp-terminal) {
+  height: 100vh;
   overflow: hidden;
 }
 
-/* terminal container */
-#terminal-wrapper {
-  width: 100%;
-  height: 90%; /* Make it fill the screen height */
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* This will center the terminal horizontally */
-  justify-content: center; /* This will center the terminal vertically */
+body:has(.jcp-terminal) #quarto-header,
+body:has(.jcp-terminal) .navbar,
+body:has(.jcp-terminal) header.headroom,
+body:has(.jcp-terminal) #title-block-header,
+body:has(.jcp-terminal) .quarto-title,
+body:has(.jcp-terminal) .quarto-title-block,
+body:has(.jcp-terminal) footer.footer,
+body:has(.jcp-terminal) .nav-footer,
+body:has(.jcp-terminal) #quarto-margin-sidebar,
+body:has(.jcp-terminal) .margin-sidebar {
+  display: none !important;
+}
+body:has(.jcp-terminal) #quarto-content {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  display: block !important;
+  height: 100vh !important;
+  overflow: hidden !important;
+}
+body:has(.jcp-terminal) #quarto-content main {
+  grid-column: unset !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+
+main.content, main#quarto-document-content {
+  max-width: 100% !important;
+  padding: 0;
+}
+
+/* ============================================================
+   Terminal window
+   ============================================================ */
+.jcp-terminal {
   position: relative;
-  bottom: 10px;
-}
-
-/* window */
-.terminal-window {
-  width: 70vw;
-  height: 80dvh;
-  border-radius: 10px;
-  box-shadow: var(--shadow);
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9));
-  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  background: var(--t-bg);
   border: none;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  font-size: 17px;
+  line-height: 1.6;
+  font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 }
 
-/* top bar */
-.terminal-top {
-  display: flex;
-  align-items: center;
-  height: 25px;
-  gap: 1rem;
-  padding: 0.5rem 0.8rem;
-  background: linear-gradient(180deg, #4a4a4a, #3a3a3a);
-  border-bottom: 1px solid rgba(0, 255, 0, 0.03);
-}
-
-.traffic {
-  display: flex;
-  align-items: center;
-  position: relative;
-  top: 9px;
-}
-.dot {
-  width: 12px;
-  height: 13px;
-  border-radius: 50%;
-  display: inline-block;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5) inset;
-}
-.dot.red {
-  background: #ff6b6b;
-}
-.dot.yellow {
-  background: #ffd86b;
-}
-.dot.green {
-  background: #64ff64;
-}
-
-.dot + .dot {
-  margin-left: 4px;
-}
-
-.terminal-title {
-  margin-left: auto;
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 600;
+/* Tab bar title (right side) */
+.t-title {
+  padding: 13px 18px;
+  font-size: 14px;
+  color: #5c6a5a;
   letter-spacing: 0.04em;
-  color: rgba(124, 255, 0, 0.95);
-  font-size: 1rem;
+  font-weight: 400;
+  white-space: nowrap;
 }
 
-/* body area */
-.terminal-body {
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 1.1rem 1.2rem;
-  font-size: 1.3rem;
-  line-height: 1.45;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.02));
-}
-
-/* Custom scrollbar for terminal body */
-.terminal-body::-webkit-scrollbar {
-  width: 14px;
-}
-
-.terminal-body::-webkit-scrollbar-track {
-  background: var(--bg-1); /* Dark background from your variables */
-}
-
-.terminal-body::-webkit-scrollbar-thumb {
-  background-color: var(--accent); /* Neon green accent color */
-  border-radius: 6px;
-  border: 3px solid var(--bg-1); /* Creates a nice padding effect */
-}
-
-/* lines and outputs */
-.terminal-line {
-  margin: 6px 0;
-  color: var(--text);
-}
-.terminal-line.static {
-  opacity: 0.95;
-  font-weight: 500;
-}
-.terminal-output {
-  margin: 8px 0;
-  color: rgba(124, 255, 0, 0.95);
-}
-
-/* prompt + input */
-.prompt-container {
+/* Tab bar */
+.t-tabs {
   display: flex;
-  flex-direction: column;
+  align-items: stretch;
+  border-bottom: 1px solid var(--t-line);
+  background: #0c0e0a;
+  padding-left: 8px;
+  font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 }
-
-.prompt-info {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.right-prompt {
-  display: flex;
-  gap: 1rem;
-}
-
-.prompt-line {
-  display: flex;
-  align-items: center;
-}
-
-.prompt {
-  color: var(--accent);
-  font-weight: 700;
-  padding-right: 0.2rem;
-}
-
-/* hidden real input visually moved to top but we create a nice mirrored 'cursor' effect */
-input.terminal-input {
+.t-tab {
   background: transparent;
   border: none;
-  outline: none;
-  color: var(--text);
+  padding: 13px 22px;
+  color: #6f7d6c;
   font-family: inherit;
-  font-size: 1.3rem;
-  width: 100%;
-  caret-color: var(--accent);
-}
-
-/* typed / cursor used by JS when rendering; kept visually consistent */
-.typed {
-  display: inline;
-}
-.cursor {
-  display: inline-block;
-  width: 10px;
-  height: 1.4rem;
-  margin-left: 3px;
-  background: linear-gradient(180deg, var(--text), rgba(124, 255, 0, 0.6));
-  animation: blink 1s steps(2, start) infinite;
-  vertical-align: bottom;
-  border-radius: 2px;
-}
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-}
-
-/* hints, errors */
-.hint {
-  color: rgba(255, 255, 255, 0.95);
-  background: rgba(0, 0, 0, 0.12);
-  padding: 1px 6px;
-  border-radius: 4px;
-  margin: 0 3px;
-  font-size: 0.95em;
-}
-.bad {
-  color: #ff6b6b;
-}
-
-/* Matrix effect styling */
-.matrix-container {
-  margin: 2rem 0;
-  padding: 1rem;
-}
-
-.matrix-line {
-  font-family: "IBM Plex Mono", "Inconsolata", monospace;
-  letter-spacing: 0.05em;
-}
-
-/* visual CRT flicker */
-body.no-flicker .terminal-window {
-  filter: none;
-  animation: none;
-}
-.terminal-window {
-  animation: subtleFlicker 6s infinite;
-  will-change: filter, transform;
-}
-@keyframes subtleFlicker {
-  0% {
-    filter: brightness(1) contrast(1);
-    transform: translateY(0);
-  }
-  30% {
-    filter: brightness(0.98) contrast(1.02) saturate(1);
-  }
-  60% {
-    filter: brightness(1.02) contrast(0.99);
-  }
-  100% {
-    filter: brightness(1) contrast(1);
-  }
-}
-
-/* footer controls */
-.terminal-footer {
-  display: flex;
-  gap: 0.6rem;
-  justify-content: center;
-}
-.terminal-footer button {
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--text);
-  border: 1px solid rgba(124, 255, 0, 0.06);
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 15px;
   cursor: pointer;
-}
-.terminal-footer button:hover {
-  background: rgba(124, 255, 0, 0.04);
-}
-
-/* Background Info Widget */
-.bg-info-link-button {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  background: rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(124, 255, 0, 0.3);
-  border-radius: 50%;
+  border-right: 1px solid var(--t-line-dim);
+  letter-spacing: 0.04em;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.t-tab:hover { color: #a6b0a0; }
+.t-tab-active {
+  color: #d6dfd1 !important;
+  background: var(--t-bg);
+  box-shadow: inset 0 -2px 0 var(--t-accent);
+}
+.t-tab-indicator {
+  color: var(--t-accent);
+  margin-right: 8px;
+  display: inline-block;
+  width: 1ch;
+}
+.t-tabs-spacer { flex: 1; }
+
+/* Body */
+.t-body {
+  padding: 36px 44px 44px;
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(124,255,0,0.012) 0px,
+    rgba(124,255,0,0.012) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  color: var(--t-ink);
+}
+
+/* Status bar */
+.t-status {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  padding: 9px 22px;
+  border-top: 1px solid var(--t-line);
+  background: #0c0e0a;
+  color: #6f7d6c;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  flex-wrap: wrap;
+}
+.t-status-dot { color: var(--t-accent); }
+.t-status-weather { margin-left: auto; font-variant-numeric: tabular-nums; }
+.t-weather-glyph { color: var(--t-accent); margin-right: 6px; }
+.t-sep { color: #5c6a5a; margin: 0 6px; }
+
+/* ============================================================
+   Homepage content
+   ============================================================ */
+.t-ascii {
+  color: var(--t-accent);
+  font-size: 13px;
+  line-height: 1.15;
+  margin: 0 0 26px;
+  opacity: 0.9;
+  font-family: Menlo, Consolas, "Courier New", Courier, monospace;
+  white-space: pre;
+  letter-spacing: 0;
+  font-kerning: none;
+  font-variant-ligatures: none;
+  text-rendering: optimizeSpeed;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.t-hello { max-width: 1000px; }
+.t-promptblock { color: #8fa28a; font-size: 16px; margin-top: 22px; }
+.t-prompt { color: var(--t-accent); font-weight: 700; margin-right: 10px; }
+.t-out { color: var(--t-ink-bright); margin-top: 8px; font-size: 19px; }
+.t-name { color: var(--t-accent); font-weight: 600; }
+
+@keyframes t-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+.t-cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  background: var(--t-accent);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: t-blink 1.05s steps(2, start) infinite;
+  box-shadow: 0 0 6px var(--t-accent);
+}
+
+/* Latest article card */
+.t-latest-card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-top: 12px;
+  padding: 24px 28px;
+  background: var(--t-panel);
+  border: 1px solid var(--t-line);
   cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  transition: border-color .2s, background .2s;
+  text-decoration: none;
+  color: inherit;
+}
+.t-latest-card:hover {
+  border-color: var(--t-accent);
+  background: #0f140d;
+}
+.t-latest-label { color: #5c6a5a; font-size: 12px; letter-spacing: 0.2em; }
+.t-latest-title {
+  color: var(--t-ink-bright);
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 8px;
+  letter-spacing: -0.01em;
+}
+.t-latest-excerpt { color: #a6b0a0; font-size: 16px; margin-top: 10px; line-height: 1.7; }
+.t-latest-meta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+.t-chip {
+  border: 1px solid var(--t-line);
+  color: #8fa28a;
+  padding: 3px 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.t-read-arrow { margin-left: auto; color: var(--t-accent); font-size: 16px; }
+
+/* ls grid */
+.t-ls-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+.t-ls-cell {
+  background: var(--t-panel);
+  border: 1px solid var(--t-line);
+  padding: 20px 22px;
+  text-align: left;
+  font-family: inherit;
+  color: var(--t-ink);
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  transition: border-color .15s, background .15s;
+}
+.t-ls-cell:hover { border-color: var(--t-accent); background: #0f140d; }
+.t-ls-name { font-size: 18px; color: var(--t-ink-bright); }
+.t-ls-path { font-size: 14px; color: var(--t-ink-dim); margin-top: 6px; }
+.t-arrow { color: var(--t-accent); }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 1100px) {
+  .jcp-terminal { font-size: 15px; }
+  .t-tab { font-size: 14px; padding: 12px 18px; }
+  .t-out { font-size: 17px; }
+  .t-latest-title { font-size: 24px; }
+  .t-ls-name { font-size: 16px; }
 }
 
-.bg-info-link-button:hover {
-  background: rgba(0, 0, 0, 0.85);
-  border-color: var(--accent);
-  box-shadow: 0 0 15px rgba(124, 255, 0, 0.2);
-  transform: translateY(-2px);
+@media (max-width: 900px) {
+  .jcp-terminal { font-size: 14px; }
+  .t-body { padding: 24px 22px 32px; }
+  .t-title { display: none; }
+  .t-tabs { flex-wrap: wrap; padding-left: 0; }
+  .t-tab { padding: 10px 14px; font-size: 13px; }
+  .t-ls-grid { grid-template-columns: repeat(2, 1fr); }
+  .t-latest-title { font-size: 21px; }
+  .t-out { font-size: 16px; }
+  .t-status { gap: 14px; font-size: 12px; }
+  .t-status-weather { margin-left: 0; }
+  .t-ascii { font-size: 10px; }
 }
 
-.bg-info-icon {
-  font-size: 1.8rem;
-  filter: drop-shadow(0 0 8px rgba(124, 255, 0, 0.4));
-}
-
-/* Custom tooltip - appears instantly on hover */
-.bg-info-link-button::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%) translateX(-8px);
-  margin-left: 12px;
-  padding: 6px 10px;
-  background: rgba(0, 0, 0, 0.92);
-  border: 1px solid rgba(124, 255, 0, 0.4);
-  border-radius: 6px;
-  color: var(--text);
-  font-size: 0.75rem;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
-  font-family: "IBM Plex Mono", "Inconsolata", monospace;
-  z-index: 1001;
-}
-
-.bg-info-link-button:hover::after {
-  opacity: 1;
-  transform: translateY(-50%) translateX(0);
-}
-
-/* Mobile optimizations */
-@media (max-width: 768px) {
-  /* Fix background-attachment: fixed causing GPU repaint jank on mobile */
-  body {
-    background-attachment: scroll;
-  }
-
-  /* Terminal wrapper - fixed position to prevent shifting */
-  #terminal-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 100vh;
-    height: 100dvh; /* Use dynamic viewport height for mobile browsers */
-    width: 100vw;
-    padding: 30px 0 0 0; /* Change padding to 15px to the top */
-    margin: 0;
-    box-sizing: border-box; /* Ensure padding is included in the element's total height */
-  }
-
-  /* Terminal window - nearly full screen, leave room for Hubble button */
-  .terminal-window {
-    width: 95vw;
-    height: 78dvh;
-    max-height: 78dvh;
-    border-radius: 6px;
-    animation: none; /* Disable flicker on mobile to save battery */
-  }
-
-  /* Terminal body - smaller text, tighter spacing */
-  .terminal-body {
-    font-size: 1.2rem;
-    padding: 0.6rem 0.7rem;
-    line-height: 1.35;
-    overflow-y: auto;
+@media (max-width: 520px) {
+  .t-ls-grid { grid-template-columns: 1fr; }
+  .t-ascii { font-size: 7px; }
+  .t-tabs {
+    flex-wrap: nowrap !important;
     overflow-x: hidden;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    position: relative;
   }
-
-  /* Terminal top bar - compact */
-  .terminal-top {
-    height: 20px;
-    padding: 0.4rem 0.6rem;
+  .t-tabs-spacer { display: none; }
+  .t-tab {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    padding: 10px 4px;
+    font-size: 11px;
   }
-
-  /* Terminal title - smaller */
-  .terminal-title {
-    font-size: 0.9rem;
-  }
-
-  /* Traffic lights - slightly smaller */
-  .dot {
-    width: 10px;
-    height: 10px;
-  }
-
-  /* Prompt - stack vertically, hide timestamp */
-  .prompt-info {
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  .right-prompt {
-    display: none; /* Hide user and timestamp on mobile */
-  }
-
-  /* Input - 1.2rem (~19px) stays above iOS zoom threshold */
-  input.terminal-input {
-    font-size: 1.2rem;
-  }
-
-  /* Hints - smaller badges */
-  .hint {
-    font-size: 0.85em;
-    padding: 1px 4px;
-    margin: 0 2px;
-  }
-
-  /* Terminal output - compact */
-  .terminal-output {
-    margin: 6px 0;
-    font-size: 1.15rem;
-  }
-
-  .terminal-line {
-    margin: 4px 0;
-  }
-
-  /* Scrollbar - thinner on mobile */
-  .terminal-body::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  .terminal-body::-webkit-scrollbar-thumb {
-    border-width: 2px;
-  }
-
-  /* Background info widget - smaller and less intrusive */
-  .bg-info-link-button {
-    width: 40px;
-    height: 40px;
-    bottom: 10px;
-    left: 10px;
-  }
-
-  .bg-info-icon {
-    font-size: 1.2rem;
-  }
-
-  /* Hide tooltip on mobile (too much clutter) */
-  .bg-info-link-button::after {
-    display: none;
-  }
-
-  /* Images in cat command - full width on mobile */
-  .terminal-output img {
-    max-width: 100% !important;
-    height: auto !important;
-  }
-}
-
-/* Extra small phones */
-@media (max-width: 480px) {
-  .terminal-window {
-    width: 98vw;
-    height: 78dvh;
-    max-height: 78dvh;
-    border-radius: 4px;
-  }
-
-  .terminal-body {
-    font-size: 1.15rem;
-    padding: 0.5rem;
-  }
-
-  .terminal-title {
-    font-size: 0.85rem;
-  }
-
-  input.terminal-input {
-    font-size: 1.15rem; /* ~18px, above iOS zoom threshold */
-  }
-}
-
-/* Screens with small height */
-@media (max-height: 700px) and (max-width: 768px) {
-  .terminal-window {
-    height: 70vh;
-  }
+  .t-tab-indicator { margin-right: 4px; }
+  .t-status { font-size: 11px; gap: 10px; }
+  .t-status-weather { display: none; }
 }

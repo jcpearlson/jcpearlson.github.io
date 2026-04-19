@@ -10,6 +10,8 @@ title-block-banner: true
 format:
   html:
     css: ../../css/posts.css
-    include-after-body: 
+    include-after-body:
+      - ../../javaScript/article-chrome.html
       - ../../javaScript/share.html
       - ../../javaScript/toc-scrollspy.html
+      - ../../javaScript/terminal.html

@@ -1,6 +1,16 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "index.qmd"
+    - "404.qmd"
+    - "aboutPage/about.qmd"
+    - "articles/blog.qmd"
+    - "articles/posts/**/*.qmd"
+    - "articles/posts/**/*.md"
+    - "articles/posts/**/*.ipynb"
+    - "projects/projects.qmd"
+    - "contact/contact.qmd"
   resources:
     - "projects/**"
     - "media/*"
@@ -19,6 +29,8 @@ website:
         href: projects/projects.qmd
       - text: "About"
         href: aboutPage/about.qmd
+      - text: "Contact"
+        href: contact/contact.qmd
 format:
   html:
     theme:

@@ -1,0 +1,100 @@
+<script>
+(function() {
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function readPosts(container) {
+    const posts = Array.from(container.querySelectorAll('.quarto-post'));
+    return posts.map(p => {
+      const titleA = p.querySelector('.listing-title a') || p.querySelector('a');
+      const descEl = p.querySelector('.listing-description');
+      const dateEl = p.querySelector('.listing-date');
+      const cats = Array.from(p.querySelectorAll('.listing-category')).map(c => c.textContent.trim().toLowerCase()).filter(Boolean);
+      return {
+        title: titleA ? titleA.textContent.trim() : '',
+        href: titleA && titleA.getAttribute('href') ? titleA.getAttribute('href') : '#',
+        excerpt: descEl ? descEl.textContent.trim() : '',
+        date: dateEl ? dateEl.textContent.trim() : '',
+        cats
+      };
+    });
+  }
+
+  function renderTable(mount, posts, cats, activeCat) {
+    const list = activeCat === 'all' ? posts : posts.filter(p => p.cats.includes(activeCat));
+
+    const catPills = cats.map(c => {
+      const sel = c === activeCat ? ' jcp-cat-sel' : '';
+      return `<button type="button" class="jcp-cat${sel}" data-cat="${esc(c)}">${esc(c)}</button>`;
+    }).join('');
+
+    const rows = list.map(a => {
+      const tags = a.cats.map(c => `<span class="jcp-tag-sm">${esc(c)}</span>`).join('');
+      return `
+        <a class="jcp-art-row" href="${esc(a.href)}">
+          <div class="jcp-art-date">${esc(a.date)}</div>
+          <div class="jcp-art-body">
+            <div class="jcp-art-title"><span class="jcp-art-arrow">▸</span>${esc(a.title)}</div>
+            <div class="jcp-art-exc">${esc(a.excerpt)}</div>
+          </div>
+          <div class="jcp-art-tags">${tags}</div>
+        </a>
+      `;
+    }).join('');
+
+    mount.innerHTML = `
+      <div class="jcp-catrow">
+        <span class="jcp-filter-label">FILTER:</span>
+        ${catPills}
+      </div>
+      <div class="jcp-art-tbl">
+        <div class="jcp-art-head">
+          <div>DATE</div><div>TITLE</div><div>TAGS</div>
+        </div>
+        ${rows || '<div class="jcp-art-empty">No articles in this category.</div>'}
+      </div>
+    `;
+
+    mount.querySelectorAll('.jcp-cat').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const newCat = btn.dataset.cat;
+        renderTable(mount, posts, cats, newCat);
+        if (history.replaceState) {
+          const hash = newCat === 'all' ? '' : '#category=' + encodeURIComponent(newCat);
+          history.replaceState(null, '', window.location.pathname + window.location.search + hash);
+        }
+      });
+    });
+  }
+
+  function init() {
+    const mount = document.getElementById('jcp-articles-mount');
+    if (!mount) return;
+    const quartoListing = document.querySelector('.quarto-listing');
+    if (!quartoListing) return;
+
+    const posts = readPosts(quartoListing);
+    quartoListing.style.display = 'none';
+
+    const catSet = new Set();
+    posts.forEach(p => p.cats.forEach(c => catSet.add(c)));
+    const cats = ['all', ...Array.from(catSet).sort()];
+
+    let initialCat = 'all';
+    const m = (window.location.hash || '').match(/category=([^&]+)/);
+    if (m) {
+      const decoded = decodeURIComponent(m[1]).toLowerCase();
+      if (cats.includes(decoded)) initialCat = decoded;
+    }
+
+    renderTable(mount, posts, cats, initialCat);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>

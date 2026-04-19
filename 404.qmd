@@ -1,5 +1,9 @@
 
 
+---
+navbar: false
+---
+
 <style>
 body {
   color: white;
