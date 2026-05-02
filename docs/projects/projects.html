@@ -412,13 +412,14 @@ ul.task-list li input[type="checkbox"] {
             const raw = (entry.text || '').replace(/\s+/g, ' ').trim();
             const LIMIT = 220;
             let excerpt = raw;
+            const lastSentenceEnd = s => Math.max(s.lastIndexOf('.'), s.lastIndexOf('!'), s.lastIndexOf('?'));
             if (raw.length > LIMIT) {
               const cut = raw.slice(0, LIMIT);
-              const lastPeriod = cut.lastIndexOf('.');
+              const lastPeriod = lastSentenceEnd(cut);
               excerpt = lastPeriod > 60 ? raw.slice(0, lastPeriod + 1) : cut.trimEnd() + '\u2026';
             } else {
-              // Text under limit but may already trail off — snap to last period anyway
-              const lastPeriod = raw.lastIndexOf('.');
+              // Text under limit but may already trail off — snap to last sentence end anyway
+              const lastPeriod = lastSentenceEnd(raw);
               if (lastPeriod > 60 && lastPeriod < raw.length - 1) {
                 excerpt = raw.slice(0, lastPeriod + 1);
               }

@@ -2,7 +2,7 @@
 title: "Perpetual Futures: The Market for Leverage"
 author: "Josh Pearlson"
 date: "2026-02-05"
-categories: ["Derivatives", "Crypto", "Finance"]
+categories: ["Finance"]
 ---
 
 The derivative that never expires, the funding rate that never sleeps, and the incentives that quietly shape crypto volatility.

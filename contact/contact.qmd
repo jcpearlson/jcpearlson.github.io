@@ -27,7 +27,7 @@ include-after-body:
       <div class="jcp-h2"># contact</div>
 
       <p class="jcp-contact-intro">
-        The best ways to reach me. I like meeting new people — a cold email or
+        The best ways to reach me. I like meeting new people, a cold email or
         LinkedIn message is always welcome.
       </p>
 

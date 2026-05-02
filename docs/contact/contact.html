@@ -157,7 +157,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="jcp-h2"># contact</div>
 
       <p class="jcp-contact-intro">
-        The best ways to reach me. I like meeting new people — a cold email or
+        The best ways to reach me. I like meeting new people, a cold email or
         LinkedIn message is always welcome.
       </p>
 
@@ -390,13 +390,14 @@ jKjtrAQ=
             const raw = (entry.text || '').replace(/\s+/g, ' ').trim();
             const LIMIT = 220;
             let excerpt = raw;
+            const lastSentenceEnd = s => Math.max(s.lastIndexOf('.'), s.lastIndexOf('!'), s.lastIndexOf('?'));
             if (raw.length > LIMIT) {
               const cut = raw.slice(0, LIMIT);
-              const lastPeriod = cut.lastIndexOf('.');
+              const lastPeriod = lastSentenceEnd(cut);
               excerpt = lastPeriod > 60 ? raw.slice(0, lastPeriod + 1) : cut.trimEnd() + '\u2026';
             } else {
-              // Text under limit but may already trail off — snap to last period anyway
-              const lastPeriod = raw.lastIndexOf('.');
+              // Text under limit but may already trail off — snap to last sentence end anyway
+              const lastPeriod = lastSentenceEnd(raw);
               if (lastPeriod > 60 && lastPeriod < raw.length - 1) {
                 excerpt = raw.slice(0, lastPeriod + 1);
               }
