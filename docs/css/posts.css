@@ -37,7 +37,7 @@ body.jcp-article-page {
   color: var(--t-ink);
   font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   padding-top: 44px !important;
-  padding-bottom: 38px !important;
+  padding-bottom: calc(38px + env(safe-area-inset-bottom, 0px)) !important;
 }
 
 /* keep :has() selectors for styles that depend on the injected tab bar element */
@@ -62,7 +62,7 @@ body:has(.jcp-article-tabbar) {
   color: var(--t-ink);
   font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   padding-top: 44px !important;
-  padding-bottom: 38px !important;
+  padding-bottom: calc(38px + env(safe-area-inset-bottom, 0px)) !important;
 }
 
 .jcp-article-tabbar {
@@ -124,6 +124,7 @@ body:has(.jcp-article-tabbar) {
   right: 0;
   z-index: 1000;
   font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 .jcp-article-statusbar .t-status {
   display: flex;
@@ -580,10 +581,13 @@ main#quarto-document-content {
   color: rgba(124, 255, 0, 0.95);
 }
 
-/* Tables */
+/* Tables — wrapper enables horizontal scroll without squishing cells */
 #quarto-content table {
-  width: auto;
-  min-width: 100%;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: max-content;
+  max-width: 100%;
   border-collapse: collapse;
   margin-bottom: 1em;
   color: rgba(255, 255, 255, 0.85);
@@ -890,13 +894,9 @@ div.sourceCode pre {
     max-width: 100%;
   }
 
-  /* Tables: shrink font first, scroll as fallback */
+  /* Tables: shrink font on mobile, scrolling already set in base rule */
   #quarto-content table {
     font-size: 12px;
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    max-width: 100%;
     border-top: none !important;
     border-bottom: none !important;
   }
