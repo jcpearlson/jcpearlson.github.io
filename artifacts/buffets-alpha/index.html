@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buffett's Alpha — AQR Research Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --surface: #111418;
+    --surface2: #181d24;
+    --border: #242c38;
+    --gold: #c9a84c;
+    --gold-light: #e8c870;
+    --gold-dim: rgba(201,168,76,0.12);
+    --text: #e8e4db;
+    --muted: #7a8490;
+    --accent: #4a9eff;
+    --red: #e05c5c;
+    --green: #4ec994;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Header */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 48px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 60% -10%, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.05;
+    color: var(--text);
+    max-width: 800px;
+  }
+  h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .header-meta {
+    margin-top: 20px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .header-meta span {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .header-meta span strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* Layout */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  section {
+    padding: 56px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(24px, 3.5vw, 38px);
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.15;
+  }
+  h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  p {
+    color: #b0b8c4;
+    font-size: 15px;
+    max-width: 72ch;
+  }
+
+  /* Big Numbers */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 36px;
+  }
+  .stat-card {
+    background: var(--surface);
+    padding: 28px 24px;
+    transition: background 0.2s;
+  }
+  .stat-card:hover { background: var(--surface2); }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .stat-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* Three Pillars */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 36px;
+  }
+  @media (max-width: 700px) { .pillars { grid-template-columns: 1fr; } }
+  .pillar {
+    border: 1px solid var(--border);
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .pillar:hover { border-color: var(--gold); }
+  .pillar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .pillar:hover::before { transform: scaleX(1); }
+  .pillar-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+    margin-bottom: 16px;
+    letter-spacing: 0.12em;
+  }
+  .pillar h3 { font-size: 18px; margin-bottom: 10px; }
+  .pillar p { font-size: 13.5px; color: #8a96a4; }
+  .tag-list {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    background: var(--gold-dim);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--gold);
+    padding: 3px 8px;
+    letter-spacing: 0.08em;
+  }
+
+  /* Factor breakdown */
+  .factor-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 80px;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .factor-row:last-child { border-bottom: none; }
+  .factor-name {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text);
+  }
+  .factor-desc { font-size: 13.5px; color: #8a96a4; }
+  .factor-bar-wrap {
+    height: 6px;
+    background: var(--surface2);
+    margin-top: 6px;
+    border-radius: 2px;
+  }
+  .factor-bar {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--gold);
+  }
+  .factor-impact {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-align: right;
+    color: var(--gold-light);
+  }
+
+  /* Leverage mechanic */
+  .leverage-visual {
+    margin-top: 36px;
+    border: 1px solid var(--border);
+    padding: 32px;
+    position: relative;
+  }
+  .leverage-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .lev-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    width: 180px;
+    flex-shrink: 0;
+  }
+  .lev-bar-outer {
+    flex: 1;
+    height: 24px;
+    background: var(--surface2);
+    position: relative;
+    overflow: hidden;
+  }
+  .lev-bar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .lev-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    width: 80px;
+    text-align: right;
+    flex-shrink: 0;
+    color: var(--muted);
+  }
+
+  /* Alpha decomposition */
+  .decomp {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+  }
+  @media (max-width: 700px) { .decomp { grid-template-columns: 1fr; } }
+  .decomp-cell {
+    background: var(--surface);
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .decomp-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 34px;
+    margin-bottom: 4px;
+  }
+  .decomp-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .decomp-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .arrow-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .arrow-step {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    font-size: 11px;
+    color: var(--text);
+  }
+  .arrow-step.highlight { border-color: var(--gold); color: var(--gold); }
+  .arr { color: var(--muted); }
+
+  /* Public vs Private */
+  .split-bar {
+    margin-top: 28px;
+    height: 48px;
+    display: flex;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .split-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    transition: filter 0.2s;
+    cursor: default;
+  }
+  .split-seg:hover { filter: brightness(1.15); }
+
+  /* Commentary */
+  .commentary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 36px;
+  }
+  @media (max-width: 700px) { .commentary-grid { grid-template-columns: 1fr; } }
+  .comment-card {
+    border: 1px solid var(--border);
+    padding: 24px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .comment-card:hover { border-color: var(--border); }
+  .comment-type {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: inline-block;
+    padding: 2px 8px;
+  }
+  .type-skeptic { background: rgba(224,92,92,0.12); color: var(--red); }
+  .type-supportive { background: rgba(78,201,148,0.12); color: var(--green); }
+  .type-nuanced { background: rgba(74,158,255,0.12); color: var(--accent); }
+  .type-irony { background: var(--gold-dim); color: var(--gold); }
+  .comment-card h3 { font-size: 15px; margin-bottom: 10px; }
+  .comment-card p { font-size: 13px; color: #8a96a4; }
+  .comment-source {
+    margin-top: 14px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* Conclusion */
+  .conclusion-box {
+    margin-top: 36px;
+    border: 1px solid var(--gold);
+    padding: 36px 32px;
+    background: var(--gold-dim);
+    position: relative;
+    overflow: hidden;
+  }
+  .conclusion-box::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 160px;
+    color: rgba(201,168,76,0.08);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .conclusion-box p {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--text);
+    line-height: 1.55;
+    max-width: 80ch;
+  }
+  .conclusion-box .attribution {
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in {
+    animation: fadeUp 0.5s ease forwards;
+    opacity: 0;
+  }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+
+  @keyframes barFill {
+    from { width: 0; }
+  }
+  .lev-bar, .factor-bar { animation: barFill 1.2s ease forwards; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">AQR Capital Management · Frazzini, Kabiller &amp; Pedersen · FAJ 2018</div>
+  <h1>Buffett's <em>Alpha</em></h1>
+  <div class="header-meta">
+    <span><strong>Period:</strong> 1976 – 2011</span>
+    <span><strong>Published:</strong> Financial Analysts Journal, Vol 74 No 4</span>
+    <span><strong>Working Paper:</strong> NBER #19681 (2013)</span>
+    <span><strong>Subject:</strong> Berkshire Hathaway performance decomposition</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1. The Setup -->
+  <section class="fade-in">
+    <div class="section-label">01 · The Question</div>
+    <h2>Is Buffett's edge luck, skill, or <em>factor exposure?</em></h2>
+    <p style="margin-top:16px;">
+      Previous research using standard Fama-French factors — market, size, value, momentum — could not
+      explain Berkshire's outperformance. AQR introduces two additional factors they developed themselves
+      (BAB and QMJ) and finds that Buffett's alpha largely disappears. The headline thesis: his returns are
+      "neither luck nor magic, but reward for leveraging cheap, safe, quality stocks."
+    </p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">0.76</div>
+        <div class="stat-label">Berkshire Sharpe Ratio</div>
+        <div class="stat-note">1976–2011 · roughly 2× the market's 0.39</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">19%</div>
+        <div class="stat-label">Avg Annual Excess Return</div>
+        <div class="stat-note">vs. 6.1% for the overall market</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">24.9%</div>
+        <div class="stat-label">Annualized Volatility</div>
+        <div class="stat-note">vs. 15.8% market vol; Buffett ran real risk</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">0.7</div>
+        <div class="stat-label">Market Beta</div>
+        <div class="stat-note">Below 1, consistent with low-beta tilt</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">1,500×</div>
+        <div class="stat-label">$1 Invested in 1976</div>
+        <div class="stat-note">Worth &gt;$1,500 by end of 2011</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">#1</div>
+        <div class="stat-label">Sharpe Among All Stocks</div>
+        <div class="stat-note">Of all stocks with 30+ yr history, 1926–2011</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Three Pillars -->
+  <section class="fade-in delay-1">
+    <div class="section-label">02 · The Three Pillars of Buffett's Edge</div>
+    <h2>How AQR breaks it down</h2>
+    <p style="margin-top:16px;">The paper argues Berkshire's outperformance flows from three sources that each reinforce the others.</p>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-num">PILLAR 01 / STOCK STYLE</div>
+        <h3>Safe, Cheap, Quality</h3>
+        <p>Buffett systematically buys low-beta, value-priced, high-quality companies. These characteristics individually predict positive returns in the broad market. Buffett is their concentrated embodiment.</p>
+        <div class="tag-list">
+          <span class="tag">Low Beta</span>
+          <span class="tag">High Profitability</span>
+          <span class="tag">Stable Earnings</span>
+          <span class="tag">High Payout</span>
+          <span class="tag">Low Price-to-Book</span>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">PILLAR 02 / LEVERAGE</div>
+        <h3>~1.6× Leverage at Low Cost</h3>
+        <p>Insurance float from Berkshire's subsidiaries acts as a loan that often costs below zero. The average annual cost of float was estimated at 2.2%, more than 3 percentage points below the T-bill rate.</p>
+        <div class="tag-list">
+          <span class="tag">Insurance Float</span>
+          <span class="tag">AAA Rating 1989–2009</span>
+          <span class="tag">Deferred Taxes</span>
+          <span class="tag">Cheap Capital</span>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">PILLAR 03 / DISCIPLINE</div>
+        <h3>Staying Power Under Drawdowns</h3>
+        <p>From June 1998 to Feb 2000, Berkshire lost 44% while the market gained 32%, a 76-point shortfall. Buffett's corporate structure and reputation let him stay invested when others faced forced selling.</p>
+        <div class="tag-list">
+          <span class="tag">No Redemption Risk</span>
+          <span class="tag">Permanent Capital</span>
+          <span class="tag">50-Year Horizon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Factor Alpha Decomp -->
+  <section class="fade-in delay-2">
+    <div class="section-label">03 · Alpha Decomposition</div>
+    <h2>Where does the alpha go?</h2>
+    <p style="margin-top:16px; margin-bottom:28px;">
+      Adding AQR's BAB and QMJ factors progressively eliminates statistically significant alpha. The chart below traces the step-down in annualized alpha estimates.
+    </p>
+
+    <div class="arrow-row">
+      <div class="arrow-step">FF Factors Only<br><span style="font-size:14px;font-family:'DM Serif Display',serif;color:var(--gold-light)">~12% alpha</span><br><span style="font-size:9px;color:var(--muted)">statistically significant</span></div>
+      <span class="arr">→</span>
+      <div class="arrow-step">+ BAB Factor<br><span style="font-size:14px;font-family:'DM Serif Display',serif;color:var(--gold-light)">~8% alpha</span><br><span style="font-size:9px;color:var(--muted)">weakened</span></div>
+      <span class="arr">→</span>
+      <div class="arrow-step highlight">+ BAB + QMJ<br><span style="font-size:14px;font-family:'DM Serif Display',serif;color:var(--gold-light)">~3% alpha</span><br><span style="font-size:9px;color:var(--gold)">not significant</span></div>
+    </div>
+
+    <div style="margin-top:32px;">
+      <div class="factor-row">
+        <div>
+          <div class="factor-name">MKT / SMB / HML / UMO</div>
+          <div class="factor-desc">Standard Fama-French + Momentum factors</div>
+        </div>
+        <div>
+          <div style="font-size:13px;color:#8a96a4;">Cannot explain Buffett. Alpha remains large and significant at ~12% annualized.</div>
+          <div class="factor-bar-wrap"><div class="factor-bar" style="width:40%;background:#4a9eff;"></div></div>
+        </div>
+        <div class="factor-impact" style="color:var(--accent)">Low Expl.</div>
+      </div>
+      <div class="factor-row">
+        <div>
+          <div class="factor-name">BAB / Betting Against Beta</div>
+          <div class="factor-desc">Long low-beta stocks, short high-beta stocks</div>
+        </div>
+        <div>
+          <div style="font-size:13px;color:#8a96a4;">Captures Buffett's preference for lower-volatility equities. Reduces alpha to ~8%.</div>
+          <div class="factor-bar-wrap"><div class="factor-bar" style="width:65%;"></div></div>
+        </div>
+        <div class="factor-impact">Moderate</div>
+      </div>
+      <div class="factor-row">
+        <div>
+          <div class="factor-name">QMJ / Quality Minus Junk</div>
+          <div class="factor-desc">Long profitable/stable, short low-quality</div>
+        </div>
+        <div>
+          <div style="font-size:13px;color:#8a96a4;">Captures Berkshire's quality tilt. Together with BAB, drives alpha below statistical significance (~3%).</div>
+          <div class="factor-bar-wrap"><div class="factor-bar" style="width:90%;"></div></div>
+        </div>
+        <div class="factor-impact" style="color:var(--green)">High</div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;padding:16px 20px;border:1px solid var(--border);background:var(--surface);">
+      <p style="font-size:13px;color:#8a96a4;max-width:none;">
+        <strong style="color:var(--text);">Important caveat:</strong> BAB and QMJ are AQR's own factors, constructed and published by the same authors who wrote this paper. Critics note this creates a potential circularity: the factors were arguably designed to describe Buffett-like behavior, then used to "explain" him.
+      </p>
+    </div>
+  </section>
+
+  <!-- 4. Leverage -->
+  <section class="fade-in delay-2">
+    <div class="section-label">04 · The Leverage Engine</div>
+    <h2>Insurance float as a financing edge</h2>
+    <p style="margin-top:16px;">Leverage alone doesn't explain everything. Applying 1.6× to the plain market still trails Buffett by roughly 9 percentage points. The <em>cost</em> of the leverage is what matters.</p>
+
+    <div class="leverage-visual">
+      <div class="leverage-row">
+        <div class="lev-label">T-Bill Rate (avg)</div>
+        <div class="lev-bar-outer">
+          <div class="lev-bar" style="width:100%;background:#4a9eff22;color:#4a9eff;">5.4% avg</div>
+        </div>
+        <div class="lev-num" style="color:var(--accent)">5.4%</div>
+      </div>
+      <div class="leverage-row">
+        <div class="lev-label">Berkshire Float Cost</div>
+        <div class="lev-bar-outer">
+          <div class="lev-bar" style="width:40%;background:rgba(201,168,76,0.3);color:var(--gold);">2.2% avg</div>
+        </div>
+        <div class="lev-num" style="color:var(--gold)">2.2%</div>
+      </div>
+      <div style="margin-top:8px;padding:14px 16px;background:var(--surface2);font-family:var(--mono);font-size:11px;color:var(--muted);">
+        Float frequently costs zero or <strong style="color:var(--green)">negative</strong> (underwriting profits). 36% of Berkshire's liabilities were float at below-T-bill rates. Buffett calls it "free money" and sometimes gets <em>paid</em> to hold it.
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Public vs Private -->
+  <section class="fade-in delay-3">
+    <div class="section-label">05 · Stock Picker or CEO?</div>
+    <h2>Public stocks outperform private subsidiaries</h2>
+    <p style="margin-top:16px;">
+      The paper decomposes Berkshire's portfolio and finds the publicly traded equity positions generate stronger returns than the private operating companies. This suggests Buffett's edge is primarily in stock selection, not operational impact as a manager.
+    </p>
+
+    <div class="split-bar" style="margin-top:28px;">
+      <div class="split-seg" style="width:62%;background:rgba(201,168,76,0.25);color:var(--gold-light);">
+        Public Stocks — Stronger Returns
+      </div>
+      <div class="split-seg" style="width:38%;background:rgba(74,158,255,0.15);color:var(--accent);font-size:10px;">
+        Private Cos — Also Positive
+      </div>
+    </div>
+
+    <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="padding:18px;border:1px solid var(--border);">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:0.1em;margin-bottom:8px;">PUBLIC HOLDINGS</div>
+        <p style="font-size:13px;color:#8a96a4;">13F filings show Buffett's disclosed stock portfolio, refreshed quarterly. These positions drive the bulk of explainable outperformance when modeled as a systematic factor portfolio.</p>
+      </div>
+      <div style="padding:18px;border:1px solid var(--border);">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:0.1em;margin-bottom:8px;">PRIVATE SUBSIDIARIES</div>
+        <p style="font-size:13px;color:#8a96a4;">Insurance, rail, utilities. These serve mainly as the <em>financing mechanism</em> — generating cheap float that funds the public equity strategy — rather than as the primary alpha source.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. The Replication -->
+  <section class="fade-in delay-3">
+    <div class="section-label">06 · The Synthetic Buffett</div>
+    <h2>Can it be replicated systematically?</h2>
+    <p style="margin-top:16px;">
+      AQR constructs a rules-based portfolio mimicking Buffett's factor exposures — low beta, cheap, quality — and levers it to the same active risk as Berkshire. The result performs comparably to Berkshire's actual track record.
+    </p>
+
+    <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);">
+      <div style="background:var(--surface);padding:24px 20px;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">Actual Berkshire</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:36px;color:var(--gold-light);margin-bottom:4px;">0.76</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);">Sharpe Ratio · 1976–2011</div>
+        <div style="margin-top:12px;font-size:13px;color:#8a96a4;">Real compounded wealth, real drawdowns, real conviction required.</div>
+      </div>
+      <div style="background:var(--surface);padding:24px 20px;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">Synthetic Buffett Portfolio</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:36px;color:var(--accent);margin-bottom:4px;">~0.7</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);">Factor-based replication · similar leverage</div>
+        <div style="margin-top:12px;font-size:13px;color:#8a96a4;">Performs comparably, but constructed in hindsight with factors calibrated to Berkshire's behavior.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Community Commentary -->
+  <section class="fade-in delay-4">
+    <div class="section-label">07 · Community Commentary</div>
+    <h2>How the broader world received this</h2>
+    <p style="margin-top:16px;">The paper drew strong reactions across academia, practitioners, and the value investing community.</p>
+
+    <div class="commentary-grid">
+
+      <div class="comment-card">
+        <span class="comment-type type-supportive">Supportive</span>
+        <h3>Validates the factor framework</h3>
+        <p>Many in the academic quant community welcomed the paper as rigorous out-of-sample evidence for BAB and QMJ. Buffett's 50-year live track record is arguably the cleanest real-world test of whether these factor premia actually compound into wealth. They do.</p>
+        <div class="comment-source">CFA Institute / Academic Finance Community</div>
+      </div>
+
+      <div class="comment-card">
+        <span class="comment-type type-skeptic">Skeptical</span>
+        <h3>Circular factor construction</h3>
+        <p>The sharpest criticism: BAB and QMJ were largely designed and calibrated by AQR's own researchers — some are the same authors — then used to "explain" Buffett. Critics argue this is nearly circular. You defined quality partly to describe Berkshire, then showed Berkshire loads on quality. The factors are not independent explanations.</p>
+        <div class="comment-source">Robert Huebscher, Advisor Perspectives (2014) · various finance bloggers</div>
+      </div>
+
+      <div class="comment-card">
+        <span class="comment-type type-irony">Irony noted</span>
+        <h3>Buffett said he didn't use leverage</h3>
+        <p>Verdad Capital and others pointed out the gap between Buffett's public statements warning against debt and AQR's finding of consistent 1.6× leverage. The insurance float structure lets Berkshire carry leverage while calling it something else, a distinction that matters for anyone trying to replicate the strategy without access to cheap float.</p>
+        <div class="comment-source">Verdad Capital, Howard Marks (Oaktree)</div>
+      </div>
+
+      <div class="comment-card">
+        <span class="comment-type type-skeptic">Skeptical</span>
+        <h3>Demystifying or marketing?</h3>
+        <p>Several practitioners noted that AQR has an obvious financial interest in validating factor-based investing; it's the core of their business. The paper ultimately concludes that systematic factor exposure can replicate Buffett, which conveniently supports buying AQR's own products. The conflict of interest disclaimer is present but brief.</p>
+        <div class="comment-source">General practitioner community · AlphaArchitect</div>
+      </div>
+
+      <div class="comment-card">
+        <span class="comment-type type-nuanced">Nuanced</span>
+        <h3>Hindsight is doing a lot of work</h3>
+        <p>Even AQR acknowledges in the paper that any alpha remaining in their analysis is understated because the factors were constructed with hindsight. The real test is whether a factor investor in 1976, without this framework, could have replicated Buffett. That is very doubtful. The hard part was identifying and trusting these factors 50 years ago.</p>
+        <div class="comment-source">AlphaArchitect analysis · AQR's own caveat in the paper</div>
+      </div>
+
+      <div class="comment-card">
+        <span class="comment-type type-nuanced">Nuanced</span>
+        <h3>Doesn't fully explain it</h3>
+        <p>The residual ~3% alpha, while statistically insignificant, is economically large over 35 years. Some researchers argue the paper is better read as "factors explain a lot" rather than "factors explain everything." Buffett's ability to source cheap capital, negotiate deal terms, and build trust over decades is not easily systematized.</p>
+        <div class="comment-source">Finance blogosphere · value investing practitioners</div>
+      </div>
+
+      <div class="comment-card">
+        <span class="comment-type type-supportive">Supportive</span>
+        <h3>Buffett's own words support it</h3>
+        <p>Many noted that Buffett himself quoted Ben Graham: "it is not necessary to do extraordinary things to get extraordinary results." The AQR framework treats this literally. The factors are systematic, knowable, and real. Buffett's genius was in recognizing them early, applying leverage without blowing up, and holding for half a century.</p>
+        <div class="comment-source">Broadly endorsed reading of the paper</div>
+      </div>
+
+      <div class="comment-card">
+        <span class="comment-type type-skeptic">Skeptical</span>
+        <h3>Replication requires the float</h3>
+        <p>A recurring practical critique: even if the factor story is correct, the <em>implementation edge</em> was below-T-bill leverage. A retail or institutional investor running BAB + QMJ at 1.6× leverage pays far more than 2.2% to borrow. The strategy is identifiable but not accessible on the same terms, making "Buffett is replicable" an incomplete answer.</p>
+        <div class="comment-source">Multiple practitioner commentaries</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 8. Bottom line -->
+  <section class="fade-in delay-4">
+    <div class="section-label">08 · The Bottom Line</div>
+    <h2>What the paper actually says</h2>
+
+    <div class="conclusion-box">
+      <p>
+        Buffett's track record is extraordinary and almost certainly not luck. But the paper argues his returns are better understood as a 50-year disciplined exposure to identifiable risk premia — cheap, safe, quality stocks — magnified by uniquely cheap leverage from insurance float, and sustained through drawdowns that would have forced any other structure into liquidation. The alpha, once these factors are accounted for, is statistically indistinguishable from zero.
+      </p>
+      <div class="attribution">Frazzini, Kabiller &amp; Pedersen · FAJ 2018 · NBER Working Paper #19681</div>
+    </div>
+
+    <div style="margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--border);">
+      <div style="background:var(--surface);padding:20px;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--green);letter-spacing:0.1em;margin-bottom:8px;">WHAT STANDS UP</div>
+        <p style="font-size:13px;color:#8a96a4;">The factor loading analysis. The leverage measurement. The insurance float cost data. The public/private decomposition. These are empirically careful and hard to dispute.</p>
+      </div>
+      <div style="background:var(--surface);padding:20px;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:0.1em;margin-bottom:8px;">WHAT'S CONTESTED</div>
+        <p style="font-size:13px;color:#8a96a4;">The use of AQR's own proprietary factors as the benchmark. The implication that it's replicable. The framing that alpha disappears rather than that alpha is renamed as factor premium.</p>
+      </div>
+      <div style="background:var(--surface);padding:20px;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:0.1em;margin-bottom:8px;">THE DURABLE TAKEAWAY</div>
+        <p style="font-size:13px;color:#8a96a4;">Buffett's success validates that value and quality premia are real, investable, and compound meaningfully over decades. The controversy is in the framing, not the core finding.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>
