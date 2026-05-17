@@ -28,9 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const tabs = ['home','about','articles','projects','contact'];
   const hrefs = {
-    home: '/', about: '/aboutPage/about.html',
-    articles: '/articles/blog.html', projects: '/projects/projects.html',
-    contact: '/contact/contact.html'
+    home: '/', about: '/about/',
+    articles: '/articles/', projects: '/projects/',
+    contact: '/contact/'
   };
   const tabsHTML = tabs.map(t => {
     const active = t === 'articles' ? ' t-tab-active' : '';

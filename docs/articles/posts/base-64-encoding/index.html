@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Josh Pearlson">
-<meta name="dcterms.date" content="2025-11-22">
+<meta name="dcterms.date" content="2025-12-19">
 
-<title>Getting a Mortgage from the Market – Josh Pearlson</title>
+<title>The Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor” – Josh Pearlson</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -122,19 +156,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../articles/blog.html"> 
+    <a class="nav-link" href="../../../articles/"> 
 <span class="menu-text">Articles</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../projects/projects.html"> 
+    <a class="nav-link" href="../../../projects/"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../aboutPage/about.html"> 
+    <a class="nav-link" href="../../../about/"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../contact/contact.html"> 
+    <a class="nav-link" href="../../../contact/"> 
 <span class="menu-text">Contact</span></a>
   </li>  
 </ul>
@@ -148,9 +182,9 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Getting a Mortgage from the Market</h1>
+      <h1 class="title">The Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Finance</div>
+                <div class="quarto-category">LLM</div>
               </div>
                   </div>
   </div>
@@ -168,7 +202,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 22, 2025</p>
+        <p class="date">December 19, 2025</p>
       </div>
     </div>
     
@@ -187,84 +221,183 @@ window.Quarto = {
 
 
 
-<p>Articles showcase a select group using options to borrow money rather than a traditional Agency mortgage. Are advertisements of $0 down and near treasury-rate mortgages a fact or fiction?</p>
+<p>A journey from the 7-bit limitations of early dial-up to the multimodal prompts of today, exploring why ‘ASCII Armor’ remains the essential glue for modern AI.</p>
 <hr>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../../media/mortgageMarketHeader.png" class="img-fluid figure-img"></p>
-<figcaption>Mortgage from the Market</figcaption>
+<p><img src="../../../media/ascii_armor.png" class="img-fluid figure-img"></p>
+<figcaption>The Bit Bridge</figcaption>
 </figure>
 </div>
-<p>Imagine securing a loan for your dream home with a 0% down payment and an interest rate that rivals the U.S. Treasury. It sounds like a financial fantasy, but a niche corner of the options market, the ‘box spread’, has been touted online as a secret Wall Street trick to do just that. But is this a golden ticket for the average homebuyer, or a high-stakes gamble reserved for a select few? Let’s break down the math, the hype, and the hidden dangers.</p>
-<p>Today the average 30-year fixed rate mortgage is around <a href="https://finance.yahoo.com/personal-finance/mortgages/article/mortgage-refinance-rates-today-thursday-november-20-2025-110030633.html?utm_source=chatgpt.com&amp;guccounter=1&amp;guce_referrer=aHR0cHM6Ly9jaGF0Z3B0LmNvbS8&amp;guce_referrer_sig=AQAAAGThrdddEj7J49b2DIvcxNFIX9q4DI1ccJvBuVneynvn5U9rVmMrs-uBmQ8tCZVZyPfk0uTu0i0Frgl5jbbCwGEqric4V2QxIsW8kq6QF4d280RB4vYzTpDpPrtEe230APncCw1ufLbZputPUC7NGxXCpBMxl02T61-VZw3ciI-f">6.3%</a> yearly. Generally for mortgages it is recommended that buyers have around 20% to put as a ‘down payment’ at the start of the mortgage term. When trying to purchase a $1M house the math looks like the following:</p>
-<p>Home cost: <br> <strong>$1M</strong> <br> Down payment: <br> 20% * $1M = <strong>$200K</strong> <br> Loan value: <br> $1M - $200K = <strong>$800K</strong> <br> Interest rate monthly: <br> 6.3%/12 = <strong>.525% monthly</strong> <br> Length of payments in months: <br> 30 years * 12 = <strong>360 months</strong> <br> Monthly payment: <br> $800K * .525% / (1-(1 + .525%)^-360) = <strong>$4,951.78</strong> <br> Total interest paid: <br> $4,951.78 * 360 - $800K = <strong>$982,640.8</strong></p>
-<p>There are good and bad things associated with this:</p>
-<p><strong>[good]</strong> <br></p>
-<ol type="1">
-<li><p>You have effectively lowered the initial cost burden of purchasing a home. Now instead of paying $1M today, I can pay $200K today and own a home for $5K in fixed payments per month.</p></li>
-<li><p>I get to enjoy the appreciation of equity value if my house raises in value. If rates decline or my home value increases, I may then be able to re-finance my home enjoying even lower rates or payments.</p></li>
-</ol>
-<p><strong>[bad]</strong><br></p>
-<ol type="1">
-<li><p>I have to come up with $200K today. This may not be a problem for me financially, however, I don’t want to have to sell large chunks of stocks or my retirement accounts in order to get the cash on hand.</p></li>
-<li><p>If I for some reason cannot make my payments the bank will take my house. I will lose all of the value I had built up in home equity and still have paid lots of principal and interest for nothing.</p></li>
-<li><p>If I keep to my payments and everything goes according to plan I will likely have a $800K loan that costs me $982K in interest over time to borrow that money. That is a ton of interest, more than 120% of the loan value spent and pocketed by a bank.</p></li>
-</ol>
-<section id="the-box-spread-mortgage" class="level2">
-<h2 class="anchored" data-anchor-id="the-box-spread-mortgage">The Box Spread Mortgage</h2>
-<p>First let’s clarify, I am not suggesting you do this. In fact, today I am going to argue why this is not the Goldilocks scenario it is documented as in articles online. Please do not take this article as advice to go out and try and trade millions of dollars of notional volume of options to try and create yourself one of these.</p>
-<p>Now that that is out of the way, here is the box spread mortgage:</p>
-<blockquote class="blockquote">
-<p>A <strong>box-spread mortgage</strong> is a synthetic borrowing mechanism in which a long-dated options box spread provides capital upfront in exchange for a contractually fixed repayment at maturity, effectively replicating a mortgage’s economic profile via derivative pricing.</p>
-</blockquote>
-<section id="creating-a-box-spread-mortgage" class="level3">
-<h3 class="anchored" data-anchor-id="creating-a-box-spread-mortgage">Creating a Box Spread Mortgage</h3>
-<p>Simply put to create a box spread we go long a call and short a put option at a strike <span class="math inline">\(k_1\)</span> and short a call and long a put at strike <span class="math inline">\(k_2\)</span>. At strike <span class="math inline">\(k_1\)</span> you have effectively created a synthetic long forward. At strike <span class="math inline">\(k_2\)</span> you have created a short forward.</p>
-<p>It is important that the options that comprise this trade are European options. American options allow for exercising an option early, allowing for your ‘balanced hedge’ to fall apart whenever your counterparty decides.</p>
-<p>Going long a forward is equivalent to agreeing to buy an asset at a fixed-price <span class="math inline">\(k_1\)</span> in the future. Going short a forward is agreeing to sell an asset at a fixed-price <span class="math inline">\(k_2\)</span> in the future.</p>
-<p>Thus, when <span class="math inline">\(k_2\)</span> &gt; <span class="math inline">\(k_1\)</span> we receive a fixed future payoff of <span class="math inline">\(k_2 - k_1\)</span>. We also collect upfront the present value of this payoff discounted at the risk-free rate (or 10s of bps higher as market makers need to profit) this upfront cash flow is <span class="math inline">\(PV(k_2 - k_1)\)</span>.</p>
-<p>So in this trade we get paid <span class="math inline">\(PV(k_2 - k_1)\)</span> and have to pay <span class="math inline">\(k_2 - k_1\)</span> in the future. This is the exact same as borrowing <span class="math inline">\(k_2 - k_1\)</span> dollars at/near the risk-free interest rate <span class="math inline">\(r_f\)</span>.</p>
-<p>In simpler terms you can think of it this way: you simultaneously make two deals for a future date.</p>
-<ol type="1">
-<li><p>Deal 1: You agree to buy an asset for $1,000.</p></li>
-<li><p>Deal 2: You agree to sell the exact same asset for $1,050.</p></li>
-</ol>
-<p>No matter what the asset’s price is on that future date, you are guaranteed to make a $50 profit. The market recognizes this guaranteed future profit and gives you its present value today: say, $48 as cash in your pocket.</p>
-<p>Congratulations, you’ve just received $48 upfront in exchange for paying back $50 later. In essence, you’ve taken out a loan at a very low interest rate, with the loan amount being the present value of the spread between your two deals.</p>
+<section id="the-bit-bridge-why-modern-ai-still-speaks-in-1970s-ascii-armor" class="level2">
+<h2 class="anchored" data-anchor-id="the-bit-bridge-why-modern-ai-still-speaks-in-1970s-ascii-armor">The Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”</h2>
+<p>In the world of Generative AI, we often focus on the new developments: neural networks, transformer architectures, and trillion-parameter models. But if you peek under the hood of a request sent to GPT-5 or Gemini 3, you’ll find a relic from ages ago.</p>
+<p>It looks like a wall of digital noise:</p>
+<p><code>data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...</code></p>
+<p>To the uninitiated, this is gibberish. To a developer, it’s <strong>Base64</strong>. But to a computer historian, it goes by a more popular name: <strong>“ASCII Armor.”</strong></p>
 </section>
-<section id="how-much" class="level3">
-<h3 class="anchored" data-anchor-id="how-much">How Much?</h3>
-<p>Just how far from <span class="math inline">\(r_f\)</span> can you borrow? Due to recent increase in volume in the SPX box spread market, this <a href="https://www.cboe.com/insights/posts/long-dated-box-spreads-a-better-way-to-buy-a-home-updated/">CBOE article</a> (which I recommend reading if you are interested in this) says to expect 30-50bps higher than treasury rates! This is astonishingly low with the 5yr sitting at 3.6% on the high end you could expect to borrow at <strong>4.1% interest</strong>! This is 2.2% lower than the traditional mortgage I showed earlier.</p>
-<p>Not to mention there are other benefits as well. I mentioned that you get paid upfront whatever you want, let’s say the full 1M value of the home. In 5 years you repay <span class="math inline">\(\$1M * (1.041)^5 = \$1,222,513.45\)</span>. Costing you ~200K to loan 1M over 5 years. At the comparable interest rate for the traditional mortgage this would cost around <span class="math inline">\(\$1M * (1.063^5) - \$1M = \$357k\)</span>. No monthly payments as well with the box spread, just the lump sum payment at a future date of over a million dollars.</p>
+<section id="the-missing-eighth-bit" class="level2">
+<h2 class="anchored" data-anchor-id="the-missing-eighth-bit">The Missing Eighth Bit</h2>
+<p>In the 1970s, the internet was a “fragile” place. Early networks were designed for 7-bit ASCII, perfect for English text, but catastrophic for 8-bit binary files.</p>
+<p>Data transmission historically was expensive and slow. To save space, engineers used 7-bit ASCII for text representation. 7 bits can represent <span class="math inline">\(2^7\)</span>, or 128 different values (0 to 127). This was enough to represent the full english alphabet (A-Z, a-z), numbers (0-9), basic punctuation, and ‘control characters’ like Enter or Tab.</p>
+<p>However, most computers at the time typically used 8-bit (1 byte) systems. If you tried to send a raw image, the network would often “strip” the eighth bit of every byte to save space. It was like removing every third letter from a sentence; the data arrived shredded. Worse, binary sequences could accidentally trigger “control codes”, which were bits of data that told a printer to stop or a modem to hang up.</p>
+<p>As a solution, developers began “armoring” their data. By disguising binary files as a safe string of alphanumeric text, they ensured the data could survive the journey across imperfect networks. And thus, Base64 was created.</p>
 </section>
-<section id="all-the-problems" class="level3">
-<h3 class="anchored" data-anchor-id="all-the-problems">All the Problems</h3>
-<p>Ok first off in order to actually get one of these box loans your strategy (as a retail trader) will need to be fully collateralized at all times. This means if you are to do the $1M loan you need $1.2M+ in assets in your same brokerage account at all times. This is ok for some people however it requires a lot of capital depending on how volatile a person’s investments are.</p>
-<p>I would also guess that there is a correlation between using a box spread as a mortgage and having a higher risk appetite, but I digress.</p>
-<p>In a bad market downturn the stock market can fall ~50% so to be safe let’s say we will need to have $2.4M in equities or less if you are including less volatile fixed-income products as well. Immediately we have moved from ‘easily accessible risk-free rate mortgage’ to ‘you need double or more in retirement assets to reasonably attempt this’.</p>
-<p>Let’s say we are fully collateralized, we are very certain we will be able to meet the liability in 5 years safely. Now we have another problem, we have to meet a 5 year liability of greater than our loan size settled in pure cash! If you were worried about selling 20% of your home value in portfolio value how about selling 120% of your home value in portfolio value in just 5 years!</p>
-<p>Now this is not fully fair as there are likely strategies to ‘kick the cash flow down the road’ like rolling into a new 5 year box spread borrowing the new amount (collateralized fully by at least a 2x multiple). However, it’s still said that at some point you need to present a large quantity of cash in order to settle this contract. The only way to come up with that level of cash is by selling assets or making incremental payments to set aside for the large future negative cash flow you expect. This is why in a traditional mortgage you are expected to pay down a fixed cost monthly which goes to both repaying interest and the principal which you loaned out.</p>
-<p>In order to effectively execute this strategy you need to be very wealthy in retirement assets which you can use as collateral covering the loan size multiple times over if you have a more volatile portfolio. You also need to have a strategy to meet the expected large negative cash flow in the future.</p>
-<p>If in 5 years, you need to have some plan to come up with $1.2M then rather than just coming up with the $1M today? Given you are this consumer who has vast riches in assets and is not concerned with the future cash liability why not just pay off the house today? Pushing the house/sale of retirement assets out 5 years even at the risk-free rate does not seem as worth it for this consumer since they <strong>already have more than enough money for the loan anyway</strong>.</p>
-<p>Well, there are some reasons. Here are the reasons why you would want to do this. First, the interest payments show up as a loss in an options trade. This <strong>loss is tax deductible</strong>! This means if you are wealthy you can likely write off a large portion of the interest (leading to an almost free loan). So let’s say you are fully collateralized with an investment account however you expect to have to sell off some assets in 5 years that have appreciated (incurring a capital gains tax). You also happen to be making a large purchase that you could have done outright anyway. Now we have a great scenario for you to go out to the market, borrow money using box spreads, and then generate a loss at the end of the period allowing you to:</p>
-<ol type="1">
-<li><p>Borrow money today so that you don’t have to sell assets.</p></li>
-<li><p>Align your planned sale of assets (likely with capital gains tax) and offset it with the loss you will generate in the synthetic loan strategy (interest payment).</p></li>
-<li><p>Pay off the full cost of the loan at the end of the period rather than the start.</p></li>
-</ol>
-<p>This now looks like a great trade.</p>
-<p>Once again though I want to reiterate, this is not a good strategy for people who are under-collateralized. It is in fact an awful strategy. If the market drops and your collateral falls bellow whatever threshold your broker allows you wont be losing some fancy new home, you will be losing your life savings (and all investments). This is not a good trade for that level of risk.</p>
+<section id="what-is-base64" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-base64">What is Base64?</h2>
+<p>To solve the problem of sending raw data across the internet via traditional methods Base64 creates a mapping between the world of bits and bytes and the world of text and symbols.</p>
+<p>Here is how it works. Lets first take 3 bytes of information, containing 24 individual bits. With these 24 bits we will then split them into 4 groups of 6 bits. For each of the 6-bit groups we will map them to one real char (shown below in the table).</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Value Range</th>
+<th>Binary Range</th>
+<th>Characters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0–25</td>
+<td>000000–011001</td>
+<td>A–Z</td>
+</tr>
+<tr class="even">
+<td>26–51</td>
+<td>011010–110011</td>
+<td>a–z</td>
+</tr>
+<tr class="odd">
+<td>52–61</td>
+<td>110100–111101</td>
+<td>0–9</td>
+</tr>
+<tr class="even">
+<td>62</td>
+<td>111110</td>
+<td>+</td>
+</tr>
+<tr class="odd">
+<td>63</td>
+<td>111111</td>
+<td>/</td>
+</tr>
+</tbody>
+</table>
+<p>This does come at a cost however. For each 3 bytes of information, you will notice that this process created 4 characters. You may ask, well why don’t we just use more characters to the point where we can represent each byte with a single character.</p>
+<p>This is a great question, the key problem is that representing each number in a fully byte requires <span class="math inline">\(2^8\)</span> or 256 different values. We do not have that many ‘clean’ char values that are supported over standard text mechanisms.</p>
 </section>
-<section id="conclusion" class="level3">
-<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
-<p>There is a select group who could benefit from the box spread mortgage (or loan).</p>
-<p>This select group is over-collateralized, has planned selling with tax implications in the future, and wants to make a purchase today. This group is <strong>not the everyday person</strong>, in fact far from it! Most people get a mortgage because they want to convert the large upfront cost burden of owning a home to a delayed fixed cost burden spread over many years.</p>
-<p>This consumer does not have enough to buy the house outright and likely does not have enough to buy several of the house within their retirement assets. Thus, if they tried the box spread mortgage they would likely get margin called during a large drawdown in the equity markets and lose everything.</p>
+<section id="what-does-base64-have-to-do-with-llms-and-modern-ai" class="level2">
+<h2 class="anchored" data-anchor-id="what-does-base64-have-to-do-with-llms-and-modern-ai">What does Base64 have to do with LLMs and modern AI?</h2>
+<p>Well, these days we sure do love API’s. For the uninitiated, API stands for application program interface. With API’s we can abstractly send a request to a server and receive a desired response. Modern API developers love a format called JSON. This format is very similar (often times interchangeable) with a generic nested form of Python dictionaries and lists.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>json_obj <span class="op">=</span> {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key1"</span>: <span class="st">"value1"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key2"</span>: <span class="dv">123</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key3"</span>: true,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key4"</span>: [</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"item1"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"item2"</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  ],</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key5"</span>: {</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"nestedKey"</span>: <span class="st">"nestedValue"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>However when sending JSON requests, it becomes very hard to include raw data in the form of a file. And even if you could just include raw bytes, this represents a serious security issue. This would be allowing a random API user to execute arbitrary bytes of data on your computer or server. Very bad stuff. However thankfully instead we can turn to Base64 and old fashioned ASCII Armor to fix this problem.</p>
+<hr>
+</section>
+<section id="base64-demo" class="level1">
+<h1>Base64 Demo</h1>
+<div id="336007cd" class="cell" data-execution_count="88">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>x_axis <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>y_axis <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">13</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">3</span>,<span class="dv">2</span>), facecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>, facecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>ax.plot(x_axis, y_axis, marker<span class="op">=</span><span class="st">'^'</span>, ls<span class="op">=</span><span class="st">':'</span>, color<span class="op">=</span><span class="st">'lime'</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Sample Plot"</span>, color<span class="op">=</span><span class="st">'lime'</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"X Axis"</span>, color<span class="op">=</span><span class="st">'lime'</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Y Axis"</span>, color<span class="op">=</span><span class="st">'lime'</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> spine <span class="kw">in</span> ax.spines.values():</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    spine.set_edgecolor(<span class="st">'white'</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, colors<span class="op">=</span><span class="st">'white'</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, colors<span class="op">=</span><span class="st">'white'</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'your_image.png'</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now let’s convert this image into bytes, Armor it with Base64, then convert it back to bytes and view the image!</p>
+<div id="044f194e" class="cell" data-execution_count="89">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Image, display</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the file as binary ('rb' mode)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>file_path <span class="op">=</span> <span class="st">'your_image.png'</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(file_path, <span class="st">"rb"</span>) <span class="im">as</span> image_file:</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    raw_bytes <span class="op">=</span> image_file.read()</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total Bytes: </span><span class="sc">{</span><span class="bu">len</span>(raw_bytes)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>binary_preview <span class="op">=</span> <span class="st">' '</span>.join(<span class="ss">f'</span><span class="sc">{</span>byte<span class="sc">:08b}</span><span class="ss">'</span> <span class="cf">for</span> byte <span class="kw">in</span> raw_bytes[:<span class="dv">4</span>])</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>hex_preview <span class="op">=</span> <span class="st">' '</span>.join(<span class="ss">f'</span><span class="sc">{</span>byte<span class="sc">:02x}</span><span class="ss">'</span> <span class="cf">for</span> byte <span class="kw">in</span> raw_bytes[:<span class="dv">4</span>])</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"First 4 Bytes (binary): </span><span class="sc">{</span>binary_preview<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"First 4 Bytes (hex): </span><span class="sc">{</span>hex_preview<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total Bytes: 7940
+First 4 Bytes (binary): 10001001 01010000 01001110 01000111
+First 4 Bytes (hex): 89 50 4e 47</code></pre>
+</div>
+</div>
+<div id="81b0eb06" class="cell" data-execution_count="90">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> base64</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Encoding data to Base64: </span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>encoded_bytes <span class="op">=</span> base64.b64encode(raw_bytes).decode(<span class="st">'utf-8'</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Base64 Data should be ~33% larger than original data."</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>pct_diff <span class="op">=</span> (<span class="bu">len</span>(encoded_bytes) <span class="op">-</span> <span class="bu">len</span>(raw_bytes)) <span class="op">/</span> <span class="bu">len</span>(raw_bytes) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Base64 Encoded Length: </span><span class="sc">{</span><span class="bu">len</span>(encoded_bytes)<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>pct_diff<span class="sc">:.2f}</span><span class="ss">% greater than original."</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Base64 Encoded Preview: </span><span class="sc">{</span>encoded_bytes[:<span class="dv">20</span>]<span class="sc">}</span><span class="ss">...</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sending Base64 encoded data to API..."</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Receiving Base64 encoded data from API...</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>decoded_bytes <span class="op">=</span> base64.b64decode(encoded_bytes)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Decoded Bytes Length: </span><span class="sc">{</span><span class="bu">len</span>(decoded_bytes)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Displaying Decoded Image:"</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>display(Image(data<span class="op">=</span>decoded_bytes))</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Encoding data to Base64: 
+
+Base64 Data should be ~33% larger than original data.
+Base64 Encoded Length: 10588, 33.35% greater than original.
+Base64 Encoded Preview: iVBORw0KGgoAAAANSUhE...
+
+Sending Base64 encoded data to API...
+Receiving Base64 encoded data from API...
+
+Decoded Bytes Length: 7940
+Displaying Decoded Image:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>It is always fascinating to see how circular technology is. We often revert to the most simple fixes as they end up being the most elegant to use. Personally I love remembering that whenever I am using a LLM with multi-modal and tool use capabilities, under the hood 70’s computer science is peering through.</p>
 <p>As always, till next time.</p>
 <p>JCP</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -283,6 +416,11 @@ window.Quarto = {
 // Synchronous: runs at end-of-body parse, before first paint, to prevent flash
 if (document.querySelector('.quarto-title-banner')) {
   document.body.classList.add('jcp-article-page');
+}
+
+const _vp = document.querySelector('meta[name="viewport"]');
+if (_vp && !_vp.content.includes('viewport-fit')) {
+  _vp.content += ', viewport-fit=cover';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -304,9 +442,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const tabs = ['home','about','articles','projects','contact'];
   const hrefs = {
-    home: '/', about: '/aboutPage/about.html',
-    articles: '/articles/blog.html', projects: '/projects/projects.html',
-    contact: '/contact/contact.html'
+    home: '/', about: '/about/',
+    articles: '/articles/', projects: '/projects/',
+    contact: '/contact/'
   };
   const tabsHTML = tabs.map(t => {
     const active = t === 'articles' ? ' t-tab-active' : '';
@@ -581,9 +719,9 @@ document.addEventListener('DOMContentLoaded', function() {
   function buildTerminalChrome(tabKey) {
     const tabs = ['home','about','articles','projects','contact'];
     const hrefs = {
-      home: '/', about: '/aboutPage/about.html',
-      articles: '/articles/blog.html', projects: '/projects/projects.html',
-      contact: '/contact/contact.html'
+      home: '/', about: '/about/',
+      articles: '/articles/', projects: '/projects/',
+      contact: '/contact/'
     };
     const tabsHTML = tabs.map(t => {
       const active = t === tabKey ? ' t-tab-active' : '';
@@ -636,19 +774,19 @@ document.addEventListener('DOMContentLoaded', function() {
           ${latestHTML}
           <div class="t-promptblock"><span class="t-prompt">$</span> ls ./</div>
           <div class="t-ls-grid">
-            <a href="/aboutPage/about.html" class="t-ls-cell">
+            <a href="/about/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> about/</div>
               <div class="t-ls-path">/bio /experience /education</div>
             </a>
-            <a href="/articles/blog.html" class="t-ls-cell">
+            <a href="/articles/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> articles/</div>
               <div class="t-ls-path">markets, ML, probability</div>
             </a>
-            <a href="/projects/projects.html" class="t-ls-cell">
+            <a href="/projects/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> projects/</div>
               <div class="t-ls-path">things I built and shipped</div>
             </a>
-            <a href="/contact/contact.html" class="t-ls-cell">
+            <a href="/contact/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> contact/</div>
               <div class="t-ls-path">email &middot; linkedin &middot; github</div>
             </a>

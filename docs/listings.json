@@ -1,14 +1,15 @@
 [
   {
-    "listing": "/articles/blog.html",
+    "listing": "/articles/index.html",
     "items": [
-      "/articles/posts/closest-galaxy-time-dilation/closest-galaxy-time-dilation.html",
-      "/articles/posts/impossible-bracket/impossible-bracket.html",
-      "/articles/posts/crypto-perps/crypto-perps.html",
-      "/articles/posts/base-64-encoding/base_64_encoding.html",
-      "/articles/posts/mortgage-from-market/mortgage-from-market.html",
-      "/articles/posts/deepseek-ocr/deepseek-ocr.html",
-      "/articles/posts/coin-flip-game/modelCoinFlipGame.html"
+      "/articles/posts/no-two-shuffles-alike/index.html",
+      "/articles/posts/closest-galaxy-time-dilation/index.html",
+      "/articles/posts/impossible-bracket/index.html",
+      "/articles/posts/crypto-perps/index.html",
+      "/articles/posts/base-64-encoding/index.html",
+      "/articles/posts/mortgage-from-market/index.html",
+      "/articles/posts/deepseek-ocr/index.html",
+      "/articles/posts/coin-flip-game/index.html"
     ]
   }
 ]

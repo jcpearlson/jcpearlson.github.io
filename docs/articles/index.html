@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Projects — Josh Pearlson – Josh Pearlson</title>
+<title>Priors — Josh Pearlson – Josh Pearlson</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,6 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../media/jcp_logo2.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -64,11 +66,69 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../css/header.css">
 <link rel="stylesheet" href="../css/index.css">
-<link rel="stylesheet" href="../css/projects.css">
+<link rel="stylesheet" href="../css/blog_homepage.css">
 </head>
 
 <body class="nav-fixed">
@@ -92,19 +152,19 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../articles/blog.html"> 
+    <a class="nav-link" href="../articles/"> 
 <span class="menu-text">Articles</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../projects/projects.html" aria-current="page"> 
+    <a class="nav-link" href="../projects/"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../aboutPage/about.html"> 
+    <a class="nav-link" href="../about/"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contact/contact.html"> 
+    <a class="nav-link" href="../contact/"> 
 <span class="menu-text">Contact</span></a>
   </li>  
 </ul>
@@ -118,18 +178,20 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(8)</span></div><div class="category" data-category="Finance">Finance <span class="quarto-category-count">(2)</span></div><div class="category" data-category="LLM">LLM <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Physics">Physics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Probability">Probability <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Projects</h1>
+<h1 class="title">Priors</h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page">
+<div class="quarto-title-meta column-page-left">
 
     
   
@@ -144,86 +206,26 @@ ul.task-list li input[type="checkbox"] {
 <div class="jcp-terminal" id="jcp-terminal">
   <div class="t-tabs">
     <a href="../" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>home</a>
-    <a href="../aboutPage/about.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>about</a>
-    <a href="../articles/blog.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>articles</a>
-    <a href="../projects/projects.html" class="t-tab t-tab-active"><span class="t-tab-indicator">▸</span>projects</a>
-    <a href="../contact/contact.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>contact</a>
+    <a href="../about/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>about</a>
+    <a href="../articles/" class="t-tab t-tab-active"><span class="t-tab-indicator">▸</span>articles</a>
+    <a href="../projects/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>projects</a>
+    <a href="../contact/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>contact</a>
     <div class="t-tabs-spacer"></div>
-    <div class="t-title" id="t-title">jcp@joshpearlson: ~/projects</div>
+    <div class="t-title" id="t-title">jcp@joshpearlson: ~/articles</div>
   </div>
   <div class="t-body" id="t-body" data-page="other">
 
-    <div class="jcp-h2"># projects</div>
+    <div class="jcp-art-h2"># priors — updating beliefs on markets and machines</div>
 
-    <div class="jcp-proj-grid">
-
-      <a href="../articles/blog.html" class="jcp-proj-card">
-        <div class="jcp-proj-meta">
-          <span class="jcp-proj-year">2024+</span>
-          <span class="jcp-proj-tag">Blog · Writing</span>
-        </div>
-        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>Priors</div>
-        <div class="jcp-proj-desc">Personal blog on markets, ML, and probability.</div>
-        <div class="jcp-proj-sep"></div>
-        <div class="jcp-proj-path">› ./articles/blog</div>
-      </a>
-
-      <a href="https://pomo.joshpearlson.com" class="jcp-proj-card">
-        <div class="jcp-proj-meta">
-          <span class="jcp-proj-year">2025+</span>
-          <span class="jcp-proj-tag">Web app · JS</span>
-        </div>
-        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>Pomo</div>
-        <div class="jcp-proj-desc">Minimal Pomodoro timer. Live at pomo.joshpearlson.com.</div>
-        <div class="jcp-proj-sep"></div>
-        <div class="jcp-proj-path">› pomo.joshpearlson.com</div>
-      </a>
-
-      <a href="https://openreview.net/forum?id=sfnz81T3pm" class="jcp-proj-card">
-        <div class="jcp-proj-meta">
-          <span class="jcp-proj-year">2024</span>
-          <span class="jcp-proj-tag">Research · LLM</span>
-        </div>
-        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>DPFM @ ICLR 2024</div>
-        <div class="jcp-proj-desc">LLMs recognizing DeFi entities. Lead author, DPFM workshop @ ICLR 2024.</div>
-        <div class="jcp-proj-sep"></div>
-        <div class="jcp-proj-path">› openreview.net/forum?id=sfnz81T3pm</div>
-      </a>
-
-      <a href="https://doi.org/10.1117/12.2582228" class="jcp-proj-card">
-        <div class="jcp-proj-meta">
-          <span class="jcp-proj-year">2020</span>
-          <span class="jcp-proj-tag">Research · CNN</span>
-        </div>
-        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>MRI Lesion Mapping</div>
-        <div class="jcp-proj-desc">CNN-based lesion mapping from MP-MRI. Lead author, SPIE Medical Imaging.</div>
-        <div class="jcp-proj-sep"></div>
-        <div class="jcp-proj-path">› doi.org/10.1117/12.2582228</div>
-      </a>
-
-      <a href="6CardGolf/index.html" class="jcp-proj-card">
-        <div class="jcp-proj-meta">
-          <span class="jcp-proj-year">2023</span>
-          <span class="jcp-proj-tag">Card game · P2P</span>
-        </div>
-        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>6-Card Golf</div>
-        <div class="jcp-proj-desc">Browser-based 1v1 card game with P2P networking and in-game chat.</div>
-        <div class="jcp-proj-sep"></div>
-        <div class="jcp-proj-path">› ./projects/6CardGolf</div>
-      </a>
-
-      <a href="DigDug/DigDugGame.html" class="jcp-proj-card">
-        <div class="jcp-proj-meta">
-          <span class="jcp-proj-year">2022</span>
-          <span class="jcp-proj-tag">Arcade · Canvas</span>
-        </div>
-        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>Dig Dug</div>
-        <div class="jcp-proj-desc">Classic arcade game recreation in the browser.</div>
-        <div class="jcp-proj-sep"></div>
-        <div class="jcp-proj-path">› ./projects/DigDug</div>
-      </a>
-
+    <div class="jcp-subscribe">
+      <span class="jcp-sub-label">$ subscribe</span>
+      <form action="https://buttondown.com/api/emails/embed-subscribe/jcp" method="post" class="jcp-sub-form" target="_blank">
+        <input type="email" name="email" placeholder="you@domain.com" required="" class="jcp-sub-input">
+        <button type="submit" class="jcp-sub-btn" aria-label="subscribe">→</button>
+      </form>
     </div>
+
+    <div id="jcp-articles-mount"></div>
 
   </div>
   <div class="t-status">
@@ -235,9 +237,301 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </div>
 
+<script>
+// GoatCounter event for newsletter signup on blog listing
+document.addEventListener('DOMContentLoaded', function() {
+  var form = document.querySelector('.jcp-sub-form');
+  if (form) {
+    form.addEventListener('submit', function() {
+      if (window.goatcounter && window.goatcounter.count) {
+        window.goatcounter.count({
+          path: 'subscribe-blog',
+          title: 'Newsletter Signup - Blog',
+          event: true
+        });
+      }
+    });
+  }
+});
+</script>
 
 
-</main> <!-- /main -->
+
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="Probability" data-listing-date-sort="1778212800000" data-listing-file-modified-sort="1778942406463" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1228">
+<div class="thumbnail">
+<p><a href="../articles/posts/no-two-shuffles-alike/index.html" class="no-external"></a></p><a href="../articles/posts/no-two-shuffles-alike/index.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../articles/posts/no-two-shuffles-alike/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../articles/posts/no-two-shuffles-alike/index.html" class="no-external">No Two Shuffles Alike</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../articles/posts/no-two-shuffles-alike/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Probability'); return false;">
+Probability
+</div>
+</div>
+<div class="listing-description">
+<a href="../articles/posts/no-two-shuffles-alike/index.html" class="no-external">Every time you shuffle a deck of cards, you almost certainly create an ordering that has never existed before in the history of the universe.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../articles/posts/no-two-shuffles-alike/index.html" class="no-external">
+<div class="listing-date">
+May 8, 2026
+</div>
+<div class="listing-author">
+Josh Pearlson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="Physics" data-listing-date-sort="1776225600000" data-listing-file-modified-sort="1777944537521" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1163">
+<div class="thumbnail">
+<p><a href="../articles/posts/closest-galaxy-time-dilation/index.html" class="no-external"></a></p><a href="../articles/posts/closest-galaxy-time-dilation/index.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../articles/posts/closest-galaxy-time-dilation/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../articles/posts/closest-galaxy-time-dilation/index.html" class="no-external">Why the Closest Large Galaxy Is Simultaneously 2.5 Million Years Away and Just Around the Corner</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../articles/posts/closest-galaxy-time-dilation/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Physics'); return false;">
+Physics
+</div>
+</div>
+<div class="listing-description">
+<a href="../articles/posts/closest-galaxy-time-dilation/index.html" class="no-external">Andromeda is 2.5 million light-years away. At the speed of light, that’s a 2.5 million year trip. So why does the physics say the journey could feel like a short hop?</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../articles/posts/closest-galaxy-time-dilation/index.html" class="no-external">
+<div class="listing-date">
+Apr 15, 2026
+</div>
+<div class="listing-author">
+Josh Pearlson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="Probability" data-listing-date-sort="1774065600000" data-listing-file-modified-sort="1774730186694" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2097">
+<div class="thumbnail">
+<p><a href="../articles/posts/impossible-bracket/index.html" class="no-external"></a></p><a href="../articles/posts/impossible-bracket/index.html" class="no-external">
+<p class="card-img-top"><img src="../media/impossible-bracket-header.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="../articles/posts/impossible-bracket/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../articles/posts/impossible-bracket/index.html" class="no-external">The Impossible Bracket</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../articles/posts/impossible-bracket/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Probability'); return false;">
+Probability
+</div>
+</div>
+<div class="listing-description">
+<a href="../articles/posts/impossible-bracket/index.html" class="no-external">The odds of a perfect March Madness bracket are 1 in 9.2 quintillion. Warren Buffett bet a billion dollars on it, and he was never worried about paying out.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../articles/posts/impossible-bracket/index.html" class="no-external">
+<div class="listing-date">
+Mar 21, 2026
+</div>
+<div class="listing-author">
+Josh Pearlson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="Finance" data-listing-date-sort="1770267600000" data-listing-file-modified-sort="1776641176620" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1961">
+<div class="thumbnail">
+<p><a href="../articles/posts/crypto-perps/index.html" class="no-external"></a></p><a href="../articles/posts/crypto-perps/index.html" class="no-external">
+<p class="card-img-top"><img src="../media/perps_image.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="../articles/posts/crypto-perps/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../articles/posts/crypto-perps/index.html" class="no-external">Perpetual Futures: The Market for Leverage</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../articles/posts/crypto-perps/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Finance'); return false;">
+Finance
+</div>
+</div>
+<div class="listing-description">
+<a href="../articles/posts/crypto-perps/index.html" class="no-external">The derivative that never expires, the funding rate that never sleeps, and the incentives that quietly shape crypto volatility.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../articles/posts/crypto-perps/index.html" class="no-external">
+<div class="listing-date">
+Feb 5, 2026
+</div>
+<div class="listing-author">
+Josh Pearlson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="LLM" data-listing-date-sort="1766120400000" data-listing-file-modified-sort="1767206952916" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="771">
+<div class="thumbnail">
+<p><a href="../articles/posts/base-64-encoding/index.html" class="no-external"></a></p><a href="../articles/posts/base-64-encoding/index.html" class="no-external">
+<p class="card-img-top"><img src="../media/ascii_armor.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="../articles/posts/base-64-encoding/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../articles/posts/base-64-encoding/index.html" class="no-external">The Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../articles/posts/base-64-encoding/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('LLM'); return false;">
+LLM
+</div>
+</div>
+<div class="listing-description">
+<a href="../articles/posts/base-64-encoding/index.html" class="no-external">A journey from the 7-bit limitations of early dial-up to the multimodal prompts of today, exploring why ‘ASCII Armor’ remains the essential glue for modern AI.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../articles/posts/base-64-encoding/index.html" class="no-external">
+<div class="listing-date">
+Dec 19, 2025
+</div>
+<div class="listing-author">
+Josh Pearlson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-categories="Finance" data-listing-date-sort="1763787600000" data-listing-file-modified-sort="1776641177720" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1953">
+<div class="thumbnail">
+<p><a href="../articles/posts/mortgage-from-market/index.html" class="no-external"></a></p><a href="../articles/posts/mortgage-from-market/index.html" class="no-external">
+<p class="card-img-top"><img src="../media/mortgageMarketHeader.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="../articles/posts/mortgage-from-market/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../articles/posts/mortgage-from-market/index.html" class="no-external">Getting a Mortgage from the Market</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../articles/posts/mortgage-from-market/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Finance'); return false;">
+Finance
+</div>
+</div>
+<div class="listing-description">
+<a href="../articles/posts/mortgage-from-market/index.html" class="no-external">Articles showcase a select group using options to borrow money rather than a traditional Agency mortgage. Are advertisements of $0 down and near treasury-rate mortgages a…</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../articles/posts/mortgage-from-market/index.html" class="no-external">
+<div class="listing-date">
+Nov 22, 2025
+</div>
+<div class="listing-author">
+Josh Pearlson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-categories="LLM" data-listing-date-sort="1761883200000" data-listing-file-modified-sort="1774189913527" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1916">
+<div class="thumbnail">
+<p><a href="../articles/posts/deepseek-ocr/index.html" class="no-external"></a></p><a href="../articles/posts/deepseek-ocr/index.html" class="no-external">
+<p class="card-img-top"><img src="../media/Optophone_in_detail.jpg"  class="thumbnail-image card-img"/></p>
+</a><p><a href="../articles/posts/deepseek-ocr/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../articles/posts/deepseek-ocr/index.html" class="no-external">The Future of Context, DeepSeek OCR</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../articles/posts/deepseek-ocr/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('LLM'); return false;">
+LLM
+</div>
+</div>
+<div class="listing-description">
+<a href="../articles/posts/deepseek-ocr/index.html" class="no-external">A breakthrough in optical character recognition (OCR) has profound implications for the future of LLMs.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../articles/posts/deepseek-ocr/index.html" class="no-external">
+<div class="listing-date">
+Oct 31, 2025
+</div>
+<div class="listing-author">
+Josh Pearlson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-categories="Python,Probability" data-listing-date-sort="1723780800000" data-listing-file-modified-sort="1762616626609" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18" data-listing-word-count-sort="3515">
+<div class="thumbnail">
+<p><a href="../articles/posts/coin-flip-game/index.html" class="no-external"></a></p><a href="../articles/posts/coin-flip-game/index.html" class="no-external">
+<p class="card-img-top"><img src="posts/coin-flip-game/index_files/figure-html/cell-2-output-1.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="../articles/posts/coin-flip-game/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../articles/posts/coin-flip-game/index.html" class="no-external">Modeling a Coin Flip Game</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../articles/posts/coin-flip-game/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
+Python
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Probability'); return false;">
+Probability
+</div>
+</div>
+<div class="listing-description">
+<a href="../articles/posts/coin-flip-game/index.html" class="no-external">A casino offers a game: Flip a coin as long as you want. Your prize is the ratio of heads to total flips. What’s your strategy to maximize your winnings?</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../articles/posts/coin-flip-game/index.html" class="no-external">
+<div class="listing-date">
+Aug 16, 2024
+</div>
+<div class="listing-author">
+Josh Pearlson
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
 <script>
   <!-- A message to others like me! -->
   console.log("Nice, I also love checking on page elements!");
@@ -249,6 +543,139 @@ ul.task-list li input[type="checkbox"] {
   console.log("Signing off. -JP");
 </script>
 <script data-goatcounter="https://joshpearlson.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+<script>
+(function() {
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function readPosts(container) {
+    const posts = Array.from(container.querySelectorAll('.quarto-post'));
+    return posts.map(p => {
+      const titleA = p.querySelector('.listing-title a') || p.querySelector('a');
+      const descEl = p.querySelector('.listing-description');
+      const dateEl = p.querySelector('.listing-date');
+      const cats = Array.from(p.querySelectorAll('.listing-category')).map(c => c.textContent.trim().toLowerCase()).filter(Boolean);
+      return {
+        title: titleA ? titleA.textContent.trim() : '',
+        href: titleA && titleA.getAttribute('href') ? titleA.getAttribute('href') : '#',
+        excerpt: descEl ? descEl.textContent.trim() : '',
+        date: dateEl ? dateEl.textContent.trim() : '',
+        cats
+      };
+    });
+  }
+
+  function renderTable(mount, posts, cats, activeCat) {
+    const list = activeCat === 'all' ? posts : posts.filter(p => p.cats.includes(activeCat));
+
+    const catPills = cats.map(c => {
+      const sel = c === activeCat ? ' jcp-cat-sel' : '';
+      return `<button type="button" class="jcp-cat${sel}" data-cat="${esc(c)}">${esc(c)}</button>`;
+    }).join('');
+
+    const rows = list.map(a => {
+      const tags = a.cats.map(c => `<span class="jcp-tag-sm">${esc(c)}</span>`).join('');
+      return `
+        <a class="jcp-art-row" href="${esc(a.href)}">
+          <div class="jcp-art-date">${esc(a.date)}</div>
+          <div class="jcp-art-body">
+            <div class="jcp-art-title"><span class="jcp-art-arrow">▸</span>${esc(a.title)}</div>
+            <div class="jcp-art-exc">${esc(a.excerpt)}</div>
+          </div>
+          <div class="jcp-art-tags">${tags}</div>
+        </a>
+      `;
+    }).join('');
+
+    mount.innerHTML = `
+      <div class="jcp-catrow">
+        <span class="jcp-filter-label">FILTER:</span>
+        ${catPills}
+      </div>
+      <div class="jcp-art-tbl">
+        <div class="jcp-art-head">
+          <div>DATE</div><div>TITLE</div><div>TAGS</div>
+        </div>
+        ${rows || '<div class="jcp-art-empty">No articles in this category.</div>'}
+      </div>
+    `;
+
+    mount.querySelectorAll('.jcp-cat').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const newCat = btn.dataset.cat;
+        renderTable(mount, posts, cats, newCat);
+        if (history.replaceState) {
+          const hash = newCat === 'all' ? '' : '#category=' + encodeURIComponent(newCat);
+          history.replaceState(null, '', window.location.pathname + window.location.search + hash);
+        }
+      });
+    });
+  }
+
+  function init() {
+    const mount = document.getElementById('jcp-articles-mount');
+    if (!mount) return;
+    const quartoListing = document.querySelector('.quarto-listing');
+    if (!quartoListing) return;
+
+    const posts = readPosts(quartoListing);
+    quartoListing.style.display = 'none';
+
+    const catSet = new Set();
+    posts.forEach(p => p.cats.forEach(c => catSet.add(c)));
+    const cats = ['all', ...Array.from(catSet).sort()];
+
+    let initialCat = 'all';
+    const m = (window.location.hash || '').match(/category=([^&]+)/);
+    if (m) {
+      const decoded = decodeURIComponent(m[1]).toLowerCase();
+      if (cats.includes(decoded)) initialCat = decoded;
+    }
+
+    renderTable(mount, posts, cats, initialCat);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const pills = Array.from(document.querySelectorAll('.category-default .category'));
+  if (!pills.length) return;
+
+  function setActive(activePill) {
+    pills.forEach(p => p.classList.remove('quarto-active'));
+    activePill.classList.add('quarto-active');
+  }
+
+  function activateFromHash() {
+    const hash = decodeURIComponent(window.location.hash); // e.g. "#category=Probability"
+    const match = hash.match(/^#category=(.+)$/i);
+    if (match) {
+      const categoryName = match[1].toLowerCase();
+      const pill = pills.find(p => p.textContent.trim().toLowerCase().startsWith(categoryName));
+      if (pill) { setActive(pill); return; }
+    }
+    // No hash or no match — fall back to "All"
+    const allPill = pills.find(p => p.textContent.trim().startsWith('All'));
+    if (allPill) setActive(allPill);
+  }
+
+  activateFromHash();
+
+  // On click, immediately highlight the clicked pill
+  pills.forEach(pill => {
+    pill.addEventListener('click', function() {
+      setActive(this);
+    });
+  });
+});
+</script>
 <script>
 (function() {
   const ASCII = String.raw`______/\\\\\\\\\\\________/\\\\\\\\\__/\\\\\\\\\\\\\___
@@ -272,9 +699,9 @@ ul.task-list li input[type="checkbox"] {
   function buildTerminalChrome(tabKey) {
     const tabs = ['home','about','articles','projects','contact'];
     const hrefs = {
-      home: '/', about: '/aboutPage/about.html',
-      articles: '/articles/blog.html', projects: '/projects/projects.html',
-      contact: '/contact/contact.html'
+      home: '/', about: '/about/',
+      articles: '/articles/', projects: '/projects/',
+      contact: '/contact/'
     };
     const tabsHTML = tabs.map(t => {
       const active = t === tabKey ? ' t-tab-active' : '';
@@ -327,19 +754,19 @@ ul.task-list li input[type="checkbox"] {
           ${latestHTML}
           <div class="t-promptblock"><span class="t-prompt">$</span> ls ./</div>
           <div class="t-ls-grid">
-            <a href="/aboutPage/about.html" class="t-ls-cell">
+            <a href="/about/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> about/</div>
               <div class="t-ls-path">/bio /experience /education</div>
             </a>
-            <a href="/articles/blog.html" class="t-ls-cell">
+            <a href="/articles/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> articles/</div>
               <div class="t-ls-path">markets, ML, probability</div>
             </a>
-            <a href="/projects/projects.html" class="t-ls-cell">
+            <a href="/projects/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> projects/</div>
               <div class="t-ls-path">things I built and shipped</div>
             </a>
-            <a href="/contact/contact.html" class="t-ls-cell">
+            <a href="/contact/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> contact/</div>
               <div class="t-ls-path">email &middot; linkedin &middot; github</div>
             </a>

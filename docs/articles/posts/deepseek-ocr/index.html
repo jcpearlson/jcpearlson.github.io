@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Josh Pearlson">
-<meta name="dcterms.date" content="2026-03-21">
+<meta name="dcterms.date" content="2025-10-31">
 
-<title>The Impossible Bracket – Josh Pearlson</title>
+<title>The Future of Context, DeepSeek OCR – Josh Pearlson</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -122,19 +122,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../articles/blog.html"> 
+    <a class="nav-link" href="../../../articles/"> 
 <span class="menu-text">Articles</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../projects/projects.html"> 
+    <a class="nav-link" href="../../../projects/"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../aboutPage/about.html"> 
+    <a class="nav-link" href="../../../about/"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../contact/contact.html"> 
+    <a class="nav-link" href="../../../contact/"> 
 <span class="menu-text">Contact</span></a>
   </li>  
 </ul>
@@ -148,9 +148,9 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">The Impossible Bracket</h1>
+      <h1 class="title">The Future of Context, DeepSeek OCR</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Probability</div>
+                <div class="quarto-category">LLM</div>
               </div>
                   </div>
   </div>
@@ -168,7 +168,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">March 21, 2026</p>
+        <p class="date">October 31, 2025</p>
       </div>
     </div>
     
@@ -187,196 +187,215 @@ window.Quarto = {
 
 
 
-<p>The odds of a perfect March Madness bracket are 1 in 9.2 quintillion. Warren Buffett bet a billion dollars on it, and he was never worried about paying out.</p>
+<p>A breakthrough in optical character recognition (OCR) has profound implications for the future of LLMs.</p>
 <hr>
+<p>Large language models are usually limited by how much text they can fit into their context windows. Every token matters. This is especially true when processing long PDFs, research papers, or codebases. But a recent breakthrough in optical character recognition (OCR) suggests something surprising: vision tokens may soon become a dramatically more efficient way to feed information to LLMs than text tokens.</p>
+<p>In this article, I’ll explain what OCR actually is, how the technology evolved, what changed recently, and why this discovery might reshape the future of context.</p>
+<section id="what-the-hell-is-an-ocr" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-hell-is-an-ocr">What the hell is an OCR?</h2>
+<p>OCR stands for Optical Character Recognition. It is the core technology that allows computers to convert real world documents, such as pdfs, images, and scanned paper documents, into machine-readable text. In other words, OCR transforms a messy visual input into a structured text representation that can be fed into other processes like LLMs.</p>
+<section id="a-brief-history-of-ocr" class="level3">
+<h3 class="anchored" data-anchor-id="a-brief-history-of-ocr">A Brief History of OCR</h3>
+<p>OCR technology is not new, its history actually dates back to the 20th century. In the 1910s, Dr.&nbsp;Edmund Fournier d’Albe of Birmingham University developed the first ever OCR system, named the Optophone.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../../media/impossible-bracket-header.png" class="img-fluid figure-img"></p>
-<figcaption>The Impossible Bracket</figcaption>
+<p><img src="../../../media/Optophone_in_detail.jpg" class="img-fluid figure-img"></p>
+<figcaption>Optophone machine</figcaption>
 </figure>
 </div>
-<p>Every March, millions of people fill out NCAA Basketball brackets convinced that this is their year. In 2014, Warren Buffett <a href="https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket">offered a billion dollars</a> to anyone who could pick every one of the 63 games correctly. Kalshi has revived this offer by running the <a href="https://kalshi.com/billion-dollar-bracket">same bet this year</a>, backed by some of the sharpest minds in trading at <a href="https://sig.com/">SIG</a>. Here is the quick math explaining why everyone offering this “prize” knows they are never going to pay it out.</p>
-<section id="the-structure-of-the-bracket" class="level2">
-<h2 class="anchored" data-anchor-id="the-structure-of-the-bracket">The Structure of the Bracket</h2>
-<p>The NCAA Tournament’s main bracket involves 64 teams competing across six rounds. Each game has exactly two possible outcomes. That means the bracket is a sequence of binary decisions, a string of ones and zeros, one bit per game.</p>
-<p>How many games are there? In a single-elimination tournament with 64 teams, every game eliminates exactly one team. To go from 64 to 1 champion, you need to eliminate 63 teams. Therefore: 63 games, 63 binary decisions.</p>
-<p><span class="math display">\[\text{Total possible brackets} = 2^{63}\]</span></p>
-<p>That resolves to:</p>
-<p><span class="math display">\[9{,}223{,}372{,}036{,}854{,}775{,}808\]</span></p>
-<p>Nine quintillion, two hundred twenty-three quadrillion, roughly <span class="math inline">\(9.2 \times 10^{18}\)</span>.</p>
-<p>For reference, that number is ~22.5 Million times larger than the number of stars in the Milky Way. Let that land for a second.</p>
+<p>The Optophone was able to scan printed text and convert it into distinct sounds allowing for a blind user to recognize what characters were being scanned. The system was rule-based and relied on the physical height and width of characters to identify them.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../media/Tone_generating_method_of_the_FM-SLIT.png" class="img-fluid figure-img"></p>
+<figcaption>Optophone Methodology</figcaption>
+</figure>
+</div>
+<p>Not much of significance happened with the technology until the 1950s, when developments in digital computers and light sensors allowed OCR to take off. OCR was no longer physical rules based systems and now involved using computers to run similarity algorithms evaluating which letters were present. IBM and RCA began to develop OCR technology for all sorts of tasks. IBM created the first commercially available scanner that could <a href="https://en.wikipedia.org/wiki/IBM_optical_mark_and_character_readers">read handwritten text</a>.</p>
+<p>In the ’60s and ’70s, OCR became a key software for everything from the postal service sorting mail to banks processing checks (see <a href="https://en.wikipedia.org/wiki/Magnetic_ink_character_recognition">MICR</a>). Even to this day OCR software is used all around the world in a vast array of commercial applications.</p>
+<p>Modern developments in the 21st century involving neural networks have offered even more room for OCR improvement, as we will see with DeepSeekOCR.</p>
 </section>
-<section id="the-billion-dollar-bets" class="level2">
-<h2 class="anchored" data-anchor-id="the-billion-dollar-bets">The Billion Dollar Bets</h2>
-<p>In 2014, Warren Buffett and Quicken Loans offered <a href="https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket">$1 billion</a> to anyone who could submit a perfect bracket. The prize was backed by Berkshire Hathaway. Buffett, who has made a career out of understanding risk better than almost anyone alive, was not worried about paying out. By the end of the contest the ~8 million entrants did not come close to perfection.</p>
-<p>This March, Kalshi launched a similar challenge: a <strong>$1 billion prize</strong> for a perfect bracket, backed in part by Susquehanna International Group (<a href="https://sig.com/">SIG</a>), one of the most sophisticated quantitative trading firms in the world. SIG is not known for charitably giving away their prop trading capital base within the context of markets. They are known for pricing risk extremely precisely and taking the other side of bets when the odds are overwhelmingly in their favor.</p>
-<p>When a firm full of people who do math for a living are happy to insure your perfect bracket for a shot at a billion dollars, you should pay attention to what they’re implying about the probability.</p>
-<p>They are, in the most literal sense, selling insurance against an event they know will almost certainly never happen. The expected payout is so close to zero that the marketing value of the promotion likely exceeds the actuarial risk. That’s not a criticism, that’s just elegant business. But it tells you something important about the numbers underneath.</p>
 </section>
-<section id="what-are-the-chances-of-a-perfect-bracket" class="level2">
-<h2 class="anchored" data-anchor-id="what-are-the-chances-of-a-perfect-bracket">What Are the Chances of a Perfect Bracket?</h2>
-<p>The 1-in-9.2-quintillion figure assumes pure randomness, one coin flip per game. It is also only the probability for just one bracket being perfect. In reality, we are concerned with the probability that <strong>many brackets are all not perfect brackets</strong>! In the case of the Buffett/Quicken Loans contest there were millions of brackets. At its peak roughly 8 million people entered, all of them with at least some knowledge of basketball (and thus potentially better than 50% odds of guessing a given game). So let’s ask the right question:</p>
-<blockquote class="blockquote">
-<p>With 8 million entrants picking at different levels of skill (probability of guessing games correctly), what’s the probability that at least one of them ended up with a perfect bracket?</p>
-</blockquote>
-<p>Each individual bracket has a:</p>
-<p><span class="math display">\[P(\text{Perfect Bracket | Random choosing}) = \frac{1}{2^{63}} =  0.5^{63} = \frac{1}{9.22 \times 10^{18}}\]</span></p>
-<p>With 8 million entrants, the probability that at least one submits a perfect bracket is:</p>
-<p><span class="math display">\[P(\text{At least one perfect | 8,000,000 entrants}) = 1 - P(\text{No perfect bracket | 8,000,000 entrants})\]</span></p>
-<p><span class="math display">\[P(\text{No perfect brackets | 8,000,000 entrants}) = (1 - P(\text{One perfect bracket}))^\text{8,000,000 entrants}\]</span></p>
-<p>Putting all of this together we get the following:</p>
-<p><span class="math display">\[P(\text{At least one perfect | 8,000,000 entrants}) = 1 - (1 - P(\text{One perfect bracket}))^\text{8,000,000 entrants} \]</span></p>
-<p>When choosing randomly. This ended up being ~0.00000000009%, about 1.15 trillion to 1 odds. Buffett was insuring 1-in-1.15-trillion odds bet for a billion dollars. Not exactly a nail-biter. The EV of this 1 Billion dollar liability is about <strong>$0.0009 dollars</strong>. In other words, if someone offered you this deal and said they would pay you a penny to run the contest, you should be very excited to say yes.</p>
-<p>8 million people was the 2014 figure but what about with this years 36 million brackets. I know its likely there are fewer unique brackets (many users picking similar brackets) but lets evaluate as if the worst scenario is among us (as insurers).</p>
-<p>Let’s also give the entrants some credit. Suppose every one of those 8 or 36 million people had genuine edge, correctly predicting each game with 55%, 60%, or even 70% accuracy! Better than most people, even better than most statistical models. Their per-bracket odds become:</p>
-<p><span class="math display">\[0.55^{63} \approx 4.39 \times 10^{-17}\]</span></p>
-<p><span class="math display">\[0.60^{63} \approx 1.05 \times 10^{-14}\]</span></p>
-<p><span class="math display">\[0.70^{63} \approx 1.74 \times 10^{-10}\]</span></p>
-<p>These odds are as follows, 55% -&gt; 1 in 23 quadrillion, 60% -&gt; 1 in 95 trillion, 70% -&gt; 1 in 6 billion.</p>
-<p>This year there were 36 million total brackets, however the Kalshi contest was limited to a mere 10 million brackets. Given all of these entrants and the potential for skilled bracket creation Kalshi contest the numbers shift, but not enough to make anyone at SIG nervous. Here’s the full picture across skill levels and pool sizes:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 13%">
-<col style="width: 13%">
-<col style="width: 16%">
-<col style="width: 17%">
-<col style="width: 18%">
-<col style="width: 18%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Accuracy per game</th>
-<th>Odds, one bracket</th>
-<th>Odds with 8M entrants</th>
-<th>Odds with 36M entrants</th>
-<th>EV of $1B (10M entrants)</th>
-<th>EV of $1B (36M entrants)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>50% (random)</td>
-<td>1 in 9.2 quintillion</td>
-<td>1 in 1.15 trillion</td>
-<td>1 in 256 billion</td>
-<td>$0.001</td>
-<td>$0.004</td>
-</tr>
-<tr class="even">
-<td>55%</td>
-<td>1 in 23 quadrillion</td>
-<td>1 in 2.85 billion</td>
-<td>1 in 633 million</td>
-<td>$0.44</td>
-<td>$1.58</td>
-</tr>
-<tr class="odd">
-<td>60%</td>
-<td>1 in 95 trillion</td>
-<td>1 in 12 million</td>
-<td>1 in 2.6 million</td>
-<td>$106</td>
-<td>$380</td>
-</tr>
-<tr class="even">
-<td>67%</td>
-<td>1 in 90.6 billion</td>
-<td>1 in 11,330</td>
-<td>1 in 2,518</td>
-<td>$110,329</td>
-<td>$397,126</td>
-</tr>
-<tr class="odd">
-<td>70%</td>
-<td>1 in 5.7 billion</td>
-<td>1 in 718</td>
-<td>1 in 160</td>
-<td>$1,740,998</td>
-<td>$6,253,419</td>
-</tr>
-</tbody>
-</table>
-<p>The 70% row is where things start to look interesting, 1-in-160 with 36 million entrants is a number that would make an insurer sweat (obviously depending on how much money you were paid for the contract). On the far right hand side you can see the expected value of the $1 Billion dollar liability at every probability level. If the prediction accuracy per game is worse than 67% and there are less than 10M entrants, you should feel relatively comfortable accepting between $100 and $100,000. This range is quite wide but depends heavily on the inputs.</p>
-<p>But nobody (especially not your average Joe) predicts March Madness at 67% per game. The whole point of the tournament is that upsets happen constantly and unpredictably. A 12-seed beats a 5-seed roughly a third of the time. Cinderella stories aren’t anomalies, they’re the product. The bracket is essentially designed to punish sustained accuracy, which is exactly why billion-dollar prize offers are such comfortable positions to be in.</p>
+<section id="deepseek-ocr" class="level2">
+<h2 class="anchored" data-anchor-id="deepseek-ocr">DeepSeek OCR</h2>
+<p>Earlier this month, a Chinese hedge fund’s AI lab, <a href="https://www.deepseek.com/en">DeepSeek</a> released a <a href="https://www.arxiv.org/abs/2510.18234">paper</a> outlining a new OCR model. Without even reading the paper, the initial community reaction was something along the lines of:</p>
+<ol type="1">
+<li>DeepSeek continues to enter a new market (OCR) and is killing it again (claiming 97%+ accuracy on general OCR benchmarks)<br>
+</li>
+<li>OCR software is old, boring software that just turns writing/images into well formatted text and has many commercial applications for DeepSeek to monetize</li>
+</ol>
+<p>I would say the initial read and public reception of this work is 100% correct. However, it misses the whole point of the paper! There is one core aspect which outlines why DeepSeek went through the trouble to make <strong>yet another</strong> OCR model.</p>
+<section id="its-always-been-about-context" class="level3">
+<h3 class="anchored" data-anchor-id="its-always-been-about-context">It’s always been about context!</h3>
+<p>In the world of machine learning and natural language processing, <strong>context is king</strong>. The ability to understand and utilize context is what allows models to generate coherent and relevant responses.</p>
+<p>Anyone who uses AI assistants learns quite quickly about the importance of context. Nothing is worse than chatting with the model for 10 minutes then having to start all over explaining a topic when you hit the context limit for the model. Eventually, you are forced to open a new ChatGPT or Claude tab and start the whole conversation all over again.</p>
+<p>Here is the one fascinating thing I have not yet told you about the brand new DeepSeek OCR model: <strong>vision tokens are dramatically more information-dense than text tokens</strong> when representing documents.</p>
+<p>Now this is an interesting development! Currently the largest LLM with strong performance and long context is the Gemini model, claiming 2 million tokens of context. Each token is approximately <span class="math inline">\(\frac{1}{4}\)</span> of a word. Given around 500 words per page, 2 million tokens of context gets you about 3,000 pages of context or about 1,500,000 words.</p>
+<p>In this paper, DeepSeek is stating that they can compress text tokens 10x when using them as vision tokens with very high accuracy. If this is true you could extend Gemini’s context window from 2 million tokens to 20 million. 1.5 million words versus 15 million words, 3,000 pages versus 30,000 pages. This is like going from being able to see 1 volume of the Encyclopedia Britannica versus 12 volumes (the full 32 volumes are 50 Million words).</p>
 </section>
-<section id="how-much-storage-would-every-bracket-require" class="level2">
-<h2 class="anchored" data-anchor-id="how-much-storage-would-every-bracket-require">How Much Storage Would Every Bracket Require?</h2>
-<p>Here is a very fun hypothetical, lets say I now let you generate every single bracket possible but you have to have it stored somewhere in a physical location (computer memory is allowed). I will still offer the same deal. One Billion dollars if you generate the perfect bracket! But, now there is a catch:</p>
-<blockquote class="blockquote">
-<p>I will only pay you the billion dollars if you have every single bracket stored somewhere.</p>
-</blockquote>
-<p>You laugh and jump in joy thinking of the yachts and super cars you will buy with your fortune.</p>
-<p>First, let’s make the number concrete. Each bracket requires exactly 63 bits of data, one bit per game outcome. So the total storage to represent every possible bracket is:</p>
-<p><span class="math display">\[63 \text{ bits} \times 2^{63} \text{ brackets} = 581,072,438,321,850,875,904 \text{ bits}\]</span></p>
-<p>Let’s convert that into something recognizable:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Unit</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Bits</td>
-<td><span class="math inline">\(\approx 5.81 \times 10^{20}\)</span></td>
-</tr>
-<tr class="even">
-<td>Bytes</td>
-<td><span class="math inline">\(\approx 7.26 \times 10^{19}\)</span></td>
-</tr>
-<tr class="odd">
-<td>Gigabytes (GB)</td>
-<td><span class="math inline">\(\approx 72{,}634{,}054{,}790\)</span> GB</td>
-</tr>
-<tr class="even">
-<td>Terabytes (TB)</td>
-<td><span class="math inline">\(\approx 72{,}634{,}055\)</span> TB</td>
-</tr>
-<tr class="odd">
-<td>Petabytes (PB)</td>
-<td><span class="math inline">\(\approx 72{,}634\)</span> PB</td>
-</tr>
-<tr class="even">
-<td><strong>Exabytes (EB)</strong></td>
-<td><strong><span class="math inline">\(\approx 72.6\)</span> EB</strong></td>
-</tr>
-</tbody>
-</table>
-<p>To put that in context: as of 2025, this figure would be at least <strong>10% of global AWS storage</strong>.</p>
-<p>We’re not in terabyte territory (or even petabyte for that matter). We’re in exabyte territory. That’s 72.6 million terabytes just to store the bracket data, to say nothing of the hardware, indexing, or retrieval infrastructure needed to actually use it.</p>
-<p>I had Opus 4.6 (LLM) generate a cost estimate for writing, storing, and retrieving this data. It came up with a figure in the 4-10 billion dollar range.</p>
+<section id="whats-the-catch" class="level3">
+<h3 class="anchored" data-anchor-id="whats-the-catch">What’s the catch?</h3>
+<p>Well, I did say <strong>if this is true</strong> and currently it is not. Some language models understand vision tokens at high fidelity; however, this fidelity is not nearly on par with typical text. In order to achieve a full 10x of the context window the model would have to understand vision tokens just as well as it understands text tokens without decoding them back into text tokens (removing any compression benefit). Text has semantic meaning, typically previous words in a sentence have strong correlation with the future words in that same sentence. Vision tokens share this relationship but on a much smaller scale. Since the correlation to future tokens is so small, this leads to a much worse ability to generate coherent output.</p>
+<p>There have been very interesting workarounds though and research in the space is ongoing. One pervasive thought in the industry right now is the idea of storing context in cached vision tokens, but only converting necessary context into text tokens for the model to actively use. This seems to be a plausible and reasonable future development of vision token compression.</p>
 </section>
-<section id="the-lottery-comparison" class="level2">
-<h2 class="anchored" data-anchor-id="the-lottery-comparison">The Lottery Comparison</h2>
-<p>Most people intuitively understand that the lottery is hard to win. The odds of winning Powerball are roughly 1 in 292 million. That feels impossibly small.</p>
-<p>The odds of randomly picking a perfect bracket are 1 in 9.2 quintillion. That’s roughly <strong>31 billion times harder than winning Powerball</strong>.</p>
-<p>Let’s try another angle. If every person on Earth (all 8 billion of us) filled out one bracket per second, continuously, the expected time to exhaust all possible combinations would be approximately:</p>
-<p><span class="math display">\[\frac{2^{63}}{8 \times 10^9 \text{ people} \times 3.156 \times 10^7 \text{ seconds/year}} \approx 36.5 \text{ years}\]</span></p>
-<p>About 36 and a half years. Every person on Earth filling out a bracket every single second would need the better part of a lifetime to exhaust all combinations. And that assumes nobody sleeps.</p>
-</section>
-<section id="what-sig-and-buffett-actually-know" class="level2">
-<h2 class="anchored" data-anchor-id="what-sig-and-buffett-actually-know">What SIG and Buffett Actually Know</h2>
-<p>There’s a useful framing from insurance that applies here. An insurer takes on a probability of loss in exchange for a premium today. The math only works if the premium is priced above the expected loss. If the expected loss is $0, any premium at all is pure margin.</p>
-<p>When Buffett offered $1 billion for a perfect bracket, the actuarial cost of that promise was basically zero. The probability that any entrant would submit a perfect bracket, even with millions of entries, was vanishingly small. You don’t need a billion dollars in reserves when your expected payout rounds to nothing.</p>
-<p>SIG knows this game cold. They make markets in options and other derivatives, where pricing low-probability events accurately is literally the job. Running a billion dollar bracket challenge backed by SIG is not a bet on sports. It’s a bet on math. And the math is so one-sided that the promotional upside of running the contest dwarfs any actuarial concern about the payout.</p>
-<p>The same logic applies to why bracket challenges in general are financially sound for the people running them. Even offering a $1 million prize for a perfect bracket, with millions of entrants, the expected payout is trivially small. You’re not insuring against a hurricane. You’re insuring against something that has never happened and almost certainly will not happen in any of our lifetimes.</p>
-</section>
-<section id="takeaways" class="level2">
-<h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
-<p>The impossible bracket is a beautiful collision of combinatorics and human optimism. A few things worth holding onto:</p>
+<section id="well-lets-test-it-out" class="level3">
+<h3 class="anchored" data-anchor-id="well-lets-test-it-out">Well, let’s test it out!</h3>
+<p>Last week the following was trending on both Twitter and Linkedin in relation to the new DeepSeek-OCR model.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../media/DeepSeek-OCR trending letter from Ramanujan.png" class="img-fluid figure-img"></p>
+<figcaption>DeepSeek-OCR on Ramanujan’s letter to GH Hardy 1913 (could not find any citation for this)</figcaption>
+</figure>
+</div>
+<p>This looks shocking; the accuracy level seems to be very high even on complex handwritten mathematical formulas from over 100 years ago! This level of accuracy prompted (awful pun) a <strong>healthy level of skepticism</strong>. Let’s test this ourselves and see how accurate it is on both the Ramanujan letter as well as some brand new handwriting of my own.</p>
+<section id="deepseek-ocr-result-on-letter-to-gh-hardy-1913" class="level4">
+<h4 class="anchored" data-anchor-id="deepseek-ocr-result-on-letter-to-gh-hardy-1913">DeepSeek-OCR result on letter to GH Hardy 1913</h4>
+<p>The following is the letter after being passed through DeepSeek-OCR at the highest compute setting, I used Google Colab with an A100 for this:</p>
+<p>——————————– start ——————————–</p>
+<p>Dear Mr Hardy,</p>
+<p>In one of my letters I wrote about the least number of terms which will give the mean est integral to the actual coefficient in <span class="math inline">\(\frac{1}{2}\)</span> problem. It will be actually difficult to prove such a result. But we can prove this much as follows.</p>
+<p>equation:</p>
+<p><span class="math display">\[
+\begin{align*}
+\sum a_n x^n &amp;= \frac{1}{1-50(1-\frac{1}{2}x+\frac{1}{1-2x}+\cdots)} \\
+a_n &amp;= c \left[ e^{2n\pi} + (-1)^n \frac{e^{n\pi}}{2^5} + 2 \cos\left(\frac{2n\pi}{5} + 8(2n-1)\frac{e^{\frac{2n\pi}{5}}}{5} + \cdots\right) + 2 \cos\left(\frac{2n\pi}{5} + 8(3n-1)\frac{e^{\frac{2n\pi}{5}}}{5} + \frac{2n\pi}{5} + \cdots\right) \right]
+\end{align*}
+\]</span></p>
+<p>equation:</p>
+<p><span class="math display">\[
+\begin{align*}
+c = \frac{3}{2} \cdot \frac{[\Gamma(\frac{3}{2})]^6}{\pi^6} = .94373...
+\end{align*}
+\]</span></p>
+<p>text:</p>
+<p>We shall first prove that, if we take only</p>
+<p><span class="math display">\[
+\begin{align*}
+\left[ \frac{3}{2} n(1-c) \right]^{\frac{1}{2}} \sqrt{(1-\frac{1}{2}n)(1-\frac{1}{4}n)(1-\frac{1}{8}n)\cdots}
+\end{align*}
+\]</span></p>
+<p>text:</p>
+<p>terms in the right-hand side of (1), E being any positive number less than 1 and 5, 13, 17, … are primes of the form <span class="math inline">\(4k+1\)</span>, then it is possible to find an infinity of values of <span class="math inline">\(n\)</span> for which <span class="math inline">\(dn\)</span> is not the mean of in- tegers to the sum of the asymptote series up to (2) terms. Suppose that <span class="math inline">\(a_n\)</span> is the number of terms of any two squares such as 1, 2, 4, 5, 9, 10, 13, 16, … not exceeding <span class="math inline">\(\lambda\)</span> and that <span class="math inline">\(p(\lambda)\)</span> is the number of sums of two squares that are prime to each other such as 1, 2, 5, 10, 13, 17, 25 … not exceeding <span class="math inline">\(\lambda\)</span>. Then it is easy to see that</p>
 <ul>
-<li>The number of possible brackets, <span class="math inline">\(2^{63}\)</span>, is large enough to break human intuition, exceed practical storage capacity, and make brute-force approaches absurd.</li>
-<li>Smart money, from Buffett to SIG, has been happy to offer billion-dollar prizes because the expected cost is essentially zero. When that many smart people are on one side of a bet, it’s worth understanding why.</li>
-<li>Skill helps. A 70% accurate predictor has odds of 1 in 5.7 billion rather than 1 in 9 quintillion. But 1 in 5.7 billion is still not good.</li>
-<li>The annual ritual of filling out brackets is not irrational. Bracket pools are won by people who pick better than average, not by people who pick perfectly. You don’t need a perfect bracket to win your office pool. You just need to be right more often than everyone else. That’s a very different problem.</li>
+<li>Special thank you to Trinity College for hosting this <a href="https://mss-cat.trin.cam.ac.uk/manuscripts/uv/view.php?n=add.ms.a.94&amp;n=add.ms.a.94.2#?c=0&amp;m=0&amp;s=0&amp;cv=5&amp;xywh=-1944%2C0%2C8677%2C6006">letter</a></li>
 </ul>
-<p>The March Madness bracket is a masterclass in why we’re bad at big numbers. We hear “9.2 quintillion” and nod, but we don’t really feel it. The storage math helps. The lottery comparison helps. The Buffett angle helps. But ultimately, <span class="math inline">\(2^{63}\)</span> is just genuinely bigger than our intuition is built to handle, and no amount of explanation fully closes that gap.</p>
-<p>Which is, honestly, part of what makes March so fun.</p>
-<hr>
-<p><em>Note: This analysis covers the standard 64-team single-elimination bracket with 63 games. The NCAA Tournament’s First Four play-in games add 4 more decision points, bringing the true total closer to <span class="math inline">\(2^{67}\)</span>, roughly 147 quintillion. We’ll leave that as an exercise for the truly deranged.</em></p>
+<p>——————————– end ——————————–</p>
+<p>Wow, that is some shocking levels of accuracy. This level of accuracy on handwritten text seems insane. Just to confirm this is not already seen in the training data of the model I will now run the model but with some awful handwriting of my own. This is a handwritten page of homework from college. Similar to the page above it contains a lot of scribbled math which would be hard for even me to decipher at times.</p>
+<p>Here is the homework page:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../media/old_homework.jpg" class="img-fluid figure-img"></p>
+<figcaption>Old math homework</figcaption>
+</figure>
+</div>
+<p>Here is the model output:</p>
+<p>——————————– start ——————————–</p>
+<p>text:</p>
+<p>middle term is zero. Since <span class="math inline">\(E_{\epsilon}[\epsilon] = 0\)</span></p>
+<p>equation:</p>
+<p><span class="math display">\[
+\begin{align*}
+E_x[(g_D - s(x))^{2}] + \sigma^{2}, \qquad
+E_D!\left[(g_D - s(x))^{2}\right]
+\end{align*}
+\]</span></p>
+<p><span class="math display">\[
+\begin{align*}
+= \left(E_D[g_D] - s(x)\right)^{2} + \mathrm{Var}_D(g_D) \
+E\left[E_D(g_D)\right]
+= E_x!\left[\text{bias}^{2} + \text{variance}\right] + \sigma^{2} \
+= \text{bias}^{2} + \text{variance} + \sigma^{2}
+\end{align*}
+\]</span></p>
+<p>text:</p>
+<p><span class="math display">\[
+E\left[E_D(g_D)\right]
+= E_x!\left[\text{bias}^{2} + \text{variance}\right] + \sigma^{1}
+= \text{bias}^{2} + \text{variance} + \sigma^{1}
+\]</span></p>
+<p>text:</p>
+<ol start="4" type="1">
+<li></li>
+</ol>
+<p>equation:</p>
+<p><span class="math display">\[
+[
+D = {(x_1, x_1^2), (x_2, x_2^2)}, \qquad
+P = 1 = \mathrm{Dim}(D), \qquad
+s(x) = x^{2}
+]
+\]</span></p>
+<p>text:</p>
+<p>union over <span class="math inline">\([-1, 1]\)</span>, <span class="math inline">\(H = \mathrm{th}(h(x)) = ax + b\)</span> for some <span class="math inline">\(a,b \in \mathbb{R}\)</span> and we wish to minimize Square Error!</p>
+<p>text:</p>
+<ol type="a">
+<li><span class="math inline">\(a x_1 + b = x_1^2,\quad a x_2 + b = x_2^2\)</span></li>
+</ol>
+<p>equation:</p>
+<p><span class="math display">\[
+\begin{align*}
+a x_1 + b - x_1^{2} &amp;= a x_2 + b - x_2^{2} \
+a x_1 - x_1^{2} &amp;= a x_2 - x_2^{2} \
+a(x_1 - x_2) &amp;= x_1^{2} - x_2^{2} \
+a(x_1 - x_2) &amp;= (x_1 + x_2)(x_1 - x_2) \
+a &amp;= x_1 + x_2
+\end{align*}
+\]</span></p>
+<p>equation:</p>
+<p><span class="math display">\[
+\begin{align*}
+(x_1 + x_2)x_1 + b &amp;= x_1^{2} \
+x_1^{2} + x_1 x_2 + b &amp;= x_2^{2} \
+b &amp;= -x_1 x_2
+\end{align*}
+\]</span></p>
+<p>equation:</p>
+<p><span class="math display">\[
+[
+\tilde{g}(x)
+= E[h_0(x)]
+= E[(x_1 + x_2)x - x_1 x_2]
+= 0
+]
+\]</span></p>
+<p>text:</p>
+<ol start="2" type="A">
+<li>To numerically estimate <span class="math inline">\(g(x)\)</span>, <span class="math inline">\(E_D(x)\)</span>, bias, and variance, I have devised the following estimator. First, generate many training sets <span class="math inline">\(g(x_1, x_2)\)</span> for values in uniform <span class="math inline">\([-1,1]\)</span> space. Next we fit our hypothesis line to this data. The average of these hypothesis lines will be our estimate of <span class="math inline">\(g(x)\)</span>.</li>
+</ol>
+<p>text:</p>
+<p>For each hypothesis we also compute</p>
+<p><span class="math display">\[
+[
+E_D(x) = \frac{1}{n} \sum_{i=1}^{n} (g(x_i) - x_i^{2})
+]
+\]</span></p>
+<p>text:</p>
+<p>For every sample we solve this as follows: $ (x) = (g(x) - x)^2 $, where <span class="math inline">\(g(x)\)</span> is always assumed.</p>
+<p>text:</p>
+<p>Our variance estimator will be:</p>
+<p><span class="math display">\[
+[
+\mathrm{Var}(x)
+= \frac{1}{n} \sum_{i=1}^{n} \left(g(x_i) - \tilde{g}(x_i)\right)^{2}.
+]
+\]</span></p>
+<p>——————————– end ——————————–</p>
+<p>For sure a lot more errors in this one in terms of OCR quality. On my handwriting the model frequently messes up what the power was of variables, exact forms of equations, confuses vectors, and more. Given this performance I would highly agree with the comments I have seen on social media that the letters from Ramanujan to GH Hardy were likely in the training set of the DeepSeekOCR model. Performance on my handwriting was still very strong, but clearly not to the caliber of a model that almost perfectly gets the scribbled handwriting from the Ramanujan letter.</p>
+</section>
+</section>
+<section id="current-use-cases" class="level3">
+<h3 class="anchored" data-anchor-id="current-use-cases">Current use cases</h3>
+<p>Naively, as a recent graduate who frequently had to write assignments in LaTeX (a mathematical formatting language) which was often time consuming given most of the math was worked out on paper (or iPad) already, I see some great use cases.</p>
+<ol type="1">
+<li>Pass paper homework into DeepSeekOCR, convert to markdown.</li>
+<li>Ask LLM to convert markdown to LaTeX</li>
+<li>Voila! You have saved ~an hour of writing your already-written homework into LaTeX!</li>
+</ol>
+<p>Realistically this is not the true value of this model, but nonetheless a very interesting use case. The real value of this model is in converting large quantities of handwritten text into visual tokens as a medium (<strong>of high information density and low loss</strong>), instead of converting them directly into text tokens. If breakthroughs happen in how visual tokens can be used to train models directly, this paper will become seen as a seminal work in token density. Honestly, on a personal note, I hope there is more development in this space; the medium of visual tokens has much more to offer than asking SORA to generate you a video of Trump doing a backflip onto the White House lawn.</p>
+<p>As always, till next time.</p>
+<p>JCP</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -395,6 +414,11 @@ window.Quarto = {
 // Synchronous: runs at end-of-body parse, before first paint, to prevent flash
 if (document.querySelector('.quarto-title-banner')) {
   document.body.classList.add('jcp-article-page');
+}
+
+const _vp = document.querySelector('meta[name="viewport"]');
+if (_vp && !_vp.content.includes('viewport-fit')) {
+  _vp.content += ', viewport-fit=cover';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -416,9 +440,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const tabs = ['home','about','articles','projects','contact'];
   const hrefs = {
-    home: '/', about: '/aboutPage/about.html',
-    articles: '/articles/blog.html', projects: '/projects/projects.html',
-    contact: '/contact/contact.html'
+    home: '/', about: '/about/',
+    articles: '/articles/', projects: '/projects/',
+    contact: '/contact/'
   };
   const tabsHTML = tabs.map(t => {
     const active = t === 'articles' ? ' t-tab-active' : '';
@@ -454,7 +478,7 @@ document.addEventListener('DOMContentLoaded', function() {
   articleHeader.className = 't-art-header';
   articleHeader.innerHTML = `
     <div class="t-art-prompt"><span class="t-prompt">$</span> cat ./${slug}.md</div>
-    <div class="t-art-title">&#9656; ${title}</div>
+    <div class="t-art-title">${title}</div>
     <div class="t-art-meta">
       <span class="t-art-date">${date}</span>
       ${catChips}
@@ -693,9 +717,9 @@ document.addEventListener('DOMContentLoaded', function() {
   function buildTerminalChrome(tabKey) {
     const tabs = ['home','about','articles','projects','contact'];
     const hrefs = {
-      home: '/', about: '/aboutPage/about.html',
-      articles: '/articles/blog.html', projects: '/projects/projects.html',
-      contact: '/contact/contact.html'
+      home: '/', about: '/about/',
+      articles: '/articles/', projects: '/projects/',
+      contact: '/contact/'
     };
     const tabsHTML = tabs.map(t => {
       const active = t === tabKey ? ' t-tab-active' : '';
@@ -748,19 +772,19 @@ document.addEventListener('DOMContentLoaded', function() {
           ${latestHTML}
           <div class="t-promptblock"><span class="t-prompt">$</span> ls ./</div>
           <div class="t-ls-grid">
-            <a href="/aboutPage/about.html" class="t-ls-cell">
+            <a href="/about/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> about/</div>
               <div class="t-ls-path">/bio /experience /education</div>
             </a>
-            <a href="/articles/blog.html" class="t-ls-cell">
+            <a href="/articles/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> articles/</div>
               <div class="t-ls-path">markets, ML, probability</div>
             </a>
-            <a href="/projects/projects.html" class="t-ls-cell">
+            <a href="/projects/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> projects/</div>
               <div class="t-ls-path">things I built and shipped</div>
             </a>
-            <a href="/contact/contact.html" class="t-ls-cell">
+            <a href="/contact/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> contact/</div>
               <div class="t-ls-path">email &middot; linkedin &middot; github</div>
             </a>
