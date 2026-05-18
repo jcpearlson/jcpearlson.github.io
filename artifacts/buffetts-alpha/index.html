@@ -48,15 +48,15 @@
   }
   .eyebrow {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
   h1 {
     font-family: 'DM Serif Display', serif;
-    font-size: clamp(40px, 6vw, 72px);
+    font-size: clamp(48px, 7vw, 84px);
     line-height: 1.05;
     color: var(--text);
     max-width: 800px;
@@ -66,14 +66,14 @@
     font-style: italic;
   }
   .header-meta {
-    margin-top: 20px;
+    margin-top: 24px;
     display: flex;
-    gap: 32px;
+    gap: 36px;
     flex-wrap: wrap;
   }
   .header-meta span {
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 14px;
     color: var(--muted);
   }
   .header-meta span strong {
@@ -85,47 +85,47 @@
   main {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 0 40px 80px;
+    padding: 0 48px 100px;
   }
 
   section {
-    padding: 56px 0;
+    padding: 72px 0;
     border-bottom: 1px solid var(--border);
   }
   section:last-child { border-bottom: none; }
 
   .section-label {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 24px;
+    margin-bottom: 28px;
   }
 
   h2 {
     font-family: 'DM Serif Display', serif;
-    font-size: clamp(24px, 3.5vw, 38px);
+    font-size: clamp(28px, 4vw, 44px);
     color: var(--text);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     line-height: 1.15;
   }
   h3 {
     font-family: 'DM Serif Display', serif;
-    font-size: 20px;
+    font-size: 24px;
     color: var(--text);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
   p {
     color: #b0b8c4;
-    font-size: 15px;
+    font-size: 17px;
     max-width: 72ch;
   }
 
   /* Big Numbers */
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1px;
     background: var(--border);
     border: 1px solid var(--border);
@@ -133,28 +133,28 @@
   }
   .stat-card {
     background: var(--surface);
-    padding: 28px 24px;
+    padding: 36px 28px;
     transition: background 0.2s;
   }
   .stat-card:hover { background: var(--surface2); }
   .stat-num {
     font-family: 'DM Serif Display', serif;
-    font-size: 42px;
+    font-size: 54px;
     color: var(--gold-light);
     line-height: 1;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
   .stat-label {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.1em;
     color: var(--muted);
     text-transform: uppercase;
   }
   .stat-note {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--muted);
-    margin-top: 6px;
+    margin-top: 8px;
   }
 
   /* Three Pillars */
@@ -167,7 +167,7 @@
   @media (max-width: 700px) { .pillars { grid-template-columns: 1fr; } }
   .pillar {
     border: 1px solid var(--border);
-    padding: 28px 24px;
+    padding: 36px 28px;
     position: relative;
     overflow: hidden;
     transition: border-color 0.2s;
@@ -186,49 +186,49 @@
   .pillar:hover::before { transform: scaleX(1); }
   .pillar-num {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 12px;
     color: var(--gold);
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     letter-spacing: 0.12em;
   }
-  .pillar h3 { font-size: 18px; margin-bottom: 10px; }
-  .pillar p { font-size: 13.5px; color: #8a96a4; }
+  .pillar h3 { font-size: 22px; margin-bottom: 12px; }
+  .pillar p { font-size: 16px; color: #8a96a4; }
   .tag-list {
-    margin-top: 14px;
+    margin-top: 18px;
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px;
   }
   .tag {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 12px;
     background: var(--gold-dim);
     border: 1px solid rgba(201,168,76,0.25);
     color: var(--gold);
-    padding: 3px 8px;
+    padding: 4px 10px;
     letter-spacing: 0.08em;
   }
 
   /* Factor breakdown */
   .factor-row {
     display: grid;
-    grid-template-columns: 200px 1fr 80px;
+    grid-template-columns: 240px 1fr 90px;
     align-items: center;
-    gap: 16px;
-    padding: 18px 0;
+    gap: 20px;
+    padding: 24px 0;
     border-bottom: 1px solid var(--border);
   }
   .factor-row:last-child { border-bottom: none; }
   .factor-name {
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 14px;
     color: var(--text);
   }
-  .factor-desc { font-size: 13.5px; color: #8a96a4; }
+  .factor-desc { font-size: 14px; color: #8a96a4; margin-top: 3px; }
   .factor-bar-wrap {
-    height: 6px;
+    height: 7px;
     background: var(--surface2);
-    margin-top: 6px;
+    margin-top: 8px;
     border-radius: 2px;
   }
   .factor-bar {
@@ -238,34 +238,34 @@
   }
   .factor-impact {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 13px;
     text-align: right;
     color: var(--gold-light);
   }
 
   /* Leverage mechanic */
   .leverage-visual {
-    margin-top: 36px;
+    margin-top: 40px;
     border: 1px solid var(--border);
-    padding: 32px;
+    padding: 40px;
     position: relative;
   }
   .leverage-row {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 16px;
+    margin-bottom: 24px;
   }
   .lev-label {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 13px;
     color: var(--muted);
-    width: 180px;
+    width: 210px;
     flex-shrink: 0;
   }
   .lev-bar-outer {
     flex: 1;
-    height: 24px;
+    height: 30px;
     background: var(--surface2);
     position: relative;
     overflow: hidden;
@@ -274,17 +274,17 @@
     height: 100%;
     display: flex;
     align-items: center;
-    padding-left: 10px;
+    padding-left: 12px;
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.05em;
     white-space: nowrap;
     overflow: hidden;
   }
   .lev-num {
     font-family: var(--mono);
-    font-size: 11px;
-    width: 80px;
+    font-size: 13px;
+    width: 90px;
     text-align: right;
     flex-shrink: 0;
     color: var(--muted);
@@ -301,50 +301,50 @@
   @media (max-width: 700px) { .decomp { grid-template-columns: 1fr; } }
   .decomp-cell {
     background: var(--surface);
-    padding: 24px 20px;
+    padding: 32px 24px;
     text-align: center;
   }
   .decomp-num {
     font-family: 'DM Serif Display', serif;
-    font-size: 34px;
-    margin-bottom: 4px;
+    font-size: 42px;
+    margin-bottom: 6px;
   }
   .decomp-label {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--muted);
   }
   .decomp-note {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--muted);
-    margin-top: 8px;
+    margin-top: 10px;
   }
   .arrow-row {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    margin-top: 20px;
+    gap: 10px;
+    margin-top: 24px;
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 13px;
     color: var(--muted);
   }
   .arrow-step {
     background: var(--surface2);
     border: 1px solid var(--border);
-    padding: 8px 16px;
-    font-size: 11px;
+    padding: 14px 22px;
+    font-size: 13px;
     color: var(--text);
   }
   .arrow-step.highlight { border-color: var(--gold); color: var(--gold); }
-  .arr { color: var(--muted); }
+  .arr { color: var(--muted); font-size: 16px; }
 
   /* Public vs Private */
   .split-bar {
     margin-top: 28px;
-    height: 48px;
+    height: 56px;
     display: flex;
     border: 1px solid var(--border);
     overflow: hidden;
@@ -354,7 +354,7 @@
     align-items: center;
     justify-content: center;
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.08em;
     transition: filter 0.2s;
     cursor: default;
@@ -365,45 +365,45 @@
   .commentary-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 36px;
+    gap: 20px;
+    margin-top: 40px;
   }
   @media (max-width: 700px) { .commentary-grid { grid-template-columns: 1fr; } }
   .comment-card {
     border: 1px solid var(--border);
-    padding: 24px;
+    padding: 32px;
     position: relative;
     transition: border-color 0.2s;
   }
   .comment-card:hover { border-color: var(--border); }
   .comment-type {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     display: inline-block;
-    padding: 2px 8px;
+    padding: 3px 10px;
   }
   .type-skeptic { background: rgba(224,92,92,0.12); color: var(--red); }
   .type-supportive { background: rgba(78,201,148,0.12); color: var(--green); }
   .type-nuanced { background: rgba(74,158,255,0.12); color: var(--accent); }
   .type-irony { background: var(--gold-dim); color: var(--gold); }
-  .comment-card h3 { font-size: 15px; margin-bottom: 10px; }
-  .comment-card p { font-size: 13px; color: #8a96a4; }
+  .comment-card h3 { font-size: 19px; margin-bottom: 12px; }
+  .comment-card p { font-size: 15px; color: #8a96a4; max-width: none; }
   .comment-source {
-    margin-top: 14px;
+    margin-top: 18px;
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 12px;
     color: var(--muted);
     letter-spacing: 0.06em;
   }
 
   /* Conclusion */
   .conclusion-box {
-    margin-top: 36px;
+    margin-top: 40px;
     border: 1px solid var(--gold);
-    padding: 36px 32px;
+    padding: 48px 40px;
     background: var(--gold-dim);
     position: relative;
     overflow: hidden;
@@ -421,17 +421,36 @@
   }
   .conclusion-box p {
     font-family: 'DM Serif Display', serif;
-    font-size: clamp(16px, 2vw, 20px);
+    font-size: clamp(19px, 2.2vw, 24px);
     color: var(--text);
-    line-height: 1.55;
+    line-height: 1.6;
     max-width: 80ch;
   }
   .conclusion-box .attribution {
-    margin-top: 16px;
+    margin-top: 20px;
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 13px;
     color: var(--gold);
     letter-spacing: 0.1em;
+  }
+
+  /* Paper link */
+  .paper-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 28px;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-decoration: none;
+    border: 1px solid rgba(201,168,76,0.35);
+    padding: 8px 16px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .paper-link:hover {
+    background: var(--gold-dim);
+    border-color: var(--gold);
   }
 
   /* Animations */
@@ -452,19 +471,122 @@
     from { width: 0; }
   }
   .lev-bar, .factor-bar { animation: barFill 1.2s ease forwards; }
+
+  /* ─────────────────────────────────────────────────
+     MOBILE (≤ 600px)
+     ───────────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    header {
+      padding: 28px 20px 24px;
+    }
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: clamp(36px, 10vw, 48px);
+    }
+    .header-meta {
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .header-meta span { font-size: 12px; }
+
+    main { padding: 0 20px 60px; }
+    section { padding: 40px 0; }
+    .section-label { font-size: 11px; margin-bottom: 18px; }
+    h2 { font-size: clamp(22px, 6vw, 30px); }
+    h3 { font-size: 20px; }
+    p { font-size: 15px; }
+
+    /* Stats: 2×3 on mobile */
+    .stats-grid { grid-template-columns: repeat(2, 1fr); margin-top: 24px; }
+    .stat-card { padding: 20px 14px; }
+    .stat-num { font-size: 36px; margin-bottom: 8px; }
+    .stat-label { font-size: 11px; }
+    .stat-note { font-size: 12px; }
+
+    /* Pillars: already 1-col at 700px — tighten padding */
+    .pillar { padding: 22px 18px; }
+    .pillar h3 { font-size: 19px; }
+    .pillar p { font-size: 15px; }
+    .pillars { margin-top: 24px; gap: 12px; }
+
+    /* Factor rows: stack into 1 column */
+    .factor-row {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 20px 0;
+    }
+    .factor-impact { text-align: left; font-size: 12px; }
+    .factor-name { font-size: 13px; }
+    .factor-desc { font-size: 13px; }
+
+    /* Alpha decomp arrow steps: stack vertically */
+    .arrow-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+    }
+    .arr { display: block; text-align: center; }
+    .arrow-step { padding: 16px 18px; text-align: center; }
+
+    /* Leverage */
+    .leverage-visual { padding: 22px 16px; margin-top: 28px; }
+    .leverage-row { flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+    .lev-label { width: 100% !important; font-size: 12px; }
+    .lev-num { width: auto !important; text-align: left !important; font-size: 12px; }
+
+    /* Split bar: stack vertically */
+    .split-bar { height: auto; flex-direction: column; }
+    .split-seg {
+      width: 100% !important;
+      padding: 14px 16px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    /* Inline 2-col grids → 1 col */
+    .two-col-inline {
+      grid-template-columns: 1fr !important;
+      gap: 1px !important;
+    }
+    .two-col-inline > div { padding: 22px 18px !important; }
+
+    /* Commentary */
+    .commentary-grid { margin-top: 28px; gap: 12px; }
+    .comment-card { padding: 22px 18px; }
+    .comment-card h3 { font-size: 17px; }
+    .comment-card p { font-size: 14px; }
+    .comment-source { font-size: 11px; }
+
+    /* Conclusion */
+    .conclusion-box { padding: 28px 20px; margin-top: 28px; }
+    .conclusion-box::before { font-size: 100px; top: -10px; }
+    .conclusion-box p { font-size: clamp(17px, 4.5vw, 20px) !important; }
+    .conclusion-box .attribution { font-size: 11px; }
+
+    /* Decomp (already 1-col at 700px) */
+    .decomp-num { font-size: 34px; }
+    .decomp-cell { padding: 24px 18px; }
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="eyebrow">AQR Capital Management · Frazzini, Kabiller &amp; Pedersen · FAJ 2018</div>
+  <div class="eyebrow">Frazzini, Kabiller &amp; Pedersen · AQR Capital Management · FAJ 2018</div>
   <h1>Buffett's <em>Alpha</em></h1>
   <div class="header-meta">
-    <span><strong>Period:</strong> 1976 – 2011</span>
-    <span><strong>Published:</strong> Financial Analysts Journal, Vol 74 No 4</span>
-    <span><strong>Working Paper:</strong> NBER #19681 (2013)</span>
-    <span><strong>Subject:</strong> Berkshire Hathaway performance decomposition</span>
+    <span>1976 – 2011</span>
+    <span><strong>Published:</strong><br>Financial Analysts Journal, Vol 74 No 4, 2018</span>
+    <span><strong>Subject:</strong><br>Berkshire Hathaway performance decomposition</span>
   </div>
+  <a class="paper-link" href="https://www.nber.org/papers/w19681" target="_blank" rel="noopener">
+    Read the original paper &rarr;
+  </a>
 </header>
 
 <main>
@@ -489,7 +611,7 @@
       <div class="stat-card">
         <div class="stat-num">19%</div>
         <div class="stat-label">Avg Annual Excess Return</div>
-        <div class="stat-note">vs. 6.1% for the overall market</div>
+        <div class="stat-note">above T-bills · vs. market's 6.1% (also above T-bills)</div>
       </div>
       <div class="stat-card">
         <div class="stat-num">24.9%</div>
@@ -499,7 +621,7 @@
       <div class="stat-card">
         <div class="stat-num">0.7</div>
         <div class="stat-label">Market Beta</div>
-        <div class="stat-note">Below 1, consistent with low-beta tilt</div>
+        <div class="stat-note">vs. CRSP value-weighted US market index · below 1, consistent with low-beta tilt</div>
       </div>
       <div class="stat-card">
         <div class="stat-num">1,500×</div>
@@ -566,21 +688,21 @@
     </p>
 
     <div class="arrow-row">
-      <div class="arrow-step">FF Factors Only<br><span style="font-size:14px;font-family:'DM Serif Display',serif;color:var(--gold-light)">~12% alpha</span><br><span style="font-size:9px;color:var(--muted)">statistically significant</span></div>
+      <div class="arrow-step">FF Factors Only<br><span style="font-size:20px;font-family:'DM Serif Display',serif;color:var(--gold-light)">~12% alpha</span><br><span style="font-size:12px;color:var(--muted)">statistically significant</span></div>
       <span class="arr">→</span>
-      <div class="arrow-step">+ BAB Factor<br><span style="font-size:14px;font-family:'DM Serif Display',serif;color:var(--gold-light)">~8% alpha</span><br><span style="font-size:9px;color:var(--muted)">weakened</span></div>
+      <div class="arrow-step">+ BAB Factor<br><span style="font-size:20px;font-family:'DM Serif Display',serif;color:var(--gold-light)">~8% alpha</span><br><span style="font-size:12px;color:var(--muted)">weakened</span></div>
       <span class="arr">→</span>
-      <div class="arrow-step highlight">+ BAB + QMJ<br><span style="font-size:14px;font-family:'DM Serif Display',serif;color:var(--gold-light)">~3% alpha</span><br><span style="font-size:9px;color:var(--gold)">not significant</span></div>
+      <div class="arrow-step highlight">+ BAB + QMJ<br><span style="font-size:20px;font-family:'DM Serif Display',serif;color:var(--gold-light)">~3% alpha</span><br><span style="font-size:12px;color:var(--gold)">not significant</span></div>
     </div>
 
     <div style="margin-top:32px;">
       <div class="factor-row">
         <div>
-          <div class="factor-name">MKT / SMB / HML / UMO</div>
+          <div class="factor-name">MKT / SMB / HML / UMD</div>
           <div class="factor-desc">Standard Fama-French + Momentum factors</div>
         </div>
         <div>
-          <div style="font-size:13px;color:#8a96a4;">Cannot explain Buffett. Alpha remains large and significant at ~12% annualized.</div>
+          <div style="font-size:16px;color:#8a96a4;">Cannot explain Buffett. Alpha remains large and significant at ~12% annualized.</div>
           <div class="factor-bar-wrap"><div class="factor-bar" style="width:40%;background:#4a9eff;"></div></div>
         </div>
         <div class="factor-impact" style="color:var(--accent)">Low Expl.</div>
@@ -591,7 +713,7 @@
           <div class="factor-desc">Long low-beta stocks, short high-beta stocks</div>
         </div>
         <div>
-          <div style="font-size:13px;color:#8a96a4;">Captures Buffett's preference for lower-volatility equities. Reduces alpha to ~8%.</div>
+          <div style="font-size:16px;color:#8a96a4;">Captures Buffett's preference for lower-volatility equities. Reduces alpha to ~8%.</div>
           <div class="factor-bar-wrap"><div class="factor-bar" style="width:65%;"></div></div>
         </div>
         <div class="factor-impact">Moderate</div>
@@ -602,7 +724,7 @@
           <div class="factor-desc">Long profitable/stable, short low-quality</div>
         </div>
         <div>
-          <div style="font-size:13px;color:#8a96a4;">Captures Berkshire's quality tilt. Together with BAB, drives alpha below statistical significance (~3%).</div>
+          <div style="font-size:16px;color:#8a96a4;">Captures Berkshire's quality tilt. Together with BAB, drives alpha below statistical significance (~3%).</div>
           <div class="factor-bar-wrap"><div class="factor-bar" style="width:90%;"></div></div>
         </div>
         <div class="factor-impact" style="color:var(--green)">High</div>
@@ -610,7 +732,7 @@
     </div>
 
     <div style="margin-top:24px;padding:16px 20px;border:1px solid var(--border);background:var(--surface);">
-      <p style="font-size:13px;color:#8a96a4;max-width:none;">
+      <p style="font-size:16px;color:#8a96a4;max-width:none;">
         <strong style="color:var(--text);">Important caveat:</strong> BAB and QMJ are AQR's own factors, constructed and published by the same authors who wrote this paper. Critics note this creates a potential circularity: the factors were arguably designed to describe Buffett-like behavior, then used to "explain" him.
       </p>
     </div>
@@ -637,7 +759,7 @@
         </div>
         <div class="lev-num" style="color:var(--gold)">2.2%</div>
       </div>
-      <div style="margin-top:8px;padding:14px 16px;background:var(--surface2);font-family:var(--mono);font-size:11px;color:var(--muted);">
+      <div style="margin-top:12px;padding:18px 20px;background:var(--surface2);font-family:var(--mono);font-size:13px;color:var(--muted);">
         Float frequently costs zero or <strong style="color:var(--green)">negative</strong> (underwriting profits). 36% of Berkshire's liabilities were float at below-T-bill rates. Buffett calls it "free money" and sometimes gets <em>paid</em> to hold it.
       </div>
     </div>
@@ -655,19 +777,19 @@
       <div class="split-seg" style="width:62%;background:rgba(201,168,76,0.25);color:var(--gold-light);">
         Public Stocks — Stronger Returns
       </div>
-      <div class="split-seg" style="width:38%;background:rgba(74,158,255,0.15);color:var(--accent);font-size:10px;">
+      <div class="split-seg" style="width:38%;background:rgba(74,158,255,0.15);color:var(--accent);">
         Private Cos — Also Positive
       </div>
     </div>
 
-    <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-      <div style="padding:18px;border:1px solid var(--border);">
-        <div style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:0.1em;margin-bottom:8px;">PUBLIC HOLDINGS</div>
-        <p style="font-size:13px;color:#8a96a4;">13F filings show Buffett's disclosed stock portfolio, refreshed quarterly. These positions drive the bulk of explainable outperformance when modeled as a systematic factor portfolio.</p>
+    <div class="two-col-inline" style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div style="padding:24px;border:1px solid var(--border);">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:0.1em;margin-bottom:10px;">PUBLIC HOLDINGS</div>
+        <p style="font-size:16px;color:#8a96a4;">13F filings show Buffett's disclosed stock portfolio, refreshed quarterly. These positions drive the bulk of explainable outperformance when modeled as a systematic factor portfolio.</p>
       </div>
-      <div style="padding:18px;border:1px solid var(--border);">
-        <div style="font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:0.1em;margin-bottom:8px;">PRIVATE SUBSIDIARIES</div>
-        <p style="font-size:13px;color:#8a96a4;">Insurance, rail, utilities. These serve mainly as the <em>financing mechanism</em> — generating cheap float that funds the public equity strategy — rather than as the primary alpha source.</p>
+      <div style="padding:24px;border:1px solid var(--border);">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:0.1em;margin-bottom:10px;">PRIVATE SUBSIDIARIES</div>
+        <p style="font-size:16px;color:#8a96a4;">Insurance, rail, utilities. These serve mainly as the <em>financing mechanism</em> — generating cheap float that funds the public equity strategy — rather than as the primary alpha source.</p>
       </div>
     </div>
   </section>
@@ -680,18 +802,18 @@
       AQR constructs a rules-based portfolio mimicking Buffett's factor exposures — low beta, cheap, quality — and levers it to the same active risk as Berkshire. The result performs comparably to Berkshire's actual track record.
     </p>
 
-    <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);">
-      <div style="background:var(--surface);padding:24px 20px;">
-        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">Actual Berkshire</div>
-        <div style="font-family:'DM Serif Display',serif;font-size:36px;color:var(--gold-light);margin-bottom:4px;">0.76</div>
-        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);">Sharpe Ratio · 1976–2011</div>
-        <div style="margin-top:12px;font-size:13px;color:#8a96a4;">Real compounded wealth, real drawdowns, real conviction required.</div>
+    <div class="two-col-inline" style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);">
+      <div style="background:var(--surface);padding:36px 28px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;">Actual Berkshire</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:48px;color:var(--gold-light);margin-bottom:6px;">0.76</div>
+        <div style="font-family:var(--mono);font-size:13px;color:var(--muted);">Sharpe Ratio · 1976–2011</div>
+        <div style="margin-top:14px;font-size:16px;color:#8a96a4;">Real compounded wealth, real drawdowns, real conviction required.</div>
       </div>
-      <div style="background:var(--surface);padding:24px 20px;">
-        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">Synthetic Buffett Portfolio</div>
-        <div style="font-family:'DM Serif Display',serif;font-size:36px;color:var(--accent);margin-bottom:4px;">~0.7</div>
-        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);">Factor-based replication · similar leverage</div>
-        <div style="margin-top:12px;font-size:13px;color:#8a96a4;">Performs comparably, but constructed in hindsight with factors calibrated to Berkshire's behavior.</div>
+      <div style="background:var(--surface);padding:36px 28px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;">Synthetic Buffett Portfolio</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:48px;color:var(--accent);margin-bottom:6px;">~0.7</div>
+        <div style="font-family:var(--mono);font-size:13px;color:var(--muted);">Factor-based replication · similar leverage</div>
+        <div style="margin-top:14px;font-size:16px;color:#8a96a4;">Performs comparably, but constructed in hindsight with factors calibrated to Berkshire's behavior.</div>
       </div>
     </div>
   </section>
@@ -775,18 +897,18 @@
       <div class="attribution">Frazzini, Kabiller &amp; Pedersen · FAJ 2018 · NBER Working Paper #19681</div>
     </div>
 
-    <div style="margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--border);">
-      <div style="background:var(--surface);padding:20px;">
-        <div style="font-family:var(--mono);font-size:10px;color:var(--green);letter-spacing:0.1em;margin-bottom:8px;">WHAT STANDS UP</div>
-        <p style="font-size:13px;color:#8a96a4;">The factor loading analysis. The leverage measurement. The insurance float cost data. The public/private decomposition. These are empirically careful and hard to dispute.</p>
+    <div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border);">
+      <div style="background:var(--surface);padding:28px 24px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--green);letter-spacing:0.1em;margin-bottom:12px;">WHAT STANDS UP</div>
+        <p style="font-size:16px;color:#8a96a4;">The factor loading analysis. The leverage measurement. The insurance float cost data. The public/private decomposition. These are empirically careful and hard to dispute.</p>
       </div>
-      <div style="background:var(--surface);padding:20px;">
-        <div style="font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:0.1em;margin-bottom:8px;">WHAT'S CONTESTED</div>
-        <p style="font-size:13px;color:#8a96a4;">The use of AQR's own proprietary factors as the benchmark. The implication that it's replicable. The framing that alpha disappears rather than that alpha is renamed as factor premium.</p>
+      <div style="background:var(--surface);padding:28px 24px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--red);letter-spacing:0.1em;margin-bottom:12px;">WHAT'S CONTESTED</div>
+        <p style="font-size:16px;color:#8a96a4;">The use of AQR's own proprietary factors as the benchmark. The implication that it's replicable. The framing that alpha disappears rather than that alpha is renamed as factor premium.</p>
       </div>
-      <div style="background:var(--surface);padding:20px;">
-        <div style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:0.1em;margin-bottom:8px;">THE DURABLE TAKEAWAY</div>
-        <p style="font-size:13px;color:#8a96a4;">Buffett's success validates that value and quality premia are real, investable, and compound meaningfully over decades. The controversy is in the framing, not the core finding.</p>
+      <div style="background:var(--surface);padding:28px 24px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:0.1em;margin-bottom:12px;">THE DURABLE TAKEAWAY</div>
+        <p style="font-size:16px;color:#8a96a4;">Buffett's success validates that value and quality premia are real, investable, and compound meaningfully over decades. The controversy is in the framing, not the core finding.</p>
       </div>
     </div>
   </section>

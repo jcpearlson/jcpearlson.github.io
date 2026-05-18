@@ -285,6 +285,11 @@ if (document.querySelector('.quarto-title-banner')) {
   document.body.classList.add('jcp-article-page');
 }
 
+const _vp = document.querySelector('meta[name="viewport"]');
+if (_vp && !_vp.content.includes('viewport-fit')) {
+  _vp.content += ', viewport-fit=cover';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   if (!document.querySelector('.quarto-title-banner')) return;
 

@@ -397,6 +397,11 @@ if (document.querySelector('.quarto-title-banner')) {
   document.body.classList.add('jcp-article-page');
 }
 
+const _vp = document.querySelector('meta[name="viewport"]');
+if (_vp && !_vp.content.includes('viewport-fit')) {
+  _vp.content += ', viewport-fit=cover';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   if (!document.querySelector('.quarto-title-banner')) return;
 
@@ -454,7 +459,7 @@ document.addEventListener('DOMContentLoaded', function() {
   articleHeader.className = 't-art-header';
   articleHeader.innerHTML = `
     <div class="t-art-prompt"><span class="t-prompt">$</span> cat ./${slug}.md</div>
-    <div class="t-art-title">&#9656; ${title}</div>
+    <div class="t-art-title">${title}</div>
     <div class="t-art-meta">
       <span class="t-art-date">${date}</span>
       ${catChips}
