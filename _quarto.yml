@@ -14,6 +14,7 @@ project:
   resources:
     - "projects/**"
     - "media/*"
+    - "artifacts/**"
 
 website:
   title: "Josh Pearlson"

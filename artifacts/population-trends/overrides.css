@@ -1,0 +1,284 @@
+/* === Population Trends — Readability & Responsive Overrides === */
+
+/* Dark background fills full viewport even with constrained content width */
+body, #population-chart-root {
+  background: rgb(8, 8, 8);
+}
+
+/* Constrain content to a readable width and center it */
+#population-chart-root > div {
+  max-width: 960px !important;
+  margin: 0 auto !important;
+  padding: 48px 40px !important;
+}
+
+/* Boost base font size across the whole app */
+#population-chart-root {
+  font-size: 16px;
+}
+
+/* ── Scale up all inline-styled tiny text (desktop) ── */
+[style*="font-size: 9px"]    { font-size: 14px !important; }
+[style*="font-size: 10px"]   { font-size: 14px !important; }
+[style*="font-size: 10.5px"] { font-size: 15px !important; }
+[style*="font-size: 11px"]   { font-size: 16px !important; }
+
+/* Accordion button */
+[style*="font-size: 14px"][style*="font-weight: 600"] { font-size: 17px !important; }
+
+/* Title */
+[style*="font-size: 32px"][style*="Bebas Neue"] { font-size: 52px !important; }
+
+/* Stat card big numbers */
+[style*="font-size: 20px"][style*="Bebas Neue"] { font-size: 52px !important; }
+
+/* ── Improve near-invisible muted text contrast ── */
+[style*="color: rgb(51, 51, 51)"]  { color: rgb(150, 150, 150) !important; }
+[style*="color: rgb(68, 68, 68)"]  { color: rgb(150, 150, 150) !important; }
+
+/* ── View selector buttons row: stack each tab on its own line ── */
+[style*="gap: 6px"][style*="margin-bottom: 20px"] {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
+  margin-bottom: 28px !important;
+}
+
+/* Hide inline italic hint ("← Net Domestic shows the story most clearly") */
+[style*="font-size: 9px"][style*="font-style: italic"] {
+  display: none !important;
+}
+
+/* ─────────────────────────────────────────────────
+   TAB 1: Domestic Flight
+   ───────────────────────────────────────────────── */
+
+/* Info box (green theme) */
+[style*="background: rgb(10, 18, 14)"] {
+  margin-bottom: 32px !important;
+  padding: 20px 22px !important;
+}
+
+/* State sections — label wrapper has align-items:baseline */
+:has(> [style*="align-items: baseline"][style*="gap: 8px"][style*="margin-bottom: 6px"]) {
+  margin-bottom: 18px !important;
+}
+
+/* Stack label + description vertically */
+[style*="align-items: baseline"][style*="gap: 8px"][style*="margin-bottom: 6px"] {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 4px !important;
+}
+
+/* Stat grid (minmax 160px) */
+[style*="minmax(160px"] {
+  gap: 18px !important;
+  margin-top: 24px !important;
+  margin-bottom: 28px !important;
+}
+
+/* Legend grid inside info box: 2 columns max */
+[style*="minmax(260px"] {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 14px !important;
+}
+
+/* ─────────────────────────────────────────────────
+   TAB 2: Trend Net of Immigration
+   ───────────────────────────────────────────────── */
+
+/* Info box (purple theme) */
+[style*="background: rgb(18, 10, 20)"] {
+  margin-bottom: 32px !important;
+  padding: 20px 22px !important;
+}
+
+/* State sections — label is a direct child with letter-spacing */
+:has(> [style*="letter-spacing: 1px"][style*="margin-bottom: 6px"]) {
+  margin-bottom: 18px !important;
+}
+
+/* Stat grid (minmax 170px) */
+[style*="minmax(170px"] {
+  gap: 18px !important;
+  margin-top: 24px !important;
+  margin-bottom: 28px !important;
+}
+
+/* ─────────────────────────────────────────────────
+   TAB 3: Cross-State
+   ───────────────────────────────────────────────── */
+
+/* METRIC / YEAR / FILTER labels: force newline + color */
+[style*="min-width: 50px"] {
+  flex-basis: 100% !important;
+  min-width: unset !important;
+  margin-right: 0 !important;
+  margin-bottom: 6px !important;
+  color: rgb(180, 150, 80) !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.5px !important;
+}
+
+/* METRIC / YEAR filter rows */
+[style*="flex-wrap: wrap"][style*="gap: 6px"][style*="align-items: center"][style*="margin-bottom: 10px"] {
+  margin-bottom: 18px !important;
+}
+
+/* FILTER row (last filter before note box) */
+[style*="flex-wrap: wrap"][style*="gap: 6px"][style*="align-items: center"][style*="margin-bottom: 18px"] {
+  margin-bottom: 26px !important;
+}
+
+/* Note / definition box */
+[style*="background: rgb(13, 13, 13)"][style*="border-radius: 6px"] {
+  margin-bottom: 24px !important;
+  padding: 14px 18px !important;
+}
+
+/* Second chart/table: more space above */
+[style*="margin-top: 14px"][style*="border: 1px solid rgb(30, 30, 30)"][style*="border-radius: 8px"][style*="overflow: hidden"] {
+  margin-top: 24px !important;
+}
+
+/* ─────────────────────────────────────────────────
+   SHARED: Stat cards + Buttons + Charts
+   ───────────────────────────────────────────────── */
+
+/* Stat cards */
+[style*="background: rgb(15, 15, 15)"][style*="border-radius: 6px"] {
+  padding: 20px 18px !important;
+}
+
+/* State & view selector buttons */
+[style*="font-size: 11px"][style*="cursor: pointer"] {
+  padding: 8px 18px !important;
+}
+
+/* Chart containers (exclude overflow:hidden tables) */
+[style*="border: 1px solid rgb(30, 30, 30)"][style*="border-radius: 8px"]:not([style*="overflow: hidden"]) {
+  padding: 24px 16px 20px !important;
+}
+
+/* ─────────────────────────────────────────────────
+   MOBILE (≤ 540px)
+   ───────────────────────────────────────────────── */
+@media (max-width: 540px) {
+
+  /* Tighter container */
+  #population-chart-root > div {
+    padding: 24px 16px !important;
+  }
+
+  /* ── Global font overrides: smaller on mobile ── */
+  [style*="font-size: 9px"]    { font-size: 12px !important; }
+  [style*="font-size: 10px"]   { font-size: 12px !important; }
+  [style*="font-size: 10.5px"] { font-size: 13px !important; }
+  [style*="font-size: 11px"]   { font-size: 13px !important; }
+  [style*="font-size: 14px"][style*="font-weight: 600"] { font-size: 15px !important; }
+
+  /* Title */
+  [style*="font-size: 32px"][style*="Bebas Neue"] { font-size: 36px !important; }
+
+  /* Stat card numbers */
+  [style*="font-size: 20px"][style*="Bebas Neue"] { font-size: 34px !important; }
+
+  /* ── View selector: compact gap on mobile (column direction inherited from global) ── */
+  [style*="gap: 6px"][style*="margin-bottom: 20px"] {
+    gap: 6px !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Buttons: compact on mobile */
+  [style*="font-size: 11px"][style*="cursor: pointer"] {
+    padding: 5px 10px !important;
+    font-size: 12px !important;
+  }
+
+  /* ── Info boxes: revert font upscaling — they're secondary context ── */
+  /* Padding/margin: 0-1-0 specificity is fine here */
+  [style*="background: rgb(10, 18, 14)"],
+  [style*="background: rgb(18, 10, 20)"] {
+    padding: 14px 16px !important;
+    margin-bottom: 20px !important;
+  }
+  /* Font/line-height: compound selector (0-2-0) beats global [style*="font-size: 11px"] (0-1-0) */
+  [style*="background: rgb(10, 18, 14)"][style*="font-size: 11px"],
+  [style*="background: rgb(18, 10, 20)"][style*="font-size: 11px"] {
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+  }
+  /* Children with explicit font sizes: descendant selectors (0-2-0) beat global (0-1-0) */
+  [style*="background: rgb(10, 18, 14)"] [style*="font-size: 11px"],
+  [style*="background: rgb(18, 10, 20)"] [style*="font-size: 11px"] {
+    font-size: 11px !important;
+  }
+  [style*="background: rgb(10, 18, 14)"] [style*="font-size: 10.5px"],
+  [style*="background: rgb(18, 10, 20)"] [style*="font-size: 10.5px"] {
+    font-size: 10.5px !important;
+  }
+  [style*="background: rgb(10, 18, 14)"] [style*="font-size: 10px"],
+  [style*="background: rgb(18, 10, 20)"] [style*="font-size: 10px"] {
+    font-size: 10px !important;
+  }
+
+  /* ── Tab 3 note box: revert font upscaling ── */
+  [style*="background: rgb(13, 13, 13)"][style*="border-radius: 6px"] {
+    padding: 10px 14px !important;
+    margin-bottom: 16px !important;
+    font-size: 10px !important;
+    line-height: 1.5 !important;
+  }
+  /* Revert child font upscaling inside note box */
+  [style*="background: rgb(13, 13, 13)"] [style*="font-size: 10px"],
+  [style*="background: rgb(13, 13, 13)"] [style*="font-size: 11px"] {
+    font-size: 10px !important;
+  }
+
+  /* ── Stat grids → 2 columns ── */
+  [style*="minmax(160px"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    margin-top: 14px !important;
+    margin-bottom: 16px !important;
+  }
+  [style*="minmax(170px"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    margin-top: 14px !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Stat cards: tighter padding */
+  [style*="background: rgb(15, 15, 15)"][style*="border-radius: 6px"] {
+    padding: 14px 12px !important;
+  }
+
+  /* Legend grid → 1 column */
+  [style*="minmax(260px"] { grid-template-columns: 1fr !important; }
+
+  /* State sections: tighter on mobile */
+  :has(> [style*="align-items: baseline"][style*="gap: 8px"][style*="margin-bottom: 6px"]),
+  :has(> [style*="letter-spacing: 1px"][style*="margin-bottom: 6px"]) {
+    margin-bottom: 12px !important;
+  }
+
+  /* Chart containers: less horizontal padding */
+  [style*="border: 1px solid rgb(30, 30, 30)"][style*="border-radius: 8px"]:not([style*="overflow: hidden"]) {
+    padding: 16px 4px 14px !important;
+  }
+
+  /* Tab 3 filter rows: compact spacing */
+  [style*="flex-wrap: wrap"][style*="gap: 6px"][style*="align-items: center"][style*="margin-bottom: 10px"] {
+    margin-bottom: 12px !important;
+  }
+  [style*="flex-wrap: wrap"][style*="gap: 6px"][style*="align-items: center"][style*="margin-bottom: 18px"] {
+    margin-bottom: 14px !important;
+  }
+
+  /* Second chart/table gap */
+  [style*="margin-top: 14px"][style*="border: 1px solid rgb(30, 30, 30)"][style*="border-radius: 8px"][style*="overflow: hidden"] {
+    margin-top: 16px !important;
+  }
+}
