@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Josh Pearlson">
-<meta name="dcterms.date" content="2026-03-21">
+<meta name="dcterms.date" content="2024-08-16">
 
-<title>The Impossible Bracket – Josh Pearlson</title>
+<title>Modeling a Coin Flip Game – Josh Pearlson</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,10 +22,44 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -66,6 +100,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -99,6 +136,7 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../../../css/header.css">
 <link rel="stylesheet" href="../../../css/posts.css">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body class="nav-fixed fullcontent">
@@ -122,19 +160,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../articles/blog.html"> 
+    <a class="nav-link" href="../../../articles/"> 
 <span class="menu-text">Articles</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../projects/projects.html"> 
+    <a class="nav-link" href="../../../projects/"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../aboutPage/about.html"> 
+    <a class="nav-link" href="../../../about/"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../contact/contact.html"> 
+    <a class="nav-link" href="../../../contact/"> 
 <span class="menu-text">Contact</span></a>
   </li>  
 </ul>
@@ -148,8 +186,9 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">The Impossible Bracket</h1>
+      <h1 class="title">Modeling a Coin Flip Game</h1>
                                 <div class="quarto-categories">
+                <div class="quarto-category">Python</div>
                 <div class="quarto-category">Probability</div>
               </div>
                   </div>
@@ -168,7 +207,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">March 21, 2026</p>
+        <p class="date">August 16, 2024</p>
       </div>
     </div>
     
@@ -187,194 +226,422 @@ window.Quarto = {
 
 
 
-<p>The odds of a perfect March Madness bracket are 1 in 9.2 quintillion. Warren Buffett bet a billion dollars on it, and he was never worried about paying out.</p>
-<hr>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../../../media/impossible-bracket-header.png" class="img-fluid figure-img"></p>
-<figcaption>The Impossible Bracket</figcaption>
-</figure>
-</div>
-<p>Every March, millions of people fill out NCAA Basketball brackets convinced that this is their year. In 2014, Warren Buffett <a href="https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket">offered a billion dollars</a> to anyone who could pick every one of the 63 games correctly. Kalshi has revived this offer by running the <a href="https://kalshi.com/billion-dollar-bracket">same bet this year</a>, backed by some of the sharpest minds in trading at <a href="https://sig.com/">SIG</a>. Here is the quick math explaining why everyone offering this “prize” knows they are never going to pay it out.</p>
-<section id="the-structure-of-the-bracket" class="level2">
-<h2 class="anchored" data-anchor-id="the-structure-of-the-bracket">The Structure of the Bracket</h2>
-<p>The NCAA Tournament’s main bracket involves 64 teams competing across six rounds. Each game has exactly two possible outcomes. That means the bracket is a sequence of binary decisions, a string of ones and zeros, one bit per game.</p>
-<p>How many games are there? In a single-elimination tournament with 64 teams, every game eliminates exactly one team. To go from 64 to 1 champion, you need to eliminate 63 teams. Therefore: 63 games, 63 binary decisions.</p>
-<p><span class="math display">\[\text{Total possible brackets} = 2^{63}\]</span></p>
-<p>That resolves to:</p>
-<p><span class="math display">\[9{,}223{,}372{,}036{,}854{,}775{,}808\]</span></p>
-<p>Nine quintillion, two hundred twenty-three quadrillion, roughly <span class="math inline">\(9.2 \times 10^{18}\)</span>.</p>
-<p>For reference, that number is ~22.5 Million times larger than the number of stars in the Milky Way. Let that land for a second.</p>
-</section>
-<section id="the-billion-dollar-bets" class="level2">
-<h2 class="anchored" data-anchor-id="the-billion-dollar-bets">The Billion Dollar Bets</h2>
-<p>In 2014, Warren Buffett and Quicken Loans offered <a href="https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket">$1 billion</a> to anyone who could submit a perfect bracket. The prize was backed by Berkshire Hathaway. Buffett, who has made a career out of understanding risk better than almost anyone alive, was not worried about paying out. By the end of the contest the ~8 million entrants did not come close to perfection.</p>
-<p>This March, Kalshi launched a similar challenge: a <strong>$1 billion prize</strong> for a perfect bracket, backed in part by Susquehanna International Group (<a href="https://sig.com/">SIG</a>), one of the most sophisticated quantitative trading firms in the world. SIG is not known for charitably giving away their prop trading capital base within the context of markets. They are known for pricing risk extremely precisely and taking the other side of bets when the odds are overwhelmingly in their favor.</p>
-<p>When a firm full of people who do math for a living are happy to insure your perfect bracket for a shot at a billion dollars, you should pay attention to what they’re implying about the probability.</p>
-<p>They are, in the most literal sense, selling insurance against an event they know will almost certainly never happen. The expected payout is so close to zero that the marketing value of the promotion likely exceeds the actuarial risk. That’s not a criticism, that’s just elegant business. But it tells you something important about the numbers underneath.</p>
-</section>
-<section id="what-are-the-chances-of-a-perfect-bracket" class="level2">
-<h2 class="anchored" data-anchor-id="what-are-the-chances-of-a-perfect-bracket">What Are the Chances of a Perfect Bracket?</h2>
-<p>The 1-in-9.2-quintillion figure assumes pure randomness, one coin flip per game. It is also only the probability for just one bracket being perfect. In reality, we are concerned with the probability that <strong>many brackets are all not perfect brackets</strong>! In the case of the Buffett/Quicken Loans contest there were millions of brackets. At its peak roughly 8 million people entered, all of them with at least some knowledge of basketball (and thus potentially better than 50% odds of guessing a given game). So let’s ask the right question:</p>
+<p>A casino offers a game: Flip a coin as long as you want. Your prize is the ratio of heads to total flips. What’s your strategy to maximize your winnings?</p>
+<section id="coin-flip-game" class="level2">
+<h2 class="anchored" data-anchor-id="coin-flip-game">Coin Flip Game</h2>
+<p>Imagine you’re in a casino, instead of slot machines or table games you are offered a coin game. He explains the rules:</p>
 <blockquote class="blockquote">
-<p>With 8 million entrants picking at different levels of skill (probability of guessing games correctly), what’s the probability that at least one of them ended up with a perfect bracket?</p>
+<p>I will pay you based on the outcome of a coin flip game. You can flip the coin as <strong>many times as you want</strong>, and you can <strong>stop whenever you like</strong>. I will pay you based on the ratio of heads to total flips. I will <strong>charge you 75 cents to play</strong> and <strong>pay you your heads to total flips ratio in cents</strong>. Would you like to play?</p>
 </blockquote>
-<p>Each individual bracket has a:</p>
-<p><span class="math display">\[P(\text{Perfect Bracket | Random choosing}) = \frac{1}{2^{63}} =  0.5^{63} = \frac{1}{9.22 \times 10^{18}}\]</span></p>
-<p>With 8 million entrants, the probability that at least one submits a perfect bracket is:</p>
-<p><span class="math display">\[P(\text{At least one perfect | 8,000,000 entrants}) = 1 - P(\text{No perfect bracket | 8,000,000 entrants})\]</span></p>
-<p><span class="math display">\[P(\text{No perfect brackets | 8,000,000 entrants}) = (1 - P(\text{One perfect bracket}))^\text{8,000,000 entrants}\]</span></p>
-<p>Putting all of this together we get the following:</p>
-<p><span class="math display">\[P(\text{At least one perfect | 8,000,000 entrants}) = 1 - (1 - P(\text{One perfect bracket}))^\text{8,000,000 entrants} \]</span></p>
-<p>When choosing randomly. This ended up being ~0.00000000009%, about 1.15 trillion to 1 odds. Buffett was insuring 1-in-1.15-trillion odds bet for a billion dollars. Not exactly a nail-biter. The EV of this 1 Billion dollar liability is about <strong>$0.0009 dollars</strong>. In other words, if someone offered you this deal and said they would pay you a penny to run the contest, you should be very excited to say yes.</p>
-<p>8 million people was the 2014 figure but what about with this years 36 million brackets. I know its likely there are fewer unique brackets (many users picking similar brackets) but lets evaluate as if the worst scenario is among us (as insurers).</p>
-<p>Let’s also give the entrants some credit. Suppose every one of those 8 or 36 million people had genuine edge, correctly predicting each game with 55%, 60%, or even 70% accuracy! Better than most people, even better than most statistical models. Their per-bracket odds become:</p>
-<p><span class="math display">\[0.55^{63} \approx 4.39 \times 10^{-17}\]</span></p>
-<p><span class="math display">\[0.60^{63} \approx 1.05 \times 10^{-14}\]</span></p>
-<p><span class="math display">\[0.70^{63} \approx 1.74 \times 10^{-10}\]</span></p>
-<p>These odds are as follows, 55% -&gt; 1 in 23 quadrillion, 60% -&gt; 1 in 95 trillion, 70% -&gt; 1 in 6 billion.</p>
-<p>This year there were 36 million total brackets, however the Kalshi contest was limited to a mere 10 million brackets. Given all of these entrants and the potential for skilled bracket creation Kalshi contest the numbers shift, but not enough to make anyone at SIG nervous. Here’s the full picture across skill levels and pool sizes:</p>
+<p>At first glance it appears the casino is offering us a losing wager (as is typical). In any long-run scenario you would expect to get a ratio of 1/2 heads to total flips, since heads and tails are equally likely to occur on any given flip. In that case, we would be paying 75 cents to play a game where we would only be getting paid 50 (1 heads for every 1 tails) cents! While this may seem like a losing game at first, we will suspend our intuition and allow for logic to guide our decision making. In the end, we will learn about the value of optionality and how it is used to our advantage in this game.</p>
+</section>
+<section id="basic-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="basic-strategy">Basic Strategy</h2>
+<p>First, let’s review the problem: We have a fair coin (50% heads, 50% tails) and we can flip it as many times as we want. Our goal is to maximize the ratio of heads to total flips.</p>
+<p>First, we should think about a simplified case to get a better understanding of the game dynamics. We will create a decision tree to visualize our options following the outcome of the first flip:</p>
+<pre><code>Start Game
+     |
+     +-- Flip 1: Heads (50% chance)
+     |     |
+     |     +-- Ratio is 1.0 (1 head / 1 flip)
+     |     +-- DECISION: STOP. This is the best possible ratio.
+     |     +-- OUTCOME: Profit (1.0 payout &gt; 0.75 cost)
+     |
+     +-- Flip 1: Tails (50% chance)
+           |
+           +-- Ratio is 0.0 (0 heads / 1 flip)
+           +-- DECISION: CONTINUE. Stopping means a 0.0 payout.
+                 |
+                 +-- Keep flipping...
+                 +-- Long-run ratio approaches 0.5
+                 +-- OUTCOME: Loss (0.5 payout &lt; 0.75 cost)</code></pre>
+<p>The key thing to note here is that when we flip heads on the first flip we win the game outright with the best possible payout ratio of 1.0 heads/total flips (giving us the game’s maximum profit of 100 (payout) - 75 (cost) = 25 cents). However if we flip tails on the first flip we are in a losing situation where we will have to continue flipping, right now we will assume that we will just flip until we get the long-run ratio of 0.5 heads/total flips.</p>
+<p>As you can see, based on the naive strategy I have outlined above we offer a lower bound on the expected value of this game itself. We have devised a strategy playing the game where half of the time we will win 25 cents (flipping heads on the first flip) and half of the time we will lose 25 cents (flipping tails on the first flip and continuing to the long-run ratio of 0.5 heads/total flips). Thus we can say that the expected value of this game is at least:</p>
+<div style="text-align: left;">
+<p><span class="math display">\[
+\begin{aligned}
+EV_{game} &amp;\geq  \\
+&amp;\frac{1}{2} (1.0 - 0.75) +
+\frac{1}{2} (0.5 - 0.75)  \\
+&amp;= \frac{1}{2} (0.25) +
+\frac{1}{2} (-0.25) \\
+&amp;= \$0
+\end{aligned}
+\]</span></p>
+</div>
+<p>If we wish to improve on this strategy we need to consider a new approach. What if we consider stopping at the first time that we see we have flipped heads more often than tails?</p>
+<section id="stop-when-heads-tails-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="stop-when-heads-tails-strategy">Stop When Heads &gt; Tails Strategy</h3>
+<p>I will create a table with the first couple of possible stopping points (locations where # heads &gt; # tails) for this game:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 13%">
-<col style="width: 13%">
-<col style="width: 16%">
-<col style="width: 17%">
 <col style="width: 18%">
-<col style="width: 18%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 34%">
+<col style="width: 30%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Accuracy per game</th>
-<th>Odds, one bracket</th>
-<th>Odds with 8M entrants</th>
-<th>Odds with 36M entrants</th>
-<th>EV of $1B (10M entrants)</th>
-<th>EV of $1B (36M entrants)</th>
+<th>Flip Sequence</th>
+<th>Heads</th>
+<th>Tails</th>
+<th>Ratio (Heads/Total Flips)</th>
+<th>Probability of sequence</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>50% (random)</td>
-<td>1 in 9.2 quintillion</td>
-<td>1 in 1.15 trillion</td>
-<td>1 in 256 billion</td>
-<td>$0.001</td>
-<td>$0.004</td>
+<td>H</td>
+<td>1</td>
+<td>0</td>
+<td>1.0</td>
+<td>1/2</td>
 </tr>
 <tr class="even">
-<td>55%</td>
-<td>1 in 23 quadrillion</td>
-<td>1 in 2.85 billion</td>
-<td>1 in 633 million</td>
-<td>$0.44</td>
-<td>$1.58</td>
+<td>T H H</td>
+<td>2</td>
+<td>1</td>
+<td>0.67</td>
+<td>1/2 ^3</td>
 </tr>
 <tr class="odd">
-<td>60%</td>
-<td>1 in 95 trillion</td>
-<td>1 in 12 million</td>
-<td>1 in 2.6 million</td>
-<td>$106</td>
-<td>$380</td>
+<td>T T H H H</td>
+<td>3</td>
+<td>2</td>
+<td>0.60</td>
+<td>1/2 ^5</td>
 </tr>
 <tr class="even">
-<td>67%</td>
-<td>1 in 90.6 billion</td>
-<td>1 in 11,330</td>
-<td>1 in 2,518</td>
-<td>$110,329</td>
-<td>$397,126</td>
-</tr>
-<tr class="odd">
-<td>70%</td>
-<td>1 in 5.7 billion</td>
-<td>1 in 718</td>
-<td>1 in 160</td>
-<td>$1,740,998</td>
-<td>$6,253,419</td>
+<td>T H T H H</td>
+<td>3</td>
+<td>2</td>
+<td>0.60</td>
+<td>1/2 ^5</td>
 </tr>
 </tbody>
 </table>
-<p>The 70% row is where things start to look interesting, 1-in-160 with 36 million entrants is a number that would make an insurer sweat (obviously depending on how much money you were paid for the contract). On the far right hand side you can see the expected value of the $1 Billion dollar liability at every probability level. If the prediction accuracy per game is worse than 67% and there are less than 10M entrants, you should feel relatively comfortable accepting between $100 and $100,000. This range is quite wide but depends heavily on the inputs.</p>
-<p>But nobody (especially not your average Joe) predicts March Madness at 67% per game. The whole point of the tournament is that upsets happen constantly and unpredictably. A 12-seed beats a 5-seed roughly a third of the time. Cinderella stories aren’t anomalies, they’re the product. The bracket is essentially designed to punish sustained accuracy, which is exactly why billion-dollar prize offers are such comfortable positions to be in.</p>
-</section>
-<section id="how-much-storage-would-every-bracket-require" class="level2">
-<h2 class="anchored" data-anchor-id="how-much-storage-would-every-bracket-require">How Much Storage Would Every Bracket Require?</h2>
-<p>Here is a very fun hypothetical, lets say I now let you generate every single bracket possible but you have to have it stored somewhere in a physical location (computer memory is allowed). I will still offer the same deal. One Billion dollars if you generate the perfect bracket! But, now there is a catch:</p>
+<p>From the table above we can see that if we stop at the first time we have more heads than tails we can achieve a ratio of 1.0, .67, .60, etc. Each stopping point is less and less likely, there is <span class="math inline">\(\frac{1}{2}^{\text{\# total flips}}\)</span> chance of achieving each outcome. However, we can see that the ratios we achieve are all greater than 0.5 heads/total flips. Another thing we notice is that the longer sequences clearly have many more paths (at much lower likelihoods) than the shorter sequences.</p>
+<p>Let’s plot the possible outcomes of this game to count the number of paths that lead to each outcome:</p>
+<div id="cell-2" class="cell" data-execution_count="33">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As we can see above, we have the blue line showing the threshold where the number of heads and tails flipped are equal. The red dots are showing us our stopping points, where we have flipped more heads than tails for the first time. Only valid paths from (0,0) to each red dot without crossing the blue line are possible outcomes of the strategy! We also know that each time we flip a coin N times our chance of getting one exact path is 1/2^N. Given this graphical representation we can now use combinatorics to count the number of paths that lead to each stopping point and multiply this by our probability of getting to that same path.</p>
+<p>For some arbitrary number k, we will stop when we have flipped k+1 heads and k tails. The total number of flips will be 2k+1 and our heads/total flips ratio will be (k+1)/(2k+1).</p>
+<p>The EV of this game can be calculated as the sum of each flips ratio multiplied by the probability of reaching that ratio minus the cost to play (75 cents).</p>
+<div style="text-align: left;">
+<p><span class="math display">\[
+\begin{aligned}
+EV_{game} &amp;= \sum_{k=0}^{\infty} \left( \frac{\text{Heads}}{\text{Total Flips}} \cdot P(k) \right) - 0.75 \\
+EV_{game} &amp;= \sum_{k=0}^{\infty} \left( \frac{k+1}{2k+1} \cdot P(k) \right) - 0.75 \\
+\end{aligned}
+\]</span></p>
+</div>
+<p>Ok, So how do we calculate P(k)? Enter, our graphical representation above! Here we can see that there are a number of paths that lead to each stopping point. However not all paths are valid, since some paths cross the blue line (where heads = tails) before reaching the stopping point. To calculate the number of valid paths to each stopping point we can use the ballot theorem from combinatorics.</p>
 <blockquote class="blockquote">
-<p>I will only pay you the billion dollars if you have every single bracket stored somewhere.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Bertrand%27s_ballot_theorem">ballot theorem</a> states that if in an election candidate A receives h votes and candidate B receives k votes with h&gt;k, then the number of ways the votes can be counted such that A is always strictly ahead of B is given by:</p>
 </blockquote>
-<p>You laugh and jump in joy thinking of the yachts and super cars you will buy with your fortune.</p>
-<p>First, let’s make the number concrete. Each bracket requires exactly 63 bits of data, one bit per game outcome. So the total storage to represent every possible bracket is:</p>
-<p><span class="math display">\[63 \text{ bits} \times 2^{63} \text{ brackets} = 581,072,438,321,850,875,904 \text{ bits}\]</span></p>
-<p>Let’s convert that into something recognizable:</p>
-<table class="caption-top table">
+<div style="text-align: left;">
+<p><span class="math display">\[
+\begin{aligned}
+\frac{h-k}{h+k} \binom{h+k}{k} \\
+\end{aligned}
+\]</span></p>
+</div>
+<p>A special case of this theorem is when h = k + 1, exceeding votes by exactly one. If we think back to path counting, this problem is equivalent to us counting paths where we stop when heads exceeds tails by exactly one! Let’s now solve for this special case:</p>
+<div style="text-align: left;">
+<p><span class="math display">\[
+\begin{aligned}
+% &amp; \frac{h-k}{h+k} \binom{h+k}{k} \\
+&amp; h = k + 1 \\
+&amp; \text{Substituting h for its new value of k + 1}  \\
+&amp; = \frac{(k+1)-k}{(k+1)+k} \binom{(k+1)+k}{k} \\
+&amp; = \frac{1}{2k+1} \binom{2k+1}{k} \\
+&amp; = \frac{1}{2k+1} \cdot \frac{(2k+1)!}{(k+1)! k!} \\
+&amp; (2k+1)! = (2k+1)(2k!) \\
+&amp; = \frac{1}{2k+1} \cdot \frac{(2k+1)(2k!)}{(k+1)! k!} \\
+&amp; = \frac{2k!}{(k+1)! k!} \\
+&amp; (k+1)! = (k+1)(k!) \\
+&amp; = \frac{2k!}{(k+1)(k!) k!} \\
+&amp; = \frac{1}{k+1} \cdot \frac{2k!}{k! k!} \\
+&amp; = \frac{1}{k+1} \binom{2k}{k} \\
+\end{aligned}
+\]</span></p>
+</div>
+<p>The sequence we have arrived at above is a very famous sequence in combinatorics called the <a href="https://en.wikipedia.org/wiki/Catalan_number">Catalan numbers</a>. Catalan numbers have many applications in combinatorial mathematics including counting valid parentheses expressions, counting rooted binary trees, and <strong>counting paths in a grid that do not cross a diagonal line</strong>. In our case we are using them to count the number of valid paths to each stopping point in our coin flip game. The number of paths to the k-th number stopping point (where num heads = k + 1 and num tails = k) happens to be the k-th Catalan number!</p>
+<p>Now that we have everything we need, Let’s calculate the expected value of the stop when heads exceeds tails by one strategy.</p>
+</section>
+<section id="calculating-ev-of-stop-when-heads-tails" class="level3">
+<h3 class="anchored" data-anchor-id="calculating-ev-of-stop-when-heads-tails">Calculating EV of Stop When Heads &gt; Tails</h3>
+<p>Strategy: Let each stopping point k be defined as the first time # heads = k + 1 and # tails = k. In this game we are paid out based on the number of heads / total flips ratio at some stopping point k. As defined previously the value at the k-th stopping is (k + 1) / (2k + 1). The probability of reaching this stopping point is equal to the number of valid paths to this stopping point (equivalent to the kth Catalan number) multiplied by the probability of reaching any one path (1/2^(total flips) = (1/2 ^ (2k+1)). We also know trivially that the EV of the game is equal to the payout minus the cost to play the game (75 cents). First let’s calculate the expected payout (EP) of this strategy:</p>
+<div style="text-align: left;">
+<p><span class="math display">\[
+\begin{aligned}
+EP_{strategy} &amp;= \sum_{k=0}^{\infty} \left( \frac{\text{Heads}}{\text{Total Flips}} \cdot P(k) \right) \\
+EP_{strategy} &amp;= \sum_{k=0}^{\infty} \left( \frac{k+1}{2k+1} \cdot P(k) \right) \\
+P(k) &amp;= C_k \cdot \left( \frac{1}{2} \right)^{2k+1} \\
+EP_{strategy} &amp;= \sum_{k=0}^{\infty} \left( \frac{k+1}{2k+1} \cdot C_k \cdot \left( \frac{1}{2} \right)^{2k+1} \right) \\
+EP_{strategy} &amp;= \sum_{k=0}^{\infty} \left( \frac{k+1}{2k+1} \cdot \frac{1}{k+1} \binom{2k}{k} \cdot \left( \frac{1}{2} \right)^{2k+1} \right) \\
+EP_{strategy} &amp;= \sum_{k=0}^{\infty} \left( \frac{1}{2k+1} \cdot \binom{2k}{k} \cdot \left( \frac{1}{2} \right)^{2k+1} \right) \\   
+EP_{strategy} &amp;= \sum_{k=0}^{\infty} \left( \frac{1}{2k+1} \cdot \frac{(2k)!}{(k!)^2} \cdot \left( \frac{1}{2} \right)^{2k+1} \right) \\
+&amp;\text{After further simplification we arrive at:} \\
+EP_{strategy} &amp;= \frac{1}{2} * \sum_{k=0}^{\infty} \left( \frac{\binom{2k}{k}}{4^k (2k+1)} \right) \\
+\end{aligned}
+\]</span></p>
+</div>
+<p>Here we rely on a clever mathematical result that states that the sum above is equal to the Taylor series expansion of arcsin(x) evaluated at x = 1. The result is as follows:</p>
+<div style="text-align: left;">
+<p><span class="math display">\[
+\begin{aligned}
+\arcsin(x) &amp;= \sum_{k=0}^{\infty} \left( \frac{\binom{2k}{k}}{4^k (2k+1)} x^{2k+1} \right) \\
+\arcsin(1) &amp;= \sum_{k=0}^{\infty} \left( \frac{\binom{2k}{k}}{4^k (2k+1)}  \right) \\
+\arcsin(1) &amp;= \frac{\pi}{2} \\
+\frac{\pi}{2} &amp;= \sum_{k=0}^{\infty} \left( \frac{\binom{2k}{k}}{4^k (2k+1)} \right)\\
+EP_{strategy} &amp;= \frac{1}{2} * \frac{\pi}{2} = \frac{\pi}{4} \approx 0.7854 \\
+EV_{strategy} &amp;= EP_{strategy} - \text{Cost to Play} \\
+EV_{strategy} &amp;= \frac{\pi}{4} - 0.75 \approx 0.0354 \\
+\end{aligned}
+\]</span></p>
+</div>
+<p>Amazing! We have now turned our break-even strategy into one that mathematically wins over time! By stopping the game at the first time we have flipped more heads than tails we can expect to win about 3.54 cents per game in the long-run. This would be a ROI of about 4.72% on each 75 cent wager!</p>
+</section>
+</section>
+<section id="strategy-improvement" class="level2">
+<h2 class="anchored" data-anchor-id="strategy-improvement">Strategy Improvement</h2>
+<p>The ‘stop when heads &gt; tails’ strategy clearly works, however, it seems like there could be a better strategy. What if we only accept a heads/total flips ratio of greater than 0.51, or 0.55, or 0.60? Could we do even better?</p>
+<p>In this exploration two things interest me most:</p>
+<ol type="1">
+<li>What is the optimal policy for the ‘stop when heads/total flips &gt; X’ strategy?</li>
+<li>Is there a better policy that could outperform stop when ‘heads/total flips &gt; X’?</li>
+</ol>
+<p>First, let’s tackle modeling the ‘stop when heads/total flips &gt; X’ strategy. I wrote a simple python simulation to model this game and test various stopping points. The code is as follows:</p>
+<section id="python-simulation-for-stop-when-headstotal-flips-x-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="python-simulation-for-stop-when-headstotal-flips-x-strategy">Python Simulation for ‘Stop When Heads/Total Flips &gt; X’ Strategy</h3>
+<div id="cell-5" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_numpy_simulation(num_simulations: <span class="bu">int</span>, max_flips: <span class="bu">int</span>, stop_ratio: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    flips <span class="op">=</span> np.random.randint(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="dv">0</span>, <span class="co"># Inclusive lower bound</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="dv">2</span>, <span class="co"># Exclusive upper bound</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        size<span class="op">=</span>(num_simulations, max_flips) <span class="co"># Number of simulations, number of flips per simulation</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    num_heads <span class="op">=</span> np.cumsum(flips, axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># Cumulative sum of heads along each row</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    flip_numbers <span class="op">=</span> np.arange(<span class="dv">1</span>, max_flips <span class="op">+</span> <span class="dv">1</span>) <span class="co"># Total flips </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    ratios <span class="op">=</span> num_heads <span class="op">/</span> flip_numbers <span class="co"># Ratio of heads to total flips</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    exceeds_threshold <span class="op">=</span> ratios <span class="op">&gt;</span> stop_ratio <span class="co"># Find where ratios exceeded the stop ratio</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    first_exceed_indices <span class="op">=</span> np.argmax(exceeds_threshold, axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># Find the first time where this happened</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If we never exceed, set the index to last flip</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    never_exceeds <span class="op">=</span> <span class="op">~</span>exceeds_threshold.<span class="bu">any</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    first_exceed_indices[never_exceeds] <span class="op">=</span> max_flips <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    final_ratios <span class="op">=</span> ratios[np.arange(num_simulations), first_exceed_indices] <span class="co"># Final ratios</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    final_ratios[never_exceeds] <span class="op">=</span> np.maximum(<span class="fl">0.5</span>, final_ratios[never_exceeds]) <span class="co"># Ensure min ratio of 0.5 (long-run average)</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(np.mean(final_ratios))</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Running simulations..."</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>num_simulations <span class="op">=</span> <span class="dv">2_000_000</span>  <span class="co"># 2 million sims </span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>max_flips <span class="op">=</span> <span class="dv">1000</span> <span class="co"># 1000 max flips per simulation</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> []</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Test a range of stop_ratios from 0.50 to 0.64</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>stop_ratios_to_test <span class="op">=</span> np.arange(<span class="fl">0.5</span>, <span class="fl">0.64</span>, <span class="fl">0.01</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> stop_ratio <span class="kw">in</span> stop_ratios_to_test:</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Simulating for stop ratio: </span><span class="sc">{</span>stop_ratio<span class="sc">:.2f}</span><span class="ss">..."</span>)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    avg_ratio <span class="op">=</span> run_numpy_simulation(num_simulations, max_flips, stop_ratio)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    results.append({<span class="st">'Stop Ratio'</span>: <span class="bu">round</span>(stop_ratio, <span class="dv">2</span>), <span class="st">'Expected Payout'</span>: avg_ratio})</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"="</span><span class="op">*</span><span class="dv">50</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Simulations complete."</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Results Dataframe! </span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>df_all_results <span class="op">=</span> pd.DataFrame(results).set_index(<span class="st">'Stop Ratio'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-6" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_all_results[<span class="st">'Expected Value'</span>] <span class="op">=</span>  df_all_results[<span class="st">'Expected Payout'</span>] <span class="op">-</span> <span class="fl">0.75</span>  <span class="co"># Adjusted Expected Value</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df_all_results[<span class="st">'Expected Payout'</span>].plot(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">'line'</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    marker<span class="op">=</span><span class="st">'o'</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="ss">f'Expected Payout across </span><span class="sc">{</span>num_simulations<span class="sc">:,}</span><span class="ss"> Simulations'</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">'Stop Ratio'</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    ylabel<span class="op">=</span><span class="st">'Heads / Total Flips'</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span><span class="st">'green'</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-7" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_all_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
-<th>Unit</th>
-<th>Value</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Expected Payout</th>
+<th data-quarto-table-cell-role="th">Expected Value</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Stop Ratio</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Bits</td>
-<td><span class="math inline">\(\approx 5.81 \times 10^{20}\)</span></td>
+<td data-quarto-table-cell-role="th">0.50</td>
+<td>0.785382</td>
+<td>0.035382</td>
 </tr>
 <tr class="even">
-<td>Bytes</td>
-<td><span class="math inline">\(\approx 7.26 \times 10^{19}\)</span></td>
+<td data-quarto-table-cell-role="th">0.51</td>
+<td>0.785749</td>
+<td>0.035749</td>
 </tr>
 <tr class="odd">
-<td>Gigabytes (GB)</td>
-<td><span class="math inline">\(\approx 72{,}634{,}054{,}790\)</span> GB</td>
+<td data-quarto-table-cell-role="th">0.52</td>
+<td>0.786531</td>
+<td>0.036531</td>
 </tr>
 <tr class="even">
-<td>Terabytes (TB)</td>
-<td><span class="math inline">\(\approx 72{,}634{,}055\)</span> TB</td>
+<td data-quarto-table-cell-role="th">0.53</td>
+<td>0.787559</td>
+<td>0.037559</td>
 </tr>
 <tr class="odd">
-<td>Petabytes (PB)</td>
-<td><span class="math inline">\(\approx 72{,}634\)</span> PB</td>
+<td data-quarto-table-cell-role="th">0.54</td>
+<td>0.788118</td>
+<td>0.038118</td>
 </tr>
 <tr class="even">
-<td><strong>Exabytes (EB)</strong></td>
-<td><strong><span class="math inline">\(\approx 72.6\)</span> EB</strong></td>
+<td data-quarto-table-cell-role="th">0.55</td>
+<td>0.788536</td>
+<td>0.038536</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.56</td>
+<td>0.788972</td>
+<td>0.038972</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.57</td>
+<td>0.788434</td>
+<td>0.038434</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.58</td>
+<td>0.788622</td>
+<td>0.038622</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.59</td>
+<td>0.787903</td>
+<td>0.037903</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.60</td>
+<td>0.787989</td>
+<td>0.037989</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.61</td>
+<td>0.788028</td>
+<td>0.038028</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.62</td>
+<td>0.786756</td>
+<td>0.036756</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.63</td>
+<td>0.785774</td>
+<td>0.035774</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.64</td>
+<td>0.784747</td>
+<td>0.034747</td>
 </tr>
 </tbody>
 </table>
-<p>To put that in context: as of 2025, this figure would be at least <strong>10% of global AWS storage</strong>.</p>
-<p>We’re not in terabyte territory (or even petabyte for that matter). We’re in exabyte territory. That’s 72.6 million terabytes just to store the bracket data, to say nothing of the hardware, indexing, or retrieval infrastructure needed to actually use it.</p>
-<p>I had Opus 4.6 (LLM) generate a cost estimate for writing, storing, and retrieving this data. It came up with a figure in the 4-10 billion dollar range.</p>
+
+</div>
+</div>
+</div>
+<p>First, we can confirm that these results are reasonable. Our ‘stop when heads &gt; tails’ strategy that we calculated earlier using pure mathematics is equivalent to a stop ratio of 0.5 heads / total flips. We can see that for 0.50 stop ratio our payout is modeled at about 0.7854, which is the exact value that we got when mathematically calculating its expected payout!</p>
+<p>From these results, it appears the optimal stopping ratio is around 0.56, yielding an expected payout of about 0.789 heads/total flips. This is approximately equal to a profit of 3.9 cents per game played! This is slightly better than our previous strategy of stopping when heads first exceeds tails. The 3.9 cent profit per game is now an ROI of about 5.2% on each 75 cent wager.</p>
 </section>
-<section id="the-lottery-comparison" class="level2">
-<h2 class="anchored" data-anchor-id="the-lottery-comparison">The Lottery Comparison</h2>
-<p>Most people intuitively understand that the lottery is hard to win. The odds of winning Powerball are roughly 1 in 292 million. That feels impossibly small.</p>
-<p>The odds of randomly picking a perfect bracket are 1 in 9.2 quintillion. That’s roughly <strong>31 billion times harder than winning Powerball</strong>.</p>
-<p>Let’s try another angle. If every person on Earth (all 8 billion of us) filled out one bracket per second, continuously, the expected time to exhaust all possible combinations would be approximately:</p>
-<p><span class="math display">\[\frac{2^{63}}{8 \times 10^9 \text{ people} \times 3.156 \times 10^7 \text{ seconds/year}} \approx 36.5 \text{ years}\]</span></p>
-<p>About 36 and a half years. Every person on Earth filling out a bracket every single second would need the better part of a lifetime to exhaust all combinations. And that assumes nobody sleeps.</p>
+<section id="the-most-optimal-policy" class="level3">
+<h3 class="anchored" data-anchor-id="the-most-optimal-policy">The Most Optimal Policy</h3>
+<p>Now we have figured out the optimal policy for the ‘stop when heads/total flips &gt; X’ strategy. However, is there a better policy that could outperform stop when ‘heads/total flips &gt; X’?</p>
+<p>In theory, yes. By creating some policy that scales stopping ratio by marginal variance per flip you could achieve better outcomes (think about this and try it out yourself). However, instead we will focus on a more theoretically interesting idea.</p>
+<p>But first as an aside, let’s introduce potentially one of the coolest named theorems in probability: the Infinite Monkey Theorem (<a href="https://en.wikipedia.org/wiki/Infinite_monkey_theorem">link</a>).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../media/Chimpanzee_seated_at_typewriter.jpg" class="img-fluid figure-img"></p>
+<figcaption>Infinite Monkey Theorem</figcaption>
+</figure>
+</div>
+<blockquote class="blockquote">
+<p>The core idea of the infinite monkey theorem is a thought experiment. Let’s say you have one monkey and have him sit down and randomly hit keys on a typewriter for an infinite amount of time. Given infinite time, the monkey will certainly type out any given possible text, including the complete works of Shakespeare.</p>
+</blockquote>
+<p>Well, let’s follow this logic for our coin flip game. Given infinite time, we would expect any sequence of heads and tails to eventually occur (if we never stop flipping). Obviously, in practice Python cannot model infinite time. However, a new policy appears when we consider this theorem. What if we simply only stop flipping when we reach a ratio of .999 repeated heads/total flips? While this may feel like a cop-out answer, it is in theory the optimal policy given we have infinite time to continue flipping the coin and never stop. If we truly can flip forever, or even simulate in some way infinite time, we would eventually reach a ratio of .999 repeated heads/total flips! This would give us a payout of 99.99 repeated cents, and a profit of 24.99 repeated cents per game played! This would be a massive ROI of 33.33 % repeated.</p>
 </section>
-<section id="what-sig-and-buffett-actually-know" class="level2">
-<h2 class="anchored" data-anchor-id="what-sig-and-buffett-actually-know">What SIG and Buffett Actually Know</h2>
-<p>There’s a useful framing from insurance that applies here. An insurer takes on a probability of loss in exchange for a premium today. The math only works if the premium is priced above the expected loss. If the expected loss is $0, any premium at all is pure margin.</p>
-<p>When Buffett offered $1 billion for a perfect bracket, the actuarial cost of that promise was basically zero. The probability that any entrant would submit a perfect bracket, even with millions of entries, was vanishingly small. You don’t need a billion dollars in reserves when your expected payout rounds to nothing.</p>
-<p>SIG knows this game cold. They make markets in options and other derivatives, where pricing low-probability events accurately is literally the job. Running a billion dollar bracket challenge backed by SIG is not a bet on sports. It’s a bet on math. And the math is so one-sided that the promotional upside of running the contest dwarfs any actuarial concern about the payout.</p>
-<p>The same logic applies to why bracket challenges in general are financially sound for the people running them. Even offering a $1 million prize for a perfect bracket, with millions of entrants, the expected payout is trivially small. You’re not insuring against a hurricane. You’re insuring against something that has never happened and almost certainly will not happen in any of our lifetimes.</p>
 </section>
-<section id="takeaways" class="level2">
-<h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
-<p>The impossible bracket is a beautiful collision of combinatorics and human optimism. A few things worth holding onto:</p>
-<ul>
-<li>The number of possible brackets, <span class="math inline">\(2^{63}\)</span>, is large enough to break human intuition, exceed practical storage capacity, and make brute-force approaches absurd.</li>
-<li>Smart money, from Buffett to SIG, has been happy to offer billion-dollar prizes because the expected cost is essentially zero. When that many smart people are on one side of a bet, it’s worth understanding why.</li>
-<li>Skill helps. A 70% accurate predictor has odds of 1 in 5.7 billion rather than 1 in 9 quintillion. But 1 in 5.7 billion is still not good.</li>
-<li>The annual ritual of filling out brackets is not irrational. Bracket pools are won by people who pick better than average, not by people who pick perfectly. You don’t need a perfect bracket to win your office pool. You just need to be right more often than everyone else. That’s a very different problem.</li>
-</ul>
-<p>The March Madness bracket is a masterclass in why we’re bad at big numbers. We hear “9.2 quintillion” and nod, but we don’t really feel it. The storage math helps. The lottery comparison helps. The Buffett angle helps. But ultimately, <span class="math inline">\(2^{63}\)</span> is just genuinely bigger than our intuition is built to handle, and no amount of explanation fully closes that gap.</p>
-<p>Which is, honestly, part of what makes March so fun.</p>
+<section id="findings" class="level2">
+<h2 class="anchored" data-anchor-id="findings">Findings</h2>
+<p>This analysis reveals that a seemingly unfavorable coin-flip game can be transformed into a profitable venture through the strategic application of optionality. The core finding is that by having the freedom to stop at any point, a player can devise a policy that systematically beats the game’s apparent long-run expectation of a 50-cent payout.</p>
+<ol type="1">
+<li>Analytical Solution:</li>
+</ol>
+<p>We first established a baseline profitable strategy: stopping the game the first time the number of heads exceeds the number of tails. Using combinatorics and the properties of Catalan numbers, we analytically derived the expected payout for this strategy to be exactly π/4 ≈ 0.7854. With a cost of 0.75, this yields a positive expected value of approximately 3.54 cents per game.</p>
+<ol start="2" type="1">
+<li>Numerical Optimization:</li>
+</ol>
+<p>Through large-scale Monte Carlo simulations (2 million runs), we refined this approach by testing various static stopping thresholds. The simulations confirmed our analytical result and identified a more optimal policy: stopping only when the ratio of heads to total flips exceeds 0.56. This optimized policy increases the expected payout to approximately 0.789, boosting the expected profit to 3.9 cents per game and achieving a return on investment of over 5%.</p>
+<ol start="3" type="1">
+<li>The Value of Optionality:</li>
+</ol>
+<p>The essential insight is that the player’s ability to choose when to stop provides a significant edge. While the long-term probability of heads is 50%, the player can selectively end the game during periods of favorable short-term variance, thereby capturing a payout greater than the underlying average.</p>
+</section>
+<section id="future-work" class="level2">
+<h2 class="anchored" data-anchor-id="future-work">Future Work</h2>
+<p>The strategies explored in this article, while profitable, are based on a static stopping rule. This opens the door to several avenues for more advanced research and optimization.</p>
+<ol type="1">
+<li>Dynamic Stopping Policy:</li>
+</ol>
+<p>The primary limitation of the current model is its use of a constant stopping ratio. A more sophisticated approach would be to implement a dynamic policy where the decision to stop or continue depends on the current state of the game (i.e., the number of heads and the total number of flips). For instance, a 52% ratio after 1,000 flips is far more statistically significant and secure than a 52% ratio after only 25 flips.</p>
+<ol start="2" type="1">
+<li>Analysis with a Biased Coin:</li>
+</ol>
+<p>The analysis could be extended to scenarios involving a biased coin (where P(Heads) ≠ 0.5). This would require recalculating the expected values and likely shift the optimal stopping thresholds, providing insight into how the strategy adapts to different underlying probabilities.</p>
+<ol start="3" type="1">
+<li>Risk-Adjusted Strategies:</li>
+</ol>
+<p>The current work focuses exclusively on maximizing expected value. A real-world player might be risk-averse and prefer a strategy that, for example, maximizes the probability of breaking even or minimizes the chance of a significant loss. Future analysis could incorporate utility theory to develop strategies that align with different risk profiles.</p>
+<ol start="4" type="1">
+<li>Exploring Different Payout Structures:</li>
+</ol>
+<p>How would the optimal strategy change if the casino altered the payout function? Investigating non-linear payouts (e.g., (heads/total_flips)^2) or introducing different cost structures would test the robustness of our findings and lead to more generalized solutions for this class of optionality-based games.</p>
 <hr>
-<p><em>Note: This analysis covers the standard 64-team single-elimination bracket with 63 games. The NCAA Tournament’s First Four play-in games add 4 more decision points, bringing the true total closer to <span class="math inline">\(2^{67}\)</span>, roughly 147 quintillion. We’ll leave that as an exercise for the truly deranged.</em></p>
+<p>These are just some initial thoughts by me and I am open to discussion. As always, feel free to reach out to <a href="mailto:jcp@joshpearlson.com">me</a> for suggestions on future articles or comments.</p>
 
 
 </section>
@@ -421,9 +688,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const tabs = ['home','about','articles','projects','contact'];
   const hrefs = {
-    home: '/', about: '/aboutPage/about.html',
-    articles: '/articles/blog.html', projects: '/projects/projects.html',
-    contact: '/contact/contact.html'
+    home: '/', about: '/about/',
+    articles: '/articles/', projects: '/projects/',
+    contact: '/contact/'
   };
   const tabsHTML = tabs.map(t => {
     const active = t === 'articles' ? ' t-tab-active' : '';
@@ -698,9 +965,9 @@ document.addEventListener('DOMContentLoaded', function() {
   function buildTerminalChrome(tabKey) {
     const tabs = ['home','about','articles','projects','contact'];
     const hrefs = {
-      home: '/', about: '/aboutPage/about.html',
-      articles: '/articles/blog.html', projects: '/projects/projects.html',
-      contact: '/contact/contact.html'
+      home: '/', about: '/about/',
+      articles: '/articles/', projects: '/projects/',
+      contact: '/contact/'
     };
     const tabsHTML = tabs.map(t => {
       const active = t === tabKey ? ' t-tab-active' : '';
@@ -753,19 +1020,19 @@ document.addEventListener('DOMContentLoaded', function() {
           ${latestHTML}
           <div class="t-promptblock"><span class="t-prompt">$</span> ls ./</div>
           <div class="t-ls-grid">
-            <a href="/aboutPage/about.html" class="t-ls-cell">
+            <a href="/about/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> about/</div>
               <div class="t-ls-path">/bio /experience /education</div>
             </a>
-            <a href="/articles/blog.html" class="t-ls-cell">
+            <a href="/articles/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> articles/</div>
               <div class="t-ls-path">markets, ML, probability</div>
             </a>
-            <a href="/projects/projects.html" class="t-ls-cell">
+            <a href="/projects/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> projects/</div>
               <div class="t-ls-path">things I built and shipped</div>
             </a>
-            <a href="/contact/contact.html" class="t-ls-cell">
+            <a href="/contact/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> contact/</div>
               <div class="t-ls-path">email &middot; linkedin &middot; github</div>
             </a>

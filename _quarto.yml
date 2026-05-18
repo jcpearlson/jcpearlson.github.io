@@ -4,13 +4,13 @@ project:
   render:
     - "index.qmd"
     - "404.qmd"
-    - "aboutPage/about.qmd"
-    - "articles/blog.qmd"
-    - "articles/posts/**/*.qmd"
-    - "articles/posts/**/*.md"
-    - "articles/posts/**/*.ipynb"
-    - "projects/projects.qmd"
-    - "contact/contact.qmd"
+    - "about/index.qmd"
+    - "articles/index.qmd"
+    - "projects/index.qmd"
+    - "contact/index.qmd"
+    - "articles/posts/**/index.qmd"
+    - "articles/posts/**/index.md"
+    - "articles/posts/**/index.ipynb"
   resources:
     - "projects/**"
     - "media/*"
@@ -25,13 +25,13 @@ website:
     logo: media/jcp_logo3.png
     right:
       - text: "Articles"
-        href: articles/blog.qmd
+        href: articles/
       - text: "Projects"
-        href: projects/projects.qmd
+        href: projects/
       - text: "About"
-        href: aboutPage/about.qmd
+        href: about/
       - text: "Contact"
-        href: contact/contact.qmd
+        href: contact/
 format:
   html:
     theme:

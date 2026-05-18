@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Josh Pearlson">
+<meta name="dcterms.date" content="2025-10-31">
+
+<title>The Future of Context, DeepSeek OCR – Josh Pearlson</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../media/jcp_logo2.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../css/header.css">
+<link rel="stylesheet" href="../../../css/posts.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../media/jcp_logo3.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Josh Pearlson</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../articles/"> 
+<span class="menu-text">Articles</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../projects/"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about/"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../contact/"> 
+<span class="menu-text">Contact</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">The Future of Context, DeepSeek OCR</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">LLM</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Josh Pearlson </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 31, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>A breakthrough in optical character recognition (OCR) has profound implications for the future of LLMs.</p>
+<hr>
+<p>Large language models are usually limited by how much text they can fit into their context windows. Every token matters. This is especially true when processing long PDFs, research papers, or codebases. But a recent breakthrough in optical character recognition (OCR) suggests something surprising: vision tokens may soon become a dramatically more efficient way to feed information to LLMs than text tokens.</p>
+<p>In this article, I’ll explain what OCR actually is, how the technology evolved, what changed recently, and why this discovery might reshape the future of context.</p>
+<section id="what-the-hell-is-an-ocr" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-hell-is-an-ocr">What the hell is an OCR?</h2>
+<p>OCR stands for Optical Character Recognition. It is the core technology that allows computers to convert real world documents, such as pdfs, images, and scanned paper documents, into machine-readable text. In other words, OCR transforms a messy visual input into a structured text representation that can be fed into other processes like LLMs.</p>
+<section id="a-brief-history-of-ocr" class="level3">
+<h3 class="anchored" data-anchor-id="a-brief-history-of-ocr">A Brief History of OCR</h3>
+<p>OCR technology is not new, its history actually dates back to the 20th century. In the 1910s, Dr.&nbsp;Edmund Fournier d’Albe of Birmingham University developed the first ever OCR system, named the Optophone.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../media/Optophone_in_detail.jpg" class="img-fluid figure-img"></p>
+<figcaption>Optophone machine</figcaption>
+</figure>
+</div>
+<p>The Optophone was able to scan printed text and convert it into distinct sounds allowing for a blind user to recognize what characters were being scanned. The system was rule-based and relied on the physical height and width of characters to identify them.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../media/Tone_generating_method_of_the_FM-SLIT.png" class="img-fluid figure-img"></p>
+<figcaption>Optophone Methodology</figcaption>
+</figure>
+</div>
+<p>Not much of significance happened with the technology until the 1950s, when developments in digital computers and light sensors allowed OCR to take off. OCR was no longer physical rules based systems and now involved using computers to run similarity algorithms evaluating which letters were present. IBM and RCA began to develop OCR technology for all sorts of tasks. IBM created the first commercially available scanner that could <a href="https://en.wikipedia.org/wiki/IBM_optical_mark_and_character_readers">read handwritten text</a>.</p>
+<p>In the ’60s and ’70s, OCR became a key software for everything from the postal service sorting mail to banks processing checks (see <a href="https://en.wikipedia.org/wiki/Magnetic_ink_character_recognition">MICR</a>). Even to this day OCR software is used all around the world in a vast array of commercial applications.</p>
+<p>Modern developments in the 21st century involving neural networks have offered even more room for OCR improvement, as we will see with DeepSeekOCR.</p>
+</section>
+</section>
+<section id="deepseek-ocr" class="level2">
+<h2 class="anchored" data-anchor-id="deepseek-ocr">DeepSeek OCR</h2>
+<p>Earlier this month, a Chinese hedge fund’s AI lab, <a href="https://www.deepseek.com/en">DeepSeek</a> released a <a href="https://www.arxiv.org/abs/2510.18234">paper</a> outlining a new OCR model. Without even reading the paper, the initial community reaction was something along the lines of:</p>
+<ol type="1">
+<li>DeepSeek continues to enter a new market (OCR) and is killing it again (claiming 97%+ accuracy on general OCR benchmarks)<br>
+</li>
+<li>OCR software is old, boring software that just turns writing/images into well formatted text and has many commercial applications for DeepSeek to monetize</li>
+</ol>
+<p>I would say the initial read and public reception of this work is 100% correct. However, it misses the whole point of the paper! There is one core aspect which outlines why DeepSeek went through the trouble to make <strong>yet another</strong> OCR model.</p>
+<section id="its-always-been-about-context" class="level3">
+<h3 class="anchored" data-anchor-id="its-always-been-about-context">It’s always been about context!</h3>
+<p>In the world of machine learning and natural language processing, <strong>context is king</strong>. The ability to understand and utilize context is what allows models to generate coherent and relevant responses.</p>
+<p>Anyone who uses AI assistants learns quite quickly about the importance of context. Nothing is worse than chatting with the model for 10 minutes then having to start all over explaining a topic when you hit the context limit for the model. Eventually, you are forced to open a new ChatGPT or Claude tab and start the whole conversation all over again.</p>
+<p>Here is the one fascinating thing I have not yet told you about the brand new DeepSeek OCR model: <strong>vision tokens are dramatically more information-dense than text tokens</strong> when representing documents.</p>
+<p>Now this is an interesting development! Currently the largest LLM with strong performance and long context is the Gemini model, claiming 2 million tokens of context. Each token is approximately <span class="math inline">\(\frac{1}{4}\)</span> of a word. Given around 500 words per page, 2 million tokens of context gets you about 3,000 pages of context or about 1,500,000 words.</p>
+<p>In this paper, DeepSeek is stating that they can compress text tokens 10x when using them as vision tokens with very high accuracy. If this is true you could extend Gemini’s context window from 2 million tokens to 20 million. 1.5 million words versus 15 million words, 3,000 pages versus 30,000 pages. This is like going from being able to see 1 volume of the Encyclopedia Britannica versus 12 volumes (the full 32 volumes are 50 Million words).</p>
+</section>
+<section id="whats-the-catch" class="level3">
+<h3 class="anchored" data-anchor-id="whats-the-catch">What’s the catch?</h3>
+<p>Well, I did say <strong>if this is true</strong> and currently it is not. Some language models understand vision tokens at high fidelity; however, this fidelity is not nearly on par with typical text. In order to achieve a full 10x of the context window the model would have to understand vision tokens just as well as it understands text tokens without decoding them back into text tokens (removing any compression benefit). Text has semantic meaning, typically previous words in a sentence have strong correlation with the future words in that same sentence. Vision tokens share this relationship but on a much smaller scale. Since the correlation to future tokens is so small, this leads to a much worse ability to generate coherent output.</p>
+<p>There have been very interesting workarounds though and research in the space is ongoing. One pervasive thought in the industry right now is the idea of storing context in cached vision tokens, but only converting necessary context into text tokens for the model to actively use. This seems to be a plausible and reasonable future development of vision token compression.</p>
+</section>
+<section id="well-lets-test-it-out" class="level3">
+<h3 class="anchored" data-anchor-id="well-lets-test-it-out">Well, let’s test it out!</h3>
+<p>Last week the following was trending on both Twitter and Linkedin in relation to the new DeepSeek-OCR model.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../media/DeepSeek-OCR trending letter from Ramanujan.png" class="img-fluid figure-img"></p>
+<figcaption>DeepSeek-OCR on Ramanujan’s letter to GH Hardy 1913 (could not find any citation for this)</figcaption>
+</figure>
+</div>
+<p>This looks shocking; the accuracy level seems to be very high even on complex handwritten mathematical formulas from over 100 years ago! This level of accuracy prompted (awful pun) a <strong>healthy level of skepticism</strong>. Let’s test this ourselves and see how accurate it is on both the Ramanujan letter as well as some brand new handwriting of my own.</p>
+<section id="deepseek-ocr-result-on-letter-to-gh-hardy-1913" class="level4">
+<h4 class="anchored" data-anchor-id="deepseek-ocr-result-on-letter-to-gh-hardy-1913">DeepSeek-OCR result on letter to GH Hardy 1913</h4>
+<p>The following is the letter after being passed through DeepSeek-OCR at the highest compute setting, I used Google Colab with an A100 for this:</p>
+<p>——————————– start ——————————–</p>
+<p>Dear Mr Hardy,</p>
+<p>In one of my letters I wrote about the least number of terms which will give the mean est integral to the actual coefficient in <span class="math inline">\(\frac{1}{2}\)</span> problem. It will be actually difficult to prove such a result. But we can prove this much as follows.</p>
+<p>equation:</p>
+<p><span class="math display">\[
+\begin{align*}
+\sum a_n x^n &amp;= \frac{1}{1-50(1-\frac{1}{2}x+\frac{1}{1-2x}+\cdots)} \\
+a_n &amp;= c \left[ e^{2n\pi} + (-1)^n \frac{e^{n\pi}}{2^5} + 2 \cos\left(\frac{2n\pi}{5} + 8(2n-1)\frac{e^{\frac{2n\pi}{5}}}{5} + \cdots\right) + 2 \cos\left(\frac{2n\pi}{5} + 8(3n-1)\frac{e^{\frac{2n\pi}{5}}}{5} + \frac{2n\pi}{5} + \cdots\right) \right]
+\end{align*}
+\]</span></p>
+<p>equation:</p>
+<p><span class="math display">\[
+\begin{align*}
+c = \frac{3}{2} \cdot \frac{[\Gamma(\frac{3}{2})]^6}{\pi^6} = .94373...
+\end{align*}
+\]</span></p>
+<p>text:</p>
+<p>We shall first prove that, if we take only</p>
+<p><span class="math display">\[
+\begin{align*}
+\left[ \frac{3}{2} n(1-c) \right]^{\frac{1}{2}} \sqrt{(1-\frac{1}{2}n)(1-\frac{1}{4}n)(1-\frac{1}{8}n)\cdots}
+\end{align*}
+\]</span></p>
+<p>text:</p>
+<p>terms in the right-hand side of (1), E being any positive number less than 1 and 5, 13, 17, … are primes of the form <span class="math inline">\(4k+1\)</span>, then it is possible to find an infinity of values of <span class="math inline">\(n\)</span> for which <span class="math inline">\(dn\)</span> is not the mean of in- tegers to the sum of the asymptote series up to (2) terms. Suppose that <span class="math inline">\(a_n\)</span> is the number of terms of any two squares such as 1, 2, 4, 5, 9, 10, 13, 16, … not exceeding <span class="math inline">\(\lambda\)</span> and that <span class="math inline">\(p(\lambda)\)</span> is the number of sums of two squares that are prime to each other such as 1, 2, 5, 10, 13, 17, 25 … not exceeding <span class="math inline">\(\lambda\)</span>. Then it is easy to see that</p>
+<ul>
+<li>Special thank you to Trinity College for hosting this <a href="https://mss-cat.trin.cam.ac.uk/manuscripts/uv/view.php?n=add.ms.a.94&amp;n=add.ms.a.94.2#?c=0&amp;m=0&amp;s=0&amp;cv=5&amp;xywh=-1944%2C0%2C8677%2C6006">letter</a></li>
+</ul>
+<p>——————————– end ——————————–</p>
+<p>Wow, that is some shocking levels of accuracy. This level of accuracy on handwritten text seems insane. Just to confirm this is not already seen in the training data of the model I will now run the model but with some awful handwriting of my own. This is a handwritten page of homework from college. Similar to the page above it contains a lot of scribbled math which would be hard for even me to decipher at times.</p>
+<p>Here is the homework page:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../media/old_homework.jpg" class="img-fluid figure-img"></p>
+<figcaption>Old math homework</figcaption>
+</figure>
+</div>
+<p>Here is the model output:</p>
+<p>——————————– start ——————————–</p>
+<p>text:</p>
+<p>middle term is zero. Since <span class="math inline">\(E_{\epsilon}[\epsilon] = 0\)</span></p>
+<p>equation:</p>
+<p><span class="math display">\[
+\begin{align*}
+E_x[(g_D - s(x))^{2}] + \sigma^{2}, \qquad
+E_D!\left[(g_D - s(x))^{2}\right]
+\end{align*}
+\]</span></p>
+<p><span class="math display">\[
+\begin{align*}
+= \left(E_D[g_D] - s(x)\right)^{2} + \mathrm{Var}_D(g_D) \
+E\left[E_D(g_D)\right]
+= E_x!\left[\text{bias}^{2} + \text{variance}\right] + \sigma^{2} \
+= \text{bias}^{2} + \text{variance} + \sigma^{2}
+\end{align*}
+\]</span></p>
+<p>text:</p>
+<p><span class="math display">\[
+E\left[E_D(g_D)\right]
+= E_x!\left[\text{bias}^{2} + \text{variance}\right] + \sigma^{1}
+= \text{bias}^{2} + \text{variance} + \sigma^{1}
+\]</span></p>
+<p>text:</p>
+<ol start="4" type="1">
+<li></li>
+</ol>
+<p>equation:</p>
+<p><span class="math display">\[
+[
+D = {(x_1, x_1^2), (x_2, x_2^2)}, \qquad
+P = 1 = \mathrm{Dim}(D), \qquad
+s(x) = x^{2}
+]
+\]</span></p>
+<p>text:</p>
+<p>union over <span class="math inline">\([-1, 1]\)</span>, <span class="math inline">\(H = \mathrm{th}(h(x)) = ax + b\)</span> for some <span class="math inline">\(a,b \in \mathbb{R}\)</span> and we wish to minimize Square Error!</p>
+<p>text:</p>
+<ol type="a">
+<li><span class="math inline">\(a x_1 + b = x_1^2,\quad a x_2 + b = x_2^2\)</span></li>
+</ol>
+<p>equation:</p>
+<p><span class="math display">\[
+\begin{align*}
+a x_1 + b - x_1^{2} &amp;= a x_2 + b - x_2^{2} \
+a x_1 - x_1^{2} &amp;= a x_2 - x_2^{2} \
+a(x_1 - x_2) &amp;= x_1^{2} - x_2^{2} \
+a(x_1 - x_2) &amp;= (x_1 + x_2)(x_1 - x_2) \
+a &amp;= x_1 + x_2
+\end{align*}
+\]</span></p>
+<p>equation:</p>
+<p><span class="math display">\[
+\begin{align*}
+(x_1 + x_2)x_1 + b &amp;= x_1^{2} \
+x_1^{2} + x_1 x_2 + b &amp;= x_2^{2} \
+b &amp;= -x_1 x_2
+\end{align*}
+\]</span></p>
+<p>equation:</p>
+<p><span class="math display">\[
+[
+\tilde{g}(x)
+= E[h_0(x)]
+= E[(x_1 + x_2)x - x_1 x_2]
+= 0
+]
+\]</span></p>
+<p>text:</p>
+<ol start="2" type="A">
+<li>To numerically estimate <span class="math inline">\(g(x)\)</span>, <span class="math inline">\(E_D(x)\)</span>, bias, and variance, I have devised the following estimator. First, generate many training sets <span class="math inline">\(g(x_1, x_2)\)</span> for values in uniform <span class="math inline">\([-1,1]\)</span> space. Next we fit our hypothesis line to this data. The average of these hypothesis lines will be our estimate of <span class="math inline">\(g(x)\)</span>.</li>
+</ol>
+<p>text:</p>
+<p>For each hypothesis we also compute</p>
+<p><span class="math display">\[
+[
+E_D(x) = \frac{1}{n} \sum_{i=1}^{n} (g(x_i) - x_i^{2})
+]
+\]</span></p>
+<p>text:</p>
+<p>For every sample we solve this as follows: $ (x) = (g(x) - x)^2 $, where <span class="math inline">\(g(x)\)</span> is always assumed.</p>
+<p>text:</p>
+<p>Our variance estimator will be:</p>
+<p><span class="math display">\[
+[
+\mathrm{Var}(x)
+= \frac{1}{n} \sum_{i=1}^{n} \left(g(x_i) - \tilde{g}(x_i)\right)^{2}.
+]
+\]</span></p>
+<p>——————————– end ——————————–</p>
+<p>For sure a lot more errors in this one in terms of OCR quality. On my handwriting the model frequently messes up what the power was of variables, exact forms of equations, confuses vectors, and more. Given this performance I would highly agree with the comments I have seen on social media that the letters from Ramanujan to GH Hardy were likely in the training set of the DeepSeekOCR model. Performance on my handwriting was still very strong, but clearly not to the caliber of a model that almost perfectly gets the scribbled handwriting from the Ramanujan letter.</p>
+</section>
+</section>
+<section id="current-use-cases" class="level3">
+<h3 class="anchored" data-anchor-id="current-use-cases">Current use cases</h3>
+<p>Naively, as a recent graduate who frequently had to write assignments in LaTeX (a mathematical formatting language) which was often time consuming given most of the math was worked out on paper (or iPad) already, I see some great use cases.</p>
+<ol type="1">
+<li>Pass paper homework into DeepSeekOCR, convert to markdown.</li>
+<li>Ask LLM to convert markdown to LaTeX</li>
+<li>Voila! You have saved ~an hour of writing your already-written homework into LaTeX!</li>
+</ol>
+<p>Realistically this is not the true value of this model, but nonetheless a very interesting use case. The real value of this model is in converting large quantities of handwritten text into visual tokens as a medium (<strong>of high information density and low loss</strong>), instead of converting them directly into text tokens. If breakthroughs happen in how visual tokens can be used to train models directly, this paper will become seen as a seminal work in token density. Honestly, on a personal note, I hope there is more development in this space; the medium of visual tokens has much more to offer than asking SORA to generate you a video of Trump doing a backflip onto the White House lawn.</p>
+<p>As always, till next time.</p>
+<p>JCP</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+  <!-- A message to others like me! -->
+  console.log("Nice, I also love checking on page elements!");
+  console.log("If you're reading this, awesome!");
+  console.log(
+    "Interested in learning how to make sites like this? Check out quarto.org",
+  );
+  console.log("They have awesome docs and are a great place to start from!");
+  console.log("Signing off. -JP");
+</script>
+<script data-goatcounter="https://joshpearlson.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+<script>
+// Synchronous: runs at end-of-body parse, before first paint, to prevent flash
+if (document.querySelector('.quarto-title-banner')) {
+  document.body.classList.add('jcp-article-page');
+}
+
+const _vp = document.querySelector('meta[name="viewport"]');
+if (_vp && !_vp.content.includes('viewport-fit')) {
+  _vp.content += ', viewport-fit=cover';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (!document.querySelector('.quarto-title-banner')) return;
+
+  const slug = location.pathname.split('/').filter(Boolean).pop().replace('.html','');
+
+  const titleEl = document.querySelector('.quarto-title h1');
+  const title = titleEl ? titleEl.textContent.trim() : slug;
+  let date = '';
+  document.querySelectorAll('.quarto-title-meta-heading').forEach((h, i) => {
+    if (h.textContent.trim() === 'Published') {
+      const contents = document.querySelectorAll('.quarto-title-meta-contents');
+      if (contents[i]) date = contents[i].textContent.trim();
+    }
+  });
+  const catEls = document.querySelectorAll('.quarto-category');
+  const cats = Array.from(catEls).map(e => e.textContent.trim());
+
+  const tabs = ['home','about','articles','projects','contact'];
+  const hrefs = {
+    home: '/', about: '/about/',
+    articles: '/articles/', projects: '/projects/',
+    contact: '/contact/'
+  };
+  const tabsHTML = tabs.map(t => {
+    const active = t === 'articles' ? ' t-tab-active' : '';
+    const indicator = t === 'articles' ? '&#9656;' : '&nbsp;';
+    return `<a href="${hrefs[t]}" class="t-tab${active}"><span class="t-tab-indicator">${indicator}</span>${t}</a>`;
+  }).join('');
+
+  const tabBar = document.createElement('div');
+  tabBar.className = 'jcp-article-tabbar';
+  tabBar.innerHTML = `<div class="t-tabs">
+    ${tabsHTML}
+    <div class="t-tabs-spacer"></div>
+    <div class="t-title">jcp@joshpearlson: ~/articles/${slug}</div>
+  </div>`;
+  document.body.prepend(tabBar);
+
+  const statusBar = document.createElement('div');
+  statusBar.className = 'jcp-article-statusbar';
+  const catsDisplay = cats.length ? cats.map(c => `<span class="t-chip">${c}</span>`).join(' ') : '';
+  statusBar.innerHTML = `<div class="t-status">
+    <span><span class="t-status-dot">&#9679;</span> reading</span>
+    <span>${date}</span>
+    ${catsDisplay}
+    <span id="t-art-read-time"></span>
+    <span class="t-status-weather" id="t-status-weather">
+      <span class="t-weather-glyph">&#183;</span> NYC --&deg;F <span class="t-sep">&#183;</span> 40.7128&deg;&nbsp;N, 74.0060&deg;&nbsp;W
+    </span>
+  </div>`;
+  document.body.append(statusBar);
+
+  const catChips = cats.map(c => `<span class="t-chip">${c}</span>`).join('');
+  const articleHeader = document.createElement('div');
+  articleHeader.className = 't-art-header';
+  articleHeader.innerHTML = `
+    <div class="t-art-prompt"><span class="t-prompt">$</span> cat ./${slug}.md</div>
+    <div class="t-art-title">${title}</div>
+    <div class="t-art-meta">
+      <span class="t-art-date">${date}</span>
+      ${catChips}
+    </div>
+    <div class="t-art-rule"></div>
+  `;
+
+  const main = document.querySelector('main#quarto-document-content');
+  if (main) main.prepend(articleHeader);
+
+  document.body.style.removeProperty('padding-top');
+
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current=temperature_2m,weather_code&temperature_unit=fahrenheit')
+    .then(r => r.json())
+    .then(d => {
+      const temp = Math.round(d.current.temperature_2m);
+      const w = document.getElementById('t-status-weather');
+      if (w) w.innerHTML = `<span class="t-weather-glyph">&#183;</span> NYC ${temp}&deg;F <span class="t-sep">&#183;</span> 40.7128&deg;&nbsp;N, 74.0060&deg;&nbsp;W`;
+    }).catch(() => {});
+
+  const articleText = main ? main.textContent : '';
+  const words = articleText.trim().split(/\s+/).length;
+  const mins = Math.max(1, Math.round(words / 220));
+  const rt = document.getElementById('t-art-read-time');
+  if (rt) rt.textContent = `~${mins} min read`;
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Don't run on the main listing page
+  if (document.querySelector('.quarto-listing-container-default')) {
+    return;
+  }
+
+  const contentArea = document.querySelector('main#quarto-document-content');
+  if (!contentArea) return;
+
+  // --- 1. GATHER METADATA ---
+  const title = document.querySelector('.quarto-title.column-body h1.title')?.textContent.trim() || 'Article';
+  let author = 'Josh Pearlson';
+  let date = '';
+  const url = window.location.href;
+
+  const metaHeadings = document.querySelectorAll('.quarto-title-meta-heading');
+  metaHeadings.forEach(heading => {
+    const headingText = heading.textContent.trim();
+    const contentsEl = heading.nextElementSibling;
+    if (contentsEl && contentsEl.classList.contains('quarto-title-meta-contents')) {
+      if (headingText === 'Author') author = contentsEl.querySelector('p')?.textContent.trim() || author;
+      if (headingText === 'Published') date = contentsEl.querySelector('p.date')?.textContent.trim() || date;
+    }
+  });
+
+  // --- 2. BUILD COMBINED FOOTER ---
+  const footer = document.createElement('div');
+  footer.className = 'article-footer';
+
+  // Subscribe section (left)
+  const subscribeSection = document.createElement('div');
+  subscribeSection.className = 'subscribe-section';
+  subscribeSection.innerHTML = `
+    <p class="subscribe-label">Get notified when a new article drops.</p>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/jcp"
+          method="post"
+          class="subscribe-form"
+          target="_blank">
+      <input type="email" name="email" placeholder="your@email.com" required />
+      <button type="submit">Subscribe →</button>
+    </form>
+  `;
+
+  subscribeSection.querySelector('form').addEventListener('submit', function() {
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: 'subscribe-article', title: 'Newsletter Signup - Article', event: true });
+    }
+  });
+
+  // Share button (right)
+  const shareContainer = document.createElement('div');
+  shareContainer.className = 'share-article-container';
+
+  const shareButton = document.createElement('button');
+  shareButton.className = 'share-article-button';
+  shareButton.textContent = 'Share this Article';
+
+  shareContainer.appendChild(shareButton);
+
+  footer.appendChild(subscribeSection);
+  footer.appendChild(shareContainer);
+  contentArea.appendChild(footer);
+
+  // --- 3. SHARE CLICK HANDLER ---
+  shareButton.addEventListener('click', function() {
+    const shareText = `"${title}" by ${author} (Published: ${date}): ${url}`;
+    navigator.clipboard.writeText(shareText).then(() => {
+      const originalText = shareButton.textContent;
+      shareButton.textContent = 'Copied to clipboard!';
+      shareButton.classList.add('copied');
+      setTimeout(() => {
+        shareButton.textContent = originalText;
+        shareButton.classList.remove('copied');
+      }, 3000);
+    }).catch(() => {
+      const originalText = shareButton.textContent;
+      shareButton.textContent = 'Copy failed!';
+      setTimeout(() => { shareButton.textContent = originalText; }, 3000);
+    });
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Only run on post pages (where there is a title banner)
+  if (!document.querySelector('.quarto-title-banner')) return;
+
+  const mainContainer = document.querySelector('#quarto-content');
+  const articleContent = mainContainer.querySelector('main#quarto-document-content');
+  const headings = articleContent.querySelectorAll('h2, h3');
+
+  if (!mainContainer || !articleContent || headings.length < 2) return;
+
+  // --- 1. CREATE THE TOC STRUCTURE ---
+  const tocNav = document.createElement('nav');
+  tocNav.className = 'scrollspy-nav';
+
+  const tocHeader = document.createElement('p');
+  tocHeader.className = 'scrollspy-header';
+  tocHeader.textContent = 'Contents';
+  tocNav.appendChild(tocHeader);
+
+  const tocList = document.createElement('ol');
+  tocList.className = 'scrollspy-list';
+
+  headings.forEach(heading => {
+    if (!heading.id) {
+      const slug = heading.textContent.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+      heading.id = slug;
+    }
+
+    const tocItem = document.createElement('li');
+    tocItem.className = `scrollspy-item toc-level-${heading.tagName.toLowerCase()}`;
+
+    const tocLink = document.createElement('a');
+    tocLink.href = `#${heading.id}`;
+    tocLink.textContent = heading.textContent;
+    tocLink.className = 'scrollspy-link';
+
+    tocItem.appendChild(tocLink);
+    tocList.appendChild(tocItem);
+  });
+
+  tocNav.appendChild(tocList);
+  mainContainer.prepend(tocNav);
+
+  // --- 2. SCROLL-BASED HIGHLIGHT LOGIC ---
+  const tocLinks = tocList.querySelectorAll('.scrollspy-link');
+  // OFFSET must account for the navbar height (~91px) plus the extra scroll
+  // compensation the browser applies when the navbar slides back in after a
+  // scroll-up click. In practice the heading can land ~230px from the top, so
+  // we use navbar height * 3 as a safe ceiling.
+  const navbar = document.querySelector('nav.navbar');
+  const OFFSET = navbar ? navbar.offsetHeight * 3 : 280;
+
+  // When the user clicks a TOC link, we lock onto that heading ID.
+  // The lock only releases once the scroll naturally catches up to that section,
+  // preventing the scroll listener from overriding the click mid-animation.
+  let lockedHeadingId = null;
+
+  function setActive(link) {
+    tocLinks.forEach(l => l.classList.remove('active'));
+    if (link) link.classList.add('active');
+  }
+
+  function getCurrentHeading() {
+    let current = null;
+    headings.forEach(heading => {
+      if (heading.getBoundingClientRect().top <= OFFSET) {
+        current = heading;
+      }
+    });
+    return current || headings[0];
+  }
+
+  function updateActive() {
+    const current = getCurrentHeading();
+
+    // If we clicked a link, hold on that heading until the scroll
+    // naturally arrives at it — then release the lock
+    if (lockedHeadingId) {
+      if (current.id === lockedHeadingId) {
+        lockedHeadingId = null; // arrived — hand back to scroll tracking
+      } else {
+        return; // still animating, don't override
+      }
+    }
+
+    const activeLink = tocList.querySelector(`.scrollspy-link[href="#${current.id}"]`);
+    setActive(activeLink);
+  }
+
+  // On click: immediately highlight + lock onto target heading
+  tocLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      setActive(this);
+      lockedHeadingId = this.getAttribute('href').slice(1);
+    });
+  });
+
+  // Set initial state on load
+  updateActive();
+
+  // Update on scroll
+  window.addEventListener('scroll', updateActive, { passive: true });
+});
+</script>
+<script>
+(function() {
+  const ASCII = String.raw`______/\\\\\\\\\\\________/\\\\\\\\\__/\\\\\\\\\\\\\___
+ _____\/////\\\///______/\\\////////__\/\\\/////////\\\_
+  _________\/\\\_______/\\\/___________\/\\\_______\/\\\_
+   _________\/\\\______/\\\_____________\/\\\\\\\\\\\\\/__
+    _________\/\\\_____\/\\\_____________\/\\\/////////____
+     _________\/\\\_____\//\\\____________\/\\\_____________
+      __/\\\___\/\\\______\///\\\__________\/\\\_____________
+       _\//\\\\\\\\\_________\////\\\\\\\\\_\/\\\_____________
+        __\/////////_____________\/////////__\///______________`;
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function rootUrl(path) {
+    return window.location.origin + '/' + path.replace(/^\/+/, '');
+  }
+
+  function buildTerminalChrome(tabKey) {
+    const tabs = ['home','about','articles','projects','contact'];
+    const hrefs = {
+      home: '/', about: '/about/',
+      articles: '/articles/', projects: '/projects/',
+      contact: '/contact/'
+    };
+    const tabsHTML = tabs.map(t => {
+      const active = t === tabKey ? ' t-tab-active' : '';
+      const indicator = t === tabKey ? '&#9656;' : '&nbsp;';
+      return `<a href="${hrefs[t]}" class="t-tab${active}"><span class="t-tab-indicator">${indicator}</span>${t}</a>`;
+    }).join('');
+    const page = tabKey === 'home' ? '' : tabKey;
+    return `<div class="t-tabs">
+        ${tabsHTML}
+        <div class="t-tabs-spacer"></div>
+        <div class="t-title" id="t-title">jcp@joshpearlson: ~/${page}</div>
+      </div>`;
+  }
+
+  function buildStatusBar() {
+    return `<div class="t-status">
+        <span><span class="t-status-dot">&#9679;</span> online</span>
+        <span id="t-status-count">&#8212; articles &middot; &#8212; projects</span>
+        <span class="t-status-weather" id="t-status-weather">
+          <span class="t-weather-glyph">&middot;</span> NYC --&deg;F <span class="t-sep">&middot;</span> 40.7128&deg; N, 74.0060&deg; W
+        </span>
+      </div>`;
+  }
+
+  function renderHome(latest, articleCount) {
+    const mount = document.getElementById('jcp-terminal');
+    if (!mount) return;
+
+    let latestHTML = '';
+    if (latest) {
+      const catsHTML = (latest.cats || []).map(c => `<span class="t-chip">${esc(c)}</span>`).join('');
+      latestHTML = `<div class="t-promptblock"><span class="t-prompt">$</span> cat latest.md</div>
+        <a href="${esc(latest.href)}" class="t-latest-card">
+          <div class="t-latest-label">LATEST ARTICLE${latest.date ? ' &mdash; ' + esc(latest.date) : ''}</div>
+          <div class="t-latest-title">${esc(latest.title)}</div>
+          ${latest.excerpt ? `<div class="t-latest-excerpt">${esc(latest.excerpt)}</div>` : ''}
+          <div class="t-latest-meta">
+            ${catsHTML}
+            <span class="t-read-arrow">read &rarr;</span>
+          </div>
+        </a>`;
+    }
+
+    mount.innerHTML = buildTerminalChrome('home') +
+      `<div class="t-body" id="t-body">
+        <pre class="t-ascii">${ASCII}</pre>
+        <div class="t-hello">
+          <div class="t-promptblock"><span class="t-prompt">$</span> whoami</div>
+          <div class="t-out"><span class="t-name">Josh Pearlson</span> &middot; quant @ BlackRock &middot; writes about markets &amp; machines</div>
+          ${latestHTML}
+          <div class="t-promptblock"><span class="t-prompt">$</span> ls ./</div>
+          <div class="t-ls-grid">
+            <a href="/about/" class="t-ls-cell">
+              <div class="t-ls-name"><span class="t-arrow">&#8250;</span> about/</div>
+              <div class="t-ls-path">/bio /experience /education</div>
+            </a>
+            <a href="/articles/" class="t-ls-cell">
+              <div class="t-ls-name"><span class="t-arrow">&#8250;</span> articles/</div>
+              <div class="t-ls-path">markets, ML, probability</div>
+            </a>
+            <a href="/projects/" class="t-ls-cell">
+              <div class="t-ls-name"><span class="t-arrow">&#8250;</span> projects/</div>
+              <div class="t-ls-path">things I built and shipped</div>
+            </a>
+            <a href="/contact/" class="t-ls-cell">
+              <div class="t-ls-name"><span class="t-arrow">&#8250;</span> contact/</div>
+              <div class="t-ls-path">email &middot; linkedin &middot; github</div>
+            </a>
+          </div>
+          <div class="t-promptblock"><span class="t-prompt">$</span> <span class="t-cursor"></span></div>
+        </div>
+      </div>` +
+      buildStatusBar();
+
+    const countEl = document.getElementById('t-status-count');
+    if (countEl && articleCount != null) {
+      countEl.textContent = `${articleCount} articles \u00b7 6 projects`;
+    }
+
+    updateClock();
+    updateWeather();
+  }
+
+  function updateClock() {
+    const clock = document.getElementById('t-clock');
+    if (!clock) return;
+    const now = new Date();
+    const hh = String(now.getUTCHours()).padStart(2,'0');
+    const mm = String(now.getUTCMinutes()).padStart(2,'0');
+    const ss = String(now.getUTCSeconds()).padStart(2,'0');
+    clock.textContent = `${hh}:${mm}:${ss} UTC`;
+  }
+
+  function updateWeather() {
+    const el = document.getElementById('t-status-weather');
+    if (!el) return;
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current=temperature_2m,weather_code&temperature_unit=fahrenheit')
+      .then(r => r.json())
+      .then(d => {
+        if (!d || !d.current) return;
+        const c = d.current.weather_code;
+        let glyph = '\u00b7';
+        if (c === 0) glyph = '\u2600';
+        else if ([1,2,3].includes(c)) glyph = '\u26c5';
+        else if ([45,48].includes(c)) glyph = '\u2248';
+        else if (c >= 51 && c <= 67) glyph = '\u2602';
+        else if (c >= 71 && c <= 77) glyph = '\u2744';
+        else if (c >= 80 && c <= 82) glyph = '\u2614';
+        else if (c >= 95) glyph = '\u26a1';
+        const temp = Math.round(d.current.temperature_2m) + '\u00b0F';
+        el.innerHTML = `<span class="t-weather-glyph">${glyph}</span> NYC ${temp} <span class="t-sep">&middot;</span> 40.7128&deg; N, 74.0060&deg; W`;
+      })
+      .catch(() => {});
+  }
+
+  function fetchHomeData(cb) {
+    fetch(rootUrl('/listings.json'))
+      .then(r => r.json())
+      .then(data => {
+        const blogEntry = data.find(e => e.listing && e.listing.includes('blog')) || data[0];
+        const items = blogEntry ? blogEntry.items : [];
+        const count = items.length;
+        const latestHref = items[0] || null;
+
+        if (!latestHref) { cb(null, count); return; }
+
+        fetch(rootUrl('/search.json'))
+          .then(r => r.json())
+          .then(searchData => {
+            const norm = h => h.replace(/^https?:\/\/[^/]+/, '').replace(/^\//, '');
+            const slug = norm(latestHref);
+            const entry = searchData.find(e => norm(e.href || e.objectID || '') === slug);
+            if (!entry) { cb(null, count); return; }
+
+            const raw = (entry.text || '').replace(/\s+/g, ' ').trim();
+            const LIMIT = 220;
+            let excerpt = raw;
+            const lastSentenceEnd = s => Math.max(s.lastIndexOf('.'), s.lastIndexOf('!'), s.lastIndexOf('?'));
+            if (raw.length > LIMIT) {
+              const cut = raw.slice(0, LIMIT);
+              const lastPeriod = lastSentenceEnd(cut);
+              excerpt = lastPeriod > 60 ? raw.slice(0, lastPeriod + 1) : cut.trimEnd() + '\u2026';
+            } else {
+              // Text under limit but may already trail off — snap to last sentence end anyway
+              const lastPeriod = lastSentenceEnd(raw);
+              if (lastPeriod > 60 && lastPeriod < raw.length - 1) {
+                excerpt = raw.slice(0, lastPeriod + 1);
+              }
+            }
+
+            cb({
+              title: entry.title || 'Latest article',
+              href: '/' + slug,
+              excerpt,
+              date: '',
+              cats: []
+            }, count);
+          })
+          .catch(() => cb(null, count));
+      })
+      .catch(() => cb(null, null));
+  }
+
+  function isHomePage() {
+    const p = window.location.pathname.replace(/\/+$/, '');
+    return p === '' || p === '/index.html' || p.endsWith('/index.html');
+  }
+
+  function init() {
+    if (isHomePage()) {
+      renderHome(null, null);
+      setInterval(updateClock, 1000);
+      fetchHomeData(function(latest, count) {
+        renderHome(latest, count);
+      });
+    } else {
+      // Non-home pages: chrome already in HTML, just update dynamic parts
+      updateClock();
+      setInterval(updateClock, 1000);
+      updateWeather();
+
+      const countEl = document.getElementById('t-status-count');
+      if (countEl) {
+        fetch(rootUrl('/listings.json'))
+          .then(r => r.json())
+          .then(data => {
+            const blogEntry = data.find(e => e.listing && e.listing.includes('blog')) || data[0];
+            const count = blogEntry ? blogEntry.items.length : 0;
+            countEl.textContent = `${count} articles \u00b7 6 projects`;
+          })
+          .catch(() => { countEl.textContent = '\u2014 articles \u00b7 6 projects'; });
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

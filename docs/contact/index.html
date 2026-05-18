@@ -92,19 +92,19 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../articles/blog.html"> 
+    <a class="nav-link" href="../articles/"> 
 <span class="menu-text">Articles</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../projects/projects.html"> 
+    <a class="nav-link" href="../projects/"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../aboutPage/about.html"> 
+    <a class="nav-link" href="../about/"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../contact/contact.html" aria-current="page"> 
+    <a class="nav-link" href="../contact/"> 
 <span class="menu-text">Contact</span></a>
   </li>  
 </ul>
@@ -144,10 +144,10 @@ ul.task-list li input[type="checkbox"] {
 <div class="jcp-terminal" id="jcp-terminal">
   <div class="t-tabs">
     <a href="../" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>home</a>
-    <a href="../aboutPage/about.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>about</a>
-    <a href="../articles/blog.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>articles</a>
-    <a href="../projects/projects.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>projects</a>
-    <a href="../contact/contact.html" class="t-tab t-tab-active"><span class="t-tab-indicator">▸</span>contact</a>
+    <a href="../about/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>about</a>
+    <a href="../articles/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>articles</a>
+    <a href="../projects/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>projects</a>
+    <a href="../contact/" class="t-tab t-tab-active"><span class="t-tab-indicator">▸</span>contact</a>
     <div class="t-tabs-spacer"></div>
     <div class="t-title" id="t-title">jcp@joshpearlson: ~/contact</div>
   </div>
@@ -250,9 +250,9 @@ jKjtrAQ=
   function buildTerminalChrome(tabKey) {
     const tabs = ['home','about','articles','projects','contact'];
     const hrefs = {
-      home: '/', about: '/aboutPage/about.html',
-      articles: '/articles/blog.html', projects: '/projects/projects.html',
-      contact: '/contact/contact.html'
+      home: '/', about: '/about/',
+      articles: '/articles/', projects: '/projects/',
+      contact: '/contact/'
     };
     const tabsHTML = tabs.map(t => {
       const active = t === tabKey ? ' t-tab-active' : '';
@@ -305,19 +305,19 @@ jKjtrAQ=
           ${latestHTML}
           <div class="t-promptblock"><span class="t-prompt">$</span> ls ./</div>
           <div class="t-ls-grid">
-            <a href="/aboutPage/about.html" class="t-ls-cell">
+            <a href="/about/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> about/</div>
               <div class="t-ls-path">/bio /experience /education</div>
             </a>
-            <a href="/articles/blog.html" class="t-ls-cell">
+            <a href="/articles/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> articles/</div>
               <div class="t-ls-path">markets, ML, probability</div>
             </a>
-            <a href="/projects/projects.html" class="t-ls-cell">
+            <a href="/projects/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> projects/</div>
               <div class="t-ls-path">things I built and shipped</div>
             </a>
-            <a href="/contact/contact.html" class="t-ls-cell">
+            <a href="/contact/" class="t-ls-cell">
               <div class="t-ls-name"><span class="t-arrow">&#8250;</span> contact/</div>
               <div class="t-ls-path">email &middot; linkedin &middot; github</div>
             </a>

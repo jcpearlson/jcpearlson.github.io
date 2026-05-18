@@ -14,10 +14,10 @@ include-after-body:
 <div class="jcp-terminal" id="jcp-terminal">
   <div class="t-tabs">
     <a href="/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>home</a>
-    <a href="/aboutPage/about.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>about</a>
-    <a href="/articles/blog.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>articles</a>
-    <a href="/projects/projects.html" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>projects</a>
-    <a href="/contact/contact.html" class="t-tab t-tab-active"><span class="t-tab-indicator">▸</span>contact</a>
+    <a href="/about/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>about</a>
+    <a href="/articles/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>articles</a>
+    <a href="/projects/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>projects</a>
+    <a href="/contact/" class="t-tab t-tab-active"><span class="t-tab-indicator">▸</span>contact</a>
     <div class="t-tabs-spacer"></div>
     <div class="t-title" id="t-title">jcp@joshpearlson: ~/contact</div>
   </div>
