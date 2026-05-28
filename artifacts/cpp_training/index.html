@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4-Week C++ Intensive · joshpearlson.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #111; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+  body {
+    background: #0a0a0f;
+    color: #e0e0e0;
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    min-height: 100vh;
+  }
+  a { color: #4A90E2; text-decoration: none; font-family: 'IBM Plex Sans', sans-serif; }
+  a:hover { text-decoration: underline; }
+  button { cursor: pointer; font-family: 'IBM Plex Mono', monospace; }
+  .progress-bar-bg { width: 100%; height: 3px; background: #1a1a24; border-radius: 2px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #00C2FF, #FFB700, #FF4F7B, #7CFF6B); transition: width 0.3s ease; }
+  .week-tab {
+    padding: 10px 16px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .day-card {
+    border: 1px solid #1e1e2e;
+    border-radius: 4px;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: #0d0d14;
+  }
+  .day-card:hover { border-color: var(--week-color); background: #111120; }
+  .day-card.expanded { border-color: var(--week-color); background: #111120; }
+  .day-card.done { opacity: 0.55; }
+  .day-row { display: flex; align-items: center; gap: 10px; }
+  .checkbox {
+    width: 16px; height: 16px; min-width: 16px;
+    border-radius: 3px; border: 1.5px solid #333;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; background: transparent; position: relative;
+    flex-shrink: 0;
+  }
+  .checkbox:hover { border-color: var(--week-color); }
+  .checkbox.checked { background: var(--week-color); border-color: var(--week-color); }
+  .checkbox.checked::after { content: "✓"; color: #000; font-size: 11px; font-weight: 800; position: absolute; }
+  .section { margin-top: 14px; padding-top: 12px; border-top: 1px solid #1a1a24; }
+  .section-header { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+  .code-block {
+    font-family: 'IBM Plex Mono', monospace;
+    background: #1a1a24;
+    padding: 8px 10px;
+    border-radius: 2px;
+    font-size: 11px;
+    color: #cebbe0;
+    line-height: 1.5;
+    display: block;
+    white-space: pre-wrap;
+  }
+  @media (min-width: 768px) {
+    .week-tab { font-size: 15px; padding: 13px 22px; }
+    .section-header { font-size: 13px; margin-bottom: 9px; }
+    .code-block { font-size: 16px; padding: 12px 14px; }
+    .day-card { padding: 16px 20px; }
+    .day-row { gap: 14px; }
+    .checkbox { width: 22px; height: 22px; min-width: 22px; }
+    .checkbox.checked::after { font-size: 15px; }
+    .section { margin-top: 20px; padding-top: 16px; }
+    .progress-bar-bg { height: 4px; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
+const dayTypes = {
+  weekday: { label: "45m",   color: "#888",    bg: "transparent"  },
+  spill:   { label: "~90m",  color: "#FFB700", bg: "#FFB70015"    },
+  weekend: { label: "WKND",  color: "#7CFF6B", bg: "#7CFF6B15"    },
+  setup:   { label: "SETUP", color: "#888",    bg: "#88888815"    },
+};
+
+const tagColors = {
+  "Setup": "#888", "Fundamentals": "#4A90E2", "Memory": "#A569BD", "Performance": "#E67E22",
+  "STL": "#16A085", "Templates": "#4A90E2", "Eigen": "#D4AC0D", "Profiling": "#E67E22",
+  "SIMD": "#C0392B", "Bindings": "#2874A6", "Project": "#1ABC9C", "Concurrency": "#C0392B",
+  "TMP": "#A569BD", "Design": "#4A90E2", "Build": "#1ABC9C", "Polish": "#7D3C98", "Ship": "#1ABC9C",
+};
+
+const STORAGE_KEY = "xsfactor:progress";
+
+const weeks = [
+  {
+    num: 0,
+    title: "Setup",
+    color: "#888",
+    goal: "One weekend block before Week 1. Get the toolchain right once so you never lose a learning day to environment debugging.",
+    reflection: null,
+    days: [
+      {
+        day: 0,
+        title: "Toolchain Day",
+        type: "setup",
+        tag: "Setup",
+        desc: "Install Xcode Command Line Tools (Apple Clang), Homebrew GCC-14 as backup, CMake 3.28+, Ninja, Eigen (`brew install eigen`), Google Benchmark, pybind11 (`pip install pybind11`). Configure VSCode with clangd + CMake Tools extensions. Init `cpp-learning` Git repo with template structure (`src/`, `tests/`, `bench/`, `CMakeLists.txt`). Verify hello-world compiles AND that AddressSanitizer and ThreadSanitizer both work.",
+        doneWhen: "You can compile a hello-world with `-fsanitize=address` and it runs without complaints.",
+        resources: [
+          { label: "AddressSanitizer docs", url: "https://clang.llvm.org/docs/AddressSanitizer.html" },
+          { label: "Modern CMake tutorial", url: "https://cliutils.gitlab.io/modern-cmake/" }
+        ],
+        pitfalls: [
+          "Don't mix Apple Clang and Homebrew GCC for the same project; symbol mangling differs.",
+          "Forget `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` and clangd in VSCode won't find your headers."
+        ],
+        stretch: "Get clangd showing real-time diagnostics in VSCode with go-to-definition working across the project.",
+        commit: "chore: initial toolchain + cmake skeleton",
+        interview: "Rarely asked directly, but firms screen for 'comfort with CMake/build systems' in onsite work-sample exercises."
+      },
+    ],
+    checkpoint: null,
+  },
+  {
+    num: 1,
+    title: "Modern C++ Reboot",
+    color: "#00C2FF",
+    goal: "Stop writing C-with-classes. Internalize value semantics, RAII, and modern STL idioms.",
+    reflection: "Where did C++ feel different from what your old college class taught? What modern idiom replaced something older you used to write?",
+    days: [
+      {
+        day: 1, title: "Types + Const Correctness", type: "weekday", tag: "Fundamentals",
+        desc: "References vs pointers vs values. `const T&` vs `T` vs `T&&` in function signatures. Structured bindings (`auto [a, b] = pair`). `auto` deduction rules. Write a `PriceBar` POD type with proper const accessors.",
+        doneWhen: "You can explain why `const T&` in a function param avoids a copy but `T` doesn't.",
+        resources: [
+          { label: "cv qualifiers (cppreference)", url: "https://en.cppreference.com/w/cpp/language/cv" },
+          { label: "Herb Sutter GotW articles", url: "https://herbsutter.com/gotw/" }
+        ],
+        pitfalls: [
+          "`auto` strips references and consts. `auto x = vec[0]` is a copy. Use `auto&` or `const auto&` if you don't want one.",
+          "Don't take `int` by const ref. `const int&` is slower than `int` for primitives."
+        ],
+        stretch: "Write a function template that detects at compile-time if T is cheap-to-copy (e.g. via `std::is_trivially_copyable_v`).",
+        commit: "feat: PriceBar POD with const accessors + unit tests",
+        interview: "Const correctness questions are universal at quant firms. Expect 'find the bug' code reviews where the const-ness is wrong."
+      },
+      {
+        day: 2, title: "RAII + Smart Pointers", type: "weekday", tag: "Memory",
+        desc: "`unique_ptr`, `shared_ptr`, `weak_ptr`. Custom deleters. The destructor as a resource manager. Forbid yourself from typing `new` or `delete`. Exercise: RAII file handle wrapper for reading CSVs.",
+        doneWhen: "You can replace a `new`/`delete` pair with `unique_ptr` and explain when you'd reach for `shared_ptr` instead.",
+        resources: [
+          { label: "unique_ptr (cppreference)", url: "https://en.cppreference.com/w/cpp/memory/unique_ptr" },
+          { label: "Effective Modern C++ Items 18-21", url: "https://www.oreilly.com/library/view/effective-modern-c/9781491908419/" }
+        ],
+        pitfalls: [
+          "`shared_ptr` has atomic refcount overhead. Default to `unique_ptr`; only escalate if shared ownership is truly required.",
+          "Never construct two `shared_ptr` from the same raw pointer; you'll double-free.",
+          "Cyclic `shared_ptr` references leak. Break them with `weak_ptr`."
+        ],
+        stretch: "Implement a minimal `unique_ptr` from scratch in ~30 lines (constructor, destructor, move, release, reset).",
+        commit: "feat: RAII CSV file handle wrapper",
+        interview: "Memory ownership questions are extremely common. Expect 'who owns this pointer' code reviews and asks to convert raw-pointer code to smart-pointer style."
+      },
+      {
+        day: 3, title: "Move Semantics I", type: "weekday", tag: "Performance",
+        desc: "Rvalue references, `std::move`, when copy vs move happens. Read the assembly for a `std::vector<double>` move vs copy on godbolt. Just observe; don't write moves yet.",
+        doneWhen: "You can show in assembly that moving a vector is O(1) and copying is O(n).",
+        resources: [
+          { label: "reference declaration (cppreference)", url: "https://en.cppreference.com/w/cpp/language/reference" },
+          { label: "Scott Meyers: Universal References", url: "https://www.youtube.com/watch?v=wQxj20X-tIU" }
+        ],
+        pitfalls: [
+          "`std::move` doesn't move anything. It casts to rvalue reference. The compiler then decides what to do.",
+          "Don't `std::move` a return value. Named Return Value Optimization (NRVO) is usually better."
+        ],
+        stretch: "Compile with `-fno-elide-constructors` and observe how often the compiler was hiding copies from you.",
+        commit: "exercise: move semantics observation + assembly notes",
+        interview: "'What does std::move actually do?' is a near-universal interview opener. Memorize the right answer."
+      },
+      {
+        day: 4, title: "Move Semantics II", type: "spill", tag: "Performance",
+        desc: "Write your own move constructor and move assignment for a `TimeSeries` class. Perfect forwarding with `template<typename T> void f(T&&)`. Rule of 0/3/5. This day will spill - plan 90 min.",
+        doneWhen: "Your TimeSeries move constructor leaves the source in a valid but unspecified state, and your tests verify this.",
+        resources: [
+          { label: "Move constructors (cppreference)", url: "https://en.cppreference.com/w/cpp/language/move_constructor" },
+          { label: "Howard Hinnant: Move Semantics", url: "https://www.youtube.com/watch?v=vLinb2fgkHk" }
+        ],
+        pitfalls: [
+          "Move constructors should be `noexcept` whenever possible. STL containers refuse to use them otherwise.",
+          "Don't `std::move` inside a return statement of a local variable. NRVO is better.",
+          "Perfect forwarding requires `template<typename T> f(T&&)`. `void f(MyClass&&)` is just an rvalue ref, not a forwarding ref."
+        ],
+        stretch: "Add Rule of 5 to your TimeSeries class. Write a Catch2 test that verifies no copies happen on a function return.",
+        commit: "feat: TimeSeries with rule-of-5 + noexcept moves",
+        interview: "Expect: 'when does the Rule of Zero apply, when do you need Rule of 5?' A correct answer plus a real example is a clear positive signal."
+      },
+      {
+        day: 5, title: "STL Containers", type: "weekday", tag: "STL",
+        desc: "`vector`, `array`, `deque`, `unordered_map`, `flat_map` (C++23 if available). Iterator invalidation rules. When `reserve()` matters. Exercise: rolling window via `std::deque`.",
+        doneWhen: "You can pick the right container for a workload without thinking (lookup-heavy -> unordered_map, ordered iteration -> map, append-heavy -> vector).",
+        resources: [
+          { label: "Container library (cppreference)", url: "https://en.cppreference.com/w/cpp/container" },
+          { label: "Chandler Carruth: Hybrid Data Structures", url: "https://www.youtube.com/watch?v=vElZc6zSIXM" }
+        ],
+        pitfalls: [
+          "Iterator invalidation on `vector::push_back` after capacity exceeded. Call `reserve()` first if you know the size.",
+          "`unordered_map` is faster than `map` for lookups but slower for ordered traversal. Choose by access pattern.",
+          "`std::list` is almost always the wrong answer. Cache-unfriendly."
+        ],
+        stretch: "Build a small benchmark comparing `vector<int>` vs `list<int>` for sum-of-elements with 1M items. The gap will surprise you.",
+        commit: "exercise: stl containers exploration + rolling window via deque",
+        interview: "'Pick a container for this workload' is a common interview question. Be ready to defend why vector beats list for almost everything."
+      },
+      {
+        day: 6, title: "STL Algorithms", type: "weekday", tag: "STL",
+        desc: "`transform`, `accumulate`, `inner_product`, `partial_sort`, `nth_element`. Apply to compute simple returns, log returns, percentile thresholds. Never write a hand loop again unless you must.",
+        doneWhen: "You can replace any manual for-loop with an STL algorithm or explain precisely why you can't.",
+        resources: [
+          { label: "Algorithms library (cppreference)", url: "https://en.cppreference.com/w/cpp/algorithm" },
+          { label: "Sean Parent: C++ Seasoning", url: "https://www.youtube.com/watch?v=qH6sSOr-yk8" }
+        ],
+        pitfalls: [
+          "`std::sort` requires random-access iterators. `std::list::sort` is the member function for lists.",
+          "`std::accumulate` defaults its return type to the init's type. Pass `0.0` not `0` to accumulate doubles, or you'll silently truncate.",
+          "C++17 added parallel execution policies: `std::execution::par`. Free parallelism on supported compilers."
+        ],
+        stretch: "Take a pandas pipeline you wrote at work and rewrite a single function in C++ STL algorithms. Compare line counts.",
+        commit: "exercise: stl algorithms applied to returns computation",
+        interview: "Sean Parent's 'no raw loops' is a real cultural marker at top shops. Knowing it puts you in the right tribe."
+      },
+      {
+        day: 7, title: "Templates + W1 Checkpoint", type: "weekend", tag: "Templates",
+        desc: "Function and class templates, type deduction, basic concepts (C++20). Build a header-only `RollingWindow<T, size_t N>` with constant-time push and O(1) running mean/variance (Welford's algorithm). Write Catch2 unit tests. Tag W1 milestone.",
+        doneWhen: "Your RollingWindow<T,N> compiles, passes tests, and computes Welford running statistics in O(1) per update.",
+        resources: [
+          { label: "Templates (cppreference)", url: "https://en.cppreference.com/w/cpp/language/templates" },
+          { label: "Walter Brown: Template Metaprogramming", url: "https://www.youtube.com/watch?v=Am2is2QCvxY" }
+        ],
+        pitfalls: [
+          "Template error messages are notoriously bad. C++20 `concepts` improve this dramatically; use them.",
+          "Don't define template implementations in `.cpp` files unless you explicitly instantiate. Templates need to see their definition at use sites - that's why everything is header-only."
+        ],
+        stretch: "Add C++20 concepts to constrain T to arithmetic types. Compare the resulting error message vs without.",
+        commit: "feat(w1): rolling window with welford statistics + tests",
+        interview: "Templates appear in every serious C++ screen. Writing a non-trivial template class fluently is a strong signal."
+      },
+    ],
+    checkpoint: { name: "RollingWindow<T,N>", desc: "Header-only generic rolling window class with Welford running statistics. Tests pass. Committed to repo." }
+  },
+  {
+    num: 2,
+    title: "Performance Engineering",
+    color: "#FFB700",
+    goal: "First resume-worthy speedup number. Eigen for linear algebra, disciplined benchmarking, and Python interop via pybind11.",
+    reflection: "What surprised you most in your benchmarks? Where did you expect a speedup that didn't materialize, or where did one appear that you didn't predict?",
+    days: [
+      {
+        day: 8, title: "Cache + Memory Layout", type: "weekday", tag: "Performance",
+        desc: "L1/L2/L3 sizes on your M-series chip (`sysctl -a | grep cache`). AoS vs SoA tradeoffs. Row-major vs column-major matrix iteration - write both and time them.",
+        doneWhen: "You can predict and measure within 2x the speedup of switching a hot loop from row-major to column-major access.",
+        resources: [
+          { label: "CPU cache (Wikipedia)", url: "https://en.wikipedia.org/wiki/CPU_cache" },
+          { label: "Scott Meyers: CPU Caches", url: "https://www.youtube.com/watch?v=WDIkqP4JbkE" }
+        ],
+        pitfalls: [
+          "Apple Silicon has 128KB L1d per core (vs 32KB on x86). Your benchmarks may behave differently than tutorials assume.",
+          "False sharing: two threads writing different variables on the same cache line stall each other. Pad to 64 bytes."
+        ],
+        stretch: "Use `perf stat` (or macOS Instruments -> Counters) to measure cache misses on your row vs column iteration.",
+        commit: "exercise: aos vs soa benchmark + cache miss measurement",
+        interview: "Cache-friendliness questions are common at HFT-adjacent firms. Knowing why iterating columns of a row-major matrix is slow is table stakes."
+      },
+      {
+        day: 9, title: "Eigen Basics", type: "weekday", tag: "Eigen",
+        desc: "Include path, `MatrixXd`, `VectorXd`, expression templates concept. Coefficient-wise vs matrix ops. Compute a covariance matrix from a returns matrix in 3 lines.",
+        doneWhen: "You can compute a covariance matrix from a returns matrix in one Eigen expression and verify it matches numpy.",
+        resources: [
+          { label: "Eigen matrix tutorial", url: "https://eigen.tuxfamily.org/dox/group__TutorialMatrixClass.html" },
+          { label: "Eigen getting started", url: "https://eigen.tuxfamily.org/dox/GettingStarted.html" }
+        ],
+        pitfalls: [
+          "Eigen expression templates evaluate lazily. `auto x = A + B` is a lazy expression, not a matrix. Force evaluation with `.eval()` if you need a concrete matrix.",
+          "Pass Eigen objects by `const Ref<const MatrixXd>&` in function signatures to avoid copies AND allow blocks/slices."
+        ],
+        stretch: "Write a covariance function two ways: naively with loops, and with Eigen. Benchmark both.",
+        commit: "feat: eigen-based covariance estimator",
+        interview: "Eigen knowledge is huge at any firm doing matrix math. Asks like 'estimate covariance with shrinkage' will assume you've used it."
+      },
+      {
+        day: 10, title: "Eigen Decompositions", type: "weekday", tag: "Eigen",
+        desc: "Cholesky (`LLT`), eigendecomposition (`SelfAdjointEigenSolver`), SVD. Apply Ledoit-Wolf shrinkage formula to a small covariance matrix. Verify against a numpy reference.",
+        doneWhen: "You can apply Ledoit-Wolf shrinkage to a sample covariance and verify it's positive semi-definite.",
+        resources: [
+          { label: "Eigen decompositions", url: "https://eigen.tuxfamily.org/dox/group__TopicLinearAlgebraDecompositions.html" },
+          { label: "Ledoit & Wolf (2004) paper", url: "https://www.math.kit.edu/stoch/~baeuerle/seite/exotic_lehre/media/honey.pdf" }
+        ],
+        pitfalls: [
+          "Use `SelfAdjointEigenSolver` for symmetric matrices (like covariance). It's much faster than the general `EigenSolver`.",
+          "Cholesky (LLT) fails on indefinite matrices. Check `info()` after calling `compute()`."
+        ],
+        stretch: "Implement OAS (Oracle Approximating Shrinkage) in addition to Ledoit-Wolf and compare on real returns data.",
+        commit: "feat: ledoit-wolf shrinkage covariance",
+        interview: "Shrinkage estimators are a common 'tell me about covariance estimation' followup at quant firms. Math + a real implementation is a strong signal."
+      },
+      {
+        day: 11, title: "Google Benchmark", type: "weekday", tag: "Profiling",
+        desc: "Microbenchmark setup. `BENCHMARK_CAPTURE`, `Args`, ranges. Measure your `RollingWindow` push throughput. Document the number. This is your baseline.",
+        doneWhen: "You have a documented benchmark number for your RollingWindow's push throughput, with proper warm-up and noise control.",
+        resources: [
+          { label: "Google Benchmark quickstart", url: "https://github.com/google/benchmark#quick-start" },
+          { label: "Chandler Carruth: Tuning C++", url: "https://www.youtube.com/watch?v=nzHkmYGmgOI" }
+        ],
+        pitfalls: [
+          "`benchmark::DoNotOptimize()` is critical. Without it, the optimizer deletes your benchmark.",
+          "Compile benchmarks with `-O3` but be cautious with LTO - aggressive inlining can lead you to measure dead code elimination."
+        ],
+        stretch: "Add benchmarks with multiple thread counts using `Threads()` to see how your code scales.",
+        commit: "test: google benchmark for rolling window throughput",
+        interview: "Saying 'I measured it at X ops/sec' rather than 'I think it's faster' is a major credibility marker."
+      },
+      {
+        day: 12, title: "Flags + Assembly + Autovec", type: "spill", tag: "SIMD",
+        desc: "`-O3 -march=native -ffast-math`. View generated assembly with `-S` or compiler-explorer.com. Identify SIMD instructions (`vaddpd`, `vmulpd`). Find one inner loop that didn't autovectorize and figure out why. Will spill.",
+        doneWhen: "You can look at the assembly of a simple loop and identify whether it autovectorized.",
+        resources: [
+          { label: "Compiler Explorer (godbolt)", url: "https://godbolt.org/" },
+          { label: "Matt Godbolt: What Has My Compiler Done", url: "https://www.youtube.com/watch?v=bSkpMdDe4g4" }
+        ],
+        pitfalls: [
+          "`-ffast-math` breaks IEEE 754 compliance. Don't use it in code where NaN handling matters (e.g. real risk computations).",
+          "Autovectorization fails silently. Compilers won't tell you why unless you ask with `-Rpass=loop-vectorize` (clang) or `-fopt-info-vec` (gcc)."
+        ],
+        stretch: "Find one loop in your faststat code that didn't autovectorize. Restructure it until it does.",
+        commit: "perf: optimization flags + autovec verification",
+        interview: "Compiler Explorer (godbolt) is industry standard. Comfort reading basic x86/ARM assembly is a quiet but real differentiator."
+      },
+      {
+        day: 13, title: "pybind11", type: "weekday", tag: "Bindings",
+        desc: "Expose a C++ function to Python in fewer than 20 lines of glue code. Build with CMake + scikit-build-core. Load module from your daily Python workflow. Pass numpy arrays in and out efficiently (`py::array_t<double>`).",
+        doneWhen: "You can call a C++ function from Python that takes a numpy array, performs Eigen math, and returns a numpy array, all without copying data.",
+        resources: [
+          { label: "pybind11 basics", url: "https://pybind11.readthedocs.io/en/stable/basics.html" },
+          { label: "pybind11 + Eigen", url: "https://pybind11.readthedocs.io/en/stable/advanced/cast/eigen.html" }
+        ],
+        pitfalls: [
+          "Default pybind11 + numpy passes data via copy. Use `py::array_t<double, py::array::c_style | py::array::forcecast>` and Eigen Map for zero-copy.",
+          "scikit-build-core is the modern way to package. Don't use setup.py with manual CMake invocation."
+        ],
+        stretch: "Add a Python type stub file (.pyi) so VSCode autocomplete works on your C++ module.",
+        commit: "feat: pybind11 bindings for faststat",
+        interview: "pybind11 is becoming the assumed bridge at firms with Python-heavy research stacks. Bonus points if you mention zero-copy techniques."
+      },
+      {
+        day: 14, title: "faststat v0 + W2 Checkpoint", type: "weekend", tag: "Project",
+        desc: "Build the first real library: `faststat` - rolling EWMA volatility, rolling z-score, rolling correlation. Eigen-backed. pybind11 bindings. Benchmark vs pandas equivalents on a 5y x 500-security dataset. Document speedup in README.",
+        doneWhen: "faststat repo is on GitHub with README showing real benchmark numbers vs pandas.",
+        resources: [
+          { label: "Polars (README inspiration)", url: "https://github.com/pola-rs/polars" },
+          { label: "scikit-build-core docs", url: "https://scikit-build-core.readthedocs.io/" }
+        ],
+        pitfalls: [
+          "Don't benchmark with `time.time()` in Python. Use `timeit` for micro, or `pytest-benchmark` for repeatable runs.",
+          "Make your benchmark code reproducible. Set random seeds, document data shapes, version dependencies."
+        ],
+        stretch: "Add a CI workflow (GitHub Actions) that runs benchmarks on every push and posts a comment to PRs.",
+        commit: "release(w2): faststat v0 with rolling stats + pybind11 + benchmarks",
+        interview: "A GitHub repo with real benchmarks and clean docs is itself an interview asset. Bring it up unprompted."
+      },
+    ],
+    checkpoint: { name: "faststat v0 published", desc: "Repo with rolling stats, pybind11 bindings, benchmarks vs pandas, README. Real numbers in the README." }
+  },
+  {
+    num: 3,
+    title: "Concurrency + Advanced Templates",
+    color: "#FF4F7B",
+    goal: "Multi-core parallelism done correctly, plus template patterns used in real quant libraries.",
+    reflection: "Did your parallel speedup match the number of cores? If not, what was the bottleneck - synchronization, cache, or something else? Be specific.",
+    days: [
+      {
+        day: 15, title: "std::thread + Mutex", type: "weekday", tag: "Concurrency",
+        desc: "Thread spawning, joining, `std::mutex`, `std::lock_guard`, `std::scoped_lock`. Demonstrate a data race, run under ThreadSanitizer to see it caught, then fix it.",
+        doneWhen: "You can create a data race, observe ThreadSanitizer catch it, and fix it with the smallest necessary lock.",
+        resources: [
+          { label: "Thread library (cppreference)", url: "https://en.cppreference.com/w/cpp/thread" },
+          { label: "Bartosz Milewski: Concurrency", url: "https://bartoszmilewski.com/2009/05/21/multicore-haskell-now/" }
+        ],
+        pitfalls: [
+          "Don't write `std::lock_guard{mu};` and forget to name the variable. That creates a temporary destroyed immediately. Always name it.",
+          "Holding a lock across an I/O call serializes your threads. Keep critical sections tiny."
+        ],
+        stretch: "Reproduce the classic 'double-checked locking' pattern. Then learn why it's broken without `std::atomic`.",
+        commit: "exercise: mutex usage + tsan-caught race fix",
+        interview: "Concurrency questions are universal in quant. 'Find the race condition' is a common live-coding ask."
+      },
+      {
+        day: 16, title: "std::async + Futures", type: "weekday", tag: "Concurrency",
+        desc: "Task-based parallelism. `std::async`, `std::future`, `std::promise`. Parallelize signal computation across 500 tickers. Measure speedup on your M-series.",
+        doneWhen: "You can split 500 ticker computations across N threads and measure approximately linear scaling.",
+        resources: [
+          { label: "std::async (cppreference)", url: "https://en.cppreference.com/w/cpp/thread/async" },
+          { label: "Anthony Williams: C++ Concurrency in Action", url: "https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition" }
+        ],
+        pitfalls: [
+          "`std::async(f)` without explicit launch policy may run synchronously on some implementations. Use `std::async(std::launch::async, f)` to force async.",
+          "The future returned by `std::async` blocks in its destructor. Don't drop it on the floor unless you mean to."
+        ],
+        stretch: "Compare your async cross-section timing on Apple Silicon efficiency cores vs performance cores using thread affinity.",
+        commit: "feat: parallel signal computation via std::async",
+        interview: "Knowing when to use `std::async` vs a hand-built thread pool is a senior-level concurrency question."
+      },
+      {
+        day: 17, title: "Thread Pool", type: "weekday", tag: "Concurrency",
+        desc: "Build a ~60-line thread pool: bounded queue of `std::function<void()>`, worker threads, condition variable for sleep, clean shutdown. This is the backbone of any parallel engine.",
+        doneWhen: "Your thread pool executes 1000 small tasks in materially less time than 1000 sequential calls.",
+        resources: [
+          { label: "ThreadPool (reference impl)", url: "https://github.com/progschj/ThreadPool" },
+          { label: "Sean Parent: Better Code: Concurrency", url: "https://www.youtube.com/watch?v=zULU6Hhp42w" }
+        ],
+        pitfalls: [
+          "Don't make tasks too small. Queue overhead dominates if the task is shorter than ~10 microseconds.",
+          "Spurious wakeups on condition variables are real. Always check the predicate in a while loop, never an if."
+        ],
+        stretch: "Add work-stealing: instead of a single queue, give each worker its own queue and let idle workers steal from busy ones.",
+        commit: "feat: lightweight thread pool with task queue",
+        interview: "Building a thread pool from scratch is a classic systems interview. Doing it well differentiates you from candidates who only know `std::async`."
+      },
+      {
+        day: 18, title: "std::atomic + Memory Orderings", type: "spill", tag: "Concurrency",
+        desc: "`std::atomic<T>`, the 6 memory orderings, acquire/release vs sequential consistency. Build a lock-free counter. Read Sutter's 'atomic<> Weapons' once. Don't try to master lock-free containers; understand the model. Will spill.",
+        doneWhen: "You can build a lock-free counter that's faster than a mutex-protected counter under contention.",
+        resources: [
+          { label: "Memory order (cppreference)", url: "https://en.cppreference.com/w/cpp/atomic/memory_order" },
+          { label: "Herb Sutter: atomic<> Weapons", url: "https://www.youtube.com/watch?v=A8eCGOqgvH4" }
+        ],
+        pitfalls: [
+          "Default memory order is `seq_cst`. Safe but slow. Use `acquire`/`release` once you understand them; use `relaxed` only with great care.",
+          "Lock-free does NOT mean wait-free. Lock-free guarantees system-wide progress; individual threads can still starve.",
+          "Don't try to write lock-free data structures from scratch in production. Use proven libraries (e.g. moodycamel::ConcurrentQueue)."
+        ],
+        stretch: "Implement a single-producer-single-consumer (SPSC) ring buffer with relaxed/acquire/release semantics.",
+        commit: "exercise: lock-free counter + atomic memory model notes",
+        interview: "Most candidates can't explain memory orderings. If you can - especially in HFT context - this is a major signal at low-latency shops."
+      },
+      {
+        day: 19, title: "CRTP + Type Traits", type: "weekday", tag: "TMP",
+        desc: "Static polymorphism via Curiously Recurring Template Pattern. `std::enable_if`, `if constexpr`, `std::is_arithmetic_v`. Build a `Signal<Derived>` base that resolves to zero-cost virtual dispatch.",
+        doneWhen: "You can write a `Signal<Derived>` base class that resolves a virtual-style call at compile time with zero indirection.",
+        resources: [
+          { label: "Type traits (cppreference)", url: "https://en.cppreference.com/w/cpp/header/type_traits" },
+          { label: "Fluent{C++}: CRTP series", url: "https://www.fluentcpp.com/2017/05/12/curiously-recurring-template-pattern/" }
+        ],
+        pitfalls: [
+          "CRTP lacks runtime polymorphism. You can't store `Signal<A>` and `Signal<B>` in the same container unless you erase the type.",
+          "`std::is_arithmetic_v<T>` is in `<type_traits>`. Forgetting the include gives weird errors."
+        ],
+        stretch: "Compare assembly of a virtual call vs CRTP for the same operation. Document the size and speed difference.",
+        commit: "feat: crtp-based signal base class",
+        interview: "CRTP comes up in mid-to-senior interviews when the discussion turns to performance + polymorphism tradeoffs."
+      },
+      {
+        day: 20, title: "Policy-Based Design", type: "weekday", tag: "TMP",
+        desc: "Compose signal pipelines at compile time. `template<class Norm, class Decay> class Factor` - swap `ZScoreNorm` for `RankNorm` with no runtime cost. This is the C++ idiom that makes quant libraries fast AND flexible.",
+        doneWhen: "You can swap a `ZScoreNorm` policy for `RankNorm` policy on the same Factor template without runtime cost.",
+        resources: [
+          { label: "Alexandrescu: Modern C++ Design", url: "https://www.oreilly.com/library/view/modern-c-design/0201704315/" },
+          { label: "Policy and Strategy with Templates", url: "https://www.modernescpp.com/index.php/policy-and-strategy-with-templates" }
+        ],
+        pitfalls: [
+          "Policy-based design blows up compile times. Use sparingly in hot, narrowly-scoped types - not as a default pattern.",
+          "Policies should be stateless when possible. Stateful policies push toward inheritance semantics anyway."
+        ],
+        stretch: "Add a `ChunkPolicy` that controls how the engine partitions work across threads. Now you have 3 orthogonal composable policies.",
+        commit: "feat: policy-based factor template with composable normalization",
+        interview: "Policy-based design is rare in interviews but a quiet flex. Mentioning it in system design discussions signals depth."
+      },
+      {
+        day: 21, title: "Parallel Cross-Section + W3 Checkpoint", type: "weekend", tag: "Project",
+        desc: "Combine the thread pool, Eigen, and your policy templates. Build a parallel cross-sectional z-score function: input is an NxT returns matrix, output is NxT z-scored signals computed in parallel across the time dimension. Benchmark.",
+        doneWhen: "Cross-sectional z-score on a 500-asset x 1000-day matrix is materially faster than a pandas equivalent.",
+        resources: [
+          { label: "Eigen multi-threading", url: "https://eigen.tuxfamily.org/dox/TopicMultiThreading.html" },
+          { label: "Your own D17 thread pool", url: "#" }
+        ],
+        pitfalls: [
+          "Eigen itself can be parallelized via OpenMP. Don't double-parallelize - your outer threads will fight Eigen's inner ones.",
+          "Cache thrashing: parallel threads computing on adjacent rows of a matrix may evict each other's cache lines."
+        ],
+        stretch: "Profile the parallel cross-section with Instruments. Identify whether you're memory-bound or compute-bound.",
+        commit: "feat(w3): parallel cross-sectional scorer with thread pool",
+        interview: "Demoing a real benchmark of your parallel code on a quant-relevant dataset is the kind of side-project material that gets you past the resume screen."
+      },
+    ],
+    checkpoint: { name: "Parallel cross-section scorer", desc: "Thread pool + Eigen + templates composed into a working parallel signal scorer with benchmark numbers." }
+  },
+  {
+    num: 4,
+    title: "Capstone: xsfactor",
+    color: "#7CFF6B",
+    goal: "Ship a public, documented, benchmarked open-source C++ factor signal engine. This is the GitHub repo on your resume.",
+    reflection: "If you were starting xsfactor over, what would you architect differently? Where do you wish you'd spent more time? Capture these notes for your next side project.",
+    project: {
+      name: "xsfactor",
+      tagline: "High-performance cross-sectional factor signal engine for quant research.",
+      api: "from xsfactor import Engine\nengine = Engine(returns_df)\nsignals = engine.compute(['mom_3m', 'mom_12m_1', 'vol_60d', 'beta_120d'])\nz_scored = engine.normalize(signals, method='zscore', winsorize=0.01)",
+      bullets: [
+        "Eigen-backed signal computations (momentum, vol-scaled momentum, mean reversion, beta)",
+        "Cross-sectional normalization: z-score, rank, winsorize (composable via policy templates)",
+        "Thread-pool parallel dispatch across signals x dates",
+        "pybind11 Python API with native pandas DataFrame I/O",
+        "Documented 20-50x speedup over equivalent pandas implementation",
+        "GitHub Actions CI (build, test, benchmark on push)",
+        "Real README with architecture diagram, benchmark table, usage examples"
+      ]
+    },
+    days: [
+      {
+        day: 22, title: "Architecture + README First", type: "weekday", tag: "Design",
+        desc: "Sketch repo structure. Write the README BEFORE writing code: API examples, benchmark table (with TBD numbers), architecture diagram. This forces design discipline and makes the rest of the week execution, not invention.",
+        doneWhen: "Your README has the final API signatures, a benchmark table with TBD numbers, and a Mermaid architecture diagram - all before any new code is written.",
+        resources: [
+          { label: "Awesome READMEs", url: "https://github.com/matiassingers/awesome-readme" },
+          { label: "Mermaid in GitHub", url: "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams" }
+        ],
+        pitfalls: [
+          "Don't skip this day to 'just code.' API-first discipline is what separates side projects from hobby messes.",
+          "Mermaid diagrams render natively in GitHub README - use them for the architecture diagram, not external PNGs that get stale."
+        ],
+        stretch: "Write a 'design rationale' section explaining the policy-based design and why you chose Eigen over xtensor.",
+        commit: "docs: initial README with API + architecture + benchmark scaffolding",
+        interview: "Walking an interviewer through a README you wrote is a fantastic way to demo design thinking. Practice this story."
+      },
+      {
+        day: 23, title: "Data Layer", type: "weekday", tag: "Build",
+        desc: "Implement `ReturnsPanel` (N securities x T periods) backed by Eigen. CSV ingestion, date alignment, missing-data handling (forward-fill, drop). Catch2 unit tests with sample data fixtures.",
+        doneWhen: "Your ReturnsPanel class loads a CSV, aligns dates, handles missing data with a configurable policy, and has Catch2 tests covering edge cases.",
+        resources: [
+          { label: "Catch2 tutorial", url: "https://github.com/catchorg/Catch2/blob/devel/docs/tutorial.md" },
+          { label: "Eigen block operations", url: "https://eigen.tuxfamily.org/dox/group__TutorialBlockOperations.html" }
+        ],
+        pitfalls: [
+          "Forward-filling NaN data is dangerous in returns - you may bake in look-ahead bias. Make the policy explicit and document it.",
+          "Date alignment is where most quant data bugs hide. Test with intentionally misaligned inputs."
+        ],
+        stretch: "Add a `subset(start_date, end_date)` method using Eigen blocks for zero-copy views.",
+        commit: "feat: ReturnsPanel data layer with date alignment + missing-data policy",
+        interview: "Quant interviews love 'find the bug' in date-handling code. A robust data layer is itself an asset."
+      },
+      {
+        day: 24, title: "Signal Layer", type: "weekday", tag: "Build",
+        desc: "Port faststat. Add momentum (3M, 12-1), vol-scaled momentum, 60d mean reversion, 120d beta-to-market. All templatized over decay/window policy. Reuse what you built in W3.",
+        doneWhen: "Your engine can compute momentum, vol-scaled momentum, mean reversion, and beta on the same panel and return them as a single matrix.",
+        resources: [
+          { label: "Your D14 faststat code", url: "#" },
+          { label: "Grinold & Kahn Ch 14 (factor construction)", url: "https://www.mhprofessional.com/9780070248823-usa-active-portfolio-management-a-quantitative-approach-for-providing-superior-returns-and-controlling-risk" }
+        ],
+        pitfalls: [
+          "Beta computation needs robust handling of low-variance assets. Add a regularization floor.",
+          "Vol-scaled momentum has a divide-by-zero risk on stale data. Cap or floor the volatility denominator."
+        ],
+        stretch: "Add an EWMA-decayed momentum variant. Compare to fixed-window in your benchmark.",
+        commit: "feat: signal layer (momentum, mean reversion, beta, vol-scaled momentum)",
+        interview: "Factor construction is core quant work. Being able to describe yours in detail is high-leverage."
+      },
+      {
+        day: 25, title: "Engine + Profiling", type: "spill", tag: "Profiling",
+        desc: "Wire thread pool into a dispatcher: schedule signals x date chunks in parallel. Profile with macOS Instruments (Time Profiler + System Trace). Find the top bottleneck and document the before/after fix. Will spill.",
+        doneWhen: "You've identified the top bottleneck via Instruments, fixed it, and documented before/after numbers in a CHANGELOG.",
+        resources: [
+          { label: "macOS Instruments", url: "https://help.apple.com/instruments/mac/current/" },
+          { label: "Bryce Adelstein Lelbach: Profiling C++", url: "https://www.youtube.com/watch?v=nzHkmYGmgOI" }
+        ],
+        pitfalls: [
+          "Profilers lie under -O0. Always profile release builds with debug info (`-O3 -g`).",
+          "Don't optimize what the profiler says is hot. Optimize what's hot AND not memory-bandwidth-bound. Bandwidth-limited code can't be tuned faster without restructuring."
+        ],
+        stretch: "Generate flamegraphs before and after your optimization. Commit both to the repo for the story.",
+        commit: "perf: parallel dispatcher + first round of profiling-driven optimization",
+        interview: "Telling a story of 'I profiled, I found this, I fixed this, here's the number' is one of the most credible things a candidate can do."
+      },
+      {
+        day: 26, title: "pybind11 + pandas I/O", type: "weekday", tag: "Bindings",
+        desc: "Expose the engine. Zero-copy numpy to Eigen mapping for the hot path. Verify that a pandas DataFrame round-trips cleanly. Write 3 example notebooks that mirror real workflow patterns.",
+        doneWhen: "You can call `engine.compute(...)` from a pandas-heavy notebook and have the result feel like a native pandas operation.",
+        resources: [
+          { label: "pybind11 + Eigen", url: "https://pybind11.readthedocs.io/en/stable/advanced/cast/eigen.html" },
+          { label: "pandas to_numpy zero-copy", url: "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_numpy.html" }
+        ],
+        pitfalls: [
+          "If your input DataFrame isn't C-contiguous, pybind11 silently copies. Document this requirement or accept the copy cost.",
+          "Don't expose your raw C++ types to Python. Wrap them in a clean Python-friendly API."
+        ],
+        stretch: "Add a `compute_streaming(...)` API that yields signals one date at a time, suitable for backtesting loops.",
+        commit: "feat: pybind11 bindings + pandas-native I/O",
+        interview: "End-to-end ownership ('I wrote the C++ engine AND the Python API') is a stronger story than purely C++ or purely Python projects."
+      },
+      {
+        day: 27, title: "Benchmark Suite", type: "weekday", tag: "Polish",
+        desc: "Formal benchmark: 500-security x 5-year daily dataset, all signals + normalization. Compare against an equivalent pandas/numpy implementation you write side-by-side. Generate the comparison table for the README.",
+        doneWhen: "You have a benchmark table with N securities x T days x M signals comparing xsfactor to pandas, with documented setup.",
+        resources: [
+          { label: "hyperfine (CLI benchmarking)", url: "https://github.com/sharkdp/hyperfine" },
+          { label: "Polars benchmark presentation", url: "https://pola.rs" }
+        ],
+        pitfalls: [
+          "Don't cherry-pick the dataset size where you win. Show the curve from small to large to give an honest picture.",
+          "Cold-start vs warm-start matters. Document which you're measuring."
+        ],
+        stretch: "Add CPU-bound vs memory-bound scenario breakdowns in your benchmark table.",
+        commit: "test: formal benchmark suite vs pandas baseline",
+        interview: "Numbers in your README are the cheapest credibility you can buy. They turn 'I worked on this' into 'I shipped this, here's the proof.'"
+      },
+      {
+        day: 28, title: "Publish v0.1.0", type: "weekend", tag: "Ship",
+        desc: "Finalize README with real benchmark numbers, architecture diagram (Mermaid), 3 usage examples. Set up GitHub Actions: build on Mac + Linux, run tests, run benchmarks. Tag v0.1.0. Draft a short LinkedIn / blog post: 'I built an Eigen-backed cross-sectional factor engine, here are the benchmarks.'",
+        doneWhen: "v0.1.0 is tagged on GitHub, CI is green, README is publication-quality, and a draft writeup exists.",
+        resources: [
+          { label: "Keep a Changelog", url: "https://keepachangelog.com/" },
+          { label: "Semantic Versioning", url: "https://semver.org/" }
+        ],
+        pitfalls: [
+          "Don't ship without a LICENSE file. MIT or Apache 2.0 are quant-friendly.",
+          "v0.1.0 sets the bar. Don't tag it until you'd actually be happy linking it on your resume."
+        ],
+        stretch: "Submit your writeup to /r/quant or quant-focused Discord/Slack channels. Feedback is the actual value of build-in-public.",
+        commit: "release: v0.1.0 - public launch",
+        interview: "A linkable, working project with benchmarks is a hiring superpower. Lead with it in your application narrative."
+      },
+    ],
+    checkpoint: { name: "xsfactor v0.1.0 tagged", desc: "Public GitHub repo with CI passing, benchmarks documented, three example notebooks, and a writeup." }
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+
+const state = { activeWeek: 0, expandedDay: null, completed: new Set() };
+try {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) state.completed = new Set(JSON.parse(saved));
+} catch (e) {}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+
+const DT = window.innerWidth >= 768;
+function sz(n) { return DT ? Math.round(n * 1.55) : n; }
+
+function esc(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...state.completed])); } catch (e) {}
+}
+
+// ── BUILD FUNCTIONS ───────────────────────────────────────────────────────────
+
+function buildHeader() {
+  const totalDays = weeks.reduce((sum, w) => sum + w.days.length, 0);
+  const completedCount = state.completed.size;
+  const pct = Math.round((completedCount / totalDays) * 100);
+
+  const legend = Object.entries(dayTypes).map(([k, v]) => {
+    const label = { weekday: 'standard', spill: 'plan 90 min', weekend: 'longer block', setup: 'one-time' }[k];
+    return `<div style="display:flex;align-items:center;gap:6px;">
+      <span style="font-size:${sz(8)}px;padding:2px 6px;background:${v.bg};color:${v.color};border:1px solid ${v.color}44;border-radius:2px;letter-spacing:0.05em;font-weight:600;">${v.label}</span>
+      <span style="font-size:${sz(10)}px;color:#aaa;">${label}</span>
+    </div>`;
+  }).join('');
+
+  return `
+  <div style="border-bottom:1px solid #1e1e2e;padding:${DT ? '28px 48px 20px' : '20px 28px 16px'};background:#08080d;">
+    <div style="font-size:${sz(10)}px;letter-spacing:0.15em;color:#888;text-transform:uppercase;margin-bottom:8px;">C++ 4-Week Refresher · Quant Tilt</div>
+    <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px;">
+      <h1 style="font-size:${sz(22)}px;font-weight:700;color:#fff;letter-spacing:-0.02em;">4-Week C++ Intensive</h1>
+      <span style="font-size:${sz(11)}px;color:#aaa;font-family:'IBM Plex Sans',sans-serif;">29 days · capstone: xsfactor</span>
+    </div>
+    <div style="margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-size:${sz(10)}px;color:#aaa;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;">Progress</span>
+        <span style="font-size:${sz(10)}px;color:#ccc;">${completedCount}/${totalDays} · ${pct}%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${pct}%;"></div></div>
+    </div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;">${legend}</div>
+  </div>`;
+}
+
+function buildWeekTabs() {
+  const tabs = weeks.map((w, i) => {
+    const isActive = state.activeWeek === i;
+    const label = w.num === 0 ? 'W0 · Setup' : `W${w.num} · ${esc(w.title)}`;
+    return `<div class="week-tab${isActive ? ' active' : ''}" data-week="${i}" style="--tab-color:${w.color};color:${isActive ? w.color : '#999'};">${label}</div>`;
+  }).join('');
+  return `<div style="display:flex;border-bottom:1px solid #1e1e2e;background:#09090e;overflow-x:auto;padding:${DT ? '0 40px' : '0 20px'};gap:4px;">${tabs}</div>`;
+}
+
+function buildWeekHeader(week) {
+  const dayRange = week.num > 0
+    ? `<span style="font-size:${sz(10)}px;color:#666;">────────</span>
+       <span style="font-size:${sz(10)}px;color:#999;letter-spacing:0.1em;">Days ${(week.num - 1) * 7 + 1}–${week.num * 7}</span>`
+    : '';
+  return `
+  <div style="margin-bottom:${DT ? '32px' : '22px'};padding-left:14px;border-left:3px solid ${week.color};">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+      <span style="font-size:${sz(10)}px;letter-spacing:0.15em;text-transform:uppercase;color:${week.color};font-weight:600;">${week.num === 0 ? 'Week 0 · Setup' : 'Week ' + week.num}</span>
+      ${dayRange}
+    </div>
+    <h2 style="font-size:${sz(18)}px;font-weight:700;color:#fff;margin-bottom:8px;">${esc(week.title)}</h2>
+    <p style="font-size:${sz(12.5)}px;color:#bbb;line-height:1.6;font-family:'IBM Plex Sans',sans-serif;max-width:${DT ? '880px' : '640px'};">${esc(week.goal)}</p>
+  </div>`;
+}
+
+function buildCapstoneCallout(week) {
+  const bullets = week.project.bullets.map(b =>
+    `<div style="display:flex;gap:8px;align-items:flex-start;">
+      <span style="color:${week.color};font-size:${sz(10)}px;margin-top:3px;flex-shrink:0;">▸</span>
+      <span style="font-size:${sz(11.5)}px;color:#bbb;font-family:'IBM Plex Sans',sans-serif;line-height:1.5;">${esc(b)}</span>
+    </div>`
+  ).join('');
+  return `
+  <div style="background:#0d150d;border:1px solid ${week.color}33;border-left:3px solid ${week.color};border-radius:4px;padding:${DT ? '22px 26px' : '16px 18px'};margin-bottom:20px;">
+    <div style="font-size:${sz(10)}px;letter-spacing:0.15em;color:${week.color};text-transform:uppercase;font-weight:600;margin-bottom:8px;">Capstone Project</div>
+    <div style="font-size:${sz(16)}px;font-weight:700;color:#fff;margin-bottom:4px;">${esc(week.project.name)}</div>
+    <p style="font-size:${sz(11.5)}px;color:#aaa;line-height:1.6;font-family:'IBM Plex Sans',sans-serif;margin-bottom:12px;font-style:italic;">${esc(week.project.tagline)}</p>
+    <div style="background:#000;padding:${DT ? '14px 16px' : '10px 12px'};border-radius:3px;margin-bottom:14px;border:1px solid #1a3300;">
+      <pre style="font-size:${sz(10.5)}px;color:#7CFF6B;font-family:'IBM Plex Mono',monospace;white-space:pre-wrap;line-height:1.6;margin:0;">${esc(week.project.api)}</pre>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px;">${bullets}</div>
+  </div>`;
+}
+
+function buildDayDetails(d, weekColor) {
+  const resources = d.resources.map(r =>
+    `<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" style="font-size:${sz(11.5)}px;line-height:1.5;">→ ${esc(r.label)}</a>`
+  ).join('');
+
+  const pitfalls = d.pitfalls.map(p =>
+    `<div style="display:flex;gap:8px;align-items:flex-start;">
+      <span style="color:#FFB700;font-size:${sz(10)}px;margin-top:3px;flex-shrink:0;">·</span>
+      <span style="font-size:${sz(11.5)}px;color:#bbb;font-family:'IBM Plex Sans',sans-serif;line-height:1.6;">${esc(p)}</span>
+    </div>`
+  ).join('');
+
+  return `
+    <p style="font-size:${sz(12)}px;color:#bbb;line-height:1.7;font-family:'IBM Plex Sans',sans-serif;">${esc(d.desc)}</p>
+    <div class="section">
+      <div class="section-header" style="color:#7CFF6B;">◆ Done When</div>
+      <p style="font-size:${sz(11.5)}px;color:#aaa;line-height:1.6;font-family:'IBM Plex Sans',sans-serif;">${esc(d.doneWhen)}</p>
+    </div>
+    <div class="section">
+      <div class="section-header" style="color:#4A90E2;">↗ Resources</div>
+      <div style="display:flex;flex-direction:column;gap:4px;">${resources}</div>
+    </div>
+    <div class="section">
+      <div class="section-header" style="color:#FFB700;">⚠ Pitfalls</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">${pitfalls}</div>
+    </div>
+    <div class="section">
+      <div class="section-header" style="color:#FF4F7B;">→ Stretch Goal</div>
+      <p style="font-size:${sz(11.5)}px;color:#aaa;line-height:1.6;font-family:'IBM Plex Sans',sans-serif;">${esc(d.stretch)}</p>
+    </div>
+    <div class="section">
+      <div class="section-header" style="color:#A569BD;">⌥ Commit Message</div>
+      <code class="code-block">${esc(d.commit)}</code>
+    </div>
+    <div class="section">
+      <div class="section-header" style="color:#16A085;">◉ Interview Connection</div>
+      <p style="font-size:${sz(11.5)}px;color:#aaa;line-height:1.6;font-family:'IBM Plex Sans',sans-serif;">${esc(d.interview)}</p>
+    </div>`;
+}
+
+function buildDayCard(d, weekColor, dayIdx) {
+  const dt = dayTypes[d.type];
+  const isDone = state.completed.has(d.day);
+  const isExpanded = state.expandedDay === dayIdx;
+  const tagColor = tagColors[d.tag] || '#888';
+  const dayNum = String(d.day).padStart(2, '0');
+  const indentPx = DT ? 72 : 48;
+
+  const details = isExpanded
+    ? `<div style="margin-top:10px;padding-top:10px;padding-left:${indentPx}px;border-top:1px solid ${weekColor}22;position:relative;">
+        <button data-copy-day="${d.day}" data-copy-color="${weekColor}" style="position:absolute;top:0;right:0;background:transparent;border:1px solid ${weekColor}44;color:${weekColor};font-size:${sz(9)}px;padding:3px 10px;border-radius:2px;font-family:'IBM Plex Mono',monospace;cursor:pointer;letter-spacing:0.08em;opacity:0.6;transition:all 0.15s;">copy</button>
+        ${buildDayDetails(d, weekColor)}
+      </div>`
+    : '';
+
+  return `
+  <div class="day-card${isExpanded ? ' expanded' : ''}${isDone ? ' done' : ''}" style="--week-color:${weekColor};" data-day-idx="${dayIdx}">
+    <div class="day-row">
+      <div class="checkbox${isDone ? ' checked' : ''}" style="--week-color:${weekColor};" data-checkbox="${d.day}"></div>
+      <span style="font-size:${sz(10)}px;color:${isExpanded ? weekColor : '#777'};font-weight:700;width:${sz(32)}px;flex-shrink:0;">D${dayNum}</span>
+      <span style="font-size:${sz(8)}px;padding:2px 6px;background:${dt.bg};color:${dt.color};border:1px solid ${dt.color}44;border-radius:2px;letter-spacing:0.05em;font-weight:600;width:${sz(48)}px;text-align:center;flex-shrink:0;">${dt.label}</span>
+      <span style="font-size:${sz(9)}px;padding:2px 6px;background:${tagColor}22;color:${tagColor};border:1px solid ${tagColor}33;border-radius:2px;letter-spacing:0.05em;font-weight:600;width:${sz(76)}px;text-align:center;flex-shrink:0;">${esc(d.tag)}</span>
+      <span style="font-size:${sz(12.5)}px;font-weight:600;color:${isExpanded ? '#fff' : isDone ? '#777' : '#ddd'};flex:1;${isDone ? 'text-decoration:line-through;' : ''}">${esc(d.title)}</span>
+      <span style="font-size:${sz(10)}px;transition:transform 0.15s;transform:${isExpanded ? 'rotate(90deg)' : 'rotate(0deg)'};color:${isExpanded ? weekColor : '#666'};">▶</span>
+    </div>
+    ${details}
+  </div>`;
+}
+
+function buildCheckpoint(week) {
+  return `
+  <div style="margin-top:20px;padding:${DT ? '18px 22px' : '12px 16px'};background:${week.color}10;border:1px dashed ${week.color}55;border-radius:4px;">
+    <div style="font-size:${sz(9)}px;letter-spacing:0.15em;color:${week.color};text-transform:uppercase;font-weight:700;margin-bottom:4px;">◆ Weekly Checkpoint</div>
+    <div style="font-size:${sz(12.5)}px;color:#ddd;font-weight:600;margin-bottom:3px;">${esc(week.checkpoint.name)}</div>
+    <div style="font-size:${sz(11)}px;color:#bbb;font-family:'IBM Plex Sans',sans-serif;line-height:1.5;">${esc(week.checkpoint.desc)}</div>
+  </div>`;
+}
+
+function buildReflection(week) {
+  return `
+  <div style="margin-top:14px;padding:${DT ? '18px 22px' : '12px 16px'};background:#0d0d18;border:1px solid #1e1e2e;border-left:3px solid ${week.color};border-radius:4px;">
+    <div style="font-size:${sz(9)}px;letter-spacing:0.15em;color:#aaa;text-transform:uppercase;font-weight:700;margin-bottom:6px;">✎ End-of-Week Reflection</div>
+    <p style="font-size:${sz(11.5)}px;color:#bbb;font-family:'IBM Plex Sans',sans-serif;line-height:1.6;font-style:italic;">${esc(week.reflection)}</p>
+  </div>`;
+}
+
+function buildNavigation() {
+  const week = weeks[state.activeWeek];
+  const atStart = state.activeWeek === 0;
+  const atEnd = state.activeWeek === weeks.length - 1;
+  return `
+  <div style="margin-top:24px;display:flex;justify-content:space-between;align-items:center;">
+    <button data-nav="prev" ${atStart ? 'disabled' : ''} style="background:transparent;border:1px solid #333;color:${atStart ? '#555' : '#bbb'};padding:${DT ? '11px 24px' : '8px 16px'};font-size:${sz(11)}px;border-radius:3px;">← prev</button>
+    <button id="reset-btn" style="background:transparent;border:none;color:#888;font-size:${sz(10)}px;letter-spacing:0.05em;">reset progress</button>
+    <button data-nav="next" ${atEnd ? 'disabled' : ''} style="background:${atEnd ? 'transparent' : week.color + '15'};border:1px solid ${atEnd ? '#333' : week.color + '44'};color:${atEnd ? '#555' : week.color};padding:${DT ? '11px 24px' : '8px 16px'};font-size:${sz(11)}px;border-radius:3px;">next →</button>
+  </div>`;
+}
+
+function buildHTML() {
+  const week = weeks[state.activeWeek];
+  const cards = week.days.map((d, i) => buildDayCard(d, week.color, i)).join('');
+  return `
+  <div style="background:#0a0a0f;min-height:100vh;font-family:'IBM Plex Mono','Courier New',monospace;color:#e0e0e0;">
+    ${buildHeader()}
+    ${buildWeekTabs()}
+    <div style="padding:${DT ? '32px 48px' : '22px 28px'};max-width:${DT ? 'none' : '940px'};">
+      ${buildWeekHeader(week)}
+      ${week.project ? buildCapstoneCallout(week) : ''}
+      <div style="display:flex;flex-direction:column;gap:${DT ? '8px' : '5px'};">${cards}</div>
+      ${week.checkpoint ? buildCheckpoint(week) : ''}
+      ${week.reflection ? buildReflection(week) : ''}
+      ${buildNavigation()}
+    </div>
+  </div>`;
+}
+
+// ── RENDER + EVENTS ───────────────────────────────────────────────────────────
+
+function attachListeners() {
+  document.querySelectorAll('[data-week]').forEach(el => {
+    el.addEventListener('click', () => {
+      state.activeWeek = +el.dataset.week;
+      state.expandedDay = null;
+      render();
+    });
+  });
+
+  document.querySelectorAll('[data-day-idx]').forEach(el => {
+    el.addEventListener('click', e => {
+      if (e.target.closest('[data-checkbox]')) return;
+      const idx = +el.dataset.dayIdx;
+      state.expandedDay = state.expandedDay === idx ? null : idx;
+      render();
+    });
+  });
+
+  document.querySelectorAll('[data-checkbox]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+      const n = +el.dataset.checkbox;
+      state.completed.has(n) ? state.completed.delete(n) : state.completed.add(n);
+      save();
+      render();
+    });
+  });
+
+  document.querySelectorAll('[data-copy-day]').forEach(btn => {
+    btn.addEventListener('mouseenter', () => { btn.style.opacity = '1'; });
+    btn.addEventListener('mouseleave', () => { if (btn.textContent === 'copy') btn.style.opacity = '0.6'; });
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const dayNum = +btn.dataset.copyDay;
+      const origColor = btn.dataset.copyColor;
+      const d = weeks.flatMap(w => w.days).find(x => x.day === dayNum);
+      if (!d) return;
+
+      const text = [
+        `D${String(dayNum).padStart(2,'0')}: ${d.title}`,
+        `Type: ${d.type}  ·  Tag: ${d.tag}`,
+        '',
+        d.desc,
+        '',
+        '◆ DONE WHEN',
+        d.doneWhen,
+        '',
+        '↗ RESOURCES',
+        ...d.resources.map(r => `  → ${r.label}\n    ${r.url}`),
+        '',
+        '⚠ PITFALLS',
+        ...d.pitfalls.map(p => `  · ${p}`),
+        '',
+        '→ STRETCH GOAL',
+        `  ${d.stretch}`,
+        '',
+        '⌥ COMMIT',
+        `  ${d.commit}`,
+        '',
+        '◉ INTERVIEW CONNECTION',
+        `  ${d.interview}`,
+      ].join('\n');
+
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓ copied';
+        btn.style.color = '#7CFF6B';
+        btn.style.borderColor = '#7CFF6B44';
+        btn.style.opacity = '1';
+        setTimeout(() => {
+          btn.textContent = 'copy';
+          btn.style.color = origColor;
+          btn.style.borderColor = origColor + '44';
+          btn.style.opacity = '0.6';
+        }, 2000);
+      }).catch(() => {
+        btn.textContent = '✗ failed';
+        setTimeout(() => { btn.textContent = 'copy'; }, 2000);
+      });
+    });
+  });
+
+  document.querySelector('[data-nav="prev"]')?.addEventListener('click', () => {
+    if (state.activeWeek > 0) { state.activeWeek--; state.expandedDay = null; render(); }
+  });
+
+  document.querySelector('[data-nav="next"]')?.addEventListener('click', () => {
+    if (state.activeWeek < weeks.length - 1) { state.activeWeek++; state.expandedDay = null; render(); }
+  });
+
+  document.getElementById('reset-btn')?.addEventListener('click', () => {
+    if (!confirm('Reset all progress? This cannot be undone.')) return;
+    state.completed = new Set();
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    render();
+  });
+}
+
+function render() {
+  document.getElementById('root').innerHTML = buildHTML();
+  attachListeners();
+}
+
+render();
+</script>
+<script data-goatcounter="https://joshpearlson.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
