@@ -707,7 +707,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const countEl = document.getElementById('t-status-count');
     if (countEl && articleCount != null) {
-      countEl.textContent = `${articleCount} articles \u00b7 6 projects`;
+      countEl.textContent = `${articleCount} articles \u00b7 7 projects`;
     }
 
     updateClock();
@@ -819,9 +819,9 @@ document.addEventListener('DOMContentLoaded', function() {
           .then(data => {
             const blogEntry = data.find(e => e.listing && e.listing.includes('blog')) || data[0];
             const count = blogEntry ? blogEntry.items.length : 0;
-            countEl.textContent = `${count} articles \u00b7 6 projects`;
+            countEl.textContent = `${count} articles \u00b7 7 projects`;
           })
-          .catch(() => { countEl.textContent = '\u2014 articles \u00b7 6 projects'; });
+          .catch(() => { countEl.textContent = '\u2014 articles \u00b7 7 projects'; });
       }
     }
   }

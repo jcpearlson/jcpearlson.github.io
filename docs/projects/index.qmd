@@ -38,73 +38,16 @@ include-after-body:
         <div class="jcp-proj-path">› ./articles/</div>
       </a>
 
-      <a href="https://pomo.joshpearlson.com" class="jcp-proj-card">
+      <a href="https://github.com/jcpearlson/FICC-mania" class="jcp-proj-card">
         <div class="jcp-proj-meta">
-          <span class="jcp-proj-year">2025+</span>
-          <span class="jcp-proj-tag">Web app · JS</span>
+          <span class="jcp-proj-year">2026</span>
+          <span class="jcp-proj-tag">Dashboard · Python</span>
         </div>
-        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>Pomo</div>
-        <div class="jcp-proj-desc">Minimal Pomodoro timer. Live at pomo.joshpearlson.com.</div>
+        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>FICC Mania</div>
+        <div class="jcp-proj-desc">Streamlit dashboard for fixed income, currencies, and commodities, built entirely on free public data.</div>
         <div class="jcp-proj-sep"></div>
-        <div class="jcp-proj-path">› pomo.joshpearlson.com</div>
+        <div class="jcp-proj-path">› github.com/jcpearlson/FICC-mania</div>
       </a>
-
-      <a href="https://openreview.net/forum?id=sfnz81T3pm" class="jcp-proj-card">
-        <div class="jcp-proj-meta">
-          <span class="jcp-proj-year">2024</span>
-          <span class="jcp-proj-tag">Research · LLM</span>
-        </div>
-        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>DPFM @ ICLR 2024</div>
-        <div class="jcp-proj-desc">LLMs recognizing DeFi entities. Lead author, DPFM workshop @ ICLR 2024.</div>
-        <div class="jcp-proj-sep"></div>
-        <div class="jcp-proj-path">› openreview.net/forum?id=sfnz81T3pm</div>
-      </a>
-
-      <a href="https://doi.org/10.1117/12.2582228" class="jcp-proj-card">
-        <div class="jcp-proj-meta">
-          <span class="jcp-proj-year">2020</span>
-          <span class="jcp-proj-tag">Research · CNN</span>
-        </div>
-        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>MRI Lesion Mapping</div>
-        <div class="jcp-proj-desc">CNN-based lesion mapping from MP-MRI. Lead author, SPIE Medical Imaging.</div>
-        <div class="jcp-proj-sep"></div>
-        <div class="jcp-proj-path">› doi.org/10.1117/12.2582228</div>
-      </a>
-
-      <a href="6CardGolf/index.html" class="jcp-proj-card">
-        <div class="jcp-proj-meta">
-          <span class="jcp-proj-year">2023</span>
-          <span class="jcp-proj-tag">Card game · P2P</span>
-        </div>
-        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>6-Card Golf</div>
-        <div class="jcp-proj-desc">Browser-based 1v1 card game with P2P networking and in-game chat.</div>
-        <div class="jcp-proj-sep"></div>
-        <div class="jcp-proj-path">› ./projects/6CardGolf</div>
-      </a>
-
-      <a href="DigDug/DigDugGame.html" class="jcp-proj-card">
-        <div class="jcp-proj-meta">
-          <span class="jcp-proj-year">2022</span>
-          <span class="jcp-proj-tag">Arcade · Canvas</span>
-        </div>
-        <div class="jcp-proj-title"><span class="jcp-proj-arrow">▸</span>Dig Dug</div>
-        <div class="jcp-proj-desc">Classic arcade game recreation in the browser.</div>
-        <div class="jcp-proj-sep"></div>
-        <div class="jcp-proj-path">› ./projects/DigDug</div>
-      </a>
-
-    </div>
-
-  </div>
-  <div class="t-status">
-    <span><span class="t-status-dot">●</span> online</span>
-    <span id="t-status-count">— articles · — projects</span>
-    <span class="t-status-weather" id="t-status-weather">
-      <span class="t-weather-glyph">·</span> NYC --°F <span class="t-sep">·</span> 40.7128° N, 74.0060° W
-    </span>
-  </div>
-</div>
-```
 
       <a href="https://pomo.joshpearlson.com" class="jcp-proj-card">
         <div class="jcp-proj-meta">
