@@ -9,6 +9,8 @@ title-block-banner: true
 
 format:
   html:
+    # Apply the article theme before body scripts or charts finish loading.
+    body-classes: jcp-article-page
     css: ../../css/posts.css
     include-after-body:
       - ../../javaScript/article-chrome.html

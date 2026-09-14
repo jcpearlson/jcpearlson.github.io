@@ -15,7 +15,7 @@
 
 /* ── Article terminal chrome ── */
 
-/* jcp-article-page is added synchronously (before first paint) to prevent flash */
+/* Quarto renders this class on <body>, so the theme applies on first paint. */
 body.jcp-article-page #quarto-header,
 body.jcp-article-page .navbar,
 body.jcp-article-page header.headroom {
@@ -33,31 +33,6 @@ body.jcp-article-page .quarto-title-block {
 }
 
 body.jcp-article-page {
-  background: var(--t-bg) !important;
-  color: var(--t-ink);
-  font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
-  padding-top: 44px !important;
-  padding-bottom: calc(38px + env(safe-area-inset-bottom, 0px)) !important;
-}
-
-/* keep :has() selectors for styles that depend on the injected tab bar element */
-body:has(.jcp-article-tabbar) #quarto-header,
-body:has(.jcp-article-tabbar) .navbar,
-body:has(.jcp-article-tabbar) header.headroom {
-  visibility: hidden !important;
-  position: fixed !important;
-  top: -200px !important;
-  pointer-events: none !important;
-}
-
-body:has(.jcp-article-tabbar) #title-block-header,
-body:has(.jcp-article-tabbar) .quarto-title-banner,
-body:has(.jcp-article-tabbar) .quarto-title,
-body:has(.jcp-article-tabbar) .quarto-title-block {
-  display: none !important;
-}
-
-body:has(.jcp-article-tabbar) {
   background: var(--t-bg) !important;
   color: var(--t-ink);
   font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
@@ -194,7 +169,7 @@ body:has(.jcp-article-tabbar) {
 }
 
 /* ── TOC scrollspy — terminal reskin ── */
-body:has(.jcp-article-tabbar) .scrollspy-nav {
+body.jcp-article-page .scrollspy-nav {
   top: 68px !important;
   background: transparent !important;
   border: none !important;
@@ -202,7 +177,7 @@ body:has(.jcp-article-tabbar) .scrollspy-nav {
   padding-left: 16px !important;
   padding-right: 0 !important;
 }
-body:has(.jcp-article-tabbar) .scrollspy-nav a {
+body.jcp-article-page .scrollspy-nav a {
   color: var(--t-ink-dim) !important;
   font-family: "IBM Plex Mono", monospace !important;
   font-size: 14px !important;
@@ -214,13 +189,13 @@ body:has(.jcp-article-tabbar) .scrollspy-nav a {
   background: transparent !important;
   transition: color 0.15s;
 }
-body:has(.jcp-article-tabbar) .scrollspy-nav a:hover {
+body.jcp-article-page .scrollspy-nav a:hover {
   color: var(--t-ink) !important;
 }
-body:has(.jcp-article-tabbar) .scrollspy-nav a.active {
+body.jcp-article-page .scrollspy-nav a.active {
   color: var(--t-accent) !important;
 }
-body:has(.jcp-article-tabbar) .scrollspy-title {
+body.jcp-article-page .scrollspy-title {
   color: #5c6a5a !important;
   font-family: "IBM Plex Mono", monospace !important;
   font-size: 11px !important;
@@ -231,7 +206,7 @@ body:has(.jcp-article-tabbar) .scrollspy-title {
 }
 
 /* ── Share / subscribe footer — terminal reskin ── */
-body:has(.jcp-article-tabbar) .article-footer {
+body.jcp-article-page .article-footer {
   margin-top: 48px;
   border-top: 1px dashed var(--t-line);
   padding-top: 28px;
@@ -241,7 +216,7 @@ body:has(.jcp-article-tabbar) .article-footer {
   gap: 12px !important;
   align-items: stretch !important;
 }
-body:has(.jcp-article-tabbar) .article-footer .subscribe-section {
+body.jcp-article-page .article-footer .subscribe-section {
   flex: 1 !important;
   background: var(--t-panel) !important;
   border: 1px solid var(--t-line) !important;
@@ -249,7 +224,7 @@ body:has(.jcp-article-tabbar) .article-footer .subscribe-section {
   padding: 18px 22px !important;
   margin-bottom: 0 !important;
 }
-body:has(.jcp-article-tabbar) .article-footer .share-article-container {
+body.jcp-article-page .article-footer .share-article-container {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -260,7 +235,7 @@ body:has(.jcp-article-tabbar) .article-footer .share-article-container {
   margin-bottom: 0 !important;
   flex-shrink: 0 !important;
 }
-body:has(.jcp-article-tabbar) .article-footer input[type="email"] {
+body.jcp-article-page .article-footer input[type="email"] {
   background: transparent !important;
   border: 1px solid var(--t-line) !important;
   border-radius: 0 !important;
@@ -270,11 +245,11 @@ body:has(.jcp-article-tabbar) .article-footer input[type="email"] {
   padding: 8px 12px !important;
   outline: none !important;
 }
-body:has(.jcp-article-tabbar) .article-footer input[type="email"]:focus {
+body.jcp-article-page .article-footer input[type="email"]:focus {
   border-color: var(--t-accent) !important;
 }
-body:has(.jcp-article-tabbar) .article-footer button[type="submit"],
-body:has(.jcp-article-tabbar) .article-footer .share-article-button {
+body.jcp-article-page .article-footer button[type="submit"],
+body.jcp-article-page .article-footer .share-article-button {
   background: transparent !important;
   border: 1px solid var(--t-accent) !important;
   border-radius: 0 !important;
@@ -286,25 +261,25 @@ body:has(.jcp-article-tabbar) .article-footer .share-article-button {
   letter-spacing: 0.05em !important;
   transition: background 0.15s, color 0.15s !important;
 }
-body:has(.jcp-article-tabbar) .article-footer button[type="submit"]:hover,
-body:has(.jcp-article-tabbar) .article-footer .share-article-button:hover {
+body.jcp-article-page .article-footer button[type="submit"]:hover,
+body.jcp-article-page .article-footer .share-article-button:hover {
   background: var(--t-accent) !important;
   color: var(--t-bg) !important;
 }
-body:has(.jcp-article-tabbar) .article-footer .subscribe-label {
+body.jcp-article-page .article-footer .subscribe-label {
   color: var(--t-ink) !important;
   font-size: 14px !important;
   margin-bottom: 12px !important;
 }
-body:has(.jcp-article-tabbar) .article-footer a {
+body.jcp-article-page .article-footer a {
   color: var(--t-ink-dim) !important;
   text-decoration: none !important;
 }
-body:has(.jcp-article-tabbar) .article-footer a:hover {
+body.jcp-article-page .article-footer a:hover {
   color: var(--t-accent) !important;
 }
 @media (max-width: 700px) {
-  body:has(.jcp-article-tabbar) .article-footer {
+  body.jcp-article-page .article-footer {
     flex-direction: column !important;
   }
 }

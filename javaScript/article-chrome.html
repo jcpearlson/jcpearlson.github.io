@@ -1,8 +1,6 @@
 <script>
-// Synchronous: runs at end-of-body parse, before first paint, to prevent flash
-if (document.querySelector('.quarto-title-banner')) {
-  document.body.classList.add('jcp-article-page');
-}
+// The article theme class is rendered on <body> by posts/_metadata.yml.
+// End-of-body scripts can run after a paint, especially behind chart scripts.
 
 const _vp = document.querySelector('meta[name="viewport"]');
 if (_vp && !_vp.content.includes('viewport-fit')) {

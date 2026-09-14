@@ -101,7 +101,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../../css/posts.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed jcp-article-page fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -309,10 +309,8 @@ window.Quarto = {
 </script>
 <script data-goatcounter="https://joshpearlson.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
 <script>
-// Synchronous: runs at end-of-body parse, before first paint, to prevent flash
-if (document.querySelector('.quarto-title-banner')) {
-  document.body.classList.add('jcp-article-page');
-}
+// The article theme class is rendered on <body> by posts/_metadata.yml.
+// End-of-body scripts can run after a paint, especially behind chart scripts.
 
 const _vp = document.querySelector('meta[name="viewport"]');
 if (_vp && !_vp.content.includes('viewport-fit')) {
