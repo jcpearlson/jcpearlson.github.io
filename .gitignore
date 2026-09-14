@@ -5,3 +5,5 @@ blankfile.txt
 .claude
 .claire
 .DS_Store
+.agents/
+AGENTS.MD
