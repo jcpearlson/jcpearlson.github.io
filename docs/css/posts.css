@@ -1,145 +1,25 @@
-/* css/posts.css */
+@import url('terminal-theme.css');
 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
-
-:root {
-  --t-ink: #c9d1c6;
-  --t-ink-dim: #6f7d6c;
-  --t-ink-bright: #e8ebe5;
-  --t-bg: #0a0b09;
-  --t-panel: #0d110b;
-  --t-line: #22281f;
-  --t-line-dim: #1b211a;
-  --t-accent: #7cff00;
-}
-
-/* ── Article terminal chrome ── */
-
-/* Quarto renders this class on <body>, so the theme applies on first paint. */
-body.jcp-article-page #quarto-header,
-body.jcp-article-page .navbar,
-body.jcp-article-page header.headroom {
-  visibility: hidden !important;
-  position: fixed !important;
-  top: -200px !important;
-  pointer-events: none !important;
-}
-
-body.jcp-article-page #title-block-header,
-body.jcp-article-page .quarto-title-banner,
-body.jcp-article-page .quarto-title,
-body.jcp-article-page .quarto-title-block {
-  display: none !important;
-}
-
-body.jcp-article-page {
-  background: var(--t-bg) !important;
-  color: var(--t-ink);
-  font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
-  padding-top: 44px !important;
-  padding-bottom: calc(38px + env(safe-area-inset-bottom, 0px)) !important;
-}
-
-.jcp-article-tabbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: #0c0e0a;
-  border-bottom: 1px solid var(--t-line);
-  font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
-}
-.jcp-article-tabbar .t-tabs {
-  display: flex;
-  align-items: stretch;
-  padding-left: 8px;
-}
-.jcp-article-tabbar .t-tab {
-  background: transparent;
-  border: none;
-  padding: 13px 22px;
-  color: #6f7d6c;
-  font-family: inherit;
-  font-size: 15px;
-  cursor: pointer;
-  border-right: 1px solid var(--t-line-dim);
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-}
-.jcp-article-tabbar .t-tab:hover { color: #a6b0a0; }
-.jcp-article-tabbar .t-tab-active {
-  color: #d6dfd1 !important;
-  background: var(--t-bg);
-  box-shadow: inset 0 -2px 0 var(--t-accent);
-}
-.jcp-article-tabbar .t-tab-indicator {
-  color: var(--t-accent);
-  margin-right: 8px;
-  display: inline-block;
-  width: 1ch;
-}
-.jcp-article-tabbar .t-tabs-spacer { flex: 1; }
-.jcp-article-tabbar .t-title {
-  padding: 13px 18px;
-  font-size: 14px;
-  color: #5c6a5a;
-  letter-spacing: 0.04em;
-  font-weight: 400;
-  white-space: nowrap;
-  align-self: center;
-}
-
-.jcp-article-statusbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-.jcp-article-statusbar .t-status {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  padding: 7px 22px;
-  border-top: 1px solid var(--t-line);
-  background: #0c0e0a;
-  color: #6f7d6c;
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  flex-wrap: wrap;
-}
-.jcp-article-statusbar .t-status-dot { color: var(--t-accent); }
-.jcp-article-statusbar .t-status-weather { margin-left: auto; font-variant-numeric: tabular-nums; }
-.jcp-article-statusbar .t-weather-glyph { color: var(--t-accent); margin-right: 6px; }
-.jcp-article-statusbar .t-sep { color: #5c6a5a; margin: 0 6px; }
-.jcp-article-statusbar .t-chip {
-  border: 1px solid var(--t-line);
-  color: #8fa28a;
-  padding: 2px 7px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-size: 11px;
-}
+/* Article chrome uses the same tabs and palette as the directory pages. */
+body.jcp-article-page :is(#quarto-header, .navbar, header.headroom, #title-block-header, .quarto-title-banner, .quarto-title, .quarto-title-block) { display: none !important; }
+body.jcp-article-page { background: var(--t-bg) !important; color: var(--t-ink); font-family: var(--t-reading); padding-top: 56px !important; padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)) !important; }
+.jcp-article-tabbar { position: fixed; inset: 0 0 auto; z-index: 1000; }
+.jcp-article-statusbar { position: fixed; inset: auto 0 0; z-index: 1000; background: var(--t-panel); padding-bottom: env(safe-area-inset-bottom, 0px); }
 
 /* Article header block */
 .t-art-header {
   margin: 0 0 36px;
-  padding: 28px 0 0;
+  padding: 48px 0 0;
 }
 .t-art-prompt {
   font-size: 15px;
-  color: #6f7d6c;
+  color: var(--t-ink-dim);
   margin-bottom: 14px;
   font-family: "IBM Plex Mono", monospace;
 }
 .t-prompt { color: var(--t-accent); font-weight: 700; margin-right: 10px; }
 .t-art-title {
-  font-size: 36px;
+  font-size: clamp(32px, 3.8vw, 48px);
   font-weight: 600;
   color: var(--t-ink-bright);
   letter-spacing: -0.02em;
@@ -164,7 +44,7 @@ body.jcp-article-page {
   font-size: 12px;
 }
 .t-art-rule {
-  border-top: 1px dashed var(--t-line);
+  border-top: 1px solid var(--t-line);
   margin-top: 4px;
 }
 
@@ -196,7 +76,7 @@ body.jcp-article-page .scrollspy-nav a.active {
   color: var(--t-accent) !important;
 }
 body.jcp-article-page .scrollspy-title {
-  color: #5c6a5a !important;
+  color: var(--t-ink-dim) !important;
   font-family: "IBM Plex Mono", monospace !important;
   font-size: 11px !important;
   letter-spacing: 0.15em !important;
@@ -208,7 +88,7 @@ body.jcp-article-page .scrollspy-title {
 /* ── Share / subscribe footer — terminal reskin ── */
 body.jcp-article-page .article-footer {
   margin-top: 48px;
-  border-top: 1px dashed var(--t-line);
+  border-top: 1px solid var(--t-line);
   padding-top: 28px;
   font-family: "IBM Plex Mono", monospace;
   display: flex !important;
@@ -284,43 +164,6 @@ body.jcp-article-page .article-footer a:hover {
   }
 }
 
-/* ── Responsive ── */
-@media (max-width: 1100px) {
-  .jcp-article-tabbar .t-tab { font-size: 14px; padding: 12px 18px; }
-}
-@media (max-width: 900px) {
-  .jcp-article-tabbar .t-title { display: none; }
-  .jcp-article-tabbar .t-tabs { flex-wrap: wrap; padding-left: 0; }
-  .jcp-article-tabbar .t-tab { padding: 10px 14px; font-size: 13px; }
-  .t-art-title { font-size: 26px; }
-  .jcp-article-statusbar .t-status-weather { display: none; }
-}
-@media (max-width: 520px) {
-  .t-art-title { font-size: 21px; }
-  .jcp-article-tabbar .t-tabs {
-    flex-wrap: nowrap !important;
-    overflow-x: hidden;
-    padding-left: 0;
-  }
-  .jcp-article-tabbar .t-tabs .t-tabs-spacer { display: none; }
-  .jcp-article-tabbar .t-tab {
-    flex: 1 1 0;
-    min-width: 0;
-    justify-content: center;
-    padding: 10px 4px;
-    font-size: 11px;
-  }
-  .jcp-article-tabbar .t-tab .t-tab-indicator { margin-right: 4px; }
-  .jcp-article-statusbar .t-status {
-    flex-wrap: nowrap;
-    overflow: hidden;
-    gap: 12px;
-    font-size: 11px;
-  }
-  .jcp-article-statusbar .t-status > span:nth-child(2),
-  .jcp-article-statusbar .t-chip { display: none; }
-}
-
 /* ========== TITLE & BANNER ========== */
 
 .quarto-title-banner.page-columns.page-full {
@@ -394,7 +237,7 @@ main#quarto-document-content {
 #quarto-content li {
   color: rgba(255, 255, 255, 0.92);
   line-height: 1.7;
-  font-size: 1rem; /* Mobile-friendly font size */
+  font-size: 18px;
 }
 
 /* ========== WIDE-SCREEN LAYOUT (DESKTOP) ========== */
@@ -402,8 +245,8 @@ main#quarto-document-content {
 @media (min-width: 1200px) {
   #quarto-content.page-layout-article {
       display: grid;
-      grid-template-columns: 1fr 800px 1fr; /* Centered content column */
-      gap: 40px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 760px) minmax(0, 1fr); /* Centered content column */
+      gap: 28px;
       padding: 0 20px;
   }
 
@@ -414,7 +257,8 @@ main#quarto-document-content {
     align-self: start;
     position: sticky;
     top: 100px;
-    width: 240px;
+    width: 100%;
+    max-width: 210px;
     max-height: calc(100vh - 120px);
     overflow-y: auto;
     background: rgba(0, 20, 0, 0.5);
@@ -426,13 +270,13 @@ main#quarto-document-content {
   main#quarto-document-content {
       grid-column: 2 / 3;
       padding: 0; /* Grid gap handles spacing */
-      max-width: 800px; /* Reading width on desktop */
+      max-width: 760px; /* Reading width on desktop */
   }
 
   /* Increase font size for desktop */
   #quarto-content p, 
   #quarto-content li {
-    font-size: 1.1rem;
+    font-size: 18px;
   }
 }
 
@@ -502,14 +346,14 @@ main#quarto-document-content {
 }
 
 #quarto-content a {
-  color: rgba(255, 200, 80, 0.95);
+  color: var(--t-accent);
   text-decoration: none;
-  border-bottom: 1px solid rgba(255, 200, 80, 0.3);
+  border-bottom: 1px solid #64744d;
   transition: all 0.3s ease;
 }
 
 #quarto-content a:hover {
-  border-bottom: 1px solid rgba(255, 200, 80, 0.95);
+  border-bottom: 1px solid var(--t-accent);
 }
 
 /* ========== FIGURES & CAPTIONS ========== */
@@ -538,7 +382,7 @@ main#quarto-document-content {
 /* Blockquotes */
 #quarto-content blockquote {
   border-left: 3px solid rgba(124, 255, 0, 0.95) !important;
-  background: rgba(0, 51, 0, 0.4);
+  background: var(--t-panel);
   padding: 15px 20px;
   font-style: italic;
   color: rgba(255, 255, 255, 0.9) !important;
@@ -547,7 +391,7 @@ main#quarto-document-content {
 
 /* Strong/bold text */
 #quarto-content strong {
-  color: rgba(255, 200, 80, 0.95) !important;
+  color: var(--t-ink-bright) !important;
   font-weight: 700;
 }
 
@@ -782,7 +626,7 @@ div.sourceCode pre {
 }
 
 .subscribe-section .subscribe-label {
-  color: rgba(255, 200, 80, 0.95) !important;
+  color: var(--t-ink-bright) !important;
   font-size: 0.85rem;
   margin: 0;
 }
@@ -931,3 +775,46 @@ div.sourceCode pre {
   mjx-container[display="true"] { font-size: 80%; }
   #quarto-content table { font-size: 11px; }
 }
+
+/* Reading typography: mono headings, proportional prose, quiet metadata. */
+body.jcp-article-page main#quarto-document-content {
+  font-family: var(--t-reading);
+  width: 100%;
+  min-width: 0;
+  max-width: 760px;
+}
+body.jcp-article-page #quarto-content :is(p, li) { color: var(--t-ink); line-height: 1.85; }
+body.jcp-article-page #quarto-content :is(h1,h2,h3,h4,h5,h6) {
+  color: var(--t-ink-bright);
+  font-family: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: -.035em;
+  line-height: 1.35;
+  scroll-margin-top: 85px;
+}
+body.jcp-article-page #quarto-content h1.t-art-title { font-size: clamp(32px,3.8vw,48px); line-height: 1.18; margin: 0 0 20px; }
+body.jcp-article-page #quarto-content h2 { font-size: 25px; margin-top: 42px; padding-bottom: 12px; border-bottom: 1px solid var(--t-line); }
+body.jcp-article-page #quarto-content h3 { font-size: 21px; margin-top: 32px; }
+body.jcp-article-page .t-art-header { font-family: var(--t-mono); }
+body.jcp-article-page .t-art-prompt { font-size: 12px; overflow-wrap: anywhere; }
+body.jcp-article-page .t-art-meta { font-size: 12px; gap: 12px; }
+body.jcp-article-page main#quarto-document-content > p:first-of-type { font-size: 21px; color: var(--t-ink-bright); line-height: 1.7; }
+body.jcp-article-page #quarto-content figure { max-width: 100%; }
+body.jcp-article-page #quarto-content figure img { border-radius: 0; }
+body.jcp-article-page #quarto-content figcaption { color: var(--t-ink-dim); font-size: 13px; }
+body.jcp-article-page #quarto-content .scrollspy-header { font: 11px/1.5 var(--t-mono); color: var(--t-ink-dim); margin: 0 0 15px; }
+body.jcp-article-page .scrollspy-nav { border-radius: 0; }
+body.jcp-article-page .scrollspy-nav a { font-size: 12px !important; line-height: 1.7; overflow-wrap: anywhere; padding: 7px 0 !important; }
+body.jcp-article-page .article-footer :is(.subscribe-section,.share-article-container) { min-width: 0; }
+body.jcp-article-page .article-footer input { min-width: 0; }
+@media (max-width: 1199px) { body.jcp-article-page #quarto-content { display: block; padding: 0 28px; } body.jcp-article-page main#quarto-document-content { padding: 0; } }
+@media (max-width: 600px) {
+  body.jcp-article-page { padding-top: 46px !important; }
+  body.jcp-article-page #quarto-content { padding: 0 22px; }
+  .t-art-header { padding-top: 32px; }
+  body.jcp-article-page #quarto-content :is(p,li) { font-size: 17px; }
+  body.jcp-article-page main#quarto-document-content > p:first-of-type { font-size: 19px; }
+  body.jcp-article-page #quarto-content h2 { font-size: 22px; }
+}
+
+body.jcp-article-page #quarto-content section[id] { scroll-margin-top: 85px; }

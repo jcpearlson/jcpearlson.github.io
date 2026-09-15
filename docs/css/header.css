@@ -28,9 +28,6 @@
   transition: opacity 0.3s ease-out;
 }
 
-#quarto-document-content {
-  font-family: "Lato";
-}
 
 /* Mobile navbar optimizations */
 @media (max-width: 768px) {

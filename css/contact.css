@@ -7,14 +7,6 @@
   margin: 0 auto;
 }
 
-.jcp-h2 {
-  color: var(--t-accent);
-  font-size: 22px;
-  letter-spacing: 0.02em;
-  margin: 0 0 18px;
-  font-weight: 600;
-}
-
 .jcp-contact-intro {
   color: var(--t-ink);
   font-size: 17px;
@@ -28,8 +20,8 @@
 }
 .jcp-c-row {
   display: grid;
-  grid-template-columns: 120px 1fr 30px;
-  gap: 20px;
+  grid-template-columns: 100px minmax(0, 1fr) 20px;
+  gap: 16px;
   align-items: center;
   padding: 20px 24px;
   border-bottom: 1px dashed var(--t-line-dim);
@@ -46,7 +38,9 @@
 }
 .jcp-c-val {
   color: var(--t-ink-bright);
-  font-size: 18px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 16px;
 }
 .jcp-c-arrow {
   color: var(--t-accent);
@@ -57,7 +51,7 @@
 .jcp-contact-foot {
   margin-top: 36px;
 }
-.jcp-promptblock { color: #8fa28a; font-size: 16px; margin-bottom: 10px; }
+.jcp-promptblock { color: var(--t-ink-dim); font-size: 16px; margin-bottom: 10px; }
 .jcp-prompt { color: var(--t-accent); font-weight: 700; margin-right: 10px; }
 .jcp-pgp-details {
   border: 1px solid var(--t-line);
@@ -66,15 +60,16 @@
 .jcp-pgp-summary {
   padding: 14px 22px;
   cursor: pointer;
-  color: var(--t-accent);
-  font-size: 15px;
+  color: var(--t-ink-dim);
+  font-size: 12px;
+  line-height: 1.8;
   letter-spacing: 0.04em;
   list-style: none;
   user-select: none;
   transition: background .15s;
 }
 .jcp-pgp-summary::-webkit-details-marker { display: none; }
-.jcp-pgp-summary:hover { background: #0f140d; }
+.jcp-pgp-summary:hover { background: #0f140d; color: var(--t-accent); }
 .jcp-pgp-details[open] .jcp-pgp-summary { border-bottom: 1px dashed var(--t-line); }
 
 .jcp-sig {
@@ -88,8 +83,9 @@
   overflow-x: auto;
 }
 
-@media (max-width: 520px) {
-  .jcp-c-row { grid-template-columns: 1fr 30px; }
-  .jcp-c-label { grid-column: 1 / -1; margin-bottom: 2px; }
-  .jcp-c-val { grid-column: 1; }
+@media (max-width: 600px) {
+  .jcp-c-row { grid-template-columns: minmax(0, 1fr) 20px; padding: 18px; }
+  .jcp-c-label { grid-column: 1 / -1; }
+  .jcp-c-val { grid-column: 1; font-size: 14px; }
+  .jcp-contact-intro { font-size: 15px; }
 }

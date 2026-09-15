@@ -1,75 +1,33 @@
-/* ============================================================
-   projects.css — Terminal project card grid
-   ============================================================ */
-
-.jcp-h2 {
-  color: var(--t-accent);
-  font-size: 22px;
-  letter-spacing: 0.02em;
-  margin: 0 0 26px;
-  font-weight: 600;
-}
-
-.jcp-proj-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.jcp-proj-card {
-  display: block;
-  padding: 24px 26px;
-  background: var(--t-panel);
-  border: 1px solid var(--t-line);
-  text-decoration: none;
-  color: inherit;
-  transition: border-color .2s, background .2s;
-}
-.jcp-proj-card:hover {
-  border-color: var(--t-accent);
-  background: #0f140d;
-}
-
-.jcp-proj-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  letter-spacing: 0.12em;
-  color: var(--t-ink-dim);
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-.jcp-proj-year { color: var(--t-ink-dim); font-variant-numeric: tabular-nums; }
-.jcp-proj-tag { color: #8fa28a; }
-
-.jcp-proj-title {
-  color: var(--t-ink-bright);
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  margin-bottom: 10px;
-}
-.jcp-proj-arrow { color: var(--t-accent); margin-right: 8px; }
-
-.jcp-proj-desc {
-  color: #a6b0a0;
-  font-size: 15px;
-  line-height: 1.7;
-  margin-bottom: 16px;
-}
-
-.jcp-proj-sep {
-  border-top: 1px dashed var(--t-line-dim);
-  margin: 14px 0 10px;
-}
-
-.jcp-proj-path {
-  color: var(--t-ink-dim);
-  font-size: 14px;
-  font-variant-numeric: tabular-nums;
-}
-
+.t-page-heading h1.t-projects-heading { font: 12px/1.6 var(--t-mono); letter-spacing: 0; color: var(--t-ink-dim); margin: 0; }
+.jcp-proj-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
+.jcp-proj-card { color: inherit; text-decoration: none; min-width: 0; }
+.jcp-proj-featured { background: var(--t-panel); border: 1px solid var(--t-line); display: flex; flex-direction: column; transition: border-color .18s; }
+.jcp-proj-featured:hover { border-color: #64744d; }
+.jcp-proj-visual { height: 205px; display: flex; align-items: center; justify-content: center; background: var(--t-raised); border-bottom: 1px solid var(--t-line); overflow: hidden; }
+.jcp-proj-visual img { width: 100%; height: 100%; object-fit: contain; background: var(--t-bg); }
+.jcp-market-visual { padding: 26px; flex-direction: column; align-items: stretch; justify-content: space-between; }
+.jcp-visual-label,.jcp-visual-foot { font-size: 10px; color: var(--t-ink-dim); }
+.jcp-visual-label { letter-spacing: .1em; }
+.jcp-market-channels { display: flex; gap: 10px; margin: 18px 0; }
+.jcp-market-channels > span { border-top: 1px solid #64744d; flex: 1; padding-top: 10px; font-size: 10px; color: var(--t-ink-dim); }
+.jcp-market-channels b { display: block; margin-top: 8px; color: var(--t-accent); font-size: clamp(13px,1.65vw,20px); font-weight: 500; letter-spacing: -.03em; }
+.jcp-proj-info { padding: 26px; flex: 1; display: flex; flex-direction: column; }
+.jcp-proj-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--t-ink-dim); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
+.t-body .jcp-proj-title { font-size: 25px; line-height: 1.4; font-weight: 500; letter-spacing: -.035em; color: var(--t-ink-bright); margin: 15px 0 10px; }
+.t-body .jcp-proj-desc { color: var(--t-ink-dim); font-size: 14px; line-height: 1.8; margin: 0 0 20px; }
+.jcp-proj-path { color: var(--t-accent); font-size: 12px; margin-top: auto; white-space: nowrap; }
+.jcp-proj-compact { grid-column: 1 / -1; display: grid; grid-template-columns: 160px minmax(0,1fr) 145px; align-items: start; gap: 28px; padding: 25px 0; border-bottom: 1px solid var(--t-line); }
+.jcp-proj-compact .jcp-proj-meta { flex-direction: column; gap: 6px; padding-top: 3px; }
+.t-body .jcp-proj-compact .jcp-proj-title { font-size: 20px; margin: 0 0 8px; }
+.t-body .jcp-proj-compact .jcp-proj-desc { font-size: 13px; margin: 0; }
+.jcp-proj-compact .jcp-proj-path { text-align: right; margin-top: 4px; }
+.jcp-proj-card:hover .jcp-proj-title { color: var(--t-accent); }
 @media (max-width: 760px) {
-  .jcp-proj-grid { grid-template-columns: 1fr; }
+  .jcp-proj-grid { grid-template-columns: 1fr; gap: 20px; }
+  .jcp-proj-visual { height: 190px; }
+  .jcp-proj-info { padding: 23px; }
+  .jcp-market-channels b { font-size: 17px; }
+  .jcp-proj-compact { grid-template-columns: 1fr; gap: 10px; padding: 20px 0; }
+  .jcp-proj-compact .jcp-proj-meta { flex-direction: row; justify-content: flex-start; gap: 15px; }
+  .jcp-proj-compact .jcp-proj-path { text-align: left; }
 }

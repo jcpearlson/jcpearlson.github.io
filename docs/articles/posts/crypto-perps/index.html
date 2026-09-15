@@ -419,7 +419,10 @@ if (_vp && !_vp.content.includes('viewport-fit')) {
 document.addEventListener('DOMContentLoaded', function() {
   if (!document.querySelector('.quarto-title-banner')) return;
 
-  const slug = location.pathname.split('/').filter(Boolean).pop().replace('.html','');
+  const parts = location.pathname.split('/').filter(Boolean);
+  if (/^index\.html?$/.test(parts[parts.length - 1])) parts.pop();
+  const slug = parts[parts.length - 1] || 'article';
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
   const titleEl = document.querySelector('.quarto-title h1');
   const title = titleEl ? titleEl.textContent.trim() : slug;
@@ -442,40 +445,37 @@ document.addEventListener('DOMContentLoaded', function() {
   const tabsHTML = tabs.map(t => {
     const active = t === 'articles' ? ' t-tab-active' : '';
     const indicator = t === 'articles' ? '&#9656;' : '&nbsp;';
-    return `<a href="${hrefs[t]}" class="t-tab${active}"><span class="t-tab-indicator">${indicator}</span>${t}</a>`;
+    return `<a href="${hrefs[t]}" class="t-tab${active}"${t === 'articles' ? ' aria-current="page"' : ''}><span class="t-tab-indicator">${indicator}</span>${t}</a>`;
   }).join('');
 
   const tabBar = document.createElement('div');
   tabBar.className = 'jcp-article-tabbar';
-  tabBar.innerHTML = `<div class="t-tabs">
+  tabBar.innerHTML = `<div class="t-tabs" role="navigation" aria-label="Main navigation">
     ${tabsHTML}
     <div class="t-tabs-spacer"></div>
-    <div class="t-title">jcp@joshpearlson: ~/articles/${slug}</div>
+    <div class="t-title">jcp@joshpearlson: ~/articles/${esc(slug)}</div>
   </div>`;
   document.body.prepend(tabBar);
 
   const statusBar = document.createElement('div');
   statusBar.className = 'jcp-article-statusbar';
-  const catsDisplay = cats.length ? cats.map(c => `<span class="t-chip">${c}</span>`).join(' ') : '';
   statusBar.innerHTML = `<div class="t-status">
     <span><span class="t-status-dot">&#9679;</span> reading</span>
-    <span>${date}</span>
-    ${catsDisplay}
     <span id="t-art-read-time"></span>
     <span class="t-status-weather" id="t-status-weather">
-      <span class="t-weather-glyph">&#183;</span> NYC --&deg;F <span class="t-sep">&#183;</span> 40.7128&deg;&nbsp;N, 74.0060&deg;&nbsp;W
+      New York, NY
     </span>
   </div>`;
   document.body.append(statusBar);
 
-  const catChips = cats.map(c => `<span class="t-chip">${c}</span>`).join('');
+  const catChips = cats.map(c => `<span class="t-chip">${esc(c)}</span>`).join('');
   const articleHeader = document.createElement('div');
   articleHeader.className = 't-art-header';
   articleHeader.innerHTML = `
-    <div class="t-art-prompt"><span class="t-prompt">$</span> cat ./${slug}.md</div>
-    <div class="t-art-title">${title}</div>
+    <div class="t-art-prompt"><span class="t-prompt">$</span> cat ./${esc(slug)}.md</div>
+    <h1 class="t-art-title">${esc(title)}</h1>
     <div class="t-art-meta">
-      <span class="t-art-date">${date}</span>
+      <span class="t-art-date">${esc(date)}</span>
       ${catChips}
     </div>
     <div class="t-art-rule"></div>
@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(d => {
       const temp = Math.round(d.current.temperature_2m);
       const w = document.getElementById('t-status-weather');
-      if (w) w.innerHTML = `<span class="t-weather-glyph">&#183;</span> NYC ${temp}&deg;F <span class="t-sep">&#183;</span> 40.7128&deg;&nbsp;N, 74.0060&deg;&nbsp;W`;
+      if (w && Number.isFinite(temp)) w.textContent = `NYC ${temp}°F`;
     }).catch(() => {});
 
   const articleText = main ? main.textContent : '';
@@ -540,7 +540,7 @@ document.addEventListener('DOMContentLoaded', function() {
           method="post"
           class="subscribe-form"
           target="_blank">
-      <input type="email" name="email" placeholder="your@email.com" required />
+      <input type="email" name="email" placeholder="your@email.com" aria-label="Email address" autocomplete="email" required />
       <button type="submit">Subscribe →</button>
     </form>
   `;
@@ -590,10 +590,11 @@ document.addEventListener('DOMContentLoaded', function() {
   if (!document.querySelector('.quarto-title-banner')) return;
 
   const mainContainer = document.querySelector('#quarto-content');
-  const articleContent = mainContainer.querySelector('main#quarto-document-content');
-  const headings = articleContent.querySelectorAll('h2, h3');
+  const articleContent = mainContainer?.querySelector('main#quarto-document-content');
+  if (!articleContent) return;
 
-  if (!mainContainer || !articleContent || headings.length < 2) return;
+  const headings = articleContent.querySelectorAll('h2, h3');
+  if (headings.length < 2) return;
 
   // --- 1. CREATE THE TOC STRUCTURE ---
   const tocNav = document.createElement('nav');
@@ -630,12 +631,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // --- 2. SCROLL-BASED HIGHLIGHT LOGIC ---
   const tocLinks = tocList.querySelectorAll('.scrollspy-link');
-  // OFFSET must account for the navbar height (~91px) plus the extra scroll
-  // compensation the browser applies when the navbar slides back in after a
-  // scroll-up click. In practice the heading can land ~230px from the top, so
-  // we use navbar height * 3 as a safe ceiling.
-  const navbar = document.querySelector('nav.navbar');
-  const OFFSET = navbar ? navbar.offsetHeight * 3 : 280;
+  // Match the fixed terminal tab bar, including direct section-anchor links.
+  const navbar = document.querySelector('.jcp-article-tabbar');
+  const OFFSET = (navbar ? navbar.offsetHeight : 56) + 32;
 
   // When the user clicks a TOC link, we lock onto that heading ID.
   // The lock only releases once the scroll naturally catches up to that section,
@@ -691,230 +689,117 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script>
 (function() {
-  const ASCII = String.raw`______/\\\\\\\\\\\________/\\\\\\\\\__/\\\\\\\\\\\\\___
- _____\/////\\\///______/\\\////////__\/\\\/////////\\\_
-  _________\/\\\_______/\\\/___________\/\\\_______\/\\\_
-   _________\/\\\______/\\\_____________\/\\\\\\\\\\\\\/__
-    _________\/\\\_____\/\\\_____________\/\\\/////////____
-     _________\/\\\_____\//\\\____________\/\\\_____________
-      __/\\\___\/\\\______\///\\\__________\/\\\_____________
-       _\//\\\\\\\\\_________\////\\\\\\\\\_\/\\\_____________
-        __\/////////_____________\/////////__\///______________`;
+  const ASCII = `     ██╗ ██████╗██████╗
+     ██║██╔════╝██╔══██╗
+     ██║██║     ██████╔╝
+██   ██║██║     ██╔═══╝
+╚█████╔╝╚██████╗██║
+ ╚════╝  ╚═════╝╚═╝`;
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
 
-  function rootUrl(path) {
-    return window.location.origin + '/' + path.replace(/^\/+/, '');
+  function homeChrome() {
+    return `<nav class="t-tabs" aria-label="Main navigation">
+      ${['home', 'about', 'articles', 'projects', 'contact'].map(t => `<a href="${t === 'home' ? '/' : '/' + t + '/'}" class="t-tab${t === 'home' ? ' t-tab-active' : ''}"${t === 'home' ? ' aria-current="page"' : ''}><span class="t-tab-indicator" aria-hidden="true">${t === 'home' ? '▸' : '&nbsp;'}</span>${t}</a>`).join('')}
+      <div class="t-tabs-spacer"></div><div class="t-title">jcp@joshpearlson: ~/</div>
+    </nav>`;
   }
 
-  function buildTerminalChrome(tabKey) {
-    const tabs = ['home','about','articles','projects','contact'];
-    const hrefs = {
-      home: '/', about: '/about/',
-      articles: '/articles/', projects: '/projects/',
-      contact: '/contact/'
-    };
-    const tabsHTML = tabs.map(t => {
-      const active = t === tabKey ? ' t-tab-active' : '';
-      const indicator = t === tabKey ? '&#9656;' : '&nbsp;';
-      return `<a href="${hrefs[t]}" class="t-tab${active}"><span class="t-tab-indicator">${indicator}</span>${t}</a>`;
-    }).join('');
-    const page = tabKey === 'home' ? '' : tabKey;
-    return `<div class="t-tabs">
-        ${tabsHTML}
-        <div class="t-tabs-spacer"></div>
-        <div class="t-title" id="t-title">jcp@joshpearlson: ~/${page}</div>
-      </div>`;
+  function latestCard(post) {
+    const tags = post.cats.map(c => `<span class="t-chip">${esc(c)}</span>`).join('');
+    const art = post.image
+      ? `<div class="t-latest-visual"><img src="${esc(post.image)}" alt="" loading="lazy" /></div>`
+      : '';
+    return `<a href="${esc(post.href)}" class="t-latest-card${post.image ? ' t-latest-with-image' : ''}"><div class="t-latest-copy">
+      <div class="t-latest-label"><strong>LATEST ARTICLE</strong><span>${esc(post.date)}</span></div>
+      <h2 class="t-latest-title">${esc(post.title)}</h2>
+      <div class="t-latest-excerpt">${esc(post.excerpt)}</div>
+      <div class="t-latest-meta">${tags}<span class="t-read-arrow">Read article →</span></div>
+    </div>${art}</a>`;
   }
 
-  function buildStatusBar() {
-    return `<div class="t-status">
-        <span><span class="t-status-dot">&#9679;</span> online</span>
-        <span id="t-status-count">&#8212; articles &middot; &#8212; projects</span>
-        <span class="t-status-weather" id="t-status-weather">
-          <span class="t-weather-glyph">&middot;</span> NYC --&deg;F <span class="t-sep">&middot;</span> 40.7128&deg; N, 74.0060&deg; W
-        </span>
-      </div>`;
-  }
-
-  function renderHome(latest, articleCount) {
-    const mount = document.getElementById('jcp-terminal');
-    if (!mount) return;
-
-    let latestHTML = '';
-    if (latest) {
-      const catsHTML = (latest.cats || []).map(c => `<span class="t-chip">${esc(c)}</span>`).join('');
-      latestHTML = `<div class="t-promptblock"><span class="t-prompt">$</span> cat latest.md</div>
-        <a href="${esc(latest.href)}" class="t-latest-card">
-          <div class="t-latest-label">LATEST ARTICLE${latest.date ? ' &mdash; ' + esc(latest.date) : ''}</div>
-          <div class="t-latest-title">${esc(latest.title)}</div>
-          ${latest.excerpt ? `<div class="t-latest-excerpt">${esc(latest.excerpt)}</div>` : ''}
-          <div class="t-latest-meta">
-            ${catsHTML}
-            <span class="t-read-arrow">read &rarr;</span>
-          </div>
-        </a>`;
-    }
-
-    mount.innerHTML = buildTerminalChrome('home') +
-      `<div class="t-body" id="t-body">
-        <pre class="t-ascii">${ASCII}</pre>
-        <div class="t-hello">
-          <div class="t-promptblock"><span class="t-prompt">$</span> whoami</div>
-          <div class="t-out"><span class="t-name">Josh Pearlson</span> &middot; quant @ BlackRock &middot; writes about markets &amp; machines</div>
-          ${latestHTML}
-          <div class="t-promptblock"><span class="t-prompt">$</span> ls ./</div>
-          <div class="t-ls-grid">
-            <a href="/about/" class="t-ls-cell">
-              <div class="t-ls-name"><span class="t-arrow">&#8250;</span> about/</div>
-              <div class="t-ls-path">/bio /experience /education</div>
-            </a>
-            <a href="/articles/" class="t-ls-cell">
-              <div class="t-ls-name"><span class="t-arrow">&#8250;</span> articles/</div>
-              <div class="t-ls-path">markets, ML, probability</div>
-            </a>
-            <a href="/projects/" class="t-ls-cell">
-              <div class="t-ls-name"><span class="t-arrow">&#8250;</span> projects/</div>
-              <div class="t-ls-path">things I built and shipped</div>
-            </a>
-            <a href="/contact/" class="t-ls-cell">
-              <div class="t-ls-name"><span class="t-arrow">&#8250;</span> contact/</div>
-              <div class="t-ls-path">email &middot; linkedin &middot; github</div>
-            </a>
-          </div>
-          <div class="t-promptblock"><span class="t-prompt">$</span> <span class="t-cursor"></span></div>
+  function renderHome(mount) {
+    mount.innerHTML = homeChrome() + `<div class="t-body" id="t-body">
+      <div class="t-hero"><div class="t-intro">
+        <div class="t-command"><span class="t-prompt">$</span>whoami</div>
+        <h1>Josh Pearlson<span aria-hidden="true">_</span></h1>
+        <p class="t-role">Quant @ BlackRock.<br>I write about <span class="t-accent">markets & machines.</span></p>
+        <div class="t-actions"><a class="t-primary" href="/articles/">Read the articles →</a><a class="t-text-link" href="/projects/">Explore projects →</a></div>
+      </div><aside class="t-identity" aria-label="JCP terminal identity">
+        <div class="t-identity-label"><span>~/identity.txt</span><span>UTF-8</span></div>
+        <div class="t-ascii-frame"><pre class="t-ascii" aria-label="JCP ASCII logo">${ASCII}</pre></div>
+        <div class="t-identity-footer"><span>finance / ML / probability</span><span class="t-accent">NYC</span></div>
+      </aside></div>
+      <section aria-label="Latest article"><div class="t-section-heading"><h2><span class="t-prompt">$</span>cat latest.md</h2><a href="/articles/">All articles →</a></div>
+        <div id="t-latest-mount"><a class="t-text-link" href="/articles/">Browse the latest writing →</a></div>
+      </section>
+      <nav aria-label="Explore the site"><div class="t-section-heading"><h2><span class="t-prompt">$</span>ls ./</h2></div>
+        <div class="t-ls-grid">
+          <a href="/about/" class="t-ls-cell"><div class="t-ls-name">01 / about →</div><div class="t-ls-path">Background, research & interests</div></a>
+          <a href="/projects/" class="t-ls-cell"><div class="t-ls-name">02 / projects →</div><div class="t-ls-path">Tools, experiments & things I’ve built</div></a>
+          <a href="/contact/" class="t-ls-cell"><div class="t-ls-name">03 / contact →</div><div class="t-ls-path">Say hello. Cold emails welcome.</div></a>
         </div>
-      </div>` +
-      buildStatusBar();
-
-    const countEl = document.getElementById('t-status-count');
-    if (countEl && articleCount != null) {
-      countEl.textContent = `${articleCount} articles \u00b7 7 projects`;
-    }
-
-    updateClock();
-    updateWeather();
-  }
-
-  function updateClock() {
-    const clock = document.getElementById('t-clock');
-    if (!clock) return;
-    const now = new Date();
-    const hh = String(now.getUTCHours()).padStart(2,'0');
-    const mm = String(now.getUTCMinutes()).padStart(2,'0');
-    const ss = String(now.getUTCSeconds()).padStart(2,'0');
-    clock.textContent = `${hh}:${mm}:${ss} UTC`;
+      </nav>
+    </div><div class="t-status"><span><span class="t-status-dot">●</span> online</span><span id="t-status-count">Articles / projects</span><span class="t-status-weather" id="t-status-weather">New York, NY</span></div>`;
   }
 
   function updateWeather() {
     const el = document.getElementById('t-status-weather');
     if (!el) return;
-    fetch('https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current=temperature_2m,weather_code&temperature_unit=fahrenheit')
-      .then(r => r.json())
+    // Keep the location useful when the weather service is unavailable.
+    el.textContent = 'New York, NY';
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current=temperature_2m&temperature_unit=fahrenheit')
+      .then(r => { if (!r.ok) throw new Error('Weather unavailable'); return r.json(); })
       .then(d => {
-        if (!d || !d.current) return;
-        const c = d.current.weather_code;
-        let glyph = '\u00b7';
-        if (c === 0) glyph = '\u2600';
-        else if ([1,2,3].includes(c)) glyph = '\u26c5';
-        else if ([45,48].includes(c)) glyph = '\u2248';
-        else if (c >= 51 && c <= 67) glyph = '\u2602';
-        else if (c >= 71 && c <= 77) glyph = '\u2744';
-        else if (c >= 80 && c <= 82) glyph = '\u2614';
-        else if (c >= 95) glyph = '\u26a1';
-        const temp = Math.round(d.current.temperature_2m) + '\u00b0F';
-        el.innerHTML = `<span class="t-weather-glyph">${glyph}</span> NYC ${temp} <span class="t-sep">&middot;</span> 40.7128&deg; N, 74.0060&deg; W`;
-      })
-      .catch(() => {});
-  }
-
-  function fetchHomeData(cb) {
-    fetch(rootUrl('/listings.json'))
-      .then(r => r.json())
-      .then(data => {
-        const blogEntry = data.find(e => e.listing && e.listing.includes('blog')) || data[0];
-        const items = blogEntry ? blogEntry.items : [];
-        const count = items.length;
-        const latestHref = items[0] || null;
-
-        if (!latestHref) { cb(null, count); return; }
-
-        fetch(rootUrl('/search.json'))
-          .then(r => r.json())
-          .then(searchData => {
-            const norm = h => h.replace(/^https?:\/\/[^/]+/, '').replace(/^\//, '');
-            const slug = norm(latestHref);
-            const entry = searchData.find(e => norm(e.href || e.objectID || '') === slug);
-            if (!entry) { cb(null, count); return; }
-
-            const raw = (entry.text || '').replace(/\s+/g, ' ').trim();
-            const LIMIT = 220;
-            let excerpt = raw;
-            const lastSentenceEnd = s => Math.max(s.lastIndexOf('.'), s.lastIndexOf('!'), s.lastIndexOf('?'));
-            if (raw.length > LIMIT) {
-              const cut = raw.slice(0, LIMIT);
-              const lastPeriod = lastSentenceEnd(cut);
-              excerpt = lastPeriod > 60 ? raw.slice(0, lastPeriod + 1) : cut.trimEnd() + '\u2026';
-            } else {
-              // Text under limit but may already trail off — snap to last sentence end anyway
-              const lastPeriod = lastSentenceEnd(raw);
-              if (lastPeriod > 60 && lastPeriod < raw.length - 1) {
-                excerpt = raw.slice(0, lastPeriod + 1);
-              }
-            }
-
-            cb({
-              title: entry.title || 'Latest article',
-              href: '/' + slug,
-              excerpt,
-              date: '',
-              cats: []
-            }, count);
-          })
-          .catch(() => cb(null, count));
-      })
-      .catch(() => cb(null, null));
-  }
-
-  function isHomePage() {
-    const p = window.location.pathname.replace(/\/+$/, '');
-    return p === '' || p === '/index.html' || p.endsWith('/index.html');
+        const temperature = d.current && d.current.temperature_2m;
+        if (typeof temperature === 'number' && Number.isFinite(temperature)) el.textContent = `NYC ${Math.round(temperature)}°F`;
+      }).catch(() => {});
   }
 
   function init() {
-    if (isHomePage()) {
-      renderHome(null, null);
-      setInterval(updateClock, 1000);
-      fetchHomeData(function(latest, count) {
-        renderHome(latest, count);
+    const mount = document.getElementById('jcp-terminal');
+    if (!mount) return; // Article chrome owns its own header and status bar.
+    const isHome = location.pathname === '/' || location.pathname === '/index.html';
+    if (isHome) renderHome(mount);
+    mount.querySelectorAll('.t-tabs').forEach(nav => {
+      nav.setAttribute('role', 'navigation');
+      nav.setAttribute('aria-label', 'Main navigation');
+    });
+    mount.querySelectorAll('.t-tab-active').forEach(a => a.setAttribute('aria-current', 'page'));
+    updateWeather();
+
+    // Read Quarto's rendered listing so date, categories and images stay in sync.
+    const listingUrl = new URL('/articles/', location.origin);
+    const listing = document.querySelector('.quarto-listing');
+    const getListing = listing ? Promise.resolve(document) : fetch(listingUrl)
+      .then(r => { if (!r.ok) throw new Error('Listing unavailable'); return r.text(); })
+      .then(html => new DOMParser().parseFromString(html, 'text/html'));
+    getListing.then(doc => {
+      const posts = Array.from(doc.querySelectorAll('.quarto-post'));
+      const count = document.getElementById('t-status-count');
+      if (count) count.textContent = `${posts.length} articles / 7 projects`;
+      if (!isHome || !posts.length) return;
+      const post = posts[0];
+      const link = post.querySelector('.listing-title a');
+      if (!link) return;
+      const img = post.querySelector('.thumbnail img');
+      const raw = (post.querySelector('.listing-description')?.textContent || '').trim().replace(/\s+/g, ' ');
+      const clipped = raw.length > 230 ? raw.slice(0, 227).replace(/\s+\S*$/, '') + '…' : raw;
+      const sentenceEnd = Math.max(clipped.lastIndexOf('. '), clipped.lastIndexOf('! '), clipped.lastIndexOf('? '));
+      const excerpt = sentenceEnd > 60 ? clipped.slice(0, sentenceEnd + 1) : clipped;
+      document.getElementById('t-latest-mount').innerHTML = latestCard({
+        href: new URL(link.getAttribute('href'), listingUrl).href,
+        title: link.textContent.trim(), excerpt,
+        date: post.querySelector('.listing-date')?.textContent.trim() || '',
+        cats: Array.from(post.querySelectorAll('.listing-category')).map(c => c.textContent.trim()),
+        image: img?.getAttribute('src') ? new URL(img.getAttribute('src'), listingUrl).href : ''
       });
-    } else {
-      // Non-home pages: chrome already in HTML, just update dynamic parts
-      updateClock();
-      setInterval(updateClock, 1000);
-      updateWeather();
-
-      const countEl = document.getElementById('t-status-count');
-      if (countEl) {
-        fetch(rootUrl('/listings.json'))
-          .then(r => r.json())
-          .then(data => {
-            const blogEntry = data.find(e => e.listing && e.listing.includes('blog')) || data[0];
-            const count = blogEntry ? blogEntry.items.length : 0;
-            countEl.textContent = `${count} articles \u00b7 7 projects`;
-          })
-          .catch(() => { countEl.textContent = '\u2014 articles \u00b7 7 projects'; });
-      }
-    }
+    }).catch(() => {});
   }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
