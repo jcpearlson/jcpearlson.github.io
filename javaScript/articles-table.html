@@ -1,5 +1,13 @@
 <script>
 (function() {
+  // Quarto also reads the fragment on DOMContentLoaded. Normalize malformed
+  // encodings before either listing initializes so shared links still load.
+  try {
+    decodeURIComponent(window.location.hash);
+  } catch (_) {
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
+
   function esc(s) {
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
@@ -26,7 +34,7 @@
 
     const catPills = cats.map(c => {
       const sel = c === activeCat ? ' jcp-cat-sel' : '';
-      return `<button type="button" class="jcp-cat${sel}" data-cat="${esc(c)}">${esc(c)}</button>`;
+      return `<button type="button" class="jcp-cat${sel}" data-cat="${esc(c)}" aria-pressed="${c === activeCat}">${esc(c)}</button>`;
     }).join('');
 
     const rows = list.map(a => {
@@ -35,7 +43,7 @@
         <a class="jcp-art-row" href="${esc(a.href)}">
           <div class="jcp-art-date">${esc(a.date)}</div>
           <div class="jcp-art-body">
-            <div class="jcp-art-title"><span class="jcp-art-arrow">▸</span>${esc(a.title)}</div>
+            <h2 class="jcp-art-title"><span class="jcp-art-arrow">▸</span>${esc(a.title)}</h2>
             <div class="jcp-art-exc">${esc(a.excerpt)}</div>
           </div>
           <div class="jcp-art-tags">${tags}</div>
@@ -60,6 +68,7 @@
       btn.addEventListener('click', () => {
         const newCat = btn.dataset.cat;
         renderTable(mount, posts, cats, newCat);
+        Array.from(mount.querySelectorAll('.jcp-cat')).find(b => b.dataset.cat === newCat)?.focus({ preventScroll: true });
         if (history.replaceState) {
           const hash = newCat === 'all' ? '' : '#category=' + encodeURIComponent(newCat);
           history.replaceState(null, '', window.location.pathname + window.location.search + hash);
@@ -84,8 +93,12 @@
     let initialCat = 'all';
     const m = (window.location.hash || '').match(/category=([^&]+)/);
     if (m) {
-      const decoded = decodeURIComponent(m[1]).toLowerCase();
-      if (cats.includes(decoded)) initialCat = decoded;
+      try {
+        const decoded = decodeURIComponent(m[1]).toLowerCase();
+        if (cats.includes(decoded)) initialCat = decoded;
+      } catch (_) {
+        // A malformed shared URL should still show the article directory.
+      }
     }
 
     renderTable(mount, posts, cats, initialCat);

@@ -10,7 +10,10 @@ if (_vp && !_vp.content.includes('viewport-fit')) {
 document.addEventListener('DOMContentLoaded', function() {
   if (!document.querySelector('.quarto-title-banner')) return;
 
-  const slug = location.pathname.split('/').filter(Boolean).pop().replace('.html','');
+  const parts = location.pathname.split('/').filter(Boolean);
+  if (/^index\.html?$/.test(parts[parts.length - 1])) parts.pop();
+  const slug = parts[parts.length - 1] || 'article';
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
   const titleEl = document.querySelector('.quarto-title h1');
   const title = titleEl ? titleEl.textContent.trim() : slug;
@@ -33,40 +36,37 @@ document.addEventListener('DOMContentLoaded', function() {
   const tabsHTML = tabs.map(t => {
     const active = t === 'articles' ? ' t-tab-active' : '';
     const indicator = t === 'articles' ? '&#9656;' : '&nbsp;';
-    return `<a href="${hrefs[t]}" class="t-tab${active}"><span class="t-tab-indicator">${indicator}</span>${t}</a>`;
+    return `<a href="${hrefs[t]}" class="t-tab${active}"${t === 'articles' ? ' aria-current="page"' : ''}><span class="t-tab-indicator">${indicator}</span>${t}</a>`;
   }).join('');
 
   const tabBar = document.createElement('div');
   tabBar.className = 'jcp-article-tabbar';
-  tabBar.innerHTML = `<div class="t-tabs">
+  tabBar.innerHTML = `<div class="t-tabs" role="navigation" aria-label="Main navigation">
     ${tabsHTML}
     <div class="t-tabs-spacer"></div>
-    <div class="t-title">jcp@joshpearlson: ~/articles/${slug}</div>
+    <div class="t-title">jcp@joshpearlson: ~/articles/${esc(slug)}</div>
   </div>`;
   document.body.prepend(tabBar);
 
   const statusBar = document.createElement('div');
   statusBar.className = 'jcp-article-statusbar';
-  const catsDisplay = cats.length ? cats.map(c => `<span class="t-chip">${c}</span>`).join(' ') : '';
   statusBar.innerHTML = `<div class="t-status">
     <span><span class="t-status-dot">&#9679;</span> reading</span>
-    <span>${date}</span>
-    ${catsDisplay}
     <span id="t-art-read-time"></span>
     <span class="t-status-weather" id="t-status-weather">
-      <span class="t-weather-glyph">&#183;</span> NYC --&deg;F <span class="t-sep">&#183;</span> 40.7128&deg;&nbsp;N, 74.0060&deg;&nbsp;W
+      New York, NY
     </span>
   </div>`;
   document.body.append(statusBar);
 
-  const catChips = cats.map(c => `<span class="t-chip">${c}</span>`).join('');
+  const catChips = cats.map(c => `<span class="t-chip">${esc(c)}</span>`).join('');
   const articleHeader = document.createElement('div');
   articleHeader.className = 't-art-header';
   articleHeader.innerHTML = `
-    <div class="t-art-prompt"><span class="t-prompt">$</span> cat ./${slug}.md</div>
-    <div class="t-art-title">${title}</div>
+    <div class="t-art-prompt"><span class="t-prompt">$</span> cat ./${esc(slug)}.md</div>
+    <h1 class="t-art-title">${esc(title)}</h1>
     <div class="t-art-meta">
-      <span class="t-art-date">${date}</span>
+      <span class="t-art-date">${esc(date)}</span>
       ${catChips}
     </div>
     <div class="t-art-rule"></div>
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(d => {
       const temp = Math.round(d.current.temperature_2m);
       const w = document.getElementById('t-status-weather');
-      if (w) w.innerHTML = `<span class="t-weather-glyph">&#183;</span> NYC ${temp}&deg;F <span class="t-sep">&#183;</span> 40.7128&deg;&nbsp;N, 74.0060&deg;&nbsp;W`;
+      if (w && Number.isFinite(temp)) w.textContent = `NYC ${temp}°F`;
     }).catch(() => {});
 
   const articleText = main ? main.textContent : '';

@@ -4,10 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
   if (!document.querySelector('.quarto-title-banner')) return;
 
   const mainContainer = document.querySelector('#quarto-content');
-  const articleContent = mainContainer.querySelector('main#quarto-document-content');
-  const headings = articleContent.querySelectorAll('h2, h3');
+  const articleContent = mainContainer?.querySelector('main#quarto-document-content');
+  if (!articleContent) return;
 
-  if (!mainContainer || !articleContent || headings.length < 2) return;
+  const headings = articleContent.querySelectorAll('h2, h3');
+  if (headings.length < 2) return;
 
   // --- 1. CREATE THE TOC STRUCTURE ---
   const tocNav = document.createElement('nav');
@@ -44,12 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // --- 2. SCROLL-BASED HIGHLIGHT LOGIC ---
   const tocLinks = tocList.querySelectorAll('.scrollspy-link');
-  // OFFSET must account for the navbar height (~91px) plus the extra scroll
-  // compensation the browser applies when the navbar slides back in after a
-  // scroll-up click. In practice the heading can land ~230px from the top, so
-  // we use navbar height * 3 as a safe ceiling.
-  const navbar = document.querySelector('nav.navbar');
-  const OFFSET = navbar ? navbar.offsetHeight * 3 : 280;
+  // Match the fixed terminal tab bar, including direct section-anchor links.
+  const navbar = document.querySelector('.jcp-article-tabbar');
+  const OFFSET = (navbar ? navbar.offsetHeight : 56) + 32;
 
   // When the user clicks a TOC link, we lock onto that heading ID.
   // The lock only releases once the scroll naturally catches up to that section,
