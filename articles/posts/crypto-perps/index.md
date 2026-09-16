@@ -23,29 +23,31 @@ Traditional futures are a stack of contracts by maturity: March, June, September
 2. **Roll friction.** You must close one contract and open the next, paying spreads and fees.
 3. **Basis noise.** PnL can swing because the futures price decouples from spot, even if the underlying barely moves.
 
-Perps eliminate expiry and roll friction while preserving linear leveraged exposure. All liquidity collapses into a single book. You can hold a position as long as you want. But if there is no expiry, how does the price stay tethered to spot?
+Perps eliminate expiry and roll friction while preserving linear leveraged exposure. Liquidity can concentrate in one contract per market and venue, although different exchanges still have separate books. You can hold a position while the contract remains listed and you meet its margin requirements. But if there is no expiry, how does the price stay tethered to spot?
 
 That is where funding rates come in.
 
 ## What is a perpetual future?
 
-A perp is a margined, linear derivative on an underlying index with **no maturity**. It is marked to an external index (e.g., a composite of spot prices across exchanges), and it stays close to that index via **funding payments** between longs and shorts.
+A perp is a margined derivative with no scheduled expiration. I'll focus on a **linear contract**, whose profit or loss changes proportionally with price for a fixed position size. Inverse contracts have different payoff and collateral calculations.
+
+Three prices matter: the **last traded price** records an execution, the **index price** aggregates reference-market prices, and the **mark price** estimates the contract's fair value for margin and unrealized PnL. They can differ. For example, [Hyperliquid's price documentation](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/robust-price-indices) distinguishes its oracle and mark prices.
 
 Key features:
 
-- **No maturity.** The position can be held indefinitely.
-- **Continuous mark to index.** PnL is based on changes in the index price.
-- **Funding transfers.** Periodic payments between longs and shorts push the perp price toward spot.
-- **Central clearing.** The exchange manages margin, liquidations, and an insurance fund.
-- **Single deep liquidity pool.** One order book, one main price.
+- **No scheduled maturity.** Positions do not require routine expiry rolls.
+- **Mark-price margining.** A venue can use its mark rather than the last trade to assess margin.
+- **Funding transfers.** Payments between longs and shorts create incentives for the contract to stay near its reference market.
+- **Venue-specific risk controls.** Centralized exchanges and on-chain protocols enforce margin and liquidations through different arrangements.
+- **Concentrated liquidity.** Each contract can gather liquidity that dated futures would split across expirations.
 
-## Why it is not really a future
+## How It Differs from a Dated Future {#why-it-is-not-really-a-future}
 
-Futures are defined by a fixed expiry and a convergence mechanism. At expiration the futures price becomes the spot price. However, perps do not converge because they never expire.
+A dated futures contract expires and settles according to its contract rules, linking its value to delivery or a specified settlement reference. A perp has no scheduled final settlement to force that convergence.
 
-Instead, perps rely on **economic pressure** rather than **calendar convergence**. When perp price drifts above spot, longs pay shorts. That payment makes long positions more expensive and short positions more attractive, pulling the perp price down. When perp trades below spot, the opposite happens.
+Instead, perps rely on **economic pressure** rather than **calendar convergence**. A persistent premium tends to increase funding paid by longs. That payment makes long positions more expensive and short positions more attractive, pulling the perp price down. A persistent discount tends to push funding in the opposite direction. The exact sign also depends on the funding formula and its other components.
 
-So a perp is less like a future and more like a **synthetic, never-ending forward** where you rent the position via a funding fee. I would also like to formally offer a suggestion of changing the name of these so called perpetual futures to perpetual forwards, but I digress.
+You can think of funding as the ongoing cost of holding the position, though its sign can reverse and pay you instead. Calling it a forward would not resolve the distinction: ordinary forwards also specify a future settlement date.
 
 ## How Funding Keeps Prices Near Spot {#the-brilliance-of-funding-rates}
 
@@ -53,32 +55,22 @@ Funding payments help keep the perp price near spot without an expiration date. 
 
 At a high level:
 
-- If the perp trades **above** spot, **longs pay shorts**.
-- If the perp trades **below** spot, **shorts pay longs**.
+- **Positive funding:** longs pay shorts. A premium tends to push funding in this direction.
+- **Negative funding:** shorts pay longs. A discount tends to push funding in this direction.
 
-Each exchange uses its own formula, but most use some variation of the following:
+There is no universal funding formula. As one concrete example, [Bybit documents](https://www.bybit.global/en/help-center/article?id=000001123) the following structure, written here with clamp arguments in lower-bound, upper-bound order:
 
-$$
-\begin{aligned}
-    \text{Funding Rate} &\approx \text{Clamp}\left(\frac{\text{Perp Price} - \text{Index Price}}{\text{Index Price}} + \text{Interest Component}\right)
-\end{aligned}
-$$
+$$F=\operatorname{clamp}\left(\bar P+\operatorname{clamp}(I-\bar P,-d,d),F_{\min},F_{\max}\right).$$
 
-Let's break this down piece by piece.
+Here $\bar P$ is an averaged premium index, $I$ is an interest component, and $d$ is a damping band. Define $\operatorname{clamp}(x,a,b)=\min(\max(x,a),b)$. In the documented example, $d=0.05\%$ and an eight-hour interval has $I=0.01\%$; some pairs use zero interest. The premium index uses impact bid/ask prices, not simply the last trade. Funding limits and intervals can change by market.
 
-The first term, $\frac{\text{Perp Price} - \text{Index Price}}{\text{Index Price}}$, is the **premium** (or discount). It measures how far the perp has drifted from spot as a percentage. If the perp is trading at $\$50,500$ and spot is at $\$50,000$, the premium is:
+To understand a simple spot premium, suppose a perp trades at $\$50,500$ against an index of $\$50,000$:
 
-$$
-\begin{aligned}
-    \text{Premium} &= \frac{50,500 - 50,000}{50,000} = \frac{500}{50,000} = 0.01 = 1\%
-\end{aligned}
-$$
+$$\frac{50{,}500-50{,}000}{50{,}000}=0.01=1\%.$$
 
-The second term is the interest component, which reflects the cost of capital. In traditional derivatives, this matters because one currency might have higher rates than another. In crypto, this is usually tiny, often effectively zero, because both sides are collateralized in the same asset (e.g., USDC or BTC). Most exchanges set it to something like $0.01\%$ or less per funding period.
+That measures a price difference. It is **not automatically the funding rate**, because averaging, the interest component, damping, and caps intervene. Positive funding can therefore coexist with a small discount, depending on those inputs.
 
-The **Clamp** function caps the funding rate at some maximum to prevent extreme transfers during volatility. Different exchanges use different caps (commonly $\pm 0.75\%$ to $\pm 2\%$ per funding period). Without this, a flash crash could trigger enormous funding payments.
-
-**Funding periods** are typically **8 hours** on most exchanges (three times per day at 00:00, 08:00, and 16:00 UTC). Some use 1 hour. The rate is annualized in some displays but applied per period.
+For the payment example below, assume funding is charged every eight hours. Check whether a displayed rate is per interval or annualized before using it.
 
 ### Funding math in plain English
 
@@ -106,18 +98,18 @@ $$
 \end{aligned}
 $$
 
-If you are long and funding is positive (meaning perp > spot), **you pay $\$2.50$** to shorts every 8 hours. If you are short, **you receive $\$2.50$** from longs. Three funding periods per day means this could cost you $\$7.50$ daily, or about $\$2,738$ per year on a $\$25,000$ position, roughly $11\%$ annually.
+If you are long and funding is positive, **you pay $\$2.50$** to shorts every 8 hours. If you are short, **you receive $\$2.50$** from longs. Three funding periods per day means this could cost you $\$7.50$ daily, or about $\$2,738$ per year on a $\$25,000$ position, roughly $11\%$ annually.
 
-Of course, funding rates fluctuate. They can go negative (shorts pay longs), near-zero during calm markets, or spike to extreme levels during mania. During the 2021 bull run, BTC perp funding occasionally exceeded $0.1\%$ per 8 hours, more than $100\%$ annualized.
+Of course, funding rates fluctuate. They can go negative (shorts pay longs), near-zero during calm markets, or spike to extreme levels during mania. For scale, a hypothetical constant rate of $0.1\%$ every eight hours would equal $0.1\% \times 3 \times 365 = 109.5\%$ of notional per year without compounding. This is a rate conversion, not a forecast that funding stays fixed.
 
 That tiny number is the **price of leverage**. It is the rent you pay to hold linear exposure with no expiry. And just like rent, it adds up if you are not paying attention.
 
 ### The market for leverage
 
-Funding rates are not set by the exchange, they emerge from **market positioning**. They respond to demand for leverage in real time:
+The venue sets the formula, parameters, and settlement schedule. Market prices and order-book conditions supply inputs to that formula, so demand for leveraged exposure affects funding:
 
-- **When everyone wants to be long** (bullish sentiment, FOMO, momentum), the perp price rises above spot. Funding goes positive. **Longs pay shorts**. Being levered long becomes expensive.
-- **When everyone wants to be short** (bearish sentiment, panic, hedging), the perp price falls below spot. Funding goes negative. **Shorts pay longs**. Being levered short becomes expensive.
+- **When everyone wants to be long** (bullish sentiment, FOMO, momentum), the perp price rises above spot. This tends to push funding positive, so **longs pay shorts**. Being levered long becomes expensive.
+- **When everyone wants to be short** (bearish sentiment, panic, hedging), the perp price falls below spot. This tends to push funding negative, so **shorts pay longs**. Being levered short becomes expensive.
 
 This is the market's self-balancing mechanism. It does not remove leverage demand, it **prices it**.
 
@@ -171,29 +163,37 @@ $$
 
 That $\$100$ gain on a $\$1,000$ margin is a **10% return on your capital**. Your leverage amplified a $1\%$ market move into a $10\%$ portfolio move.
 
-Of course, this works in reverse. A $1\%$ drop becomes a $-10\%$ loss. A $5\%$ drop is $-50\%$. And at $-10\%$, your margin is completely wiped out.
+Of course, this works in reverse. A $1\%$ drop becomes a $-10\%$ loss. A $5\%$ drop is $-50\%$. A $-10\%$ move would exhaust that initial margin if no liquidation, fees, or funding intervened. In practice, maintenance margin generally triggers liquidation sooner.
 
 ### Maintenance Margin and Liquidation {#liquidation-and-the-cliff-edge}
 
-Leverage is powerful, but it comes with a hard stop: **liquidation**. Exchanges enforce a **maintenance margin**, a minimum equity level you must maintain. If your position loses enough that your remaining equity falls below this threshold, the exchange forcibly closes your position at market prices.
+**Maintenance margin** is the equity buffer required to keep a position open. It differs from initial margin, which is what you need to open the position. Liquidation is triggered when the relevant margin test fails, generally using a mark price. [Bybit distinguishes this from the bankruptcy price](https://www.bybit.com/en/help-center/article/FAQ-USDT-Perpetual-and-Expiry-Contracts), where position margin is exhausted.
 
-Why? Because if they let you go negative, the exchange would be on the hook for your losses. Liquidations protect the exchange and the counterparties.
+For an isolated, linear long position, let the entry price be $P_0$, quantity $Q$, and initial margin $M=QP_0/L$, where $L$ is leverage. Ignore fees, funding, other collateral, and margin-tier changes. At mark price $P$, equity is:
 
-Ignoring funding costs and fees for a moment, the rough liquidation threshold for a long position is:
+$$E(P)=M+Q(P-P_0).$$
 
-$$
-\begin{aligned}
-    \text{Liquidation Move} \approx -\frac{1}{\text{Leverage}}
-\end{aligned}
-$$
+Setting equity to zero gives the **bankruptcy price**:
 
-At **10x leverage**, a **-10% move** can wipe out your margin and trigger liquidation. At **50x leverage**, it takes just **-2%**. At **100x**, a **-1%** move is game over.
+$$P_{\mathrm{bankrupt}}=P_0\left(1-\frac{1}{L}\right).$$
 
-In reality, funding payments and trading fees eat into your margin buffer over time, so the actual safe range is tighter than the simple formula suggests. If you are paying positive funding three times a day, that margin is slowly bleeding out even if price does not move.
+That is where the familiar adverse move of $-1/L$ comes from. To include maintenance margin, assume it is a constant fraction $m$ of current notional. Then liquidation begins when:
+
+$$\begin{aligned}
+M+Q(P_{\mathrm{liq}}-P_0)&=mQP_{\mathrm{liq}},\\
+P_{\mathrm{liq}}(1-m)&=P_0-M/Q,\\
+P_{\mathrm{liq}}&=\frac{P_0(1-1/L)}{1-m}.
+\end{aligned}$$
+
+For an illustrative $P_0=\$50{,}000$, $L=10$, and $m=0.005$:
+
+$$P_{\mathrm{liq}}=\frac{50{,}000(0.9)}{0.995}\approx\$45{,}226.13.$$
+
+The adverse move is about **9.55%**, before the **10%** move to the $45,000 bankruptcy price. This is a simplified model, not an exchange's executable risk calculator. Fees, funding, tiered maintenance requirements, and cross-margin balances change the trigger.
 
 ### The cascade effect
 
-Here is where perps can amplify volatility. Liquidations are not voluntary closes, they are **forced market sells** (for longs) or **forced market buys** (for shorts) that hit the order book instantly.
+Here is where perps can amplify volatility. Liquidation can force a long position to sell or a short position to buy, adding pressure to the order book. It is not always an instant full market close: venues can use partial liquidations, transfers, and backstops. [Hyperliquid documents both order-book liquidation and a liquidator vault](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/liquidations).
 
 When price starts dropping and highly levered longs get liquidated, their forced selling pushes price lower, triggering more liquidations, creating more selling pressure, and so on. This is a **liquidation cascade**, and it is why you sometimes see brutal intraday moves in crypto that blow past technical levels and recover just as fast.
 
@@ -206,16 +206,16 @@ Forced liquidations can amplify a price move as leveraged positions close. That 
 ### What perps solve
 
 - **No maturity, no roll.** You never pay to roll a contract.
-- **Single liquidity pool.** Liquidity concentrates, spreads tighten.
+- **Fewer expiry buckets.** One contract can concentrate liquidity within a venue; tighter spreads still depend on trading activity and market makers.
 - **Clean linear exposure.** PnL tracks the underlying move (plus funding).
-- **Global access.** Retail can access leverage in seconds.
+- **Access depends on venue and jurisdiction.** Availability and leverage limits vary.
 
 ### Unintended effects
 
 - **Funding becomes a tradeable signal and tax.** Traders fade extremes, or farm funding in neutral strategies.
 - **Reflexive leverage cycles.** Positive funding encourages shorting, negative funding encourages longing, feeding cyclical positioning.
 - **Liquidation cascades.** Forced liquidations can accelerate moves and create gaps.
-- **Exchange risk is concentrated.** Perps are centrally cleared; you are exposed to the exchange.
+- **Venue risk.** Centralized platforms introduce custody and operator risk; on-chain designs add protocol, oracle, and liquidation-system risks. Perps are not all centrally cleared.
 
 There is also **ADL (auto-deleveraging)**, a last-resort mechanism some exchanges use to reduce risk when liquidations fail. It is rare in normal markets, but it is part of the system design and worth knowing exists.
 
@@ -225,13 +225,13 @@ Think of a perp as:
 
 - A spot-like exposure
 - Plus an embedded funding lease
-- Settled and enforced by a centralized exchange
+- Subject to the venue’s settlement and margin rules
 
-You are renting exposure at a floating rate. Sometimes the rate pays you. Sometimes it taxes you. The rent is set by crowd positioning, not by a fixed schedule.
+You are renting exposure at a floating rate. Sometimes the rate pays you. Sometimes it taxes you. Market conditions influence the rate; the venue defines how and when it is calculated and charged.
 
 ## Funding Costs and Liquidation Risk {#closing-thoughts}
 
-Perps address liquidity fragmentation and roll friction through a shared structure: no expiry, continuous mark to index, and a funding transfer that anchors price to spot.
+Perps address liquidity fragmentation and roll friction through a shared structure: no scheduled expiry, mark-price margining, and a funding transfer that anchors price to spot.
 
 But they also create a second market layered on top of price: the market for leverage. Funding is both a stabilizer and a signal, and the leverage it enables can be reflexive.
 

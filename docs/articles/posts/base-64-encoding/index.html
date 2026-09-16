@@ -237,10 +237,9 @@ window.Quarto = {
 </section>
 <section id="the-missing-eighth-bit" class="level2">
 <h2 class="anchored" data-anchor-id="the-missing-eighth-bit">The Missing Eighth Bit</h2>
-<p>In the 1970s, some early networks expected 7-bit ASCII text, which could not directly represent every value in an 8-bit binary file.</p>
-<p>Data transmission historically was expensive and slow. To save space, engineers used 7-bit ASCII for text representation. 7 bits can represent <span class="math inline">\(2^7\)</span>, or 128 different values (0 to 127). This was enough to represent the full English alphabet (A-Z, a-z), numbers (0-9), basic punctuation, and ‘control characters’ like Enter or Tab.</p>
-<p>However, most computers at the time typically used 8-bit (1 byte) systems. If you tried to send a raw image, the network would often “strip” the eighth bit of every byte to save space. It was like removing every third letter from a sentence; the data arrived shredded. Worse, binary sequences could accidentally trigger “control codes”, which were bits of data that told a printer to stop or a modem to hang up.</p>
-<p>As a solution, developers began “armoring” their data. By disguising binary files as a safe string of alphanumeric text, they ensured the data could survive the journey across imperfect networks.</p>
+<p>The constraint was in particular text transports, not a universal inability of the internet to carry bytes. For example, the original <a href="https://www.rfc-editor.org/info/rfc821/">SMTP specification, RFC 821</a>, defined mail data as 7-bit ASCII. Even on an 8-bit channel, it required the high-order bit to be zero.</p>
+<p>Seven bits represent <span class="math inline">\(2^7=128\)</span> values, numbered 0 to 127. An arbitrary 8-bit byte has <span class="math inline">\(2^8=256\)</span> possible values, so not every binary value fits that text format unchanged. Transport rules also distinguish text content from framing, such as the sequence that ends a mail message.</p>
+<p><a href="https://www.rfc-editor.org/info/rfc2045/">MIME’s RFC 2045</a> defines transfer encodings, including Base64, for carrying data through mail systems with these constraints. Encoding does not preserve data by asking the network to discard a bit. It represents the original bytes using an alphabet the transport can carry, then lets the receiver reconstruct those bytes.</p>
 </section>
 <section id="what-is-base64" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-base64">What is Base64?</h2>
@@ -288,19 +287,18 @@ window.Quarto = {
 <section id="what-does-base64-have-to-do-with-llms-and-modern-ai" class="level2">
 <h2 class="anchored" data-anchor-id="what-does-base64-have-to-do-with-llms-and-modern-ai">What does Base64 have to do with LLMs and modern AI?</h2>
 <p>An API, or application programming interface, lets a program send a request to a server and receive a response. Many APIs use JSON to represent that data. Its objects and arrays resemble Python dictionaries and lists, though JSON has its own syntax.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>json_obj <span class="op">=</span> {</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key1"</span>: <span class="st">"value1"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key2"</span>: <span class="dv">123</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key3"</span>: true,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key4"</span>: [</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"item1"</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"item2"</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  ],</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key5"</span>: {</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"nestedKey"</span>: <span class="st">"nestedValue"</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"key1"</span><span class="fu">:</span> <span class="st">"value1"</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"key2"</span><span class="fu">:</span> <span class="dv">123</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"key3"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"key4"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"item1"</span><span class="ot">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"item2"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"key5"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"nestedKey"</span><span class="fu">:</span> <span class="st">"nestedValue"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>JSON is a <a href="https://www.rfc-editor.org/rfc/rfc8259">text format</a>, with no native binary-file type. An API can accept a Base64 string and decode it back into bytes. This solves a representation problem. It does not make the file safe: <a href="https://www.rfc-editor.org/rfc/rfc4648#section-12">Base64 provides no confidentiality</a>, and a service still needs <a href="https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html">file validation and safe processing</a>. Receiving bytes is not the same as executing them.</p>
 <hr>
 </section>
@@ -392,7 +390,7 @@ Displaying Decoded Image:</code></pre>
 </div>
 </div>
 </div>
-<p>Personally I love remembering that whenever I am using an LLM with multimodal and tool-use capabilities, under the hood 70’s computer science is peering through.</p>
+<p>Personally I love remembering that whenever I am using an LLM with multimodal and tool-use capabilities, a text-encoding technique from older communication systems is still doing useful work.</p>
 <p>As always, till next time.</p>
 <p>JCP</p>
 

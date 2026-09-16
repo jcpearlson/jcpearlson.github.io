@@ -231,7 +231,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="coin-flip-game">Coin Flip Game</h2>
 <p>Imagine you’re in a casino. Instead of slot machines or table games, a dealer offers you a coin game and explains the rules:</p>
 <blockquote class="blockquote">
-<p>I will pay you based on the outcome of a coin flip game. You can flip the coin as <strong>many times as you want</strong>, and you can <strong>stop whenever you like</strong>. I will pay you based on the ratio of heads to total flips. I will <strong>charge you 75 cents to play</strong> and <strong>pay you your heads to total flips ratio in cents</strong>. Would you like to play?</p>
+<p>I will pay you based on the outcome of a coin flip game. You can flip the coin as <strong>many times as you want</strong>, and you can <strong>stop whenever you like</strong>. I will pay you based on the ratio of heads to total flips. I will <strong>charge you 75 cents to play</strong> and <strong>pay you one dollar multiplied by your heads-to-total-flips ratio</strong>. Would you like to play?</p>
 </blockquote>
 <p>At first glance it appears the casino is offering us a losing wager (as is typical). In any long-run scenario you would expect to get a ratio of 1/2 heads to total flips, since heads and tails are equally likely to occur on any given flip. In that case, we would be paying 75 cents to play a game where we would only be getting paid 50 (1 heads for every 1 tails) cents! That calculation assumes we keep flipping. We can also choose to stop, so we need to account for that choice.</p>
 </section>
@@ -255,12 +255,12 @@ window.Quarto = {
                  +-- Keep flipping...
                  +-- Long-run ratio approaches 0.5
                  +-- OUTCOME: Loss (0.5 payout &lt; 0.75 cost)</code></pre>
-<p>When we flip heads on the first flip we win the game outright with the best possible payout ratio of 1.0 heads/total flips (giving us the game’s maximum profit of 100 (payout) - 75 (cost) = 25 cents). However if we flip tails on the first flip we are in a losing situation where we will have to continue flipping, right now we will assume that we will just flip until we get the long-run ratio of 0.5 heads/total flips.</p>
-<p>This naive strategy gives us a lower bound on the expected value of the game. We have devised a strategy playing the game where half of the time we will win 25 cents (flipping heads on the first flip) and half of the time we will lose 25 cents (flipping tails on the first flip and continuing to the long-run ratio of 0.5 heads/total flips). Thus we can say that the expected value of this game is at least:</p>
+<p>When we flip heads on the first flip we win the game outright with the best possible payout ratio of 1.0 heads/total flips (giving us the game’s maximum profit of 100 (payout) - 75 (cost) = 25 cents). However if we flip tails on the first flip we are in a losing situation where we will have to continue flipping, for now, consider stopping at a fixed, very large number of flips after an initial tail. The expected ratio then approaches 0.5 from below as that cutoff grows. A limiting ratio is not itself a finite stopping time.</p>
+<p>In the limit, half the games pay a profit of 25 cents immediately, and the other half have an expected loss approaching 25 cents. Finite cutoffs can approach a break-even expected value arbitrarily closely. Thus the supremum of expected profit over stopping rules satisfies:</p>
 <div style="text-align: left;">
 <p><span class="math display">\[
 \begin{aligned}
-EV_{game} &amp;\geq  \\
+\sup EV_{game} &amp;\geq  \\
 &amp;\frac{1}{2} (1.0 - 0.75) +
 \frac{1}{2} (0.5 - 0.75)  \\
 &amp;= \frac{1}{2} (0.25) +
@@ -323,7 +323,7 @@ EV_{game} &amp;\geq  \\
 </table>
 <p>From the table above we can see that if we stop at the first time we have more heads than tails we can achieve a ratio of 1.0, .67, .60, etc. Each stopping point is less and less likely, there is <span class="math inline">\(\frac{1}{2}^{\text{\# total flips}}\)</span> chance of achieving each outcome. However, we can see that the ratios we achieve are all greater than 0.5 heads/total flips. Another thing we notice is that the longer sequences clearly have many more paths (at much lower likelihoods) than the shorter sequences.</p>
 <p>Let’s plot the possible outcomes of this game to count the number of paths that lead to each outcome:</p>
-<div id="cell-2" class="cell" data-execution_count="33">
+<div id="cell-2" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-16T12:06:08.289630Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-16T12:06:08.289383Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-16T12:06:08.641703Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-16T12:06:08.641146Z&quot;}" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -354,7 +354,7 @@ EV_{game} &amp;= \sum_{k=0}^{\infty} \left( \frac{k+1}{2k+1} \cdot P(k) \right) 
 \end{aligned}
 \]</span></p>
 </div>
-<p>A special case of this theorem is when h = k + 1, exceeding votes by exactly one. If we think back to path counting, this problem is equivalent to us counting paths where we stop when heads exceeds tails by exactly one! Let’s now solve for this special case:</p>
+<p>A special case of this theorem is when h = k + 1, exceeding votes by exactly one. To connect this to our stopping rule, reverse a valid flip sequence. A path that first reaches a heads surplus of one on its final flip becomes a reversed path with heads strictly ahead at every step. This gives a one-to-one correspondence with the ballot theorem’s paths. Let’s now solve for this special case:</p>
 <div style="text-align: left;">
 <p><span class="math display">\[
 \begin{aligned}
@@ -364,12 +364,12 @@ EV_{game} &amp;= \sum_{k=0}^{\infty} \left( \frac{k+1}{2k+1} \cdot P(k) \right) 
 &amp; = \frac{(k+1)-k}{(k+1)+k} \binom{(k+1)+k}{k} \\
 &amp; = \frac{1}{2k+1} \binom{2k+1}{k} \\
 &amp; = \frac{1}{2k+1} \cdot \frac{(2k+1)!}{(k+1)! k!} \\
-&amp; (2k+1)! = (2k+1)(2k!) \\
-&amp; = \frac{1}{2k+1} \cdot \frac{(2k+1)(2k!)}{(k+1)! k!} \\
-&amp; = \frac{2k!}{(k+1)! k!} \\
+&amp; (2k+1)! = (2k+1)((2k)!) \\
+&amp; = \frac{1}{2k+1} \cdot \frac{(2k+1)((2k)!)}{(k+1)! k!} \\
+&amp; = \frac{(2k)!}{(k+1)! k!} \\
 &amp; (k+1)! = (k+1)(k!) \\
-&amp; = \frac{2k!}{(k+1)(k!) k!} \\
-&amp; = \frac{1}{k+1} \cdot \frac{2k!}{k! k!} \\
+&amp; = \frac{(2k)!}{(k+1)(k!) k!} \\
+&amp; = \frac{1}{k+1} \cdot \frac{(2k)!}{k! k!} \\
 &amp; = \frac{1}{k+1} \binom{2k}{k} \\
 \end{aligned}
 \]</span></p>
@@ -409,7 +409,7 @@ EV_{strategy} &amp;= \frac{\pi}{4} - 0.75 \approx 0.0354 \\
 \end{aligned}
 \]</span></p>
 </div>
-<p>This strategy has a positive expected profit. By stopping the game at the first time we have flipped more heads than tails we can expect to win about 3.54 cents per game in the long-run. This would be a ROI of about 4.72% on each 75 cent wager!</p>
+<p>This strategy has a positive expected profit. By stopping the first time heads exceeds tails, we get an expected profit of about 3.54 cents per game. This stopping time is finite with probability one, but its expected number of flips is infinite. A positive expected profit per game therefore does not imply a useful hourly return. This would be a ROI of about 4.72% on each 75 cent wager!</p>
 </section>
 </section>
 <section id="strategy-improvement" class="level2">
@@ -420,62 +420,52 @@ EV_{strategy} &amp;= \frac{\pi}{4} - 0.75 \approx 0.0354 \\
 <li>What is the optimal policy for the ‘stop when heads/total flips &gt; X’ strategy?</li>
 <li>Is there a better policy that could outperform stop when ‘heads/total flips &gt; X’?</li>
 </ol>
-<p>First, let’s tackle modeling the ‘stop when heads/total flips &gt; X’ strategy. I wrote a simple Python simulation to model this game and test various stopping points. The code is as follows:</p>
+<p>First, let’s tackle modeling the ‘stop when heads/total flips &gt; X’ strategy. I will evaluate each threshold by propagating the probability of every possible heads count. This avoids sampling noise and makes the terminal rule explicit: stop when the ratio exceeds the threshold, or at the cutoff, whichever comes first. At the cutoff, collect the actual ratio, even if it is below one half.</p>
 <section id="python-simulation-for-stop-when-headstotal-flips-x-strategy" class="level3">
-<h3 class="anchored" data-anchor-id="python-simulation-for-stop-when-headstotal-flips-x-strategy">Python Simulation for ‘Stop When Heads/Total Flips &gt; X’ Strategy</h3>
-<div id="cell-5" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_numpy_simulation(num_simulations: <span class="bu">int</span>, max_flips: <span class="bu">int</span>, stop_ratio: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    flips <span class="op">=</span> np.random.randint(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="dv">0</span>, <span class="co"># Inclusive lower bound</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="dv">2</span>, <span class="co"># Exclusive upper bound</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        size<span class="op">=</span>(num_simulations, max_flips) <span class="co"># Number of simulations, number of flips per simulation</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    num_heads <span class="op">=</span> np.cumsum(flips, axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># Cumulative sum of heads along each row</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    flip_numbers <span class="op">=</span> np.arange(<span class="dv">1</span>, max_flips <span class="op">+</span> <span class="dv">1</span>) <span class="co"># Total flips </span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    ratios <span class="op">=</span> num_heads <span class="op">/</span> flip_numbers <span class="co"># Ratio of heads to total flips</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    exceeds_threshold <span class="op">=</span> ratios <span class="op">&gt;</span> stop_ratio <span class="co"># Find where ratios exceeded the stop ratio</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    first_exceed_indices <span class="op">=</span> np.argmax(exceeds_threshold, axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># Find the first time where this happened</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If we never exceed, set the index to last flip</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    never_exceeds <span class="op">=</span> <span class="op">~</span>exceeds_threshold.<span class="bu">any</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    first_exceed_indices[never_exceeds] <span class="op">=</span> max_flips <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    final_ratios <span class="op">=</span> ratios[np.arange(num_simulations), first_exceed_indices] <span class="co"># Final ratios</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    final_ratios[never_exceeds] <span class="op">=</span> np.maximum(<span class="fl">0.5</span>, final_ratios[never_exceeds]) <span class="co"># Ensure min ratio of 0.5 (long-run average)</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(np.mean(final_ratios))</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Running simulations..."</span>)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>num_simulations <span class="op">=</span> <span class="dv">2_000_000</span>  <span class="co"># 2 million sims </span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>max_flips <span class="op">=</span> <span class="dv">1000</span> <span class="co"># 1000 max flips per simulation</span></span>
+<h3 class="anchored" data-anchor-id="python-simulation-for-stop-when-headstotal-flips-x-strategy">Python Calculation for ‘Stop When Heads/Total Flips &gt; X’</h3>
+<p>For each live state after <span class="math inline">\(n\)</span> flips, half its probability goes to the same heads count after a tail, and half goes to one additional head. When a state stops, add its probability times its payout to the total and remove it from future flips. This sums over paths without storing each path separately. The calculation is deterministic, with ordinary floating-point rounding.</p>
+<div id="cell-5" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-16T12:06:09.051155Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-16T12:06:09.051011Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-16T12:06:10.503227Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-16T12:06:10.502452Z&quot;}" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate_threshold(threshold_percent: <span class="bu">int</span>, max_flips: <span class="bu">int</span>):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Stop above the threshold, or collect the actual ratio at max_flips."""</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> <span class="dv">0</span> <span class="op">&lt;=</span> threshold_percent <span class="op">&lt;=</span> <span class="dv">100</span> <span class="kw">or</span> max_flips <span class="op">&lt;</span> <span class="dv">1</span>:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Use a threshold from 0 to 100 and a positive cutoff."</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    live <span class="op">=</span> np.array([<span class="fl">1.0</span>])</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    expected_payout <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    cutoff_probability <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, max_flips <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        following <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        following[:<span class="op">-</span><span class="dv">1</span>] <span class="op">+=</span> <span class="fl">0.5</span> <span class="op">*</span> live  <span class="co"># Tail: heads count stays the same.</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        following[<span class="dv">1</span>:] <span class="op">+=</span> <span class="fl">0.5</span> <span class="op">*</span> live   <span class="co"># Head: heads count increases by one.</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        heads <span class="op">=</span> np.arange(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Integer comparison avoids rounding at exact threshold ties.</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        stop <span class="op">=</span> <span class="dv">100</span> <span class="op">*</span> heads <span class="op">&gt;</span> threshold_percent <span class="op">*</span> n</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">==</span> max_flips:</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            cutoff_probability <span class="op">=</span> <span class="bu">float</span>(following[<span class="op">~</span>stop].<span class="bu">sum</span>())</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            stop <span class="op">=</span> np.ones(n <span class="op">+</span> <span class="dv">1</span>, dtype<span class="op">=</span><span class="bu">bool</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        expected_payout <span class="op">+=</span> <span class="bu">float</span>(np.dot(following[stop], heads[stop] <span class="op">/</span> n))</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        following[stop] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        live <span class="op">=</span> following</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> expected_payout, cutoff_probability</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> []</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Test a range of stop_ratios from 0.50 to 0.64</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>stop_ratios_to_test <span class="op">=</span> np.arange(<span class="fl">0.5</span>, <span class="fl">0.64</span>, <span class="fl">0.01</span>)</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> stop_ratio <span class="kw">in</span> stop_ratios_to_test:</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Simulating for stop ratio: </span><span class="sc">{</span>stop_ratio<span class="sc">:.2f}</span><span class="ss">..."</span>)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    avg_ratio <span class="op">=</span> run_numpy_simulation(num_simulations, max_flips, stop_ratio)</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    results.append({<span class="st">'Stop Ratio'</span>: <span class="bu">round</span>(stop_ratio, <span class="dv">2</span>), <span class="st">'Expected Payout'</span>: avg_ratio})</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"="</span><span class="op">*</span><span class="dv">50</span>)</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Simulations complete."</span>)</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Results Dataframe! </span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>df_all_results <span class="op">=</span> pd.DataFrame(results).set_index(<span class="st">'Stop Ratio'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>horizons <span class="op">=</span> (<span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">5000</span>)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> []</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> max_flips <span class="kw">in</span> horizons:</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> threshold_percent <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">50</span>, <span class="dv">65</span>):</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        payout, cutoff_probability <span class="op">=</span> evaluate_threshold(threshold_percent, max_flips)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        results.append({</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Max flips"</span>: max_flips,</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Stop ratio"</span>: threshold_percent <span class="op">/</span> <span class="dv">100</span>,</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Expected payout"</span>: payout,</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Expected profit"</span>: payout <span class="op">-</span> <span class="fl">0.75</span>,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Cutoff probability"</span>: cutoff_probability,</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>df_all_results <span class="op">=</span> pd.DataFrame(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_all_results[<span class="st">'Expected Value'</span>] <span class="op">=</span>  df_all_results[<span class="st">'Expected Payout'</span>] <span class="op">-</span> <span class="fl">0.75</span>  <span class="co"># Adjusted Expected Value</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df_all_results[<span class="st">'Expected Payout'</span>].plot(</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">'line'</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>),</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    marker<span class="op">=</span><span class="st">'o'</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="ss">f'Expected Payout across </span><span class="sc">{</span>num_simulations<span class="sc">:,}</span><span class="ss"> Simulations'</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">'Stop Ratio'</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    ylabel<span class="op">=</span><span class="st">'Heads / Total Flips'</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span><span class="st">'green'</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-6" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-16T12:06:10.504472Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-16T12:06:10.504355Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-16T12:06:10.583716Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-16T12:06:10.583189Z&quot;}" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -484,8 +474,7 @@ EV_{strategy} &amp;= \frac{\pi}{4} - 0.75 \approx 0.0354 \\
 </div>
 </div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_all_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-7" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-16T12:06:10.585005Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-16T12:06:10.584907Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-16T12:06:10.592899Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-16T12:06:10.592524Z&quot;}" data-execution_count="5">
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
@@ -494,11 +483,13 @@ EV_{strategy} &amp;= \frac{\pi}{4} - 0.75 \approx 0.0354 \\
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Expected Payout</th>
-<th data-quarto-table-cell-role="th">Expected Value</th>
+<th data-quarto-table-cell-role="th">Expected payout</th>
+<th data-quarto-table-cell-role="th">Expected profit</th>
+<th data-quarto-table-cell-role="th">Cutoff probability</th>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Stop Ratio</th>
+<th data-quarto-table-cell-role="th">Stop ratio</th>
+<th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
 </tr>
@@ -506,78 +497,93 @@ EV_{strategy} &amp;= \frac{\pi}{4} - 0.75 \approx 0.0354 \\
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.50</td>
-<td>0.785382</td>
-<td>0.035382</td>
+<td>0.784907</td>
+<td>0.034907</td>
+<td>0.025225</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.51</td>
-<td>0.785749</td>
-<td>0.035749</td>
+<td>0.785273</td>
+<td>0.035273</td>
+<td>0.042522</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.52</td>
-<td>0.786531</td>
-<td>0.036531</td>
+<td>0.785944</td>
+<td>0.035944</td>
+<td>0.066234</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.53</td>
-<td>0.787559</td>
-<td>0.037559</td>
+<td>0.786545</td>
+<td>0.036545</td>
+<td>0.091053</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.54</td>
-<td>0.788118</td>
-<td>0.038118</td>
+<td>0.787008</td>
+<td>0.037008</td>
+<td>0.115600</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.55</td>
-<td>0.788536</td>
-<td>0.038536</td>
+<td>0.787243</td>
+<td>0.037243</td>
+<td>0.139108</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.56</td>
-<td>0.788972</td>
-<td>0.038972</td>
+<td>0.787427</td>
+<td>0.037427</td>
+<td>0.161203</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.57</td>
-<td>0.788434</td>
-<td>0.038434</td>
+<td>0.787009</td>
+<td>0.037009</td>
+<td>0.176643</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.58</td>
-<td>0.788622</td>
-<td>0.038622</td>
+<td>0.787188</td>
+<td>0.037188</td>
+<td>0.201132</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.59</td>
-<td>0.787903</td>
-<td>0.037903</td>
+<td>0.786569</td>
+<td>0.036569</td>
+<td>0.216866</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.60</td>
-<td>0.787989</td>
-<td>0.037989</td>
+<td>0.786431</td>
+<td>0.036431</td>
+<td>0.251848</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.61</td>
-<td>0.788028</td>
-<td>0.038028</td>
+<td>0.785901</td>
+<td>0.035901</td>
+<td>0.258422</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.62</td>
-<td>0.786756</td>
-<td>0.036756</td>
+<td>0.784972</td>
+<td>0.034972</td>
+<td>0.270484</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.63</td>
-<td>0.785774</td>
-<td>0.035774</td>
+<td>0.783892</td>
+<td>0.033892</td>
+<td>0.286057</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.64</td>
-<td>0.784747</td>
-<td>0.034747</td>
+<td>0.782840</td>
+<td>0.032840</td>
+<td>0.296924</td>
 </tr>
 </tbody>
 </table>
@@ -585,24 +591,26 @@ EV_{strategy} &amp;= \frac{\pi}{4} - 0.75 \approx 0.0354 \\
 </div>
 </div>
 </div>
-<p>First, we can confirm that these results are reasonable. Our ‘stop when heads &gt; tails’ strategy that we calculated earlier using pure mathematics is equivalent to a stop ratio of 0.5 heads / total flips. We can see that for 0.50 stop ratio our payout is modeled at about 0.7854, which is the exact value that we got when mathematically calculating its expected payout!</p>
-<p>From these results, it appears the optimal stopping ratio is around 0.56, yielding an expected payout of about 0.789 heads/total flips. This is approximately equal to a profit of 3.9 cents per game played! This is slightly better than our previous strategy of stopping when heads first exceeds tails. The 3.9 cent profit per game is now an ROI of about 5.2% on each 75 cent wager.</p>
+<p>At a cutoff of 1,000 flips, the heads-greater-than-tails rule pays about <span class="math inline">\(0.784907\)</span> dollars on average, below the unlimited-time value of <span class="math inline">\(\pi/4 \approx 0.785398\)</span>. Some games reach the cutoff while tails are still ahead. Giving those games a payout of at least <span class="math inline">\(0.50\)</span> would change the game we are calculating.</p>
+<p>Among the thresholds tested, 0.56 gives the highest expected payout at this cutoff: approximately <span class="math inline">\(0.787427\)</span>, or <strong>3.74 cents of expected profit</strong> on the 75-cent entry fee. About <strong>16.12%</strong> of games reach the cutoff without crossing that threshold. The plot also shows cutoffs of 100 and 5,000 flips; the result depends on how long we allow the game to run.</p>
+<p>This is the best threshold on this grid for the stated cutoff. It is not a proof of the best possible stopping rule.</p>
 </section>
 <section id="the-most-optimal-policy" class="level3">
 <h3 class="anchored" data-anchor-id="the-most-optimal-policy">Could a Different Stopping Rule Do Better?</h3>
-<p>Now we have figured out the optimal policy for the ‘stop when heads/total flips &gt; X’ strategy. However, is there a better policy that could outperform stop when ‘heads/total flips &gt; X’?</p>
-<p>In theory, yes. By creating some policy that scales stopping ratio by marginal variance per flip you could achieve better outcomes (think about this and try it out yourself). Here, I want to consider what happens if we allow unlimited flips.</p>
-<p>But first as an aside, let’s introduce potentially one of the coolest named theorems in probability: the Infinite Monkey Theorem (<a href="https://en.wikipedia.org/wiki/Infinite_monkey_theorem">link</a>).</p>
+<p>Yes. A fixed ratio ignores how many flips have occurred. With a finite cutoff <span class="math inline">\(N\)</span>, let <span class="math inline">\(V_N(h,n)\)</span> be the best expected payout after <span class="math inline">\(n\)</span> flips, of which <span class="math inline">\(h\)</span> were heads. At the cutoff we must collect:</p>
+<p><span class="math display">\[V_N(h,N)=\frac{h}{N}.\]</span></p>
+<p>Before then, compare stopping now with the expected value of one more flip:</p>
+<p><span class="math display">\[V_N(h,n)=\max\left(\frac{h}{n},\;\frac{V_N(h+1,n+1)+V_N(h,n+1)}{2}\right),\qquad 1\leq n&lt;N.\]</span></p>
+<p>Working backward through these states finds the optimal policy for that finite cutoff. The entry fee is already paid, so it does not affect the stop-or-continue comparison. The unlimited-time version is the <a href="https://arxiv.org/abs/1201.0626">Chow–Robbins game</a>, which requires more care than choosing a single ratio.</p>
+<p>What about waiting for an almost-all-heads result? That brings us to the infinite monkey theorem.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../../../media/Chimpanzee_seated_at_typewriter.jpg" class="img-fluid figure-img"></p>
 <figcaption>Infinite Monkey Theorem</figcaption>
 </figure>
 </div>
-<blockquote class="blockquote">
-<p>The core idea of the infinite monkey theorem is a thought experiment. Let’s say you have one monkey and have him sit down and randomly hit keys on a typewriter for an infinite amount of time. Given infinite time, the monkey will certainly type out any given possible text, including the complete works of Shakespeare.</p>
-</blockquote>
-<p>Well, let’s follow this logic for our coin flip game. Given infinite time, we would expect any sequence of heads and tails to eventually occur (if we never stop flipping). Obviously, in practice Python cannot model infinite time. However, a new policy appears when we consider this theorem. What if we simply only stop flipping when we reach a ratio of .999 repeated heads/total flips? While this may feel like a cop-out answer, it is in theory the optimal policy given we have infinite time to continue flipping the coin and never stop. If we truly can flip forever, or even simulate in some way infinite time, we would eventually reach a ratio of .999 repeated heads/total flips! This would give us a payout of 99.99 repeated cents, and a profit of 24.99 repeated cents per game played! This would be a massive ROI of 33.33 % repeated.</p>
+<p>An endless sequence of independent fair coin flips contains every particular finite pattern with probability one. But a long run of heads somewhere in the sequence does not erase the tails that came before it. Our payout uses <strong>all flips since the start</strong>, not a favorable stretch we select afterward.</p>
+<p>For example, after an initial tail the cumulative ratio can never equal one at any finite stopping time. More generally, the cumulative heads ratio converges to one half with probability one. The infinite monkey theorem therefore does not guarantee an eventual near-100% payout. Allowing more time can improve a stopping strategy, but it does not justify the claimed 25-cent guaranteed profit.</p>
 </section>
 </section>
 <section id="findings" class="level2">
@@ -614,7 +622,7 @@ EV_{strategy} &amp;= \frac{\pi}{4} - 0.75 \approx 0.0354 \\
 </section>
 <section id="numerical-results" class="level3">
 <h3 class="anchored" data-anchor-id="numerical-results">Numerical Results</h3>
-<p>The Monte Carlo simulation (2 million runs) tested fixed stopping thresholds. Its estimate agreed with the analytical result. Among the thresholds tested, stopping when the heads-to-total-flips ratio exceeds 0.56 gave an estimated payout of approximately 0.789, a profit of 3.9 cents per game and a return of over 5%.</p>
+<p>Probability propagation evaluates fixed thresholds with mandatory stopping cutoffs. At 1,000 flips, the best threshold tested is 0.56, with an expected payout of approximately <span class="math inline">\(0.787427\)</span> and expected profit of 3.74 cents. This is a finite-cutoff result, not the optimal value of the unlimited game.</p>
 </section>
 <section id="the-value-of-optionality" class="level3">
 <h3 class="anchored" data-anchor-id="the-value-of-optionality">The Value of Optionality</h3>
@@ -623,10 +631,10 @@ EV_{strategy} &amp;= \frac{\pi}{4} - 0.75 \approx 0.0354 \\
 </section>
 <section id="future-work" class="level2">
 <h2 class="anchored" data-anchor-id="future-work">Future Work</h2>
-<p>The simulations above use a fixed ratio as the stopping threshold. There are several ways to extend this analysis.</p>
+<p>The numerical comparison above uses a fixed ratio as the stopping threshold. There are several ways to extend this analysis.</p>
 <section id="dynamic-stopping-policy" class="level3">
 <h3 class="anchored" data-anchor-id="dynamic-stopping-policy">Dynamic Stopping Policy</h3>
-<p>A stopping rule could depend on both the number of heads and the total number of flips. A 52% ratio after 1,000 flips leaves less room for the next flip to change the payout than a 52% ratio after only 25 flips. The decision is whether the expected benefit of continuing exceeds the payout available now.</p>
+<p>The backward recursion above uses both the number of heads and the total number of flips. Implementing it would let us compare a state-dependent policy with the fixed thresholds. A 52% ratio after 1,000 flips changes less after another flip than a 52% ratio after only 25 flips. The decision is whether the expected benefit of continuing exceeds the payout available now.</p>
 </section>
 <section id="analysis-with-a-biased-coin" class="level3">
 <h3 class="anchored" data-anchor-id="analysis-with-a-biased-coin">Analysis with a Biased Coin</h3>

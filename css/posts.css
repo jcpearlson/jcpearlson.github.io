@@ -713,6 +713,14 @@ div.sourceCode pre {
   cursor: default;
 }
 
+/* Keep long display equations scrollable without widening the article page. */
+body.jcp-article-page mjx-container[display="true"] {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 4px;
+}
+
 /* ========== MOBILE (≤768px) ========== */
 
 @media (max-width: 768px) {

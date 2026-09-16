@@ -13,7 +13,7 @@ Some articles describe using options to borrow money in place of a traditional a
 
 Imagine securing a loan for your dream home with a 0% down payment and an interest rate that rivals the U.S. Treasury. It sounds like a financial fantasy, but a niche corner of the options market, the 'box spread', has been touted online as a secret Wall Street trick to do just that. But is this a golden ticket for the average homebuyer, or a high-stakes gamble reserved for a select few? Let's break down the math, the hype, and the hidden dangers.
 
-Today the average 30-year fixed rate mortgage is around [6.3%](https://finance.yahoo.com/personal-finance/mortgages/article/mortgage-refinance-rates-today-thursday-november-20-2025-110030633.html) yearly. Generally for mortgages it is recommended that buyers have around 20% to put as a 'down payment' at the start of the mortgage term. When trying to purchase a $1M house the math looks like the following:
+For the worked example, assume a 30-year fixed mortgage at a nominal annual rate of 6.3%, a 20% down payment, and a $1M home. These are illustrative inputs, not a current quote or a claim that every mortgage requires 20% down. The monthly payment below includes principal and interest only, excluding property taxes, insurance, and fees.
 
 Home cost: <br>
 **$1M** 
@@ -34,7 +34,7 @@ Monthly payment: <br>
 $800K * .525% / (1-(1 + .525%)^-360) = **$4,951.78**
 <br>
 Total interest paid:  <br>
-$4,951.78 * 360 - $800K = **$982,640.8**
+Using the unrounded monthly payment: $4,951.7823157 * 360 - $800K ≈ **$982,641.63**
 
 There are good and bad things associated with this:
 
@@ -48,7 +48,7 @@ There are good and bad things associated with this:
 
 1) I have to come up with $200K today. This may not be a problem for me financially, however, I don't want to have to sell large chunks of stocks or my retirement accounts in order to get the cash on hand.
 
-2) If I for some reason cannot make my payments the bank will take my house. I will lose all of the value I had built up in home equity and still have paid lots of principal and interest for nothing.
+2) If I cannot make my payments, I risk [foreclosure](https://www.consumerfinance.gov/ask-cfpb/how-does-foreclosure-work-en-287/). That puts the home and my equity at risk; it does not mean every foreclosure necessarily wipes out all remaining equity.
 
 3) If I keep to my payments and everything goes according to plan I will likely have a $800K loan that costs me $982K in interest over time to borrow that money. That is a ton of interest, more than 120% of the loan value spent and pocketed by a bank.
 
@@ -59,70 +59,94 @@ First let's clarify, I am not suggesting you do this. In fact, today I am going 
 
 Here is the structure:
 
-> A **box-spread mortgage** is a synthetic borrowing mechanism in which a long-dated options box spread provides capital upfront in exchange for a contractually fixed repayment at maturity, effectively replicating a mortgage’s economic profile via derivative pricing.
+A **box-spread loan** uses options to receive cash today in exchange for a fixed payment at expiration. It is backed by brokerage collateral and usually has a lump-sum repayment. Those cash flows differ from a mortgage paid down each month.
 
 ### Creating a Box Spread Mortgage
 
-To create a box spread we go long a call and short a put option at a strike $k_1$ and short a call and long a put at strike $k_2$. At strike $k_1$ you have effectively created a synthetic long forward. At strike $k_2$ you have created a short forward.
+Take two strikes, $k_1<k_2$, with the same underlying and expiration. Assume European, cash-settled options and ignore fees for the payoff calculation. First build a **long box**:
 
-It is important that the options that comprise this trade are European options. American options allow for exercising an option early, allowing for your 'balanced hedge' to fall apart whenever your counterparty decides. 
+| Strike | Call position | Put position | Combined payoff at expiration |
+|---|---|---|---|
+| $k_1$ | Buy | Sell | $S_T-k_1$ |
+| $k_2$ | Sell | Buy | $k_2-S_T$ |
+| Total | | | $k_2-k_1$ |
 
-Going long a forward is equivalent to agreeing to buy an asset at a fixed-price $k_1$ in the future. Going short a forward is agreeing to sell an asset at a fixed-price $k_2$ in the future. 
+Here $S_T$ is the underlying's settlement value. The underlying price cancels:
 
-Thus, when $k_2$ > $k_1$ we receive a fixed future payoff of $k_2 - k_1$. We also collect upfront the present value of this payoff discounted at the risk-free rate (or 10s of bps higher as market makers need to profit) this upfront cash flow is $PV(k_2 - k_1)$. 
+$$ (S_T-k_1)+(k_2-S_T)=k_2-k_1. $$
 
-So in this trade we get paid $PV(k_2 - k_1)$ and have to pay $k_2 - k_1$ in the future. This is the exact same as borrowing $k_2 - k_1$ dollars at/near the risk-free interest rate $r_f$. 
+Buying that future payment costs money today. A long box is the lending side. To borrow, **sell the box**, reversing all four option positions. You receive the market premium today and owe the strike difference at expiration. The Options Industry Council describes this [buyer/lender and seller/borrower relationship](https://www.optionseducation.org/getmedia/1dcd759e-d52b-4323-8095-c3a343cab824/Box-Spreads-Paper_2025.pdf).
 
-In simpler terms you can think of it this way: you simultaneously make two deals for a future date.
+For one unit of the underlying, suppose the strikes are $1,000 and $1,050. The long box pays $50 at expiration and might cost $48 today. The short box does the reverse:
 
-   1.  Deal 1: You agree to buy an asset for $1,000.
+| Cash flow | Long box: lender | Short box: borrower |
+|---|---:|---:|
+| Today | Pay $48 | Receive $48 |
+| At expiration | Receive $50 | Pay $50 |
 
-   2.  Deal 2: You agree to sell the exact same asset for $1,050.
+For the borrower, the loan principal is $48 and the financing cost is $2. If the term is $T$ years, the implied effective annual borrowing rate is:
 
-No matter what the asset's price is on that future date, you are guaranteed to make a $50 profit. The market recognizes this guaranteed future profit and gives you its present value today: say, $48 as cash in your pocket.
-  
-You've just received $48 upfront in exchange for paying back $50 later. In essence, you've taken out a loan at a very low interest rate, with the loan amount being the present value of the spread between your two deals.
+$$r=\left(\frac{50}{48}\right)^{1/T}-1.$$
+
+Actual option cash flows also include the contract multiplier. The premium is set by market prices, so the implied rate need not equal a Treasury yield. Early exercise and settlement differences can disrupt the simple payoff calculation; this example specifically assumes European, cash-settled contracts.
 
 ### Borrowing Rates {#how-much}
 
-Just how far from $r_f$ can you borrow? Due to recent increase in volume in the SPX box spread market, this [CBOE article](https://www.cboe.com/insights/posts/long-dated-box-spreads-a-better-way-to-buy-a-home-updated/) (which I recommend reading if you are interested in this) says to expect 30-50bps higher than treasury rates! With the 5yr Treasury yield at 3.6%, at the high end of that spread you could expect to borrow at **4.1% interest**. This is 2.2% lower than the traditional mortgage I showed earlier.
+The [Cboe-hosted financing example](https://www.cboe.com/insights/posts/long-dated-box-spreads-a-better-way-to-buy-a-home-updated/) discusses borrowing through short box spreads and quotes spreads of 30–50 basis points above Treasury yields. Those were dated market observations, not guaranteed terms.
 
-I mentioned that you get paid upfront whatever you want, let's say the full 1M value of the home. In 5 years you repay $\$1M * (1.041)^5 = \$1,222,513.45$. Costing you ~200K to loan 1M over 5 years. At the comparable interest rate for the traditional mortgage this would cost around $\$1M * (1.063^5) - \$1M = \$357k$. No monthly payments as well with the box spread, just the lump sum payment at a future date of over a million dollars.
+For our comparison, assume a five-year effective annual box borrowing rate of 4.1%. For example, a 3.6% Treasury yield plus 0.5 percentage points would give that rate. Compared with the illustrative 6.3% mortgage rate, the quoted difference is **2.2 percentage points**, before accounting for compounding conventions, costs, and taxes.
+
+To isolate the repayment schedules, compare the **same $1M principal** in each loan. This is separate from the earlier $800K mortgage example; it does not assume a zero-down mortgage is available.
+
+The box loan has no interim payments in this example:
+
+$$\text{Box repayment}=\$1{,}000{,}000(1.041)^5=\$1{,}222{,}513.45.$$
+
+Its five-year financing cost is therefore $222,513.45. For a 30-year mortgage at 6.3% nominal annual interest, let $r=0.063/12$ and $A$ be the monthly payment:
+
+$$A=\frac{\$1{,}000{,}000r}{1-(1+r)^{-360}}\approx\$6{,}189.73.$$
+
+After 60 payments, the remaining balance is:
+
+$$B_{60}=\$1{,}000{,}000(1+r)^{60}-A\frac{(1+r)^{60}-1}{r}\approx\$933{,}927.16.$$
+
+Using unrounded payments throughout:
+
+$$\begin{aligned}
+\text{Principal repaid}&=\$1{,}000{,}000-B_{60}\approx\$66{,}072.84,\\
+\text{Interest paid}&=60A-\text{Principal repaid}\approx\$305{,}310.83.
+\end{aligned}$$
+
+| First five years, same $1M principal | Box loan | Amortizing mortgage |
+|---|---:|---:|
+| Interim monthly payment | $0 | $6,189.73 |
+| Total interim payments | $0 | $371,383.67 |
+| Financing cost / interest | $222,513.45 | $305,310.83 |
+| Amount owed at year five | $1,222,513.45, due then | $933,927.16, still amortizing |
+
+The lower assumed rate gives the box lower nominal interest in this example. But the cash is paid at different times, and the remaining obligations differ. This table is not a present-value comparison. It excludes fees, taxes, investment returns, and refinancing risk. Compounding the mortgage's entire original principal for five years would ignore its monthly payments and overstate its interest cost.
 
 ### All the Problems
 
-Ok first off in order to actually get one of these box loans your strategy (as a retail trader) will need to be fully collateralized at all times. This means if you are to do the $1M loan you need $1.2M+ in assets in your same brokerage account at all times. This is ok for some people however it requires a lot of capital depending on how volatile a person's investments are.
+**The collateral has to be eligible.** A short box does not let you withdraw unlimited cash without margin. The broker determines the required collateral, withdrawal capacity, and maintenance requirements. An illustrative multiple such as twice the loan is not a universal rule or a guarantee against a margin call.
 
-I would also guess that there is a correlation between using a box spread as a mortgage and having a higher risk appetite, but I digress.
+I mean eligible assets in a **taxable brokerage account**, not a retirement balance that can automatically be pledged. The [IRS explains that pledging part of an IRA as collateral treats that part as distributed](https://www.irs.gov/retirement-plans/retirement-plans-faqs-regarding-loans). Other retirement plans have their own restrictions and any permitted plan loans follow different rules.
 
-In a bad market downturn the stock market can fall ~50% so to be safe let's say we will need to have $2.4M in equities or less if you are including less volatile fixed-income products as well. Immediately we have moved from 'easily accessible risk-free rate mortgage' to 'you need double or more in retirement assets to reasonably attempt this'.
+**The repayment still comes due.** Borrowing $1M at the assumed rate leaves a $1.223M payment after five years. If the collateral falls in value before then, a margin call can force sales before the planned repayment date. Rolling into another box requires available financing at whatever rates and margin terms apply then.
 
-Let's say we are fully collateralized, we are very certain we will be able to meet the liability in 5 years safely. Now we have another problem, we have to meet a 5 year liability of greater than our loan size settled in pure cash! If you were worried about selling 20% of your home value in portfolio value how about selling 120% of your home value in portfolio value in just 5 years!
+For someone who already has enough eligible investments to buy the house, the question is whether keeping those investments is worth the borrowing cost and collateral risk. The alternative is to sell assets and pay cash. Investment gains are uncertain; the contractual repayment is not.
 
-Now this is not fully fair as there are likely strategies to 'kick the cash flow down the road' like rolling into a new 5 year box spread borrowing the new amount (collateralized fully by at least a 2x multiple). However, it's still said that at some point you need to present a large quantity of cash in order to settle this contract. The only way to come up with that level of cash is by selling assets or making incremental payments to set aside for the large future negative cash flow you expect. This is why in a traditional mortgage you are expected to pay down a fixed cost monthly which goes to both repaying interest and the principal which you loaned out. 
+**The tax benefit needs its own calculation.** A deduction reduces taxable income or gains; it does not reimburse the full financing cost. An "almost free loan" does not follow from deductibility.
 
-In order to effectively execute this strategy you need to be very wealthy in retirement assets which you can use as collateral covering the loan size multiple times over if you have a more volatile portfolio. You also need to have a strategy to meet the expected large negative cash flow in the future. 
+Qualifying section 1256 contracts generally have annual mark-to-market treatment, with gains and losses split 60% long-term and 40% short-term. Net capital losses generally offset capital gains; the ordinary-income deduction is usually limited to $3,000 a year, or $1,500 if married filing separately, with carryforward rules. Contract classification and straddle rules can affect the result. These are the [IRS rules to check](https://www.irs.gov/publications/p550), not an assumption that the whole financing loss can be saved for a planned asset sale at expiration.
 
-If you need a plan for 5 years from now, when $1.2M comes due, why not pay the $1M today? Given you are this consumer who has vast riches in assets and is not concerned with the future cash liability why not just pay off the house today? Pushing the house/sale of retirement assets out 5 years even at the risk-free rate does not seem as worth it for this consumer since they **already have more than enough money for the loan anyway**.
-
-One reason is the timing of taxable gains and losses. First, the interest payments show up as a loss in an options trade. This **loss is tax deductible**! This means if you are wealthy you can likely write off a large portion of the interest (leading to an almost free loan). So let's say you are fully collateralized with an investment account however you expect to have to sell off some assets in 5 years that have appreciated (incurring a capital gains tax). You also happen to be making a large purchase that you could have done outright anyway. Now we have a great scenario for you to go out to the market, borrow money using box spreads, and then generate a loss at the end of the period allowing you to:
-
-1) Borrow money today so that you don't have to sell assets.
-
-2) Align your planned sale of assets (likely with capital gains tax) and offset it with the loss you will generate in the synthetic loan strategy (interest payment). 
-
-3) Pay off the full cost of the loan at the end of the period rather than the start. 
-
-Once again though I want to reiterate, this is not a good strategy for people who are under-collateralized. It is in fact an awful strategy. If the market drops and your collateral falls below whatever threshold your broker allows, you won't be losing some fancy new home, you will be losing your life savings (and all investments). This is not a good trade for that level of risk.
-
+A borrower would need to compare the actual after-tax cash flows for their contracts and account. Avoiding an asset sale today can defer a gain, but it does not remove the later liability or make leveraged investing risk-free.
 
 ### Who Could Use a Box-Spread Loan? {#conclusion}
 
-There is a select group who could benefit from the box spread mortgage (or loan).
+A box-spread loan may suit someone with substantial eligible brokerage collateral, a reason to keep those investments, and a credible repayment plan. The borrowing rate alone is not enough to decide.
 
-This select group is over-collateralized, has planned selling with tax implications in the future, and wants to make a purchase today. This group is **not the everyday person**, in fact far from it! Most people get a mortgage because they want to convert the large upfront cost burden of owning a home to a delayed fixed cost burden spread over many years. 
-
-This consumer does not have enough to buy the house outright and likely does not have enough to buy several of the house within their retirement assets. Thus, if they tried the box spread mortgage they would likely get margin called during a large drawdown in the equity markets and lose everything. 
+A traditional mortgage spreads principal repayment over time and uses the property as collateral. The box loan in this example leaves a large lump sum and exposes the brokerage portfolio to margin requirements. For a buyer whose main constraint is a small down payment or limited savings, "no cash down" does not solve the collateral problem.
 
 As always, till next time.
 

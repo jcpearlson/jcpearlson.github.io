@@ -188,7 +188,7 @@ window.Quarto = {
 
 
 
-<p>Every time you shuffle a deck of cards, you almost certainly create an ordering that has never existed before in the history of the universe.</p>
+<p>A uniformly random ordering of a deck is extraordinarily unlikely to repeat one from a modest set of earlier shuffles. Real shuffling needs a few more assumptions before we can make that claim about the deck in our hands.</p>
 <hr>
 <section id="how-many-ways-can-you-arrange-52-cards" class="level2">
 <h2 class="anchored" data-anchor-id="how-many-ways-can-you-arrange-52-cards">How Many Ways Can You Arrange 52 Cards?</h2>
@@ -255,25 +255,25 @@ window.Quarto = {
 <p>What is the probability that any two shuffles in history have ever produced the same arrangement?</p>
 <p>This is the birthday problem.</p>
 <p>The birthday problem is a classic conundrum: in a room of <span class="math inline">\(n\)</span> people, what’s the probability that at least two share a birthday? With only 23 people and 365 possible birthdays, the probability of a shared birthday already exceeds 50%.</p>
-<p>The formula: given <span class="math inline">\(N\)</span> equally likely outcomes, if you sample <span class="math inline">\(n\)</span> times, the probability of at least one repeated value is approximately:</p>
-<p><span class="math display">\[P(\text{collision}) \approx 1 - e^{-n^2 / (2N)}\]</span></p>
-<p>This approximation works well when <span class="math inline">\(n \ll N\)</span>. In our case, <span class="math inline">\(N = 52! \approx 8.07 \times 10^{67}\)</span> and <span class="math inline">\(n\)</span> is however many total shuffles have happened in history.</p>
+<p>The formula: given <span class="math inline">\(N\)</span> equally likely outcomes, if you take <span class="math inline">\(n\)</span> independent samples, the probability of at least one repeated value is approximately:</p>
+<p><span class="math display">\[P(\text{collision}) \approx 1 - e^{-n(n-1) / (2N)}\]</span></p>
+<p>The exact no-collision probability is <span class="math inline">\(\prod_{k=0}^{n-1}(1-k/N)\)</span>. Expanding its logarithm gives the approximation above when the higher-order correction, of order <span class="math inline">\(n^3/N^2\)</span>, is negligible. In our case, <span class="math inline">\(N = 52! \approx 8.07 \times 10^{67}\)</span> and <span class="math inline">\(n\)</span> is however many total shuffles have happened in history.</p>
 </section>
 <section id="estimating-total-shuffles-in-history" class="level2">
 <h2 class="anchored" data-anchor-id="estimating-total-shuffles-in-history">Estimating Total Shuffles in History</h2>
 <p><a href="https://en.wikipedia.org/wiki/Playing_card">Cards arrived in Europe around 1370</a>, so call it 650 years of card playing. Factoring in growing global population:</p>
 <p><span class="math display">\[\underbrace{650 \text{ yrs}}_{\text{history}} \times \underbrace{10^9}_{\substack{\text{avg global} \\ \text{population}}} \times \underbrace{0.10}_{\substack{\text{fraction} \\ \text{playing cards}}} \times \underbrace{50}_{\substack{\text{games} \\ \text{per year}}} \times \underbrace{2.5}_{\substack{\text{shuffles} \\ \text{per game}}}\]</span></p>
 <p><span class="math display">\[= 650 \times 1.25 \times 10^{10} \approx 8 \times 10^{12} \text{ shuffles}\]</span></p>
-<p>A generous upper bound. To give ourselves the most room to work with, let’s push even further and say <span class="math inline">\(n = 10^{18}\)</span> total shuffles (this would require about 100,000 times more shuffling than my estimate above, which is almost certainly not the case).</p>
+<p>This is a rough scenario, not a measured total or a rigorous upper bound. To give ourselves the most room to work with, let’s push even further and say <span class="math inline">\(n = 10^{18}\)</span> total shuffles (this would require about 100,000 times more shuffling than my estimate above, which is almost certainly not the case).</p>
 <p><strong>The probability calculation:</strong></p>
-<p>First, compute the exponent:</p>
+<p>For such a large <span class="math inline">\(n\)</span>, <span class="math inline">\(n(n-1) \approx n^2\)</span>. Using that simplification, compute the exponent:</p>
 <p><span class="math display">\[\frac{n^2}{2N} = \frac{(10^{18})^2}{2 \times 8.07 \times 10^{67}} = \frac{10^{36}}{1.61 \times 10^{68}} \approx 6.2 \times 10^{-33}\]</span></p>
 <p>Plugging into the full formula:</p>
 <p><span class="math display">\[P(\text{any two shuffles in history matched}) = 1 - e^{-6.2 \times 10^{-33}}\]</span></p>
 <p>The exponent is so tiny that <span class="math inline">\(e^{-x} \approx 1 - x\)</span> for <span class="math inline">\(x \ll 1\)</span>, so this collapses to:</p>
 <p><span class="math display">\[P(\text{any two shuffles in history matched}) \approx 6.2 \times 10^{-33}\]</span></p>
 <p>The probability of winning Powerball is about 1 in 292 million, or <span class="math inline">\(\approx 3.4 \times 10^{-9}\)</span>.</p>
-<p>The probability that any two shuffles in history have ever matched is about <span class="math inline">\(\mathbf{10^{24}}\)</span> times smaller than winning the lottery. As far as sure bets go, we can be extremely confident that two decks have never been shuffled into the same order.</p>
+<p>Under the independent uniform model and the assumed shuffle count, the collision probability is about <span class="math inline">\(\mathbf{10^{24}}\)</span> times smaller than winning the lottery. That calculation does not establish that no pair of real shuffles has ever matched.</p>
 <p><strong>How many shuffles would we need for a 50% collision probability?</strong></p>
 <p>Setting <span class="math inline">\(P \approx 0.5\)</span> and solving:</p>
 <p><span class="math display">\[1 - e^{-n^2/(2N)} = 0.5\]</span></p>
@@ -284,16 +284,40 @@ window.Quarto = {
 </section>
 <section id="the-catch" class="level2">
 <h2 class="anchored" data-anchor-id="the-catch">The Catch</h2>
-<p>The math assumes each of the <span class="math inline">\(52!\)</span> arrangements is equally likely. That requires truly random shuffling.</p>
-<p>Humans don’t shuffle randomly. The most common technique is the riffle shuffle: split the deck roughly in half, interleave the two halves by releasing cards alternately from each thumb. Real riffle shuffles are uneven and imperfect, which is close to random. But the edge case of a <em>perfect</em> riffle shuffle (cut exactly in half, interleave one card at a time perfectly) is completely deterministic. In fact, <a href="https://math.hmc.edu/funfacts/perfect-shuffles/">8 perfect riffle shuffles return the deck to its original order</a>. Not great for exploring the <span class="math inline">\(52!\)</span> space.</p>
-<p>Persi Diaconis, a Stanford mathematician who spent years as a professional card magician before becoming an academic, addressed this directly in a <a href="https://projecteuclid.org/journals/annals-of-applied-probability/volume-2/issue-2/Trailing-the-Dovetail-Shuffle-to-its-Lair/10.1214/aoap/1177005705.full">1992 paper with Dave Bayer</a>. Their finding: it takes exactly 7 riffle shuffles to produce a deck that’s statistically close to uniformly random. Fewer than 7 and the arrangement is still heavily correlated with the starting order.</p>
-<p>What this means in practice:</p>
-<ol type="1">
-<li>A poorly shuffled deck (1-3 riffles) is not randomly selected from the full <span class="math inline">\(52!\)</span> space. Repeated games in the same session could theoretically produce correlated shuffles, and the uniqueness claim weakens.</li>
-<li>A well-shuffled deck (7+ riffles) is effectively sampling from the full distribution, and the uniqueness claim holds as strongly as the math says.</li>
-<li>Casino shuffling machines are designed to meet the 7-riffle threshold. Your kitchen table poker game probably doesn’t, but even with a reduced effective sample space, the collision probability remains so small that it’s not a practical concern.</li>
-</ol>
-<p>The bigger practical caveat is that even “close to random” is not uniform over all <span class="math inline">\(52!\)</span> outcomes. The shuffled deck you’re holding today is almost certainly unique, but “almost certainly” is doing real work. The probability isn’t exactly zero. It’s just unimaginably close to it.</p>
+<p>The birthday calculation assumes independent samples with every one of the <span class="math inline">\(52!\)</span> arrangements equally likely. Randomness alone does not guarantee either condition.</p>
+<p>Human shuffling does not automatically sample uniformly. The most common technique is the riffle shuffle: split the deck roughly in half, interleave the two halves by releasing cards alternately from each thumb. An uneven interleaving can be random without producing a uniform distribution over complete deck orders. But the edge case of a <em>perfect</em> riffle shuffle (cut exactly in half, interleave one card at a time perfectly) is completely deterministic. In fact, <a href="https://math.hmc.edu/funfacts/perfect-shuffles/">8 perfect out-shuffles return a 52-card deck to its original order</a>. Not great for exploring the <span class="math inline">\(52!\)</span> space.</p>
+<p>Bayer and Diaconis studied the <strong>Gilbert–Shannon–Reeds model</strong> in their <a href="https://www.stat.berkeley.edu/users/aldous/157/Papers/bayer_diaconis.pdf">1992 paper</a>. It chooses the cut from a binomial distribution and interleaves with probabilities proportional to the remaining packet sizes.</p>
+<p>Their table reports the following total variation distances from a uniform deck:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Riffles in the model</th>
+<th style="text-align: right;">Total variation distance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>6</td>
+<td style="text-align: right;">0.614</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td style="text-align: right;">0.334</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td style="text-align: right;">0.167</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td style="text-align: right;">0.043</td>
+</tr>
+</tbody>
+</table>
+<p>Total variation measures the largest absolute difference in probability assigned to any event by the two distributions. Seven riffles is a useful point in a sharp mixing transition, not an exact switch to uniform randomness. How many are sufficient depends on the accuracy needed and whether the model fits the shuffle.</p>
+<p>For an event as rare as a particular full-deck ordering, those absolute differences are not enough to justify the uniform birthday estimate. Even if two shuffles are independent and share a distribution with probabilities <span class="math inline">\(p_i\)</span> over deck orders, their chance of matching is:</p>
+<p><span class="math display">\[P(\text{match})=\sum_i p_i^2.\]</span></p>
+<p>This equals <span class="math inline">\(1/52!\)</span> for a uniform distribution and can be much larger for a biased one. Successive shuffles can also be dependent. We would need evidence about those distributions and dependencies to turn the idealized calculation into a claim about all real shuffles in history. A casino machine cannot simply be assumed to satisfy a universal “seven-riffle” standard.</p>
 </section>
 <section id="takeaways" class="level2">
 <h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
@@ -301,9 +325,9 @@ window.Quarto = {
 <li><span class="math inline">\(52! \approx 8.07 \times 10^{67}\)</span> is a number that exceeds the atoms in Earth by nearly 18 orders of magnitude, and it sits within a factor of <span class="math inline">\(10^{12}\)</span> of atoms in the observable universe.</li>
 <li>The birthday problem turns the vague claim “it’s very unlikely” into a concrete number. With a generous estimate of <span class="math inline">\(10^{18}\)</span> total shuffles in history and <span class="math inline">\(N = 52!\)</span>, the collision probability is around <span class="math inline">\(10^{-33}\)</span>. That’s <span class="math inline">\(10^{24}\)</span> times harder than winning Powerball.</li>
 <li>For collisions to become 50% likely, you’d need <span class="math inline">\(\sim 1.06 \times 10^{34}\)</span> shuffles, roughly <span class="math inline">\(10^{21}\)</span> times more than all shuffles in human history.</li>
-<li>The claim requires good shuffling. Diaconis showed 7 riffle shuffles as the threshold for effective randomization. Below that, you’re not sampling the full space. Above it, you almost certainly are.</li>
+<li>Seven riffles is a model-dependent mixing benchmark, not proof of uniformity or independence. The real-world uniqueness claim requires more than that benchmark.</li>
 </ul>
-<p>Next time you sit down with friends to play a game of cards and shuffle the deck, admire the fact that you likely just <strong>created an ordering which has never been seen before and almost certainly never will be</strong>.</p>
+<p>Next time you shuffle, the size of <span class="math inline">\(52!\)</span> is still worth admiring. Just separate what the uniform model proves from what we know about the way the cards were actually mixed.</p>
 <hr>
 
 
