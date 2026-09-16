@@ -42,7 +42,7 @@ $$52! \approx 8.07 \times 10^{67}$$
 
 That's a 68-digit number starting with 8.
 
-## Contextualizing Scale
+## Cards, Atoms, and the Age of the Universe {#contextualizing-scale}
 
 Here are some reference points:
 
@@ -65,11 +65,11 @@ That's an enormous number of shuffles, and it's still about $\mathbf{10^{39}}$ t
 
 ## Same Exact Order Twice 
 
-The interesting question is: what's the probability that any two shuffles in history have ever produced the same arrangement?
+What is the probability that any two shuffles in history have ever produced the same arrangement?
 
 This is the birthday problem.
 
-The birthday problem is a classic conundrum: in a room of $n$ people, what's the probability that at least two share a birthday? The answer surprises most people. With only 23 people and 365 possible birthdays, the probability of a shared birthday already exceeds 50%.
+The birthday problem is a classic conundrum: in a room of $n$ people, what's the probability that at least two share a birthday? With only 23 people and 365 possible birthdays, the probability of a shared birthday already exceeds 50%.
 
 The formula: given $N$ equally likely outcomes, if you sample $n$ times, the probability of at least one repeated value is approximately:
 
@@ -137,7 +137,7 @@ The bigger practical caveat is that even "close to random" is not uniform over a
 
 ## Takeaways
 
-- $52! \approx 8.07 \times 10^{67}$ is a number that exceeds the atoms in Earth by nearly 18 orders of magnitude, and it sits within a factor of $10^{12}$ of atoms in the observable universe. Factorials grow faster than any physical intuition can track.
+- $52! \approx 8.07 \times 10^{67}$ is a number that exceeds the atoms in Earth by nearly 18 orders of magnitude, and it sits within a factor of $10^{12}$ of atoms in the observable universe.
 - The birthday problem turns the vague claim "it's very unlikely" into a concrete number. With a generous estimate of $10^{18}$ total shuffles in history and $N = 52!$, the collision probability is around $10^{-33}$. That's $10^{24}$ times harder than winning Powerball.
 - For collisions to become 50% likely, you'd need $\sim 1.06 \times 10^{34}$ shuffles, roughly $10^{21}$ times more than all shuffles in human history.
 - The claim requires good shuffling. Diaconis showed 7 riffle shuffles as the threshold for effective randomization. Below that, you're not sampling the full space. Above it, you almost certainly are.

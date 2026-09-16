@@ -209,7 +209,7 @@ window.Quarto = {
 <p>That’s a 68-digit number starting with 8.</p>
 </section>
 <section id="contextualizing-scale" class="level2">
-<h2 class="anchored" data-anchor-id="contextualizing-scale">Contextualizing Scale</h2>
+<h2 class="anchored" data-anchor-id="contextualizing-scale">Cards, Atoms, and the Age of the Universe</h2>
 <p>Here are some reference points:</p>
 <table class="caption-top table">
 <thead>
@@ -252,9 +252,9 @@ window.Quarto = {
 </section>
 <section id="same-exact-order-twice" class="level2">
 <h2 class="anchored" data-anchor-id="same-exact-order-twice">Same Exact Order Twice</h2>
-<p>The interesting question is: what’s the probability that any two shuffles in history have ever produced the same arrangement?</p>
+<p>What is the probability that any two shuffles in history have ever produced the same arrangement?</p>
 <p>This is the birthday problem.</p>
-<p>The birthday problem is a classic conundrum: in a room of <span class="math inline">\(n\)</span> people, what’s the probability that at least two share a birthday? The answer surprises most people. With only 23 people and 365 possible birthdays, the probability of a shared birthday already exceeds 50%.</p>
+<p>The birthday problem is a classic conundrum: in a room of <span class="math inline">\(n\)</span> people, what’s the probability that at least two share a birthday? With only 23 people and 365 possible birthdays, the probability of a shared birthday already exceeds 50%.</p>
 <p>The formula: given <span class="math inline">\(N\)</span> equally likely outcomes, if you sample <span class="math inline">\(n\)</span> times, the probability of at least one repeated value is approximately:</p>
 <p><span class="math display">\[P(\text{collision}) \approx 1 - e^{-n^2 / (2N)}\]</span></p>
 <p>This approximation works well when <span class="math inline">\(n \ll N\)</span>. In our case, <span class="math inline">\(N = 52! \approx 8.07 \times 10^{67}\)</span> and <span class="math inline">\(n\)</span> is however many total shuffles have happened in history.</p>
@@ -298,7 +298,7 @@ window.Quarto = {
 <section id="takeaways" class="level2">
 <h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
 <ul>
-<li><span class="math inline">\(52! \approx 8.07 \times 10^{67}\)</span> is a number that exceeds the atoms in Earth by nearly 18 orders of magnitude, and it sits within a factor of <span class="math inline">\(10^{12}\)</span> of atoms in the observable universe. Factorials grow faster than any physical intuition can track.</li>
+<li><span class="math inline">\(52! \approx 8.07 \times 10^{67}\)</span> is a number that exceeds the atoms in Earth by nearly 18 orders of magnitude, and it sits within a factor of <span class="math inline">\(10^{12}\)</span> of atoms in the observable universe.</li>
 <li>The birthday problem turns the vague claim “it’s very unlikely” into a concrete number. With a generous estimate of <span class="math inline">\(10^{18}\)</span> total shuffles in history and <span class="math inline">\(N = 52!\)</span>, the collision probability is around <span class="math inline">\(10^{-33}\)</span>. That’s <span class="math inline">\(10^{24}\)</span> times harder than winning Powerball.</li>
 <li>For collisions to become 50% likely, you’d need <span class="math inline">\(\sim 1.06 \times 10^{34}\)</span> shuffles, roughly <span class="math inline">\(10^{21}\)</span> times more than all shuffles in human history.</li>
 <li>The claim requires good shuffling. Diaconis showed 7 riffle shuffles as the threshold for effective randomization. Below that, you’re not sampling the full space. Above it, you almost certainly are.</li>

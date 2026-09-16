@@ -187,7 +187,7 @@ window.Quarto = {
 
 
 
-<p>The odds of a perfect March Madness bracket are 1 in 9.2 quintillion. Warren Buffett bet a billion dollars on it, and he was never worried about paying out.</p>
+<p>The odds of a perfect March Madness bracket are 1 in 9.2 quintillion. Warren Buffett offered a billion dollars for one, a promotion with a very low expected payout.</p>
 <hr>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -195,7 +195,7 @@ window.Quarto = {
 <figcaption>The Impossible Bracket</figcaption>
 </figure>
 </div>
-<p>Every March, millions of people fill out NCAA Basketball brackets convinced that this is their year. In 2014, Warren Buffett <a href="https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket">offered a billion dollars</a> to anyone who could pick every one of the 63 games correctly. Kalshi has revived this offer by running the <a href="https://kalshi.com/billion-dollar-bracket">same bet this year</a>, backed by some of the sharpest minds in trading at <a href="https://sig.com/">SIG</a>. Here is the quick math explaining why everyone offering this “prize” knows they are never going to pay it out.</p>
+<p>Every March, millions of people fill out NCAA Basketball brackets convinced that this is their year. In 2014, Warren Buffett <a href="https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket">offered a billion dollars</a> to anyone who could pick every one of the 63 games correctly. Kalshi has revived this offer by running the <a href="https://kalshi.com/billion-dollar-bracket">same bet this year</a>, backed by trading firm <a href="https://sig.com/">SIG</a>. Here is the math behind the low expected cost of offering this “prize”.</p>
 <section id="the-structure-of-the-bracket" class="level2">
 <h2 class="anchored" data-anchor-id="the-structure-of-the-bracket">The Structure of the Bracket</h2>
 <p>The NCAA Tournament’s main bracket involves 64 teams competing across six rounds. Each game has exactly two possible outcomes. That means the bracket is a sequence of binary decisions, a string of ones and zeros, one bit per game.</p>
@@ -204,14 +204,13 @@ window.Quarto = {
 <p>That resolves to:</p>
 <p><span class="math display">\[9{,}223{,}372{,}036{,}854{,}775{,}808\]</span></p>
 <p>Nine quintillion, two hundred twenty-three quadrillion, roughly <span class="math inline">\(9.2 \times 10^{18}\)</span>.</p>
-<p>For reference, that number is ~22.5 Million times larger than the number of stars in the Milky Way. Let that land for a second.</p>
+<p>For reference, that number is ~22.5 Million times larger than the number of stars in the Milky Way.</p>
 </section>
 <section id="the-billion-dollar-bets" class="level2">
 <h2 class="anchored" data-anchor-id="the-billion-dollar-bets">The Billion Dollar Bets</h2>
-<p>In 2014, Warren Buffett and Quicken Loans offered <a href="https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket">$1 billion</a> to anyone who could submit a perfect bracket. The prize was backed by Berkshire Hathaway. Buffett, who has made a career out of understanding risk better than almost anyone alive, was not worried about paying out. By the end of the contest the ~8 million entrants did not come close to perfection.</p>
-<p>This March, Kalshi launched a similar challenge: a <strong>$1 billion prize</strong> for a perfect bracket, backed in part by Susquehanna International Group (<a href="https://sig.com/">SIG</a>), one of the most sophisticated quantitative trading firms in the world. SIG is not known for charitably giving away their prop trading capital base within the context of markets. They are known for pricing risk extremely precisely and taking the other side of bets when the odds are overwhelmingly in their favor.</p>
-<p>When a firm full of people who do math for a living are happy to insure your perfect bracket for a shot at a billion dollars, you should pay attention to what they’re implying about the probability.</p>
-<p>They are, in the most literal sense, selling insurance against an event they know will almost certainly never happen. The expected payout is so close to zero that the marketing value of the promotion likely exceeds the actuarial risk. That’s not a criticism, that’s just elegant business. But it tells you something important about the numbers underneath.</p>
+<p>In 2014, Warren Buffett and Quicken Loans offered <a href="https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket">$1 billion</a> to anyone who could submit a perfect bracket. The prize was backed by Berkshire Hathaway. Buffett backed a contest with a large headline prize and a very small chance that anyone would collect it. By the end of the contest the ~8 million entrants did not come close to perfection.</p>
+<p>This March, Kalshi launched a similar challenge: a <strong>$1 billion prize</strong> for a perfect bracket, backed in part by Susquehanna International Group (<a href="https://sig.com/">SIG</a>). For the firms backing the prize, the relevant question is how much to charge for taking on the payout risk.</p>
+<p>They are selling insurance against an event with a very low estimated probability. The expected payout is so close to zero that the marketing value of the promotion likely exceeds the actuarial risk.</p>
 </section>
 <section id="what-are-the-chances-of-a-perfect-bracket" class="level2">
 <h2 class="anchored" data-anchor-id="what-are-the-chances-of-a-perfect-bracket">What Are the Chances of a Perfect Bracket?</h2>
@@ -227,13 +226,13 @@ window.Quarto = {
 <p>Putting all of this together we get the following:</p>
 <p><span class="math display">\[P(\text{At least one perfect | 8,000,000 entrants}) = 1 - (1 - P(\text{One perfect bracket}))^\text{8,000,000 entrants} \]</span></p>
 <p>When choosing randomly. This ended up being ~0.00000000009%, about 1.15 trillion to 1 odds. Buffett was insuring 1-in-1.15-trillion odds bet for a billion dollars. Not exactly a nail-biter. The EV of this 1 Billion dollar liability is about <strong>$0.0009 dollars</strong>. In other words, if someone offered you this deal and said they would pay you a penny to run the contest, you should be very excited to say yes.</p>
-<p>8 million people was the 2014 figure but what about with this years 36 million brackets. I know its likely there are fewer unique brackets (many users picking similar brackets) but lets evaluate as if the worst scenario is among us (as insurers).</p>
+<p>The 8 million entrants were the 2014 figure. What about this year’s 36 million brackets? It’s likely there are fewer unique brackets, since many entrants make similar picks, but I’ll treat them as distinct from the insurer’s perspective.</p>
 <p>Let’s also give the entrants some credit. Suppose every one of those 8 or 36 million people had genuine edge, correctly predicting each game with 55%, 60%, or even 70% accuracy! Better than most people, even better than most statistical models. Their per-bracket odds become:</p>
 <p><span class="math display">\[0.55^{63} \approx 4.39 \times 10^{-17}\]</span></p>
 <p><span class="math display">\[0.60^{63} \approx 1.05 \times 10^{-14}\]</span></p>
 <p><span class="math display">\[0.70^{63} \approx 1.74 \times 10^{-10}\]</span></p>
 <p>These odds are as follows, 55% -&gt; 1 in 23 quadrillion, 60% -&gt; 1 in 95 trillion, 70% -&gt; 1 in 6 billion.</p>
-<p>This year there were 36 million total brackets, however the Kalshi contest was limited to a mere 10 million brackets. Given all of these entrants and the potential for skilled bracket creation Kalshi contest the numbers shift, but not enough to make anyone at SIG nervous. Here’s the full picture across skill levels and pool sizes:</p>
+<p>This year there were 36 million total brackets, but the Kalshi contest was limited to 10 million brackets. For Kalshi and SIG, the expected payout depends on the entrants’ skill and the number of brackets. The table compares both inputs:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 13%">
@@ -297,7 +296,7 @@ window.Quarto = {
 </tbody>
 </table>
 <p>The 70% row is where things start to look interesting, 1-in-160 with 36 million entrants is a number that would make an insurer sweat (obviously depending on how much money you were paid for the contract). On the far right hand side you can see the expected value of the $1 Billion dollar liability at every probability level. If the prediction accuracy per game is worse than 67% and there are less than 10M entrants, you should feel relatively comfortable accepting between $100 and $100,000. This range is quite wide but depends heavily on the inputs.</p>
-<p>But nobody (especially not your average Joe) predicts March Madness at 67% per game. The whole point of the tournament is that upsets happen constantly and unpredictably. A 12-seed beats a 5-seed roughly a third of the time. Cinderella stories aren’t anomalies, they’re the product. The bracket is essentially designed to punish sustained accuracy, which is exactly why billion-dollar prize offers are such comfortable positions to be in.</p>
+<p>Sustaining 67% accuracy across an entire March Madness bracket is a demanding assumption. The whole point of the tournament is that upsets happen constantly and unpredictably. A 12-seed beats a 5-seed roughly a third of the time. Cinderella stories aren’t anomalies, they’re the product. The bracket is essentially designed to punish sustained accuracy, which is exactly why billion-dollar prize offers are such comfortable positions to be in.</p>
 </section>
 <section id="how-much-storage-would-every-bracket-require" class="level2">
 <h2 class="anchored" data-anchor-id="how-much-storage-would-every-bracket-require">How Much Storage Would Every Bracket Require?</h2>
@@ -305,7 +304,6 @@ window.Quarto = {
 <blockquote class="blockquote">
 <p>I will only pay you the billion dollars if you have every single bracket stored somewhere.</p>
 </blockquote>
-<p>You laugh and jump in joy thinking of the yachts and super cars you will buy with your fortune.</p>
 <p>First, let’s make the number concrete. Each bracket requires exactly 63 bits of data, one bit per game outcome. So the total storage to represent every possible bracket is:</p>
 <p><span class="math display">\[63 \text{ bits} \times 2^{63} \text{ brackets} = 581,072,438,321,850,875,904 \text{ bits}\]</span></p>
 <p>Let’s convert that into something recognizable:</p>
@@ -356,23 +354,21 @@ window.Quarto = {
 <p>About 36 and a half years. Every person on Earth filling out a bracket every single second would need the better part of a lifetime to exhaust all combinations. And that assumes nobody sleeps.</p>
 </section>
 <section id="what-sig-and-buffett-actually-know" class="level2">
-<h2 class="anchored" data-anchor-id="what-sig-and-buffett-actually-know">What SIG and Buffett Actually Know</h2>
+<h2 class="anchored" data-anchor-id="what-sig-and-buffett-actually-know">Expected Payouts and Insurance Premiums</h2>
 <p>There’s a useful framing from insurance that applies here. An insurer takes on a probability of loss in exchange for a premium today. The math only works if the premium is priced above the expected loss. If the expected loss is $0, any premium at all is pure margin.</p>
 <p>When Buffett offered $1 billion for a perfect bracket, the actuarial cost of that promise was basically zero. The probability that any entrant would submit a perfect bracket, even with millions of entries, was vanishingly small. You don’t need a billion dollars in reserves when your expected payout rounds to nothing.</p>
-<p>SIG knows this game cold. They make markets in options and other derivatives, where pricing low-probability events accurately is literally the job. Running a billion dollar bracket challenge backed by SIG is not a bet on sports. It’s a bet on math. And the math is so one-sided that the promotional upside of running the contest dwarfs any actuarial concern about the payout.</p>
+<p>SIG makes markets in options and other derivatives, where pricing low-probability events accurately is literally the job. The bracket challenge applies the same risk-pricing approach to a large prize with a low probability of payout. The low probability of a winning entry can make the promotional upside worth more than the expected payout.</p>
 <p>The same logic applies to why bracket challenges in general are financially sound for the people running them. Even offering a $1 million prize for a perfect bracket, with millions of entrants, the expected payout is trivially small. You’re not insuring against a hurricane. You’re insuring against something that has never happened and almost certainly will not happen in any of our lifetimes.</p>
 </section>
 <section id="takeaways" class="level2">
 <h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
-<p>The impossible bracket is a beautiful collision of combinatorics and human optimism. A few things worth holding onto:</p>
 <ul>
 <li>The number of possible brackets, <span class="math inline">\(2^{63}\)</span>, is large enough to break human intuition, exceed practical storage capacity, and make brute-force approaches absurd.</li>
-<li>Smart money, from Buffett to SIG, has been happy to offer billion-dollar prizes because the expected cost is essentially zero. When that many smart people are on one side of a bet, it’s worth understanding why.</li>
+<li>Buffett and SIG have backed billion-dollar prizes because the expected cost is essentially zero.</li>
 <li>Skill helps. A 70% accurate predictor has odds of 1 in 5.7 billion rather than 1 in 9 quintillion. But 1 in 5.7 billion is still not good.</li>
 <li>The annual ritual of filling out brackets is not irrational. Bracket pools are won by people who pick better than average, not by people who pick perfectly. You don’t need a perfect bracket to win your office pool. You just need to be right more often than everyone else. That’s a very different problem.</li>
 </ul>
-<p>The March Madness bracket is a masterclass in why we’re bad at big numbers. We hear “9.2 quintillion” and nod, but we don’t really feel it. The storage math helps. The lottery comparison helps. The Buffett angle helps. But ultimately, <span class="math inline">\(2^{63}\)</span> is just genuinely bigger than our intuition is built to handle, and no amount of explanation fully closes that gap.</p>
-<p>Which is, honestly, part of what makes March so fun.</p>
+<p>We hear “9.2 quintillion” and nod, but we don’t really feel it. The storage math helps. The lottery comparison helps. The Buffett angle helps. But ultimately, <span class="math inline">\(2^{63}\)</span> is just genuinely bigger than our intuition is built to handle, and no amount of explanation fully closes that gap.</p>
 <hr>
 <p><em>Note: This analysis covers the standard 64-team single-elimination bracket with 63 games. The NCAA Tournament’s First Four play-in games add 4 more decision points, bringing the true total closer to <span class="math inline">\(2^{67}\)</span>, roughly 147 quintillion. We’ll leave that as an exercise for the truly deranged.</em></p>
 

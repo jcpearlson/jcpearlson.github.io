@@ -5,15 +5,15 @@ date: "2026-02-05"
 categories: ["Finance"]
 ---
 
-The derivative that never expires, the funding rate that never sleeps, and the incentives that quietly shape crypto volatility.
+Perpetual futures have no expiry. Funding payments keep their price near spot and put a price on leveraged exposure.
 
 ---
 
 ![Perps](../../../media/perps_image.png)
 
-Perpetual futures ("perps") are the product that quietly won crypto. They look like futures, trade like futures, and offer clean linear exposure with leverage. But they never expire, and that single design choice changes everything: price anchoring, liquidity concentration, and a new market for leverage built out of funding rates.
+Perpetual futures ("perps") let traders hold leveraged exposure without a fixed expiry. They look like futures, trade like futures, and offer clean linear exposure with leverage. But they never expire, and that design choice affects how prices stay near spot, where liquidity concentrates, and how funding rates price leverage.
 
-This is an introductory tour of perps: what they are, why they are not really futures, how funding works, and how the mechanics create both elegance and chaos.
+I'll explain what perps are, how they differ from expiring futures, how funding works, and how leveraged positions can amplify price moves.
 
 ## Why perps exist
 
@@ -23,7 +23,7 @@ Traditional futures are a stack of contracts by maturity: March, June, September
 2. **Roll friction.** You must close one contract and open the next, paying spreads and fees.
 3. **Basis noise.** PnL can swing because the futures price decouples from spot, even if the underlying barely moves.
 
-Perps are the answer. They eliminate expiry and roll friction while preserving linear leveraged exposure. All liquidity collapses into a single book. You can hold a position as long as you want. But if there is no expiry, how does the price stay tethered to spot?
+Perps eliminate expiry and roll friction while preserving linear leveraged exposure. All liquidity collapses into a single book. You can hold a position as long as you want. But if there is no expiry, how does the price stay tethered to spot?
 
 That is where funding rates come in.
 
@@ -47,19 +47,16 @@ Instead, perps rely on **economic pressure** rather than **calendar convergence*
 
 So a perp is less like a future and more like a **synthetic, never-ending forward** where you rent the position via a funding fee. I would also like to formally offer a suggestion of changing the name of these so called perpetual futures to perpetual forwards, but I digress.
 
-## The brilliance of funding rates
+## How Funding Keeps Prices Near Spot {#the-brilliance-of-funding-rates}
 
-Funding is the trick that replaces expiration. It is also the mechanism that creates a market for leverage itself!
+Funding payments help keep the perp price near spot without an expiration date. They also put a price on demand for leverage.
 
 At a high level:
 
 - If the perp trades **above** spot, **longs pay shorts**.
 - If the perp trades **below** spot, **shorts pay longs**.
 
-Each exchange uses its own formula, but most look like some variation of:
- 
- 
-Most exchanges use some variation of this formula:
+Each exchange uses its own formula, but most use some variation of the following:
 
 $$
 \begin{aligned}
@@ -85,7 +82,7 @@ The **Clamp** function caps the funding rate at some maximum to prevent extreme 
 
 ### Funding math in plain English
 
-Now that we understand the rate calculation, let's talk about actual payments. If you hold a perp position with notional value $N$ and the funding rate per period is $f$, your funding payment is simply:
+The rate determines how much longs and shorts pay each other. If you hold a perp position with notional value $N$ and the funding rate per period is $f$, your funding payment is simply:
 
 $$
 \begin{aligned}
@@ -117,7 +114,7 @@ That tiny number is the **price of leverage**. It is the rent you pay to hold li
 
 ### The market for leverage
 
-Here is where it gets interesting. Funding rates are not set by the exchange, they emerge from **market positioning**. They respond to demand for leverage in real time:
+Funding rates are not set by the exchange, they emerge from **market positioning**. They respond to demand for leverage in real time:
 
 - **When everyone wants to be long** (bullish sentiment, FOMO, momentum), the perp price rises above spot. Funding goes positive. **Longs pay shorts**. Being levered long becomes expensive.
 - **When everyone wants to be short** (bearish sentiment, panic, hedging), the perp price falls below spot. Funding goes negative. **Shorts pay longs**. Being levered short becomes expensive.
@@ -126,15 +123,13 @@ This is the market's self-balancing mechanism. It does not remove leverage deman
 
 Think about the incentives this creates. If funding is extremely positive, you get paid to short. If it is extremely negative, you get paid to go long. This naturally attracts contrarian traders who fade the crowd, which pulls the perp price back toward spot.
 
-It is a brilliantly simple equilibrium: the more one-sided the market becomes, the more expensive it is to be on that side, and the more you get paid to take the other side.
-
-If you want to be levered long in a euphoric market, you will pay a daily tax. If you want to be levered short into a panic, you will pay instead. Either way, **funding is the toll booth for leverage**.
+The more one-sided the market becomes, the more expensive it is to be on that side, and the more you get paid to take the other side.
 
 ## How leverage actually works in perps
 
-Perps are margined instruments, meaning you do not need to put up the full value of your position. You post collateral (initial margin), and the exchange lets you control a larger notional position. This is leverage in action.
+Perps are margined instruments, meaning you do not need to put up the full value of your position. You post collateral (initial margin), and the exchange lets you control a larger notional position.
 
-The math is straightforward. Let:
+Let:
 
 - $P$ = perp price
 - $Q$ = position size (in coins or contracts)
@@ -176,9 +171,9 @@ $$
 
 That $\$100$ gain on a $\$1,000$ margin is a **10% return on your capital**. Your leverage amplified a $1\%$ market move into a $10\%$ portfolio move.
 
-Of course, this works in reverse. A $1\%$ drop becomes a $-10\%$ loss. A $5\%$ drop is $-50\%$. And at $-10\%$, your margin is completely wiped out, which brings us to the cliff edge.
+Of course, this works in reverse. A $1\%$ drop becomes a $-10\%$ loss. A $5\%$ drop is $-50\%$. And at $-10\%$, your margin is completely wiped out.
 
-### Liquidation and the cliff edge
+### Maintenance Margin and Liquidation {#liquidation-and-the-cliff-edge}
 
 Leverage is powerful, but it comes with a hard stop: **liquidation**. Exchanges enforce a **maintenance margin**, a minimum equity level you must maintain. If your position loses enough that your remaining equity falls below this threshold, the exchange forcibly closes your position at market prices.
 
@@ -204,9 +199,9 @@ When price starts dropping and highly levered longs get liquidated, their forced
 
 The same happens in reverse when shorts get squeezed. Forced buy-backs push price higher, liquidating more shorts, creating more buy pressure, rinse and repeat.
 
-This is why perps can create fast, non-linear price action that looks nothing like spot. It is not just about the underlying asset moving, it is about leverage unwinding in real time.
+Forced liquidations can amplify a price move as leveraged positions close. That feedback helps explain why perp prices can move sharply relative to spot.
 
-## The good, the bad, and the weird
+## Benefits and Risks of Perpetual Futures {#the-good-the-bad-and-the-weird}
 
 ### What perps solve
 
@@ -234,15 +229,13 @@ Think of a perp as:
 
 You are renting exposure at a floating rate. Sometimes the rate pays you. Sometimes it taxes you. The rent is set by crowd positioning, not by a fixed schedule.
 
-That is the brilliance of perps: they turn leverage into a priced commodity.
+## Funding Costs and Liquidation Risk {#closing-thoughts}
 
-## Closing thoughts
-
-Perps are elegant. They solved liquidity fragmentation and roll friction with a clean and simple mechanism: no expiry, continuous mark to index, and a funding transfer that anchors price to spot.
+Perps address liquidity fragmentation and roll friction through a shared structure: no expiry, continuous mark to index, and a funding transfer that anchors price to spot.
 
 But they also create a second market layered on top of price: the market for leverage. Funding is both a stabilizer and a signal, and the leverage it enables can be reflexive.
 
-So next time you see a perp chart moving faster than spot, ask: is this about the asset, or is it about the cost of leverage?
+When a perp price moves sharply, funding rates and liquidations can help explain how leverage is contributing to the move.
 
 As always, till next time.
 

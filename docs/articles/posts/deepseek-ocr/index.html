@@ -9,7 +9,7 @@
 <meta name="author" content="Josh Pearlson">
 <meta name="dcterms.date" content="2025-10-31">
 
-<title>The Future of Context, DeepSeek OCR – Josh Pearlson</title>
+<title>DeepSeek OCR and Context Compression – Josh Pearlson</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -148,7 +148,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">The Future of Context, DeepSeek OCR</h1>
+      <h1 class="title">DeepSeek OCR and Context Compression</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">LLM</div>
               </div>
@@ -189,14 +189,14 @@ window.Quarto = {
 
 <p>A breakthrough in optical character recognition (OCR) has profound implications for the future of LLMs.</p>
 <hr>
-<p>Large language models are usually limited by how much text they can fit into their context windows. Every token matters. This is especially true when processing long PDFs, research papers, or codebases. But a recent breakthrough in optical character recognition (OCR) suggests something surprising: vision tokens may soon become a dramatically more efficient way to feed information to LLMs than text tokens.</p>
-<p>In this article, I’ll explain what OCR actually is, how the technology evolved, what changed recently, and why this discovery might reshape the future of context.</p>
+<p>Large language models are usually limited by how much text they can fit into their context windows. This limit is especially noticeable when processing long PDFs, research papers, or codebases. But a recent breakthrough in optical character recognition (OCR) suggests that vision tokens may soon become a more efficient way to feed information to LLMs than text tokens.</p>
+<p>In this article, I’ll explain what OCR actually is, how the technology evolved, what changed recently, and how vision tokens might let models work with longer documents.</p>
 <section id="what-the-hell-is-an-ocr" class="level2">
 <h2 class="anchored" data-anchor-id="what-the-hell-is-an-ocr">What the hell is an OCR?</h2>
-<p>OCR stands for Optical Character Recognition. It is the core technology that allows computers to convert real world documents, such as pdfs, images, and scanned paper documents, into machine-readable text. In other words, OCR transforms a messy visual input into a structured text representation that can be fed into other processes like LLMs.</p>
+<p>OCR stands for Optical Character Recognition. It is the core technology that allows computers to convert real world documents, such as PDFs, images, and scanned paper documents, into machine-readable text. In other words, OCR transforms a messy visual input into a structured text representation that can be fed into other processes like LLMs.</p>
 <section id="a-brief-history-of-ocr" class="level3">
 <h3 class="anchored" data-anchor-id="a-brief-history-of-ocr">A Brief History of OCR</h3>
-<p>OCR technology is not new, its history actually dates back to the 20th century. In the 1910s, Dr.&nbsp;Edmund Fournier d’Albe of Birmingham University developed the first ever OCR system, named the Optophone.</p>
+<p>OCR dates back to the 20th century. In the 1910s, Dr.&nbsp;Edmund Fournier d’Albe of Birmingham University developed the first ever OCR system, named the Optophone.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../../../media/Optophone_in_detail.jpg" class="img-fluid figure-img"></p>
@@ -210,32 +210,31 @@ window.Quarto = {
 <figcaption>Optophone Methodology</figcaption>
 </figure>
 </div>
-<p>Not much of significance happened with the technology until the 1950s, when developments in digital computers and light sensors allowed OCR to take off. OCR was no longer physical rules based systems and now involved using computers to run similarity algorithms evaluating which letters were present. IBM and RCA began to develop OCR technology for all sorts of tasks. IBM created the first commercially available scanner that could <a href="https://en.wikipedia.org/wiki/IBM_optical_mark_and_character_readers">read handwritten text</a>.</p>
+<p>In the 1950s, developments in digital computers and light sensors allowed OCR systems to use computers to compare shapes and identify letters. IBM and RCA began to develop OCR technology for all sorts of tasks. IBM created the first commercially available scanner that could <a href="https://en.wikipedia.org/wiki/IBM_optical_mark_and_character_readers">read handwritten text</a>.</p>
 <p>In the ’60s and ’70s, OCR became a key software for everything from the postal service sorting mail to banks processing checks (see <a href="https://en.wikipedia.org/wiki/Magnetic_ink_character_recognition">MICR</a>). Even to this day OCR software is used all around the world in a vast array of commercial applications.</p>
 <p>Modern developments in the 21st century involving neural networks have offered even more room for OCR improvement, as we will see with DeepSeekOCR.</p>
 </section>
 </section>
 <section id="deepseek-ocr" class="level2">
 <h2 class="anchored" data-anchor-id="deepseek-ocr">DeepSeek OCR</h2>
-<p>Earlier this month, a Chinese hedge fund’s AI lab, <a href="https://www.deepseek.com/en">DeepSeek</a> released a <a href="https://www.arxiv.org/abs/2510.18234">paper</a> outlining a new OCR model. Without even reading the paper, the initial community reaction was something along the lines of:</p>
+<p>Earlier this month, a Chinese hedge fund’s AI lab, <a href="https://www.deepseek.com/en">DeepSeek</a> released a <a href="https://www.arxiv.org/abs/2510.18234">paper</a> outlining a new OCR model. The initial community reaction was something along the lines of:</p>
 <ol type="1">
-<li>DeepSeek continues to enter a new market (OCR) and is killing it again (claiming 97%+ accuracy on general OCR benchmarks)<br>
-</li>
+<li>DeepSeek continues to enter a new market (OCR) and claims strong performance (claiming 97%+ accuracy on general OCR benchmarks)</li>
 <li>OCR software is old, boring software that just turns writing/images into well formatted text and has many commercial applications for DeepSeek to monetize</li>
 </ol>
-<p>I would say the initial read and public reception of this work is 100% correct. However, it misses the whole point of the paper! There is one core aspect which outlines why DeepSeek went through the trouble to make <strong>yet another</strong> OCR model.</p>
+<p>I would say the initial read and public reception of this work is 100% correct. The paper also examines context compression.</p>
 <section id="its-always-been-about-context" class="level3">
-<h3 class="anchored" data-anchor-id="its-always-been-about-context">It’s always been about context!</h3>
-<p>In the world of machine learning and natural language processing, <strong>context is king</strong>. The ability to understand and utilize context is what allows models to generate coherent and relevant responses.</p>
+<h3 class="anchored" data-anchor-id="its-always-been-about-context">Compressing Documents into Vision Tokens</h3>
+<p>Models use the information in their context windows to generate responses that are relevant to the conversation.</p>
 <p>Anyone who uses AI assistants learns quite quickly about the importance of context. Nothing is worse than chatting with the model for 10 minutes then having to start all over explaining a topic when you hit the context limit for the model. Eventually, you are forced to open a new ChatGPT or Claude tab and start the whole conversation all over again.</p>
-<p>Here is the one fascinating thing I have not yet told you about the brand new DeepSeek OCR model: <strong>vision tokens are dramatically more information-dense than text tokens</strong> when representing documents.</p>
-<p>Now this is an interesting development! Currently the largest LLM with strong performance and long context is the Gemini model, claiming 2 million tokens of context. Each token is approximately <span class="math inline">\(\frac{1}{4}\)</span> of a word. Given around 500 words per page, 2 million tokens of context gets you about 3,000 pages of context or about 1,500,000 words.</p>
+<p>The claim behind DeepSeek OCR is that <strong>vision tokens are dramatically more information-dense than text tokens</strong> when representing documents.</p>
+<p>Currently the largest LLM with strong performance and long context is the Gemini model, claiming 2 million tokens of context. Each token is approximately <span class="math inline">\(\frac{1}{4}\)</span> of a word. Given around 500 words per page, 2 million tokens of context gets you about 3,000 pages of context or about 1,500,000 words.</p>
 <p>In this paper, DeepSeek is stating that they can compress text tokens 10x when using them as vision tokens with very high accuracy. If this is true you could extend Gemini’s context window from 2 million tokens to 20 million. 1.5 million words versus 15 million words, 3,000 pages versus 30,000 pages. This is like going from being able to see 1 volume of the Encyclopedia Britannica versus 12 volumes (the full 32 volumes are 50 Million words).</p>
 </section>
 <section id="whats-the-catch" class="level3">
 <h3 class="anchored" data-anchor-id="whats-the-catch">What’s the catch?</h3>
 <p>Well, I did say <strong>if this is true</strong> and currently it is not. Some language models understand vision tokens at high fidelity; however, this fidelity is not nearly on par with typical text. In order to achieve a full 10x of the context window the model would have to understand vision tokens just as well as it understands text tokens without decoding them back into text tokens (removing any compression benefit). Text has semantic meaning, typically previous words in a sentence have strong correlation with the future words in that same sentence. Vision tokens share this relationship but on a much smaller scale. Since the correlation to future tokens is so small, this leads to a much worse ability to generate coherent output.</p>
-<p>There have been very interesting workarounds though and research in the space is ongoing. One pervasive thought in the industry right now is the idea of storing context in cached vision tokens, but only converting necessary context into text tokens for the model to actively use. This seems to be a plausible and reasonable future development of vision token compression.</p>
+<p>Research on workarounds is ongoing. One possible approach is to store context in cached vision tokens and convert only the necessary context into text tokens for the model to use.</p>
 </section>
 <section id="well-lets-test-it-out" class="level3">
 <h3 class="anchored" data-anchor-id="well-lets-test-it-out">Well, let’s test it out!</h3>
@@ -279,7 +278,7 @@ c = \frac{3}{2} \cdot \frac{[\Gamma(\frac{3}{2})]^6}{\pi^6} = .94373...
 <li>Special thank you to Trinity College for hosting this <a href="https://mss-cat.trin.cam.ac.uk/manuscripts/uv/view.php?n=add.ms.a.94&amp;n=add.ms.a.94.2#?c=0&amp;m=0&amp;s=0&amp;cv=5&amp;xywh=-1944%2C0%2C8677%2C6006">letter</a></li>
 </ul>
 <p>——————————– end ——————————–</p>
-<p>Wow, that is some shocking levels of accuracy. This level of accuracy on handwritten text seems insane. Just to confirm this is not already seen in the training data of the model I will now run the model but with some awful handwriting of my own. This is a handwritten page of homework from college. Similar to the page above it contains a lot of scribbled math which would be hard for even me to decipher at times.</p>
+<p>Just to confirm this is not already seen in the training data of the model I will now run the model but with some awful handwriting of my own. This is a handwritten page of homework from college. Similar to the page above it contains a lot of scribbled math which would be hard for even me to decipher at times.</p>
 <p>Here is the homework page:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -379,18 +378,18 @@ E_D(x) = \frac{1}{n} \sum_{i=1}^{n} (g(x_i) - x_i^{2})
 ]
 \]</span></p>
 <p>——————————– end ——————————–</p>
-<p>For sure a lot more errors in this one in terms of OCR quality. On my handwriting the model frequently messes up what the power was of variables, exact forms of equations, confuses vectors, and more. Given this performance I would highly agree with the comments I have seen on social media that the letters from Ramanujan to GH Hardy were likely in the training set of the DeepSeekOCR model. Performance on my handwriting was still very strong, but clearly not to the caliber of a model that almost perfectly gets the scribbled handwriting from the Ramanujan letter.</p>
+<p>There are more errors in this sample. On my handwriting, the model frequently gets exponents and equations wrong and confuses vectors. Given this performance I agree with the comments I have seen on social media that the letters from Ramanujan to GH Hardy were likely in the training set of the DeepSeekOCR model. Performance on my handwriting was still very strong, but clearly not to the caliber of a model that almost perfectly gets the scribbled handwriting from the Ramanujan letter.</p>
 </section>
 </section>
 <section id="current-use-cases" class="level3">
 <h3 class="anchored" data-anchor-id="current-use-cases">Current use cases</h3>
-<p>Naively, as a recent graduate who frequently had to write assignments in LaTeX (a mathematical formatting language) which was often time consuming given most of the math was worked out on paper (or iPad) already, I see some great use cases.</p>
+<p>As a recent graduate, I frequently had to write assignments in LaTeX (a mathematical formatting language). This often took time because I had already worked out most of the math on paper or an iPad. OCR could help with that:</p>
 <ol type="1">
 <li>Pass paper homework into DeepSeekOCR, convert to markdown.</li>
 <li>Ask LLM to convert markdown to LaTeX</li>
 <li>Voila! You have saved ~an hour of writing your already-written homework into LaTeX!</li>
 </ol>
-<p>Realistically this is not the true value of this model, but nonetheless a very interesting use case. The real value of this model is in converting large quantities of handwritten text into visual tokens as a medium (<strong>of high information density and low loss</strong>), instead of converting them directly into text tokens. If breakthroughs happen in how visual tokens can be used to train models directly, this paper will become seen as a seminal work in token density. Honestly, on a personal note, I hope there is more development in this space; the medium of visual tokens has much more to offer than asking SORA to generate you a video of Trump doing a backflip onto the White House lawn.</p>
+<p>Beyond transcribing homework, the model could convert large quantities of handwritten text into visual tokens as a medium (<strong>of high information density and low loss</strong>), instead of converting them directly into text tokens. I hope there is more development in this space; the medium of visual tokens has much more to offer than asking SORA to generate you a video of Trump doing a backflip onto the White House lawn.</p>
 <p>As always, till next time.</p>
 <p>JCP</p>
 
