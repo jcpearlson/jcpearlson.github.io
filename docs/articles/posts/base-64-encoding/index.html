@@ -9,7 +9,7 @@
 <meta name="author" content="Josh Pearlson">
 <meta name="dcterms.date" content="2025-12-19">
 
-<title>The Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor” – Josh Pearlson</title>
+<title>Base64 and Modern APIs – Josh Pearlson</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -182,7 +182,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">The Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”</h1>
+      <h1 class="title">Base64 and Modern APIs</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">LLM</div>
               </div>
@@ -221,7 +221,7 @@ window.Quarto = {
 
 
 
-<p>A journey from the 7-bit limitations of early dial-up to the multimodal prompts of today, exploring why ‘ASCII Armor’ remains the essential glue for modern AI.</p>
+<p>Base64 carries binary data through text-based formats, from 7-bit text systems to modern multimodal API requests.</p>
 <hr>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -230,23 +230,21 @@ window.Quarto = {
 </figure>
 </div>
 <section id="the-bit-bridge-why-modern-ai-still-speaks-in-1970s-ascii-armor" class="level2">
-<h2 class="anchored" data-anchor-id="the-bit-bridge-why-modern-ai-still-speaks-in-1970s-ascii-armor">The Bit Bridge: Why Modern AI Still Speaks in 1970s “ASCII Armor”</h2>
-<p>In the world of Generative AI, we often focus on the new developments: neural networks, transformer architectures, and trillion-parameter models. But if you peek under the hood of a request sent to GPT-5 or Gemini 3, you’ll find a relic from ages ago.</p>
-<p>It looks like a wall of digital noise:</p>
+<h2 class="anchored" data-anchor-id="the-bit-bridge-why-modern-ai-still-speaks-in-1970s-ascii-armor">Encoding Images as Text</h2>
+<p>An image in a request sent to GPT-5 or Gemini 3 can be encoded as text. One format you may see is a data URL:</p>
 <p><code>data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...</code></p>
-<p>To the uninitiated, this is gibberish. To a developer, it’s <strong>Base64</strong>. But to a computer historian, it goes by a more popular name: <strong>“ASCII Armor.”</strong></p>
+<p>This is <strong>Base64</strong>, a way to encode binary data as text. Encodings of this kind are sometimes called <strong>“ASCII Armor.”</strong></p>
 </section>
 <section id="the-missing-eighth-bit" class="level2">
 <h2 class="anchored" data-anchor-id="the-missing-eighth-bit">The Missing Eighth Bit</h2>
-<p>In the 1970s, the internet was a “fragile” place. Early networks were designed for 7-bit ASCII, perfect for English text, but catastrophic for 8-bit binary files.</p>
-<p>Data transmission historically was expensive and slow. To save space, engineers used 7-bit ASCII for text representation. 7 bits can represent <span class="math inline">\(2^7\)</span>, or 128 different values (0 to 127). This was enough to represent the full english alphabet (A-Z, a-z), numbers (0-9), basic punctuation, and ‘control characters’ like Enter or Tab.</p>
-<p>However, most computers at the time typically used 8-bit (1 byte) systems. If you tried to send a raw image, the network would often “strip” the eighth bit of every byte to save space. It was like removing every third letter from a sentence; the data arrived shredded. Worse, binary sequences could accidentally trigger “control codes”, which were bits of data that told a printer to stop or a modem to hang up.</p>
-<p>As a solution, developers began “armoring” their data. By disguising binary files as a safe string of alphanumeric text, they ensured the data could survive the journey across imperfect networks. And thus, Base64 was created.</p>
+<p>The constraint was in particular text transports, not a universal inability of the internet to carry bytes. For example, the original <a href="https://www.rfc-editor.org/info/rfc821/">SMTP specification, RFC 821</a>, defined mail data as 7-bit ASCII. Even on an 8-bit channel, it required the high-order bit to be zero.</p>
+<p>Seven bits represent <span class="math inline">\(2^7=128\)</span> values, numbered 0 to 127. An arbitrary 8-bit byte has <span class="math inline">\(2^8=256\)</span> possible values, so not every binary value fits that text format unchanged. Transport rules also distinguish text content from framing, such as the sequence that ends a mail message.</p>
+<p><a href="https://www.rfc-editor.org/info/rfc2045/">MIME’s RFC 2045</a> defines transfer encodings, including Base64, for carrying data through mail systems with these constraints. Encoding does not preserve data by asking the network to discard a bit. It represents the original bytes using an alphabet the transport can carry, then lets the receiver reconstruct those bytes.</p>
 </section>
 <section id="what-is-base64" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-base64">What is Base64?</h2>
-<p>To solve the problem of sending raw data across the internet via traditional methods Base64 creates a mapping between the world of bits and bytes and the world of text and symbols.</p>
-<p>Here is how it works. Lets first take 3 bytes of information, containing 24 individual bits. With these 24 bits we will then split them into 4 groups of 6 bits. For each of the 6-bit groups we will map them to one real char (shown below in the table).</p>
+<p>Base64 maps binary data to a limited set of text characters so it can pass through systems that expect text.</p>
+<p>Here’s how it works. Take 3 bytes of information, containing 24 individual bits. Split those 24 bits into 4 groups of 6 bits. Map each 6-bit group to one character, using the table below.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -283,30 +281,29 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>This does come at a cost however. For each 3 bytes of information, you will notice that this process created 4 characters. You may ask, well why don’t we just use more characters to the point where we can represent each byte with a single character.</p>
-<p>This is a great question, the key problem is that representing each number in a fully byte requires <span class="math inline">\(2^8\)</span> or 256 different values. We do not have that many ‘clean’ char values that are supported over standard text mechanisms.</p>
+<p>This increases the size of the data. For each 3 bytes of information, you will notice that this process created 4 characters. You may ask, well why don’t we just use more characters to the point where we can represent each byte with a single character.</p>
+<p>Representing every possible value in a full byte requires <span class="math inline">\(2^8\)</span> or 256 different values. The point is to choose an alphabet that text-based systems can reliably preserve.</p>
 </section>
 <section id="what-does-base64-have-to-do-with-llms-and-modern-ai" class="level2">
 <h2 class="anchored" data-anchor-id="what-does-base64-have-to-do-with-llms-and-modern-ai">What does Base64 have to do with LLMs and modern AI?</h2>
-<p>Well, these days we sure do love API’s. For the uninitiated, API stands for application program interface. With API’s we can abstractly send a request to a server and receive a desired response. Modern API developers love a format called JSON. This format is very similar (often times interchangeable) with a generic nested form of Python dictionaries and lists.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>json_obj <span class="op">=</span> {</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key1"</span>: <span class="st">"value1"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key2"</span>: <span class="dv">123</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key3"</span>: true,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key4"</span>: [</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"item1"</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"item2"</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  ],</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"key5"</span>: {</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"nestedKey"</span>: <span class="st">"nestedValue"</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>However when sending JSON requests, it becomes very hard to include raw data in the form of a file. And even if you could just include raw bytes, this represents a serious security issue. This would be allowing a random API user to execute arbitrary bytes of data on your computer or server. Very bad stuff. However thankfully instead we can turn to Base64 and old fashioned ASCII Armor to fix this problem.</p>
+<p>An API, or application programming interface, lets a program send a request to a server and receive a response. Many APIs use JSON to represent that data. Its objects and arrays resemble Python dictionaries and lists, though JSON has its own syntax.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"key1"</span><span class="fu">:</span> <span class="st">"value1"</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"key2"</span><span class="fu">:</span> <span class="dv">123</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"key3"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"key4"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"item1"</span><span class="ot">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"item2"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"key5"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"nestedKey"</span><span class="fu">:</span> <span class="st">"nestedValue"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>JSON is a <a href="https://www.rfc-editor.org/rfc/rfc8259">text format</a>, with no native binary-file type. An API can accept a Base64 string and decode it back into bytes. This solves a representation problem. It does not make the file safe: <a href="https://www.rfc-editor.org/rfc/rfc4648#section-12">Base64 provides no confidentiality</a>, and a service still needs <a href="https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html">file validation and safe processing</a>. Receiving bytes is not the same as executing them.</p>
 <hr>
 </section>
-<section id="base64-demo" class="level1">
-<h1>Base64 Demo</h1>
+<section id="base64-demo" class="level2">
+<h2 class="anchored" data-anchor-id="base64-demo">Base64 Demo</h2>
 <div id="336007cd" class="cell" data-execution_count="88">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -393,7 +390,7 @@ Displaying Decoded Image:</code></pre>
 </div>
 </div>
 </div>
-<p>It is always fascinating to see how circular technology is. We often revert to the most simple fixes as they end up being the most elegant to use. Personally I love remembering that whenever I am using a LLM with multi-modal and tool use capabilities, under the hood 70’s computer science is peering through.</p>
+<p>Personally I love remembering that whenever I am using an LLM with multimodal and tool-use capabilities, a text-encoding technique from older communication systems is still doing useful work.</p>
 <p>As always, till next time.</p>
 <p>JCP</p>
 

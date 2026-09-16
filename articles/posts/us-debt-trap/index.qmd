@@ -123,7 +123,7 @@ fig.update_layout(
 fig.show(config=CONFIG)
 ```
 
-One clarification worth making up front, because almost every article on this topic quietly switches between the two measures. **Gross** federal debt includes money the government owes itself, mostly the Social Security and Medicare trust funds. **Debt held by the public** is what is actually out in the market being financed at market rates. Gross debt is 122.6% of GDP; debt held by the public is [98.7%](https://fred.stlouisfed.org/series/FYGFGDQ188S). The second number is the one that drives interest costs, and it's the one I'll use for the math below. The 1946 comparison on that basis is 106%, and [CBO projects](https://www.cbo.gov/publication/61882) we blow through it and reach 120% of GDP by 2036.
+**Gross** federal debt includes money the government owes itself, mostly the Social Security and Medicare trust funds. **Debt held by the public** is what is actually out in the market being financed at market rates. Gross debt is 122.6% of GDP; debt held by the public is [98.7%](https://fred.stlouisfed.org/series/FYGFGDQ188S). The second number is the one that drives interest costs, and it's the one I'll use for the math below. The 1946 comparison on that basis is 106%, and [CBO projects](https://www.cbo.gov/publication/61882) we blow through it and reach 120% of GDP by 2036.
 
 The raw stock, on either measure, undersells the problem. What matters is the flow: the interest bill.
 
@@ -193,19 +193,19 @@ fig2.show(config=CONFIG)
 
 Here is the first thing that surprised me when I actually pulled the series instead of trusting the headline: **we have been here before.** Interest ate 18.4% of federal revenue in fiscal 1991. It's 18.5% now. On this metric alone, 2025 is a tie with the early Bush Sr. years, not a record by some terrifying margin.
 
-That should make you *more* worried, not less, and the reason is in the annotation. In 1991 that 18% burden came from a debt pile of 58% of GDP paying an average 7.5%. Today's comes from a debt pile twice that size paying 3.3%. Same bill, half the rate, double the principal.
+What worries me is that a similar interest burden now comes from much more debt at a lower average rate. In 1991 that 18% burden came from a debt pile of 58% of GDP paying an average 7.5%. Today's comes from a debt pile twice that size paying 3.3%. Same bill, half the rate, double the principal.
 
 The 1991 burden was a hangover. Rates had already peaked in 1981 and spent the next thirty years falling, so every refinancing made the problem smaller. Today's burden is being generated at rates that are, by the standards of the last fifty years, still cheap, and every refinancing makes the problem bigger.
 
 Which raises the obvious question: cheap compared to what, and for how long?
 
-## The Equation Everyone Skips
+## How the Debt Ratio Changes {#the-equation-everyone-skips}
 
 The debate usually gets compressed into a single condition you'll see repeated everywhere:
 
 $$r < g$$
 
-Where $r$ is the interest rate on the debt and $g$ is the economy's growth rate. Grow faster than you borrow and the debt shrinks relative to GDP without anyone ever paying it off. The framing is intuitive and it is genuinely half the story. It is also, on its own, wrong, and the way it's wrong matters.
+Where $r$ is the interest rate on the debt and $g$ is the economy's growth rate. Grow faster than you borrow and the debt shrinks relative to GDP without anyone ever paying it off. That comparison leaves out the primary balance. The debt ratio can still rise if new borrowing exceeds the reduction from growth outpacing interest costs.
 
 The actual law of motion for the debt-to-GDP ratio is:
 
@@ -240,11 +240,11 @@ So: the snowball is currently working *in our favor* to the tune of 1.5 points a
 
 (The identity is an approximation; actual debt-held-by-public rose about 1.9 points in FY2025 rather than 1.15. The residual is stock-flow adjustment: cash balances, student loan revaluations, and other financing that doesn't show up in the deficit. The decomposition is for intuition, not accounting.)
 
-## Why the Snowball Is About to Stop Helping
+## Why Refinancing Is Raising Interest Costs {#why-the-snowball-is-about-to-stop-helping}
 
 Notice which $r$ I used. Not the 10-year Treasury yield, which is [around 4.6%](https://fred.stlouisfed.org/series/DGS10). The *effective* rate, which is what the Treasury pays on average across a stock of debt issued over the last thirty years, much of it during the zero-rate decade.
 
-That gap is the whole story, and it is closing.
+As older debt matures, refinancing at higher rates raises the Treasury's effective rate.
 
 ```{python}
 #| echo: false
@@ -350,7 +350,7 @@ This reframes the standard "we need a primary surplus" talking point into someth
 
 ## Four Ways Out
 
-With the equation in hand, the menu of escapes is not a matter of opinion. There are only so many terms to attack.
+The equation gives us four ways to reduce the debt ratio: faster growth, a higher primary balance, lower real rates, or default.
 
 **1. Raise $g$.** Grow out of it. This is the only painless option and it's why everyone reaches for it first. The problem is that the snowball term is already favorable and it isn't enough. To close a 2.65% primary gap through growth alone, you'd need $g$ to exceed $r$ by about 2.7 points, sustained. With $r$ heading toward 4.5%, that means nominal growth above 7%, or real growth around 5% at target inflation. The US has not sustained that outside a postwar reconstruction. An aging workforce and flat labor-force growth make it harder, not easier. AI might genuinely change the productivity math, and if it does I'll happily revise this, but the repricing schedule is running on a six-year clock and productivity revolutions do not keep to schedules.
 
@@ -366,7 +366,7 @@ So the one modern example of a US fiscal turnaround was mostly a stock bubble an
 
 Three of the four doors involve doing something hard. One of them happens on its own if the inflation gods cooperate, and it's the only one with a track record at this debt level.
 
-## The Door That's Left
+## How Financial Repression Reduces Debt {#the-door-thats-left}
 
 The US has run the repression playbook before, and it worked. Gross debt went from 119% of GDP in 1946 to 31% in 1981. That is an 88-point reduction with no default, no austerity program, and no year in which anyone announced a policy of debt liquidation.
 
@@ -479,7 +479,7 @@ The formal term for the endgame is **fiscal dominance**: when the debt is large 
 
 ## Why the 1945 Playbook Is Harder to Run Now
 
-This is the part the doom-and-repression thesis usually skips, and it's the strongest objection to my own argument, so let me make it properly.
+The strongest objection to my argument is that today's bondholders have more ways to avoid accepting negative real returns.
 
 Financial repression worked in 1945 because the bondholder was trapped. Today they aren't, in four specific ways.
 
@@ -493,7 +493,7 @@ Financial repression worked in 1945 because the bondholder was trapped. Today th
 
 None of this makes repression impossible. It makes it slower, more expensive, and more likely to be resisted by the price of the very thing it operates on.
 
-## The Paradox
+## Low Inflation and Rising Interest Costs {#the-paradox}
 
 To engineer repression you need sustained negative real rates. That requires inflation to run hot while the Fed declines to fully respond.
 
@@ -501,16 +501,8 @@ The economy is not currently cooperating with that plan. Real GDP is growing [ab
 
 And the bond market is pricing exactly that continuing. [Ten-year TIPS breakevens](https://fred.stlouisfed.org/series/T10YIE), which are the yield gap between a nominal Treasury and an inflation-protected one and therefore the market's live inflation forecast, sit at 2.34%. The market is saying: we believe the Fed, inflation returns to target, and repression never arrives.
 
-So here is the trap in its final form.
-
 The growth door needs productivity we don't have. The surplus door needs a 3% of GDP tightening from a Congress that has not managed one since a stock bubble did it by accident. The default door doesn't exist for a reserve currency issuer. And the repression door, the only one with a track record at this debt level, requires an inflation regime the Fed is explicitly mandated to prevent, on a stock of debt that is now structured specifically to resist it.
 
 The uncomfortable synthesis is that a *good* economy makes the debt math worse. Strong labor markets keep the Fed from cutting, keep real rates positive, and keep the snowball term marching toward the point where it stops helping and starts compounding. The resilience everyone is celebrating is what's closing the last door.
 
-Something gives. I have a view on what, and on the rate path that follows from it, but the point here was to get the framework tight enough that whatever conclusion follows reads as a conclusion rather than an assertion.
-
 For now, one number is worth holding onto: **1.5 percentage points.** That's the size of the snowball cushion we're currently running on, and it's shrinking every time a 2019 note matures.
-
----
-
-*Future articles can take up what happens when the effective rate meets nominal growth, and what the Fed actually does when its inflation mandate and the fiscal arithmetic point in opposite directions.*
