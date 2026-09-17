@@ -14,13 +14,20 @@
   --t-ink-bright: #e8ebe5;
   --t-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --t-reading: 'IBM Plex Sans', sans-serif;
+  /* Width of the terminal "window" that the chrome is aligned to. */
+  --t-frame: 1224px;
+  --t-frame-pad: 36px;
 }
 
 ::selection { background: var(--t-accent); color: var(--t-bg); }
 .t-tabs {
+  /* Tab padding; the bar's left offset subtracts it so labels line up with the content. */
+  --t-tab-pad-x: 21px;
   display: flex;
   align-items: stretch;
-  padding: 0 24px;
+  /* Full-bleed bar, but the tabs line up with the content frame. */
+  padding-left: max(var(--t-frame-pad) - var(--t-tab-pad-x), (100% - var(--t-frame)) / 2 + var(--t-frame-pad) - var(--t-tab-pad-x));
+  padding-right: max(var(--t-frame-pad), (100% - var(--t-frame)) / 2 + var(--t-frame-pad));
   background: var(--t-panel);
   border-bottom: 1px solid var(--t-line);
   font-family: var(--t-mono);
@@ -28,12 +35,12 @@
 .t-tab {
   display: inline-flex;
   align-items: center;
-  padding: 17px 21px;
+  padding: 17px var(--t-tab-pad-x);
   border: 0;
   border-right: 1px solid var(--t-line-dim);
   background: transparent;
   color: var(--t-ink-dim);
-  font: 13px/1.5 var(--t-mono);
+  font: 14px/1.5 var(--t-mono);
   text-decoration: none;
   white-space: nowrap;
 }
@@ -48,7 +55,7 @@
 .t-title {
   align-self: center;
   color: var(--t-ink-dim);
-  font: 11px/1.5 var(--t-mono);
+  font: 13px/1.5 var(--t-mono);
   padding: 12px 0 12px 20px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -58,11 +65,11 @@
   display: flex;
   align-items: center;
   gap: 24px;
-  padding: 10px 26px;
+  padding: 10px max(var(--t-frame-pad), (100% - var(--t-frame)) / 2 + var(--t-frame-pad));
   background: var(--t-panel);
   border-top: 1px solid var(--t-line);
   color: var(--t-ink-dim);
-  font: 11px/1.5 var(--t-mono);
+  font: 12px/1.5 var(--t-mono);
 }
 .t-status-dot, .t-weather-glyph { color: var(--t-accent); }
 .t-weather-glyph { margin-right: 6px; }
@@ -73,7 +80,7 @@
   color: var(--t-ink-dim);
   border: 1px solid var(--t-line);
   padding: 3px 8px;
-  font: 11px/1.5 var(--t-mono);
+  font: 12px/1.5 var(--t-mono);
   letter-spacing: .04em;
   text-transform: uppercase;
 }
@@ -85,8 +92,11 @@
 :is(.jcp-terminal, .jcp-article-page) { scrollbar-color: #505d43 var(--t-bg); scrollbar-width: thin; }
 @media (max-width: 900px) {
   .t-title { display: none; }
-  .t-tabs { padding: 0 12px; }
-  .t-tab { padding: 16px 18px; }
+  .t-tabs { --t-tab-pad-x: 18px; }
+  .t-tab { padding: 16px var(--t-tab-pad-x); }
+}
+@media (max-width: 600px) {
+  .t-tabs { --t-tab-pad-x: 12px; }
 }
 @media (max-width: 520px) {
   .t-tabs { padding: 0; }

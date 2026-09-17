@@ -23,6 +23,7 @@
   color: var(--t-ink);
   font-size: 17px;
   line-height: 1.8;
+  max-width: 68ch; /* Keep the measure near 70 characters on wide screens */
   margin: 0 0 4px;
 }
 .jcp-bio a { color: var(--t-accent); text-decoration: none; border-bottom: 1px dashed var(--t-accent); }

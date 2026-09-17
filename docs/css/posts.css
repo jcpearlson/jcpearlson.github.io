@@ -258,7 +258,7 @@ main#quarto-document-content {
     position: sticky;
     top: 100px;
     width: 100%;
-    max-width: 210px;
+    max-width: 250px;
     max-height: calc(100vh - 120px);
     overflow-y: auto;
     background: rgba(0, 20, 0, 0.5);
@@ -458,14 +458,17 @@ main#quarto-document-content {
 .quarto-figure.quarto-figure-center,
 .cell-output.cell-output-stdout,
 div.sourceCode {
-  background: #001a00 !important; /* Dark green background */
-  border: 1px solid rgba(124, 255, 0, 0.3) !important;
-  border-radius: 8px;
+  background: var(--t-panel) !important; /* Match the terminal panel palette */
+  border: 1px solid var(--t-line) !important;
+  border-radius: 0;
   padding: 1.2em;
   margin: 20px 0;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
   overflow-x: auto; /* Enable horizontal scrolling */
 }
+
+/* Accent stripe marks code specifically; figures and stdout keep the plain panel edge. */
+div.sourceCode { border-left: 2px solid var(--t-accent) !important; }
 
 /*
   ==================================================================
@@ -542,10 +545,10 @@ div.sourceCode pre {
 
 /* Style for inline code snippets (high specificity) */
 #quarto-content :not(pre) > code {
-  background-color: rgba(0, 51, 0, 0.5) !important;
-  color: mintcream !important;
+  background-color: var(--t-raised) !important;
+  color: var(--t-ink-bright) !important;
   padding: 0.2em 0.4em;
-  border-radius: 4px;
+  border-radius: 0;
   font-size: 0.9em;
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
@@ -815,10 +818,14 @@ body.jcp-article-page .scrollspy-nav { border-radius: 0; }
 body.jcp-article-page .scrollspy-nav a { font-size: 12px !important; line-height: 1.7; overflow-wrap: anywhere; padding: 7px 0 !important; }
 body.jcp-article-page .article-footer :is(.subscribe-section,.share-article-container) { min-width: 0; }
 body.jcp-article-page .article-footer input { min-width: 0; }
-@media (max-width: 1199px) { body.jcp-article-page #quarto-content { display: block; padding: 0 28px; } body.jcp-article-page main#quarto-document-content { padding: 0; } }
+@media (max-width: 1199px) {
+  body.jcp-article-page { --t-frame-pad: 28px; }
+  body.jcp-article-page #quarto-content { display: block; padding: 0 var(--t-frame-pad); }
+  body.jcp-article-page main#quarto-document-content { padding: 0; }
+}
 @media (max-width: 600px) {
-  body.jcp-article-page { padding-top: 46px !important; }
-  body.jcp-article-page #quarto-content { padding: 0 22px; }
+  body.jcp-article-page { --t-frame-pad: 22px; padding-top: 46px !important; }
+  body.jcp-article-page #quarto-content { padding: 0 var(--t-frame-pad); }
   .t-art-header { padding-top: 32px; }
   body.jcp-article-page #quarto-content :is(p,li) { font-size: 17px; }
   body.jcp-article-page main#quarto-document-content > p:first-of-type { font-size: 19px; }
