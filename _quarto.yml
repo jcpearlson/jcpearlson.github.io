@@ -8,6 +8,7 @@ project:
     - "articles/index.qmd"
     - "projects/index.qmd"
     - "contact/index.qmd"
+    - "quotes/index.qmd"
     - "articles/posts/**/index.qmd"
     - "articles/posts/**/index.md"
     - "articles/posts/**/index.ipynb"

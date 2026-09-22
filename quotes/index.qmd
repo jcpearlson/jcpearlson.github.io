@@ -1,0 +1,113 @@
+---
+title: "Quotes"
+pagetitle: "Quotes — Josh Pearlson"
+title-block-banner: false
+page-layout: full
+css:
+  - ../css/index.css
+  - ../css/quotes.css
+include-after-body:
+  - ../javaScript/terminal.html
+---
+
+```{=html}
+<div class="jcp-terminal" id="jcp-terminal">
+  <div class="t-tabs" role="navigation" aria-label="Main navigation">
+    <a href="/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>home</a>
+    <a href="/about/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>about</a>
+    <a href="/articles/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>articles</a>
+    <a href="/projects/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>projects</a>
+    <a href="/contact/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>contact</a>
+    <div class="t-tabs-spacer"></div>
+    <div class="t-title" id="t-title">jcp@joshpearlson: ~/quotes</div>
+  </div>
+  <div class="t-body" id="t-body" data-page="other">
+
+    <header class="t-page-heading">
+      <div class="t-command"><span class="t-prompt">$</span>cat ~/quotes.txt</div>
+      <h1>Quotes<span class="t-accent">.</span></h1>
+    </header>
+
+    <div class="q-list">
+
+      <!-- building things -->
+      <article class="q-item">
+        <p class="q-text">&ldquo;When you grow up you tend to get told that the world is the way it is&hellip; Life can be much broader once you discover one simple fact: everything around you that you call life was made up by people that were no smarter than you. And you can change it.&rdquo;</p>
+        <div class="q-attr"><span class="q-who">Steve Jobs</span><span class="q-when">1994</span></div>
+        <div class="q-src"><a href="https://en.wikiquote.org/wiki/Steve_Jobs" target="_blank" rel="noopener">Wikiquote &#8599;</a></div>
+      </article>
+
+      <article class="q-item">
+        <p class="q-text">&ldquo;Their dreams and my dreams were different. I would never confuse the two of them again.&rdquo;</p>
+        <div class="q-attr"><span class="q-who">Larry Ellison</span><span class="q-when">USC commencement, May 13, 2016</span></div>
+        <div class="q-src"><a href="https://today.usc.edu/at-133rd-usc-commencement-oracle-founder-larry-ellison-urges-graduates-to-pursue-their-own-dreams/" target="_blank" rel="noopener">USC Today &#8599;</a></div>
+      </article>
+
+      <article class="q-item">
+        <p class="q-text">&ldquo;It doesn&rsquo;t matter to me whether we&rsquo;re a pure internet play. What matters to me is: do we provide the best customer service? Internet, shminternet.&rdquo;</p>
+        <div class="q-attr"><span class="q-who">Jeff Bezos</span><span class="q-when">1999 interview</span></div>
+        <div class="q-src"><a href="https://www.benzinga.com/markets/25/05/45556328/jeff-bezos-shrugged-off-dot-com-hype-in-1999-betting-amazons-future-on-customer-obsession-internet-shminternet-that-doesnt-matter-he-said-theres-never-any-conflict-between-customers-and-shareholders-interests-and-walmart-should-say-the-same" target="_blank" rel="noopener">Benzinga &#8599;</a></div>
+      </article>
+
+      <!-- markets -->
+      <article class="q-item">
+        <p class="q-text">&ldquo;The cardinal rule: never be wrong on your own.&rdquo;</p>
+        <div class="q-attr"><span class="q-who">Jeremy Grantham</span><span class="q-when">GMO co-founder</span></div>
+        <div class="q-src">
+          <a href="https://www.morningstar.com/podcasts/the-long-view/jeremy-grantham-almost-everything-looks-more-attractive-than-us-equity-market" target="_blank" rel="noopener">The Long View &#8599;</a>
+          <a href="https://behindthebalancesheet.com/podcasts-singles/59-the-permabear/" target="_blank" rel="noopener">Behind the Balance Sheet #59 &#8599;</a>
+        </div>
+      </article>
+
+      <article class="q-item">
+        <p class="q-text">&ldquo;If we&rsquo;re all going to eat, someone&rsquo;s got to sell.&rdquo;</p>
+        <div class="q-attr"><span class="q-who">Ken Griffin</span><span class="q-when">quoting a mentor&rsquo;s office plaque</span></div>
+        <div class="q-src"><a href="https://www.youtube.com/watch?v=UVsNStfU87A" target="_blank" rel="noopener">Talk clip &#8599;</a></div>
+      </article>
+
+      <!-- operating -->
+      <article class="q-item">
+        <p class="q-text">&ldquo;If you see a snake, just kill it. Don&rsquo;t appoint a committee on snakes.&rdquo;</p>
+        <div class="q-attr"><span class="q-who">H. Ross Perot</span><span class="q-when">widely attributed</span></div>
+      </article>
+
+      <article class="q-item">
+        <p class="q-text">&ldquo;Even if you&rsquo;re on the right track, you&rsquo;ll get run over if you just sit there.&rdquo;</p>
+        <div class="q-attr"><span class="q-who">Will Rogers</span><span class="q-when">commonly attributed</span></div>
+        <div class="q-src"><a href="https://quoteinvestigator.com/2025/01/26/right-track/" target="_blank" rel="noopener">Quote Investigator &#8599;</a></div>
+      </article>
+
+      <!-- knowing -->
+      <article class="q-item">
+        <p class="q-text">&ldquo;It ain&rsquo;t what you don&rsquo;t know that gets you into trouble. It&rsquo;s what you know for sure that just ain&rsquo;t so.&rdquo;</p>
+        <div class="q-attr"><span class="q-who">Anonymous</span><span class="q-when">usually credited to Mark Twain</span></div>
+        <div class="q-src"><a href="https://quoteinvestigator.com/2018/11/18/know-trouble/" target="_blank" rel="noopener">Quote Investigator &#8599;</a></div>
+      </article>
+
+      <article class="q-item">
+        <p class="q-text">&ldquo;Momma say count your blessings / So I did and now I realize who I am and who I&rsquo;m not.&rdquo;</p>
+        <div class="q-attr"><span class="q-who">Amin&eacute;</span><span class="q-when">&ldquo;Sundays&rdquo; (2020)</span></div>
+        <div class="q-src"><a href="https://genius.com/Amine-sundays-lyrics" target="_blank" rel="noopener">Genius &#8599;</a></div>
+      </article>
+
+      <!-- unattributed -->
+      <article class="q-item q-tail">
+        <p class="q-text">&ldquo;Show me how hard you have failed and I can tell you how much you could succeed.&rdquo;</p>
+      </article>
+
+      <article class="q-item">
+        <p class="q-text">&ldquo;A creator that does not understand himself, he is an invention.&rdquo;</p>
+      </article>
+
+    </div>
+
+  </div>
+  <div class="t-status">
+    <span><span class="t-status-dot">&#9679;</span> online</span>
+    <span id="t-status-count">&mdash; articles &middot; &mdash; projects</span>
+    <span class="t-status-weather" id="t-status-weather">
+      New York, NY
+    </span>
+  </div>
+</div>
+```
