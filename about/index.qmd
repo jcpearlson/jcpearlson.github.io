@@ -59,7 +59,7 @@ include-after-body:
           <div class="jcp-exp-row">
             <div class="jcp-exp-when">Summer 2024</div>
             <div class="jcp-exp-org">BlackRock</div>
-            <div class="jcp-exp-role">Intern · Securities lending optimization</div>
+            <div class="jcp-exp-role">Intern</div>
             <div class="jcp-exp-where">New York, NY</div>
           </div>
           <div class="jcp-exp-row">
