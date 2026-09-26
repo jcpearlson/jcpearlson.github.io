@@ -2,14 +2,14 @@
 .jcp-proj-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
 .jcp-proj-card { color: inherit; text-decoration: none; min-width: 0; }
 .jcp-proj-featured { background: var(--t-panel); border: 1px solid var(--t-line); display: flex; flex-direction: column; transition: border-color .18s; }
-.jcp-proj-featured:hover { border-color: #64744d; }
+.jcp-proj-featured:hover { border-color: var(--t-line-strong); }
 .jcp-proj-visual { height: 205px; display: flex; align-items: center; justify-content: center; background: var(--t-raised); border-bottom: 1px solid var(--t-line); overflow: hidden; }
 .jcp-proj-visual img { width: 100%; height: 100%; object-fit: contain; background: var(--t-bg); }
 .jcp-market-visual { padding: 26px; flex-direction: column; align-items: stretch; justify-content: space-between; }
 .jcp-visual-label,.jcp-visual-foot { font-size: 10px; color: var(--t-ink-dim); }
 .jcp-visual-label { letter-spacing: .1em; }
 .jcp-market-channels { display: flex; gap: 10px; margin: 18px 0; }
-.jcp-market-channels > span { border-top: 1px solid #64744d; flex: 1; padding-top: 10px; font-size: 10px; color: var(--t-ink-dim); }
+.jcp-market-channels > span { border-top: 1px solid var(--t-line-strong); flex: 1; padding-top: 10px; font-size: 10px; color: var(--t-ink-dim); }
 .jcp-market-channels b { display: block; margin-top: 8px; color: var(--t-accent); font-size: clamp(13px,1.65vw,20px); font-weight: 500; letter-spacing: -.03em; }
 .jcp-proj-info { padding: 26px; flex: 1; display: flex; flex-direction: column; }
 .jcp-proj-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--t-ink-dim); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }

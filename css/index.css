@@ -22,7 +22,7 @@ body:has(.jcp-terminal) main#quarto-document-content { width: 100%; max-width: n
 .t-intro .t-role { font-size: 17px; line-height: 1.8; margin: 0 0 16px; }
 .t-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; margin-top: 20px; }
 .t-primary { background: var(--t-accent); color: var(--t-bg); padding: 12px 18px; font-size: 14px; font-weight: 600; }
-.t-primary:hover { background: #a1ff47; color: var(--t-bg); }
+.t-primary:hover { background: var(--t-accent-hover); color: var(--t-bg); }
 .t-text-link { font-size: 14px; color: var(--t-ink-bright); border-bottom: 1px solid var(--t-line); padding: 8px 0; }
 .t-text-link:hover { color: var(--t-accent); border-color: var(--t-accent); }
 #jcp-terminal .t-identity { grid-column: auto !important; z-index: auto; border: 1px solid var(--t-line); background: var(--t-panel); min-width: 0; }
@@ -37,7 +37,7 @@ body:has(.jcp-terminal) main#quarto-document-content { width: 100%; max-width: n
 .t-section-heading a:hover { color: var(--t-accent); }
 .t-latest-card { display: grid; grid-template-columns: 1fr; background: var(--t-panel); border: 1px solid var(--t-line); color: inherit; margin-bottom: 24px; transition: border-color .18s; }
 .t-latest-with-image { grid-template-columns: 1.2fr 1fr; }
-.t-latest-card:hover { border-color: #64744d; color: inherit; }
+.t-latest-card:hover { border-color: var(--t-line-strong); color: inherit; }
 .t-latest-copy { padding: 24px 28px; }
 .t-latest-label { color: var(--t-ink-dim); display: flex; flex-wrap: wrap; gap: 16px; font-size: 12px; letter-spacing: .05em; }
 .t-latest-label strong { color: var(--t-accent); font-weight: 400; }
