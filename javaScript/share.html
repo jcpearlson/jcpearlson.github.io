@@ -1,83 +1,77 @@
 <script>
+// Subscribe form and share button at the end of each article.
 document.addEventListener('DOMContentLoaded', function() {
-  // Don't run on the main listing page
-  if (document.querySelector('.quarto-listing-container-default')) {
-    return;
-  }
-
   const contentArea = document.querySelector('main#quarto-document-content');
-  if (!contentArea) return;
+  if (!contentArea || document.querySelector('.quarto-listing')) return;
+  const { SUBSCRIBE_URL } = window.JCP;
 
   // --- 1. GATHER METADATA ---
-  const title = document.querySelector('.quarto-title.column-body h1.title')?.textContent.trim() || 'Article';
+  const title = document.querySelector('.quarto-title h1.title')?.textContent.trim() || document.title;
   let author = 'Josh Pearlson';
   let date = '';
   const url = window.location.href;
-
-  const metaHeadings = document.querySelectorAll('.quarto-title-meta-heading');
-  metaHeadings.forEach(heading => {
-    const headingText = heading.textContent.trim();
-    const contentsEl = heading.nextElementSibling;
-    if (contentsEl && contentsEl.classList.contains('quarto-title-meta-contents')) {
-      if (headingText === 'Author') author = contentsEl.querySelector('p')?.textContent.trim() || author;
-      if (headingText === 'Published') date = contentsEl.querySelector('p.date')?.textContent.trim() || date;
-    }
+  document.querySelectorAll('.quarto-title-meta-heading').forEach(heading => {
+    const contents = heading.nextElementSibling;
+    if (!contents || !contents.classList.contains('quarto-title-meta-contents')) return;
+    const label = heading.textContent.trim();
+    if (label === 'Author') author = contents.querySelector('p')?.textContent.trim() || author;
+    if (label === 'Published') date = contents.querySelector('p.date')?.textContent.trim() || date;
   });
 
-  // --- 2. BUILD COMBINED FOOTER ---
+  // --- 2. BUILD FOOTER ---
   const footer = document.createElement('div');
   footer.className = 'article-footer';
-
-  // Subscribe section (left)
-  const subscribeSection = document.createElement('div');
-  subscribeSection.className = 'subscribe-section';
-  subscribeSection.innerHTML = `
-    <p class="subscribe-label">Get notified when a new article drops.</p>
-    <form action="https://buttondown.com/api/emails/embed-subscribe/jcp"
-          method="post"
-          class="subscribe-form"
-          target="_blank">
-      <input type="email" name="email" placeholder="your@email.com" aria-label="Email address" autocomplete="email" required />
-      <button type="submit">Subscribe →</button>
-    </form>
-  `;
-
-  subscribeSection.querySelector('form').addEventListener('submit', function() {
-    if (window.goatcounter && window.goatcounter.count) {
-      window.goatcounter.count({ path: 'subscribe-article', title: 'Newsletter Signup - Article', event: true });
-    }
-  });
-
-  // Share button (right)
-  const shareContainer = document.createElement('div');
-  shareContainer.className = 'share-article-container';
-
-  const shareButton = document.createElement('button');
-  shareButton.className = 'share-article-button';
-  shareButton.textContent = 'Share this Article';
-
-  shareContainer.appendChild(shareButton);
-
-  footer.appendChild(subscribeSection);
-  footer.appendChild(shareContainer);
+  footer.innerHTML = `
+    <div class="subscribe-section">
+      <p class="subscribe-label">Get notified when a new article drops.</p>
+      <form action="${SUBSCRIBE_URL}" method="post" class="subscribe-form" target="_blank"
+            data-subscribe="subscribe-article" data-subscribe-title="Newsletter Signup - Article">
+        <input type="email" name="email" placeholder="your@email.com" aria-label="Email address" autocomplete="email" required />
+        <button type="submit">Subscribe →</button>
+      </form>
+    </div>
+    <div class="share-article-container">
+      <button type="button" class="share-article-button">Share this Article</button>
+    </div>`;
   contentArea.appendChild(footer);
 
-  // --- 3. SHARE CLICK HANDLER ---
-  shareButton.addEventListener('click', function() {
-    const shareText = `"${title}" by ${author} (Published: ${date}): ${url}`;
-    navigator.clipboard.writeText(shareText).then(() => {
-      const originalText = shareButton.textContent;
-      shareButton.textContent = 'Copied to clipboard!';
-      shareButton.classList.add('copied');
-      setTimeout(() => {
-        shareButton.textContent = originalText;
-        shareButton.classList.remove('copied');
-      }, 3000);
-    }).catch(() => {
-      const originalText = shareButton.textContent;
-      shareButton.textContent = 'Copy failed!';
-      setTimeout(() => { shareButton.textContent = originalText; }, 3000);
+  // --- 3. SHARE ---
+  const shareButton = footer.querySelector('.share-article-button');
+  const label = shareButton.textContent;
+  const citation = `"${title}" by ${author}${date ? ` (Published: ${date})` : ''}`;
+
+  function flash(text, copied) {
+    shareButton.textContent = text;
+    shareButton.classList.toggle('copied', copied);
+    setTimeout(() => {
+      shareButton.textContent = label;
+      shareButton.classList.remove('copied');
+    }, 3000);
+  }
+
+  // navigator.clipboard needs a secure context; fall back to a hidden textarea.
+  function copy(text) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    return new Promise((resolve, reject) => {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      ta.remove();
+      ok ? resolve() : reject(new Error('copy failed'));
     });
+  }
+
+  shareButton.addEventListener('click', function() {
+    // Phones get the native share sheet; everything else copies a citation line.
+    if (navigator.share && window.matchMedia('(pointer: coarse)').matches) {
+      navigator.share({ title, text: citation, url }).catch(() => {});
+      return;
+    }
+    copy(`${citation}: ${url}`).then(() => flash('Copied to clipboard!', true), () => flash('Copy failed!', false));
   });
 });
 </script>

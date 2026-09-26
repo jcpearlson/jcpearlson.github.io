@@ -29,6 +29,8 @@ website:
 format:
   html:
     theme: slate
+    # Site-wide includes run before page-level ones; terminal.html defines window.JCP.
     include-after-body:
+      - javaScript/terminal.html
       - javaScript/console.html
       - javaScript/analytics.html

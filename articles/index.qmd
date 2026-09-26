@@ -15,21 +15,11 @@ css:
   - ../css/blog_homepage.css
 include-after-body:
   - ../javaScript/articles-table.html
-  - ../javaScript/terminal.html
 ---
 
 ```{=html}
 <div class="jcp-terminal" id="jcp-terminal">
-  <div class="t-tabs" role="navigation" aria-label="Main navigation">
-    <a href="/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>home</a>
-    <a href="/about/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>about</a>
-    <a href="/articles/" class="t-tab t-tab-active" aria-current="page"><span class="t-tab-indicator">▸</span>articles</a>
-    <a href="/projects/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>projects</a>
-    <a href="/contact/" class="t-tab"><span class="t-tab-indicator">&nbsp;</span>contact</a>
-    <div class="t-tabs-spacer"></div>
-    <div class="t-title" id="t-title">jcp@joshpearlson: ~/articles</div>
-  </div>
-  <div class="t-body" id="t-body" data-page="other">
+  <div class="t-body">
 
     <header class="t-page-heading">
       <div class="t-command"><span class="t-prompt">$</span>ls ~/articles</div>
@@ -44,37 +34,15 @@ include-after-body:
       <form action="https://buttondown.com/api/emails/embed-subscribe/jcp"
             method="post"
             class="jcp-sub-form"
-            target="_blank">
+            target="_blank"
+            data-subscribe="subscribe-blog"
+            data-subscribe-title="Newsletter Signup - Blog">
         <input type="email" name="email" placeholder="you@domain.com" aria-label="Email address" autocomplete="email" required class="jcp-sub-input" />
         <button type="submit" class="jcp-sub-btn" aria-label="Subscribe to Priors">Subscribe →</button>
       </form>
     </div>
 
   </div>
-  <div class="t-status">
-    <span><span class="t-status-dot">●</span> online</span>
-    <span id="t-status-count">— articles · — projects</span>
-    <span class="t-status-weather" id="t-status-weather">
-      New York, NY
-    </span>
-  </div>
 </div>
 
-<script>
-// GoatCounter event for newsletter signup on blog listing
-document.addEventListener('DOMContentLoaded', function() {
-  var form = document.querySelector('.jcp-sub-form');
-  if (form) {
-    form.addEventListener('submit', function() {
-      if (window.goatcounter && window.goatcounter.count) {
-        window.goatcounter.count({
-          path: 'subscribe-blog',
-          title: 'Newsletter Signup - Blog',
-          event: true
-        });
-      }
-    });
-  }
-});
-</script>
 ```

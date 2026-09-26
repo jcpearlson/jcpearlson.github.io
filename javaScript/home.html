@@ -1,0 +1,78 @@
+<script>
+// Home page body: hero, latest-article card and directory links.
+// terminal.html has already drawn the tab and status bars around #jcp-terminal.
+(function() {
+  const { esc, el, articleListing } = window.JCP;
+  const ASCII = `     ██╗ ██████╗██████╗
+     ██║██╔════╝██╔══██╗
+     ██║██║     ██████╔╝
+██   ██║██║     ██╔═══╝
+╚█████╔╝╚██████╗██║
+ ╚════╝  ╚═════╝╚═╝`;
+
+  const BODY = `<div class="t-body">
+      <div class="t-hero"><div class="t-intro">
+        <div class="t-command"><span class="t-prompt">$</span>whoami</div>
+        <h1>Josh Pearlson<span aria-hidden="true">_</span></h1>
+        <p class="t-role">Quant @ BlackRock.<br>I write about <span class="t-accent">markets & machines.</span></p>
+        <div class="t-actions"><a class="t-primary" href="/articles/">Read the articles →</a><a class="t-text-link" href="/projects/">Explore projects →</a></div>
+      </div><aside class="t-identity" aria-label="JCP terminal identity">
+        <div class="t-identity-label"><span>~/identity.txt</span><span>UTF-8</span></div>
+        <div class="t-ascii-frame"><pre class="t-ascii" aria-label="JCP ASCII logo">${ASCII}</pre></div>
+        <div class="t-identity-footer"><span>finance / ML / probability</span><span class="t-accent">NYC</span></div>
+      </aside></div>
+      <section aria-label="Latest article"><div class="t-section-heading"><h2><span class="t-prompt">$</span>cat latest.md</h2><a href="/articles/">All articles →</a></div>
+        <div id="t-latest-mount"><a class="t-text-link" href="/articles/">Browse the latest writing →</a></div>
+      </section>
+      <nav aria-label="Explore the site"><div class="t-section-heading"><h2><span class="t-prompt">$</span>ls ./</h2></div>
+        <div class="t-ls-grid">
+          <a href="/about/" class="t-ls-cell"><div class="t-ls-name">01 / about →</div><div class="t-ls-path">Background, research & interests</div></a>
+          <a href="/projects/" class="t-ls-cell"><div class="t-ls-name">02 / projects →</div><div class="t-ls-path">Tools, experiments & things I’ve built</div></a>
+          <a href="/contact/" class="t-ls-cell"><div class="t-ls-name">03 / contact →</div><div class="t-ls-path">Say hello. Cold emails welcome.</div></a>
+        </div>
+      </nav>
+    </div>`;
+
+  function latestCard(post) {
+    const tags = post.cats.map(c => `<span class="t-chip">${esc(c)}</span>`).join('');
+    const art = post.image
+      ? `<div class="t-latest-visual"><img src="${esc(post.image)}" alt="" loading="lazy" /></div>`
+      : '';
+    return `<a href="${esc(post.href)}" class="t-latest-card${post.image ? ' t-latest-with-image' : ''}"><div class="t-latest-copy">
+      <div class="t-latest-label"><strong>LATEST ARTICLE</strong><span>${esc(post.date)}</span></div>
+      <h2 class="t-latest-title">${esc(post.title)}</h2>
+      <div class="t-latest-excerpt">${esc(post.excerpt)}</div>
+      <div class="t-latest-meta">${tags}<span class="t-read-arrow">Read article →</span></div>
+    </div>${art}</a>`;
+  }
+
+  // Trim the listing description to roughly two sentences.
+  function excerptOf(text) {
+    const raw = text.trim().replace(/\s+/g, ' ');
+    const clipped = raw.length > 230 ? raw.slice(0, 227).replace(/\s+\S*$/, '') + '…' : raw;
+    const sentenceEnd = Math.max(clipped.lastIndexOf('. '), clipped.lastIndexOf('! '), clipped.lastIndexOf('? '));
+    return sentenceEnd > 60 ? clipped.slice(0, sentenceEnd + 1) : clipped;
+  }
+
+  const mount = document.getElementById('jcp-terminal');
+  if (!mount) return;
+  mount.querySelector('.t-status').before(el(BODY));
+
+  // Read Quarto's rendered listing so date, categories and images stay in sync.
+  articleListing().then(doc => {
+    const post = doc.querySelector('.quarto-post');
+    const link = post && post.querySelector('.listing-title a');
+    if (!link) return;
+    const listingUrl = new URL('/articles/', location.origin);
+    const img = post.querySelector('.thumbnail img');
+    document.getElementById('t-latest-mount').innerHTML = latestCard({
+      href: new URL(link.getAttribute('href'), listingUrl).href,
+      title: link.textContent.trim(),
+      excerpt: excerptOf(post.querySelector('.listing-description')?.textContent || ''),
+      date: post.querySelector('.listing-date')?.textContent.trim() || '',
+      cats: Array.from(post.querySelectorAll('.listing-category')).map(c => c.textContent.trim()),
+      image: img?.getAttribute('src') ? new URL(img.getAttribute('src'), listingUrl).href : ''
+    });
+  }).catch(() => {});
+})();
+</script>
