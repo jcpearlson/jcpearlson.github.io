@@ -9,7 +9,7 @@ Perpetual futures have no expiry. Funding payments keep their price near spot an
 
 ---
 
-![Perps](../../../media/perps_image.png)
+![Perps](../../../media/perps_image.jpg)
 
 Perpetual futures ("perps") let traders hold leveraged exposure without a fixed expiry. They look like futures, trade like futures, and offer clean linear exposure with leverage. But they never expire, and that design choice affects how prices stay near spot, where liquidity concentrates, and how funding rates price leverage.
 

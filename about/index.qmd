@@ -87,8 +87,8 @@ css:
       <div class="jcp-about-right">
 
         <div class="jcp-photo-box">
-          <img src="../media/jpPhoto3.png" alt="Josh Pearlson" class="jcp-photo" />
-          <div class="jcp-photo-cap">./jpPhoto3.png</div>
+          <img src="../media/jpPhoto3.jpg" alt="Josh Pearlson" class="jcp-photo" />
+          <div class="jcp-photo-cap">./jpPhoto3.jpg</div>
         </div>
 
         <div class="jcp-tabs-box" id="jcp-ai-tabs">

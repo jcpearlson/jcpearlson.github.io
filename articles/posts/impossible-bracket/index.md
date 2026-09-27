@@ -9,7 +9,7 @@ With independent coin-flip picks, the odds of a perfect March Madness bracket ar
 
 ---
 
-![The Impossible Bracket](../../../media/impossible-bracket-header.png)
+![The Impossible Bracket](../../../media/impossible-bracket-header.jpg)
 
 Every March, millions of people fill out NCAA Basketball brackets convinced that this is their year. In 2014, Warren Buffett [offered a billion dollars](https://www.espn.com/blog/collegebasketballnation/post/_/id/92892/buffet-a-billion-dollars-for-perfect-bracket) to anyone who could pick every one of the 63 games correctly. Kalshi has revived this offer by running the [same bet this year](https://kalshi.com/billion-dollar-bracket), backed by trading firm [SIG](https://sig.com/). Here is the math behind the low expected cost of offering this "prize".
 
