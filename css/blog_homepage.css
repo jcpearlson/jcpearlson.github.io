@@ -3,8 +3,8 @@
 .jcp-catrow { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; padding: 20px 0; border-top: 1px solid var(--t-line); border-bottom: 1px solid var(--t-line); }
 .jcp-filter-label { color: var(--t-ink-dim); font-size: 11px; letter-spacing: .08em; margin-right: 6px; }
 .jcp-cat { background: transparent; border: 1px solid var(--t-line); color: var(--t-ink-dim); padding: 8px 14px; font: 12px/1.5 var(--t-mono); cursor: pointer; }
-.jcp-cat:hover { color: var(--t-ink-bright); border-color: #64744d; }
-.jcp-cat-sel { background: var(--t-raised); color: var(--t-accent); border-color: #64744d; }
+.jcp-cat:hover { color: var(--t-ink-bright); border-color: var(--t-line-strong); }
+.jcp-cat-sel { background: var(--t-raised); color: var(--t-accent); border-color: var(--t-line-strong); }
 .jcp-art-head, .jcp-art-row { display: grid; grid-template-columns: 125px minmax(0,1fr) 155px; gap: 25px; align-items: start; }
 .jcp-art-head { padding: 18px 0 0; color: var(--t-ink-dim); font-size: 10px; letter-spacing: .1em; }
 .jcp-art-head > :last-child { text-align: right; }
@@ -24,7 +24,7 @@
 .jcp-sub-form { display: flex; align-items: stretch; gap: 8px; flex: 1; min-width: 0; }
 .jcp-sub-input { flex: 1; min-width: 0; width: 100%; background: var(--t-bg); border: 1px solid var(--t-line); color: var(--t-ink-bright); padding: 11px 12px; font: 14px var(--t-mono); }
 .jcp-sub-input::placeholder { color: var(--t-ink-dim); }
-.jcp-sub-btn { border: 1px solid #64744d; background: var(--t-raised); color: var(--t-accent); font: 12px var(--t-mono); padding: 10px 13px; cursor: pointer; white-space: nowrap; }
+.jcp-sub-btn { border: 1px solid var(--t-line-strong); background: var(--t-raised); color: var(--t-accent); font: 12px var(--t-mono); padding: 10px 13px; cursor: pointer; white-space: nowrap; }
 .jcp-sub-btn:hover { background: var(--t-accent); color: var(--t-bg); }
 @media (max-width: 900px) { .jcp-art-head,.jcp-art-row { grid-template-columns: 110px minmax(0,1fr); gap: 20px; } .jcp-art-head > :last-child,.jcp-art-tags { display: none; } .jcp-subscribe { flex-direction: column; align-items: stretch; gap: 16px; } }
 @media (max-width: 600px) { .jcp-art-head { display: none; } .jcp-art-row { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; } .t-body .jcp-art-title { font-size: 18px; } .jcp-cat { font-size: 11px; padding: 8px 12px; } .jcp-filter-label { display: none; } .jcp-subscribe { padding: 22px 18px; } }

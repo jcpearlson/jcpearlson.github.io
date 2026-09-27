@@ -6,7 +6,7 @@ page-layout: full
 css:
   - css/index.css
 include-after-body:
-  - javaScript/terminal.html
+  - javaScript/home.html
 ---
 
 ```{=html}

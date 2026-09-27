@@ -8,9 +8,7 @@
     history.replaceState(null, '', window.location.pathname + window.location.search);
   }
 
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  }
+  const esc = s => window.JCP.esc(s);
 
   function readPosts(container) {
     const posts = Array.from(container.querySelectorAll('.quarto-post'));
@@ -104,10 +102,9 @@
     renderTable(mount, posts, cats, initialCat);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  // Run now rather than on DOMContentLoaded: Quarto's listing script filters
+  // (and removes) posts from a #category= hash at that point, and its match is
+  // case-sensitive, so waiting would read an empty or partial list.
+  init();
 })();
 </script>

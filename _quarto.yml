@@ -23,27 +23,14 @@ website:
   favicon: media/jcp_logo2.png
   search:
     keyboard-shortcut: ["f"]
-  navbar:
-    logo: media/jcp_logo3.png
-    right:
-      - text: "Articles"
-        href: articles/
-      - text: "Projects"
-        href: projects/
-      - text: "About"
-        href: about/
-      - text: "Contact"
-        href: contact/
+  # The Bootstrap navbar is hidden by the terminal chrome (javaScript/terminal.html),
+  # but it still hosts Quarto's search overlay, opened with the "f" key.
+  navbar: true
 format:
   html:
-    theme:
-      # cyborg
-      # darkly
-      slate
-      # superhero
-      # dark: darkly
-      # light: cosmos
-    css: css/header.css
+    theme: slate
+    # Site-wide includes run before page-level ones; terminal.html defines window.JCP.
     include-after-body:
+      - javaScript/terminal.html
       - javaScript/console.html
       - javaScript/analytics.html

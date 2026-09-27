@@ -1,9 +1,8 @@
 /.quarto/
 blankfile.txt
-.gitignore
-.github
 .claude
 .claire
 .DS_Store
 .agents/
 AGENTS.MD
+~$*

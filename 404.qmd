@@ -5,21 +5,10 @@ title-block-banner: false
 page-layout: full
 css:
   - css/index.css
-include-after-body:
-  - javaScript/terminal.html
 ---
 
 ```{=html}
-<div class="jcp-terminal" id="jcp-terminal">
-  <nav class="t-tabs" aria-label="Main navigation">
-    <a href="/" class="t-tab">home</a>
-    <a href="/about/" class="t-tab">about</a>
-    <a href="/articles/" class="t-tab">articles</a>
-    <a href="/projects/" class="t-tab">projects</a>
-    <a href="/contact/" class="t-tab">contact</a>
-    <div class="t-tabs-spacer"></div>
-    <div class="t-title">jcp@joshpearlson: ~/404</div>
-  </nav>
+<div class="jcp-terminal" id="jcp-terminal" data-title="~/404" data-tab="none" data-status="page not found">
   <div class="t-body">
     <header class="t-page-heading">
       <div class="t-command"><span class="t-prompt">$</span>cd ./unknown</div>
@@ -28,6 +17,5 @@ include-after-body:
     </header>
     <div class="t-actions"><a href="/" class="t-primary">Return home →</a><a href="/articles/" class="t-text-link">Browse articles →</a></div>
   </div>
-  <div class="t-status"><span><span class="t-status-dot">●</span> online</span><span>page not found</span><span class="t-status-weather" id="t-status-weather">New York, NY</span></div>
 </div>
 ```

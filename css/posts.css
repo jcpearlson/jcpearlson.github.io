@@ -1,406 +1,156 @@
+/* Article pages: terminal chrome around a proportional reading column. */
 @import url('terminal-theme.css');
 
-/* Article chrome uses the same tabs and palette as the directory pages. */
+/* ========== PAGE FRAME ========== */
+
+/* article-chrome.html replaces Quarto's title block with the terminal header. */
 body.jcp-article-page :is(#quarto-header, .navbar, header.headroom, #title-block-header, .quarto-title-banner, .quarto-title, .quarto-title-block) { display: none !important; }
-body.jcp-article-page { background: var(--t-bg) !important; color: var(--t-ink); font-family: var(--t-reading); padding-top: 56px !important; padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)) !important; }
+body.jcp-article-page {
+  background: var(--t-bg);
+  color: var(--t-ink);
+  font-family: var(--t-reading);
+  /* Quarto writes an inline padding-top for its (hidden) fixed navbar; reserve the tab bar instead. */
+  padding-top: 56px !important;
+  padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+}
 .jcp-article-tabbar { position: fixed; inset: 0 0 auto; z-index: 1000; }
 .jcp-article-statusbar { position: fixed; inset: auto 0 0; z-index: 1000; background: var(--t-panel); padding-bottom: env(safe-area-inset-bottom, 0px); }
 
-/* Article header block */
-.t-art-header {
-  margin: 0 0 36px;
-  padding: 48px 0 0;
+body.jcp-article-page main#quarto-document-content {
+  font-family: var(--t-reading);
+  width: 100%;
+  min-width: 0;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0;
 }
-.t-art-prompt {
-  font-size: 15px;
-  color: var(--t-ink-dim);
-  margin-bottom: 14px;
-  font-family: "IBM Plex Mono", monospace;
-}
-.t-prompt { color: var(--t-accent); font-weight: 700; margin-right: 10px; }
-.t-art-title {
-  font-size: clamp(32px, 3.8vw, 48px);
-  font-weight: 600;
-  color: var(--t-ink-bright);
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin-bottom: 16px;
-}
-.t-art-meta {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-bottom: 22px;
-  font-size: 14px;
-}
-.t-art-date { color: var(--t-ink-dim); font-variant-numeric: tabular-nums; }
-.t-art-meta .t-chip {
-  border: 1px solid var(--t-line);
-  color: #8fa28a;
-  padding: 2px 8px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-size: 12px;
-}
-.t-art-rule {
-  border-top: 1px solid var(--t-line);
-  margin-top: 4px;
-}
-
-/* ── TOC scrollspy — terminal reskin ── */
-body.jcp-article-page .scrollspy-nav {
-  top: 68px !important;
-  background: transparent !important;
-  border: none !important;
-  border-left: 1px solid var(--t-line) !important;
-  padding-left: 16px !important;
-  padding-right: 0 !important;
-}
-body.jcp-article-page .scrollspy-nav a {
-  color: var(--t-ink-dim) !important;
-  font-family: "IBM Plex Mono", monospace !important;
-  font-size: 14px !important;
-  letter-spacing: 0.02em !important;
-  text-decoration: none !important;
-  display: block !important;
-  padding: 3px 0 !important;
-  border: none !important;
-  background: transparent !important;
-  transition: color 0.15s;
-}
-body.jcp-article-page .scrollspy-nav a:hover {
-  color: var(--t-ink) !important;
-}
-body.jcp-article-page .scrollspy-nav a.active {
-  color: var(--t-accent) !important;
-}
-body.jcp-article-page .scrollspy-title {
-  color: var(--t-ink-dim) !important;
-  font-family: "IBM Plex Mono", monospace !important;
-  font-size: 11px !important;
-  letter-spacing: 0.15em !important;
-  text-transform: uppercase !important;
-  margin-bottom: 8px !important;
-  display: block;
-}
-
-/* ── Share / subscribe footer — terminal reskin ── */
-body.jcp-article-page .article-footer {
-  margin-top: 48px;
-  border-top: 1px solid var(--t-line);
-  padding-top: 28px;
-  font-family: "IBM Plex Mono", monospace;
-  display: flex !important;
-  flex-direction: row !important;
-  gap: 12px !important;
-  align-items: stretch !important;
-}
-body.jcp-article-page .article-footer .subscribe-section {
-  flex: 1 !important;
-  background: var(--t-panel) !important;
-  border: 1px solid var(--t-line) !important;
-  border-radius: 0 !important;
-  padding: 18px 22px !important;
-  margin-bottom: 0 !important;
-}
-body.jcp-article-page .article-footer .share-article-container {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: var(--t-panel) !important;
-  border: 1px solid var(--t-line) !important;
-  border-radius: 0 !important;
-  padding: 18px 28px !important;
-  margin-bottom: 0 !important;
-  flex-shrink: 0 !important;
-}
-body.jcp-article-page .article-footer input[type="email"] {
-  background: transparent !important;
-  border: 1px solid var(--t-line) !important;
-  border-radius: 0 !important;
-  color: var(--t-ink) !important;
-  font-family: inherit !important;
-  font-size: 14px !important;
-  padding: 8px 12px !important;
-  outline: none !important;
-}
-body.jcp-article-page .article-footer input[type="email"]:focus {
-  border-color: var(--t-accent) !important;
-}
-body.jcp-article-page .article-footer button[type="submit"],
-body.jcp-article-page .article-footer .share-article-button {
-  background: transparent !important;
-  border: 1px solid var(--t-accent) !important;
-  border-radius: 0 !important;
-  color: var(--t-accent) !important;
-  font-family: inherit !important;
-  font-size: 14px !important;
-  padding: 8px 18px !important;
-  cursor: pointer !important;
-  letter-spacing: 0.05em !important;
-  transition: background 0.15s, color 0.15s !important;
-}
-body.jcp-article-page .article-footer button[type="submit"]:hover,
-body.jcp-article-page .article-footer .share-article-button:hover {
-  background: var(--t-accent) !important;
-  color: var(--t-bg) !important;
-}
-body.jcp-article-page .article-footer .subscribe-label {
-  color: var(--t-ink) !important;
-  font-size: 14px !important;
-  margin-bottom: 12px !important;
-}
-body.jcp-article-page .article-footer a {
-  color: var(--t-ink-dim) !important;
-  text-decoration: none !important;
-}
-body.jcp-article-page .article-footer a:hover {
-  color: var(--t-accent) !important;
-}
-@media (max-width: 700px) {
-  body.jcp-article-page .article-footer {
-    flex-direction: column !important;
-  }
-}
-
-/* ========== TITLE & BANNER ========== */
-
-.quarto-title-banner.page-columns.page-full {
-  background-color: transparent !important;
-  border-bottom: none;
-  padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-.quarto-title.column-body h1.title,
-.quarto-title-block-header h1.title {
-    color: rgba(124, 255, 0, 0.95) !important;
-    font-weight: 600;
-}
-
-/* Article metadata — pull up tight to the title, no gap */
-.quarto-title-meta {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  gap: 0 !important;
-  flex-wrap: nowrap;
-  margin-top: 0 !important;
-  padding: 4px 0 20px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* Hide the "Author" / "Published" labels — redundant */
-.quarto-title-meta-heading {
-  display: none !important;
-}
-
-/* Each meta group sits inline */
-.quarto-title-meta > div {
-  display: flex !important;
-  align-items: center;
-}
-
-/* Separator dot between author and date */
-.quarto-title-meta > div + div::before {
-  content: "·";
-  color: rgba(255, 255, 255, 0.25);
-  font-size: 0.85rem;
-  padding: 0 10px;
-}
-
-/* Author and date values */
-.quarto-title-meta-contents,
-.quarto-title-meta-contents p {
-  color: rgba(255, 255, 255, 0.45) !important;
-  font-size: 0.78rem !important;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace !important;
-  letter-spacing: 0.03em !important;
-  margin: 0 !important;
-}
-
-/* ========== MOBILE-FIRST LAYOUT & TYPOGRAPHY ========== */
-
-/* Default: single column, ToC is hidden */
-.scrollspy-nav {
-  display: none;
-}
-
-main#quarto-document-content {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 15px; /* Padding for mobile */
-}
-
-#quarto-content p, 
-#quarto-content li {
-  color: rgba(255, 255, 255, 0.92);
-  line-height: 1.7;
-  font-size: 18px;
-}
-
-/* ========== WIDE-SCREEN LAYOUT (DESKTOP) ========== */
+body.jcp-article-page #quarto-content { display: block; padding: 0 var(--t-frame-pad); }
 
 @media (min-width: 1200px) {
-  #quarto-content.page-layout-article {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 760px) minmax(0, 1fr); /* Centered content column */
-      gap: 28px;
-      padding: 0 20px;
+  body.jcp-article-page #quarto-content.page-layout-article {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 760px) minmax(0, 1fr);
+    gap: 28px;
+    padding: 0 20px;
   }
+  body.jcp-article-page main#quarto-document-content { grid-column: 2 / 3; }
+}
+@media (max-width: 1199px) {
+  body.jcp-article-page { --t-frame-pad: 28px; }
+}
+@media (max-width: 600px) {
+  body.jcp-article-page { --t-frame-pad: 22px; padding-top: 46px !important; }
+}
 
+/* ========== ARTICLE HEADER ========== */
+
+.t-art-header { margin: 0 0 36px; padding: 48px 0 0; font-family: var(--t-mono); }
+.t-art-prompt { font-size: 12px; color: var(--t-ink-dim); margin-bottom: 14px; overflow-wrap: anywhere; }
+.t-art-header .t-prompt { font-weight: 700; }
+body.jcp-article-page #quarto-content h1.t-art-title { font-size: clamp(32px, 3.8vw, 48px); line-height: 1.18; margin: 0 0 20px; }
+.t-art-meta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 22px; font-size: 12px; }
+.t-art-date { color: var(--t-ink-dim); font-variant-numeric: tabular-nums; }
+.t-art-meta .t-chip { color: #8fa28a; padding: 2px 8px; letter-spacing: .06em; }
+.t-art-rule { border-top: 1px solid var(--t-line); margin-top: 4px; }
+@media (max-width: 600px) {
+  .t-art-header { padding-top: 32px; }
+}
+
+/* ========== TABLE OF CONTENTS (toc-scrollspy.html) ========== */
+
+.scrollspy-nav { display: none; }
+@media (min-width: 1200px) {
   .scrollspy-nav {
-    display: block; /* Show the ToC on wide screens */
+    display: block;
     grid-column: 1 / 2;
     justify-self: end;
     align-self: start;
     position: sticky;
-    top: 100px;
+    top: 68px;
     width: 100%;
     max-width: 250px;
     max-height: calc(100vh - 120px);
     overflow-y: auto;
-    background: rgba(0, 20, 0, 0.5);
-    border: 1px solid rgba(124, 255, 0, 0.2);
-    border-radius: 8px;
-    padding: 15px;
-  }
-
-  main#quarto-document-content {
-      grid-column: 2 / 3;
-      padding: 0; /* Grid gap handles spacing */
-      max-width: 760px; /* Reading width on desktop */
-  }
-
-  /* Increase font size for desktop */
-  #quarto-content p, 
-  #quarto-content li {
-    font-size: 18px;
+    border-left: 1px solid var(--t-line);
+    padding: 15px 0 15px 16px;
   }
 }
-
-/* ========== SCROLLSPY STYLES (Applies only when visible) ========== */
-
-.scrollspy-header {
-  color: rgba(124, 255, 0, 0.95);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+body.jcp-article-page #quarto-content .scrollspy-header {
+  font: 11px/1.5 var(--t-mono);
+  color: var(--t-ink-dim);
+  letter-spacing: .1em;
   text-transform: uppercase;
-  margin: 0 0 10px 10px;
+  margin: 0 0 15px;
   padding: 0;
 }
-
-.scrollspy-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.scrollspy-item {
-  margin-bottom: 5px;
-}
-
-#quarto-content .scrollspy-link {
-  color: rgba(255, 255, 255, 0.55);
-  font-size: 0.95rem;
-  text-decoration: none;
-  border-bottom: none;
+.scrollspy-list { list-style: none; padding: 0; margin: 0; }
+.scrollspy-item { margin-bottom: 5px; }
+.toc-level-h3 { padding-left: 15px; }
+body.jcp-article-page #quarto-content .scrollspy-link {
   display: block;
-  padding: 5px 10px;
-  border-left: 3px solid transparent;
-  transition: all 0.3s ease;
+  padding: 7px 0;
+  border: 0;
+  color: var(--t-ink-dim);
+  font: 12px/1.7 var(--t-mono);
+  letter-spacing: .02em;
+  overflow-wrap: anywhere;
+  transition: all .3s ease;
 }
-
-#quarto-content .scrollspy-link:hover {
-  color: rgba(255, 255, 255, 0.9);
-  background-color: rgba(255, 255, 255, 0.05);
-  border-bottom: none;
-}
-
-#quarto-content .scrollspy-link.active {
-  color: rgba(124, 255, 0, 0.95);
+body.jcp-article-page #quarto-content .scrollspy-link:hover { color: var(--t-ink); }
+body.jcp-article-page #quarto-content .scrollspy-link.active {
+  color: var(--t-accent);
   font-weight: 600;
-  border-left: 3px solid rgba(124, 255, 0, 0.95);
-  border-bottom: none;
-  box-shadow: inset 5px 0 10px -5px rgba(124, 255, 0, 0.2);
+  box-shadow: inset 5px 0 10px -5px rgba(124, 255, 0, .2);
 }
 
-.toc-level-h3 {
-  padding-left: 15px;
+/* ========== BODY TEXT ========== */
+
+#quarto-content :is(p, li) { color: var(--t-ink); line-height: 1.85; font-size: 18px; }
+body.jcp-article-page main#quarto-document-content > p:first-of-type { font-size: 21px; color: var(--t-ink-bright); line-height: 1.7; }
+body.jcp-article-page #quarto-content :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--t-ink-bright);
+  font-family: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: -.035em;
+  line-height: 1.35;
+  scroll-margin-top: 85px;
 }
-
-/* ========== CORE BODY & TEXT STYLES ========== */
-
-#quarto-content h1,
-#quarto-content h2 {
-  color: rgba(124, 255, 0, 0.95);
-}
-
-#quarto-content h3,
-#quarto-content h4,
-#quarto-content h5,
-#quarto-content h6 {
-  color: rgba(255, 255, 255, 0.9);
+body.jcp-article-page #quarto-content h2 { font-size: 25px; margin-top: 42px; padding-bottom: 12px; border-bottom: 1px solid var(--t-line); }
+body.jcp-article-page #quarto-content h3 { font-size: 21px; margin-top: 32px; }
+body.jcp-article-page #quarto-content section[id] { scroll-margin-top: 85px; }
+@media (max-width: 600px) {
+  #quarto-content :is(p, li) { font-size: 17px; }
+  body.jcp-article-page main#quarto-document-content > p:first-of-type { font-size: 19px; }
+  body.jcp-article-page #quarto-content h2 { font-size: 22px; }
 }
 
 #quarto-content a {
   color: var(--t-accent);
   text-decoration: none;
-  border-bottom: 1px solid #64744d;
-  transition: all 0.3s ease;
+  border-bottom: 1px solid var(--t-line-strong);
+  transition: all .3s ease;
 }
-
-#quarto-content a:hover {
-  border-bottom: 1px solid var(--t-accent);
-}
-
-/* ========== FIGURES & CAPTIONS ========== */
-
-#quarto-content figure {
-  max-width: 75%;
-  margin: 2rem auto;
-}
-
-#quarto-content figure img {
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-}
-
-#quarto-content figcaption {
-  text-align: center;
-  color: rgba(255, 255, 255, 1);
-  font-size: 1rem;
-  font-style: italic;
-  margin-top: 8px;
-}
-
-/* ========== CONTENT ELEMENTS ========== */
-
-/* Blockquotes */
+#quarto-content a:hover { border-bottom-color: var(--t-accent); }
+#quarto-content strong { color: var(--t-ink-bright); font-weight: 700; }
+#quarto-content li::marker { color: rgba(124, 255, 0, .95); }
 #quarto-content blockquote {
-  border-left: 3px solid rgba(124, 255, 0, 0.95) !important;
+  border-left: 3px solid rgba(124, 255, 0, .95);
   background: var(--t-panel);
   padding: 15px 20px;
   font-style: italic;
-  color: rgba(255, 255, 255, 0.9) !important;
+  color: rgba(255, 255, 255, .9);
   margin: 20px 0;
 }
 
-/* Strong/bold text */
-#quarto-content strong {
-  color: var(--t-ink-bright) !important;
-  font-weight: 700;
-}
+/* ========== FIGURES ========== */
 
-/* List markers */
-#quarto-content li::marker {
-  color: rgba(124, 255, 0, 0.95);
-}
+#quarto-content figure { max-width: 100%; margin: 2rem auto; }
+#quarto-content figure img { width: 100%; height: auto; }
+#quarto-content figcaption { text-align: center; color: var(--t-ink-dim); font-size: 13px; font-style: italic; margin-top: 8px; }
 
-/* Tables — wrapper enables horizontal scroll without squishing cells */
+/* ========== TABLES ========== */
+
+/* display:block lets wide tables scroll horizontally instead of squishing cells. */
 #quarto-content table {
   display: block;
   overflow-x: auto;
@@ -409,427 +159,156 @@ main#quarto-document-content {
   max-width: 100%;
   border-collapse: collapse;
   margin-bottom: 1em;
-  color: rgba(255, 255, 255, 0.85);
-  background-color: rgba(0, 0, 0, 0.2);
-  /* Override Bootstrap's .table { border-top/bottom: 1px solid #d3d6d8 } */
+  color: rgba(255, 255, 255, .85);
+  background-color: rgba(0, 0, 0, .2);
+  /* Override Bootstrap's .table top/bottom rules. */
   border-top: none;
   border-bottom: none;
 }
-
-/* Override Bootstrap's .table>thead { border-bottom: 1px solid #b6babe } */
-#quarto-content table > thead {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
+#quarto-content table > thead { border-bottom: 1px solid rgba(255, 255, 255, .1); }
 #quarto-content th {
-  background-color: rgba(0, 51, 0, 0.7);
-  color: rgba(124, 255, 0, 0.95);
+  background-color: rgba(0, 51, 0, .7);
+  color: rgba(124, 255, 0, .95);
   font-weight: bold;
-  padding: 0.8em 0.5em;
+  padding: .8em .5em;
   text-align: left;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, .1);
   white-space: nowrap;
 }
-
-#quarto-content td {
-  padding: 0.6em 0.5em;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  white-space: nowrap;
+#quarto-content td { padding: .6em .5em; border: 1px solid rgba(255, 255, 255, .1); white-space: nowrap; }
+#quarto-content tbody tr.odd { background-color: rgba(0, 51, 0, .3); }
+#quarto-content tbody tr.even { background-color: rgb(58 203 58 / 10%); }
+#quarto-content .caption-top { color: rgba(124, 255, 0, .95); font-weight: bold; text-align: left; margin-bottom: .5em; }
+@media (max-width: 768px) {
+  #quarto-content table { font-size: 12px; }
+  #quarto-content :is(th, td) { padding: 6px 8px; }
+}
+@media (max-width: 520px) {
+  #quarto-content table { font-size: 11px; }
 }
 
-#quarto-content tbody tr.odd {
-  background-color: rgba(0, 51, 0, 0.3); /* Slightly darker for odd rows */
-}
+/* ========== MATH ========== */
 
-#quarto-content tbody tr.even {
-  background-color: rgb(58 203 58 / 10%); /* Lighter for even rows */
-}
-
-#quarto-content .caption-top {
-  color: rgba(124, 255, 0, 0.95); /* Theme green for caption */
-  font-weight: bold;
-  text-align: left;
-  margin-bottom: 0.5em;
-}
-
-/* ========== CODE BLOCKS ========== */
-
-/* Code block container */
-.quarto-figure.quarto-figure-center,
-.cell-output.cell-output-stdout,
-div.sourceCode {
-  background: var(--t-panel) !important; /* Match the terminal panel palette */
-  border: 1px solid var(--t-line) !important;
-  border-radius: 0;
-  padding: 1.2em;
-  margin: 20px 0;
-  box-shadow: none;
-  overflow-x: auto; /* Enable horizontal scrolling */
-}
-
-/* Accent stripe marks code specifically; figures and stdout keep the plain panel edge. */
-div.sourceCode { border-left: 2px solid var(--t-accent) !important; }
-
-/*
-  ==================================================================
-  DEFINITIVE CODE WRAPPING FIX
-  This is a hyper-specific rule to override Quarto's default
-  no-wrap behavior for code blocks. It targets the <pre> element
-  directly and forces it to wrap content to prevent horizontal
-  scrolling on all screen sizes.
-  ==================================================================
-*/
-div.sourceCode > pre.sourceCode {
-    white-space: pre-wrap !important;
-    word-wrap: break-word !important; /* Legacy */
-    overflow-wrap: break-word !important; /* Standard */
-}
-
-/* Base style for all code block text (unhighlighted parts) */
-div.sourceCode pre {
-  color: rgba(255, 255, 255, 0.85); /* Off-white for base code text */
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  background-color: transparent; /* Make inner background transparent */
-  line-height: 1.5; /* Improved readability */
-}
-
-/* Syntax Highlighting to match theme */
-#quarto-content div.sourceCode .kw { /* Keywords */
-  color: rgba(124, 255, 0, 0.95);
-}
-#quarto-content div.sourceCode .st { /* Strings */
-  color: #add8e6; /* Light Blue */
-}
-#quarto-content div.sourceCode .co { /* Comments */
-  color: rgba(124, 255, 0, 0.5);
-  font-style: italic;
-}
-#quarto-content div.sourceCode .dv,
-#quarto-content div.sourceCode .fl { /* Numbers (integers, floats) */
-  color: rgba(124, 255, 0, 0.95); /* Bright theme green */
-}
-#quarto-content div.sourceCode .op { /* Operators */
-  color: rgba(255, 255, 255, 0.95);
-}
-#quarto-content div.sourceCode .bu { /* Builtins */
-  color: #add8e6;
-}
-#quarto-content div.sourceCode .fu { /* Functions */
-  color: rgba(124, 255, 0, 0.95);
-}
-#quarto-content div.sourceCode .dt { /* Data Types */
-  color: rgba(124, 255, 0, 0.95);
-}
-#quarto-content div.sourceCode .at { /* Arguments/Attributes */
-  color: #add8e6;
-}
-#quarto-content div.sourceCode .va { /* Variables */
-  color: rgba(255, 255, 255, 0.95);
-}
-#quarto-content div.sourceCode .bn { /* Boolean */
-  color: rgba(124, 255, 0, 0.95);
-}
-#quarto-content div.sourceCode .cn { /* Constant */
-  color: rgba(124, 255, 0, 0.95);
-}
-#quarto-content div.sourceCode .ty { /* Type */
-  color: #add8e6;
-}
-#quarto-content div.sourceCode .ch { /* Character */
-  color: #add8e6;
-}
-#quarto-content div.sourceCode .al { /* Alert/Error */
-  color: #ff6347; /* Tomato red for errors */
-}
-
-
-/* Style for inline code snippets (high specificity) */
-#quarto-content :not(pre) > code {
-  background-color: var(--t-raised) !important;
-  color: var(--t-ink-bright) !important;
-  padding: 0.2em 0.4em;
-  border-radius: 0;
-  font-size: 0.9em;
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-}
-
-/* Line numbers */
-.sourceCode .line-numbers {
-  color: rgba(124, 255, 0, 0.5); /* Dimmer green for line numbers */
-}
-
-/* Ensure raw cell output is also green */
-.cell-output.cell-output-stdout pre {
-    color: rgba(124, 255, 0, 0.95);
-}
-
-/*
-  ==================================================================
-  SCROLLBAR STYLING (Webkit - Chrome, Safari, Edge)
-  Customizes the appearance of scrollbars for code and output blocks.
-  ==================================================================
-*/
-
-/* The entire scrollbar */
-#quarto-content div.sourceCode::-webkit-scrollbar,
-#quarto-content .cell-output.cell-output-stdout::-webkit-scrollbar {
-  height: 10px; /* Height of horizontal scrollbar */
-  width: 10px;  /* Width of vertical scrollbar */
-  background-color: transparent; /* Make the overall scrollbar area transparent */
-}
-
-/* Track (background) of the scrollbar */
-#quarto-content div.sourceCode::-webkit-scrollbar-track,
-#quarto-content .cell-output.cell-output-stdout::-webkit-scrollbar-track {
-  background-color: #000000; /* Black track */
-  border-radius: 5px;
-}
-
-/* Thumb (draggable part) of the scrollbar */
-#quarto-content div.sourceCode::-webkit-scrollbar-thumb,
-#quarto-content .cell-output.cell-output-stdout::-webkit-scrollbar-thumb {
-  background-color: rgba(124, 255, 0, 0.95); /* Neon green thumb */
-  border-radius: 5px;
-  border: 2px solid #000000; /* Black border around thumb */
-}
-
-/* Handle for when hovered */
-#quarto-content div.sourceCode::-webkit-scrollbar-thumb:hover,
-#quarto-content .cell-output.cell-output-stdout::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(124, 255, 0, 1); /* Brighter neon green on hover */
-}
-
-/* Corner where scrollbars meet (optional, but good for completeness) */
-#quarto-content div.sourceCode::-webkit-scrollbar-corner,
-#quarto-content .cell-output.cell-output-stdout::-webkit-scrollbar-corner {
-  background-color: #000000; /* Black corner */
-}
-
-
-/* ========== ARTICLE FOOTER (subscribe + share) ========== */
-
-.article-footer {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 30px;
-  margin-top: 40px;
-  padding-top: 24px;
-  padding-bottom: 30px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  flex-wrap: wrap;
-}
-
-/* Subscribe section */
-.subscribe-section {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.subscribe-section .subscribe-label {
-  color: var(--t-ink-bright) !important;
-  font-size: 0.85rem;
-  margin: 0;
-}
-
-/* Shared form style (used in articles and blog homepage) */
-.subscribe-form {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center;
-}
-
-.subscribe-form input[type="email"] {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 5px;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 0.85rem;
-  padding: 8px 12px;
-  width: 220px;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.subscribe-form input[type="email"]::placeholder {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.subscribe-form input[type="email"]:focus {
-  border-color: rgba(124, 255, 0, 0.5);
-}
-
-.subscribe-form button[type="submit"] {
-  background: transparent;
-  border: 1px solid rgba(124, 255, 0, 0.6);
-  border-radius: 5px;
-  color: rgba(124, 255, 0, 0.9);
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 8px 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.subscribe-form button[type="submit"]:hover {
-  background: rgba(0, 51, 0, 0.3);
-  border-color: rgba(124, 255, 0, 0.95);
-  color: rgba(124, 255, 0, 1);
-  box-shadow: 0 0 10px rgba(124, 255, 0, 0.15);
-}
-
-/* ========== SHARE ARTICLE BUTTON ========== */
-
-.share-article-container {
-  display: flex;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.share-article-button {
-  background-color: transparent;
-  border: 1px solid rgba(124, 255, 0, 0.7);
-  color: rgba(124, 255, 0, 0.85);
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.share-article-button:hover {
-  background-color: rgba(0, 51, 0, 0.3);
-  color: rgba(124, 255, 0, 1);
-  border-color: rgba(124, 255, 0, 1);
-  box-shadow: 0 0 15px rgba(124, 255, 0, 0.3);
-}
-
-.share-article-button.copied {
-  background-color: rgba(124, 255, 0, 0.95);
-  color: #003300;
-  border-color: rgba(124, 255, 0, 0.95);
-  cursor: default;
-}
-
-/* Keep long display equations scrollable without widening the article page. */
+/* Long display equations scroll instead of widening the page. */
 body.jcp-article-page mjx-container[display="true"] {
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
   padding-bottom: 4px;
 }
+@media (max-width: 768px) { mjx-container[display="true"] { font-size: 90%; } }
+@media (max-width: 520px) { mjx-container[display="true"] { font-size: 80%; } }
 
-/* ========== MOBILE (≤768px) ========== */
+/* ========== CODE ========== */
 
-@media (max-width: 768px) {
-  /* Figures: full width on mobile (was 75%) */
-  #quarto-content figure {
-    max-width: 100%;
-  }
-
-  /* Tables: shrink font on mobile, scrolling already set in base rule */
-  #quarto-content table {
-    font-size: 12px;
-    border-top: none !important;
-    border-bottom: none !important;
-  }
-  #quarto-content table th,
-  #quarto-content table td {
-    padding: 6px 8px !important;
-  }
-
-  /* Display math equations: scale down first, scroll as fallback */
-  mjx-container[display="true"] {
-    font-size: 90%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    max-width: 100%;
-    padding-bottom: 4px;
-  }
-
-  /* Article footer: vertical stack, all full-width */
-  .article-footer {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 16px;
-  }
-
-  .subscribe-form {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .subscribe-form input[type="email"] {
-    width: 100%;
-  }
-
-  .subscribe-form button[type="submit"] {
-    width: 100%;
-  }
-
-  .share-article-container {
-    width: 100%;
-  }
-
-  .share-article-button {
-    width: 100%;
-  }
+.quarto-figure.quarto-figure-center,
+.cell-output.cell-output-stdout,
+div.sourceCode {
+  background: var(--t-panel);
+  border: 1px solid var(--t-line);
+  border-radius: 0;
+  padding: 1.2em;
+  margin: 20px 0;
+  box-shadow: none;
+  overflow-x: auto;
 }
-
-@media (max-width: 520px) {
-  mjx-container[display="true"] { font-size: 80%; }
-  #quarto-content table { font-size: 11px; }
+/* The accent stripe marks code; figures and stdout keep the plain panel edge. */
+div.sourceCode { border-left: 2px solid var(--t-accent); }
+/* Wrap long lines rather than scrolling code sideways. */
+div.sourceCode > pre.sourceCode { white-space: pre-wrap; overflow-wrap: break-word; }
+div.sourceCode pre {
+  color: rgba(255, 255, 255, .85);
+  text-shadow: 0 0 5px rgba(0, 0, 0, .5);
+  background-color: transparent;
+  line-height: 1.5;
 }
+.cell-output.cell-output-stdout pre { color: rgba(124, 255, 0, .95); }
+.sourceCode .line-numbers { color: rgba(124, 255, 0, .5); }
 
-/* Reading typography: mono headings, proportional prose, quiet metadata. */
-body.jcp-article-page main#quarto-document-content {
-  font-family: var(--t-reading);
-  width: 100%;
-  min-width: 0;
-  max-width: 760px;
-}
-body.jcp-article-page #quarto-content :is(p, li) { color: var(--t-ink); line-height: 1.85; }
-body.jcp-article-page #quarto-content :is(h1,h2,h3,h4,h5,h6) {
+/* Syntax highlighting: keywords, numbers and functions in accent green, literals in light blue. */
+#quarto-content div.sourceCode :is(.kw, .dv, .fl, .fu, .dt, .bn, .cn) { color: rgba(124, 255, 0, .95); }
+#quarto-content div.sourceCode :is(.st, .bu, .at, .ty, .ch) { color: #add8e6; }
+#quarto-content div.sourceCode :is(.op, .va) { color: rgba(255, 255, 255, .95); }
+#quarto-content div.sourceCode .co { color: rgba(124, 255, 0, .5); font-style: italic; }
+#quarto-content div.sourceCode .al { color: #ff6347; }
+
+#quarto-content :not(pre) > code {
+  background-color: var(--t-raised);
   color: var(--t-ink-bright);
-  font-family: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: -.035em;
-  line-height: 1.35;
-  scroll-margin-top: 85px;
-}
-body.jcp-article-page #quarto-content h1.t-art-title { font-size: clamp(32px,3.8vw,48px); line-height: 1.18; margin: 0 0 20px; }
-body.jcp-article-page #quarto-content h2 { font-size: 25px; margin-top: 42px; padding-bottom: 12px; border-bottom: 1px solid var(--t-line); }
-body.jcp-article-page #quarto-content h3 { font-size: 21px; margin-top: 32px; }
-body.jcp-article-page .t-art-header { font-family: var(--t-mono); }
-body.jcp-article-page .t-art-prompt { font-size: 12px; overflow-wrap: anywhere; }
-body.jcp-article-page .t-art-meta { font-size: 12px; gap: 12px; }
-body.jcp-article-page main#quarto-document-content > p:first-of-type { font-size: 21px; color: var(--t-ink-bright); line-height: 1.7; }
-body.jcp-article-page #quarto-content figure { max-width: 100%; }
-body.jcp-article-page #quarto-content figure img { border-radius: 0; }
-body.jcp-article-page #quarto-content figcaption { color: var(--t-ink-dim); font-size: 13px; }
-body.jcp-article-page #quarto-content .scrollspy-header { font: 11px/1.5 var(--t-mono); color: var(--t-ink-dim); margin: 0 0 15px; }
-body.jcp-article-page .scrollspy-nav { border-radius: 0; }
-body.jcp-article-page .scrollspy-nav a { font-size: 12px !important; line-height: 1.7; overflow-wrap: anywhere; padding: 7px 0 !important; }
-body.jcp-article-page .article-footer :is(.subscribe-section,.share-article-container) { min-width: 0; }
-body.jcp-article-page .article-footer input { min-width: 0; }
-@media (max-width: 1199px) {
-  body.jcp-article-page { --t-frame-pad: 28px; }
-  body.jcp-article-page #quarto-content { display: block; padding: 0 var(--t-frame-pad); }
-  body.jcp-article-page main#quarto-document-content { padding: 0; }
-}
-@media (max-width: 600px) {
-  body.jcp-article-page { --t-frame-pad: 22px; padding-top: 46px !important; }
-  body.jcp-article-page #quarto-content { padding: 0 var(--t-frame-pad); }
-  .t-art-header { padding-top: 32px; }
-  body.jcp-article-page #quarto-content :is(p,li) { font-size: 17px; }
-  body.jcp-article-page main#quarto-document-content > p:first-of-type { font-size: 19px; }
-  body.jcp-article-page #quarto-content h2 { font-size: 22px; }
+  padding: .2em .4em;
+  border-radius: 0;
+  font-size: .9em;
+  text-shadow: 0 0 5px rgba(0, 0, 0, .5);
 }
 
-body.jcp-article-page #quarto-content section[id] { scroll-margin-top: 85px; }
+#quarto-content :is(div.sourceCode, .cell-output-stdout)::-webkit-scrollbar { height: 10px; width: 10px; background-color: transparent; }
+#quarto-content :is(div.sourceCode, .cell-output-stdout)::-webkit-scrollbar-track { background-color: #000; border-radius: 5px; }
+#quarto-content :is(div.sourceCode, .cell-output-stdout)::-webkit-scrollbar-thumb { background-color: rgba(124, 255, 0, .95); border-radius: 5px; border: 2px solid #000; }
+#quarto-content :is(div.sourceCode, .cell-output-stdout)::-webkit-scrollbar-thumb:hover { background-color: var(--t-accent); }
+#quarto-content :is(div.sourceCode, .cell-output-stdout)::-webkit-scrollbar-corner { background-color: #000; }
+
+/* ========== SUBSCRIBE + SHARE FOOTER (share.html) ========== */
+
+.article-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 48px;
+  padding: 28px 0 30px;
+  border-top: 1px solid var(--t-line);
+  font-family: var(--t-mono);
+}
+.article-footer :is(.subscribe-section, .share-article-container) {
+  min-width: 0;
+  background: var(--t-panel);
+  border: 1px solid var(--t-line);
+}
+.subscribe-section { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 18px 22px; }
+#quarto-content .subscribe-label { color: var(--t-ink); font-size: 14px; margin: 0 0 12px; }
+.subscribe-form { display: flex; gap: 8px; align-items: center; }
+.subscribe-form input[type="email"] {
+  width: 220px;
+  min-width: 0;
+  background: transparent;
+  border: 1px solid var(--t-line);
+  color: var(--t-ink);
+  font: 14px/1.5 var(--t-mono);
+  padding: 8px 12px;
+  outline: none;
+  transition: border-color .2s ease;
+}
+.subscribe-form button[type="submit"] { white-space: nowrap; }
+.subscribe-form input[type="email"]::placeholder { color: rgba(255, 255, 255, .3); }
+.subscribe-form input[type="email"]:focus { border-color: var(--t-accent); }
+.share-article-container { display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 18px 28px; }
+.subscribe-form button[type="submit"],
+.share-article-button {
+  background: transparent;
+  border: 1px solid var(--t-accent);
+  color: var(--t-accent);
+  font: 600 14px/1.5 var(--t-mono);
+  letter-spacing: .05em;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.subscribe-form button[type="submit"]:hover,
+.share-article-button:hover,
+.share-article-button.copied {
+  background: var(--t-accent);
+  color: var(--t-bg);
+}
+.subscribe-form button[type="submit"]:hover { box-shadow: 0 0 10px rgba(124, 255, 0, .15); }
+.share-article-button:hover { box-shadow: 0 0 15px rgba(124, 255, 0, .3); }
+@media (max-width: 768px) {
+  .subscribe-form { flex-direction: column; align-items: stretch; }
+  .subscribe-form :is(input[type="email"], button[type="submit"]),
+  .share-article-container,
+  .share-article-button { width: 100%; }
+}
+@media (max-width: 700px) {
+  .article-footer { flex-direction: column; }
+}

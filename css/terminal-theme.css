@@ -7,8 +7,10 @@
   --t-raised: #161e10;
   --t-line: #30382a;
   --t-line-dim: #22281f;
+  /* Hover/selected borders, one step brighter than --t-line. */
+  --t-line-strong: #64744d;
   --t-accent: #7cff00;
-  --dir1-accent: #7cff00;
+  --t-accent-hover: #a1ff47;
   --t-ink: #c9d1c6;
   --t-ink-dim: #94a08b;
   --t-ink-bright: #e8ebe5;

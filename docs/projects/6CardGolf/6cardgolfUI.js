@@ -454,7 +454,7 @@ function verifyDOMElements() {
     missingElements.forEach(id => {
       const element = document.querySelector(`[class*="${id}"]`);
       if (element) {
-        console.log(`Found element with class containing "${id}":`, element);
+        debugLog(`Found element with class containing "${id}":`, element);
       }
     });
     
@@ -478,7 +478,7 @@ function createMissingElements() {
     const gameArea = document.querySelector(".game-area");
     if (gameArea) {
       gameArea.appendChild(controlsDiv);
-      console.log("Created missing controls element");
+      debugLog("Created missing controls element");
     } else {
       missingElements.push("controls");
     }
@@ -493,7 +493,7 @@ function refreshElements() {
   elements.controls = document.getElementById("controls") || document.querySelector(".controls");
   
   // Log the current state
-  console.log("Elements refresh - controls:", elements.controls);
+  debugLog("Elements refresh - controls:", elements.controls);
 }
 
 // Initialize UI after DOM is fully loaded
@@ -501,7 +501,7 @@ function initializeUI() {
   if (!verifyDOMElements()) {
     console.warn("Some DOM elements are missing, attempting to create them...");
     if (createMissingElements()) {
-      console.log("Successfully created missing elements");
+      debugLog("Successfully created missing elements");
       // Refresh elements object after creating missing elements
       refreshElements();
     } else {
@@ -511,7 +511,7 @@ function initializeUI() {
     }
   }
   
-  console.log("All required DOM elements loaded, initializing UI...");
+  debugLog("All required DOM elements loaded, initializing UI...");
   
   // Set up event listeners
   setupEventListeners();

@@ -3,7 +3,6 @@ title: "No Two Shuffles Alike"
 author: "Josh Pearlson"
 date: "2026-05-08"
 categories: [Probability]
-css: style.css
 ---
 
 A uniformly random ordering of a deck is extraordinarily unlikely to repeat one from a modest set of earlier shuffles. Real shuffling needs a few more assumptions before we can make that claim about the deck in our hands.

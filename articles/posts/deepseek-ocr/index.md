@@ -65,7 +65,7 @@ If we decode every page and place all the recovered text back into the context w
 
 I saw the following example circulated on social media. I could not establish the original demonstration’s settings, so I ran my own test below.
 
-![DeepSeek-OCR on Ramanujan's letter to GH Hardy 1913 (could not find any citation for this)](../../../media/DeepSeek-OCR trending letter from Ramanujan.png)
+![DeepSeek-OCR on Ramanujan's letter to GH Hardy 1913 (could not find any citation for this)](../../../media/deepseek-ocr-ramanujan-letter.jpg)
 
 This looks shocking; the accuracy level seems to be very high even on complex handwritten mathematical formulas from over 100 years ago! This level of accuracy prompted (awful pun) a **healthy level of skepticism**. Let's test this ourselves and see how accurate it is on both the Ramanujan letter as well as some brand new handwriting of my own. 
 

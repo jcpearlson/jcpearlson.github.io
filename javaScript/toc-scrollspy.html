@@ -22,19 +22,35 @@ document.addEventListener('DOMContentLoaded', function() {
   const tocList = document.createElement('ol');
   tocList.className = 'scrollspy-list';
 
-  headings.forEach(heading => {
-    if (!heading.id) {
-      const slug = heading.textContent.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
-      heading.id = slug;
-    }
+  const slugOf = heading => heading.textContent.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
 
+  // Quarto puts each heading's id on its wrapping <section>; link to that.
+  // Earlier versions of this script linked to a slug of the heading text, so
+  // keep that slug as an alias where it differs and is free, for old links.
+  function targetId(heading, i) {
+    const section = heading.parentElement;
+    if (section.tagName === 'SECTION' && section.id && section.firstElementChild === heading) {
+      const legacy = slugOf(heading);
+      if (!heading.id && legacy && !document.getElementById(legacy)) heading.id = legacy;
+      return section.id;
+    }
+    if (heading.id) return heading.id;
+    const base = slugOf(heading) || 'section-' + (i + 1);
+    let id = base;
+    for (let n = 2; document.getElementById(id); n++) id = `${base}-${n}`;
+    return (heading.id = id);
+  }
+
+  const linkFor = new Map();
+  headings.forEach((heading, i) => {
     const tocItem = document.createElement('li');
     tocItem.className = `scrollspy-item toc-level-${heading.tagName.toLowerCase()}`;
 
     const tocLink = document.createElement('a');
-    tocLink.href = `#${heading.id}`;
+    tocLink.href = `#${targetId(heading, i)}`;
     tocLink.textContent = heading.textContent;
     tocLink.className = 'scrollspy-link';
+    linkFor.set(heading, tocLink);
 
     tocItem.appendChild(tocLink);
     tocList.appendChild(tocItem);
@@ -49,10 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const navbar = document.querySelector('.jcp-article-tabbar');
   const OFFSET = (navbar ? navbar.offsetHeight : 56) + 32;
 
-  // When the user clicks a TOC link, we lock onto that heading ID.
+  // When the user clicks a TOC link, we lock onto that link.
   // The lock only releases once the scroll naturally catches up to that section,
   // preventing the scroll listener from overriding the click mid-animation.
-  let lockedHeadingId = null;
+  let lockedLink = null;
 
   function setActive(link) {
     tocLinks.forEach(l => l.classList.remove('active'));
@@ -74,23 +90,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // If we clicked a link, hold on that heading until the scroll
     // naturally arrives at it — then release the lock
-    if (lockedHeadingId) {
-      if (current.id === lockedHeadingId) {
-        lockedHeadingId = null; // arrived — hand back to scroll tracking
+    if (lockedLink) {
+      if (linkFor.get(current) === lockedLink) {
+        lockedLink = null; // arrived — hand back to scroll tracking
       } else {
         return; // still animating, don't override
       }
     }
 
-    const activeLink = tocList.querySelector(`.scrollspy-link[href="#${current.id}"]`);
-    setActive(activeLink);
+    setActive(linkFor.get(current));
   }
 
   // On click: immediately highlight + lock onto target heading
   tocLinks.forEach(link => {
     link.addEventListener('click', function() {
       setActive(this);
-      lockedHeadingId = this.getAttribute('href').slice(1);
+      lockedLink = this;
     });
   });
 

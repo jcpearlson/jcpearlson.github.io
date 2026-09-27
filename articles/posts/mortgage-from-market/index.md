@@ -9,7 +9,7 @@ Some articles describe using options to borrow money in place of a traditional a
 
 ---
 
-![Mortgage from the Market](../../../media/mortgageMarketHeader.png)
+![Mortgage from the Market](../../../media/mortgageMarketHeader.jpg)
 
 Imagine securing a loan for your dream home with a 0% down payment and an interest rate that rivals the U.S. Treasury. It sounds like a financial fantasy, but a niche corner of the options market, the 'box spread', has been touted online as a secret Wall Street trick to do just that. But is this a golden ticket for the average homebuyer, or a high-stakes gamble reserved for a select few? Let's break down the math, the hype, and the hidden dangers.
 
