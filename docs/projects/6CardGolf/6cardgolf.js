@@ -137,7 +137,7 @@ function startNewGame() {
       throw new Error(`Deck contains duplicate cards after shuffle`);
     }
     
-    console.log(`Starting new game with ${gameState.deck.length} cards in deck`);
+    debugLog(`Starting new game with ${gameState.deck.length} cards in deck`);
     
     // Deal cards one by one, verifying each card
     for (let i = 0; i < 6; i++) {
@@ -156,7 +156,7 @@ function startNewGame() {
       gameState.playerHand.push({ card: playerCard, faceUp: false });
       gameState.opponentHand.push({ card: opponentCard, faceUp: false });
       
-      console.log(`Dealt: Player ${playerCard.value}${playerCard.suit}, Opponent ${opponentCard.value}${opponentCard.suit}`);
+      debugLog(`Dealt: Player ${playerCard.value}${playerCard.suit}, Opponent ${opponentCard.value}${opponentCard.suit}`);
     }
 
     // Verify remaining deck
@@ -243,7 +243,7 @@ function handleGameStart(data) {
       }
     }
     
-    console.log("Received valid game start data:", {
+    debugLog("Received valid game start data:", {
       playerHand: data.playerHand.map(c => `${c.value}${c.suit}`),
       opponentHand: data.opponentHand.map(c => `${c.value}${c.suit}`)
     });
@@ -284,7 +284,7 @@ function handleGameStart(data) {
 }
 
 function handleGameAction(action) {
-  console.log('Received game action:', action.type, action);
+  debugLog('Received game action:', action.type, action);
 
   switch (action.type) {
     case 'cardFlipped':
@@ -321,7 +321,7 @@ function handleGameAction(action) {
           const currentCount = gameState.flippedOpponentInitialCards || 0;
           if (currentCount < INITIAL_FLIP_COUNT) {
             gameState.flippedOpponentInitialCards = currentCount + 1;
-            console.log(`Host: Opponent flipped ${gameState.flippedOpponentInitialCards}/${INITIAL_FLIP_COUNT} cards`);
+            debugLog(`Host: Opponent flipped ${gameState.flippedOpponentInitialCards}/${INITIAL_FLIP_COUNT} cards`);
             if (gameState.flippedOpponentInitialCards === INITIAL_FLIP_COUNT && gameState.flippedInitialCards === INITIAL_FLIP_COUNT) {
               // Both players have flipped 2 initial cards, now determine who starts the actual game
               determineFirstTurn();
@@ -335,14 +335,14 @@ function handleGameAction(action) {
     case 'initialFlipComplete': // New message type for when a player finishes initial flips
         if (gameState.isHost) {
             gameState.flippedOpponentInitialCards = INITIAL_FLIP_COUNT; // Opponent has completed their initial flips
-            console.log(`Host: Opponent completed initial flips, host has ${gameState.flippedInitialCards}/${INITIAL_FLIP_COUNT}`);
+            debugLog(`Host: Opponent completed initial flips, host has ${gameState.flippedInitialCards}/${INITIAL_FLIP_COUNT}`);
             if (gameState.flippedInitialCards === INITIAL_FLIP_COUNT) { // Check if host also completed
                 determineFirstTurn();
             }
         } else { // Client receives this from host after host has completed their flips
             // Host has finished flipping, now it's the client's turn to flip
             if (gameState.flippedInitialCards < INITIAL_FLIP_COUNT) {
-                console.log("Client: Host has finished flipping, now it's my turn to flip");
+                debugLog("Client: Host has finished flipping, now it's my turn to flip");
                 flipInitialCards(); // Enable the client to flip their cards (includes updateGameUI)
             }
         }
@@ -382,7 +382,7 @@ function handleGameAction(action) {
       
       // If player closed, opponent just finished their final turn, so round ends now
       if (gameState.closer && !gameState.roundEnded) {
-        console.log("Player closed, opponent finished their final turn, ending round");
+        debugLog("Player closed, opponent finished their final turn, ending round");
         endRound();
       } else if (gameState.opponentClosed && !gameState.roundEnded) {
         // Opponent closed - this is now the player's final turn (don't end yet)
@@ -405,7 +405,7 @@ function handleGameAction(action) {
       // Opponent has closed (all cards face up) - this is now their final turn
       gameState.opponentClosed = true;
       updateGameStatus("Opponent has closed! This is your final turn.");
-      console.log("Opponent has closed");
+      debugLog("Opponent has closed");
       break;
     case 'cardDiscarded':
       // Ensure discardPile is always an array
@@ -422,7 +422,7 @@ function handleGameAction(action) {
       
       // If player closed, opponent just finished their final turn, so round ends now
       if (gameState.closer && !gameState.roundEnded) {
-        console.log("Player closed, opponent finished their final turn, ending round");
+        debugLog("Player closed, opponent finished their final turn, ending round");
         endRound();
       } else if (gameState.opponentClosed && !gameState.roundEnded) {
         // Opponent closed - this is now the player's final turn (don't end yet)
@@ -476,7 +476,7 @@ function handleCardClick(index) {
   if (gameState.flippedInitialCards < INITIAL_FLIP_COUNT && !cardInHand.faceUp && gameState.isMyTurn === false) { // isMyTurn is false during initial flip phase
     cardInHand.faceUp = true;
     gameState.flippedInitialCards++;
-    console.log(`Player flipped ${gameState.flippedInitialCards}/${INITIAL_FLIP_COUNT} initial cards`);
+    debugLog(`Player flipped ${gameState.flippedInitialCards}/${INITIAL_FLIP_COUNT} initial cards`);
     sendMessage({ type: "gameAction", data: { type: "cardFlipped", cardIndex: index, card: cardInHand.card, isInitialFlip: true } });
     updateGameUI();
 
@@ -487,7 +487,7 @@ function handleCardClick(index) {
 
         if (gameState.isHost) {
             gameState.flippedHostInitialCards = INITIAL_FLIP_COUNT; // Host records their own flips
-            console.log(`Host completed initial flips, opponent has ${gameState.flippedOpponentInitialCards}/${INITIAL_FLIP_COUNT}`);
+            debugLog(`Host completed initial flips, opponent has ${gameState.flippedOpponentInitialCards}/${INITIAL_FLIP_COUNT}`);
             if (gameState.flippedOpponentInitialCards === INITIAL_FLIP_COUNT) {
                 determineFirstTurn();
             }
@@ -666,7 +666,7 @@ function endMyTurn() {
   
   // If opponent closed and player just finished their final turn, end the round
   if (gameState.opponentClosed && !gameState.roundEnded) {
-    console.log("Opponent closed, player finished their final turn, ending round");
+    debugLog("Opponent closed, player finished their final turn, ending round");
     endRound();
   } else if (gameState.closer && !gameState.roundEnded) {
     // Player closed and finished their turn - opponent gets one final turn
@@ -741,7 +741,7 @@ function calculateScore(hand) {
         const card4 = grid[row+1][col+1];
 
         if (card1.value === card2.value && card2.value === card3.value && card3.value === card4.value) {
-          console.log(`2x2 square found: ${card1.value}${card1.suit} - scoring -20 points`);
+          debugLog(`2x2 square found: ${card1.value}${card1.suit} - scoring -20 points`);
           return -20; // 2x2 square overrides all other scoring
         }
       }
@@ -751,7 +751,7 @@ function calculateScore(hand) {
   // Check for column cancellation
   for (let col = 0; col < GRID_COLS; col++) {
     if (grid[0][col] && grid[1][col] && grid[0][col].value === grid[1][col].value) {
-      console.log(`Column ${col} cancelled: ${grid[0][col].value} = 0 points`);
+      debugLog(`Column ${col} cancelled: ${grid[0][col].value} = 0 points`);
       cardScores[col] = 0;
       cardScores[col + GRID_COLS] = 0;
     }
@@ -761,7 +761,7 @@ function calculateScore(hand) {
   for (let row = 0; row < GRID_ROWS; row++) {
     if (grid[row][0] && grid[row][1] && grid[row][2] &&
         grid[row][0].value === grid[row][1].value && grid[row][1].value === grid[row][2].value) {
-      console.log(`Row ${row} cancelled: ${grid[row][0].value} = 0 points`);
+      debugLog(`Row ${row} cancelled: ${grid[row][0].value} = 0 points`);
       for (let col = 0; col < GRID_COLS; col++) {
         cardScores[row * GRID_COLS + col] = 0;
       }
@@ -839,7 +839,7 @@ function handleDuplicateCards() {
 // Manual recovery function for users to call when they want to reset
 function manualGameRecovery() {
   if (confirm("Are you sure you want to reset the current game? This will start a new game.")) {
-    console.log("Manual game recovery initiated by user");
+    debugLog("Manual game recovery initiated by user");
     handleDuplicateCards();
   }
 }
@@ -856,8 +856,8 @@ function countAllCards() {
   
   const total = Object.values(counts).reduce((sum, count) => sum + count, 0);
   
-  console.log("Card counts:", counts);
-  console.log("Total cards:", total);
+  debugLog("Card counts:", counts);
+  debugLog("Total cards:", total);
   
   if (total !== 52) {
     console.error(`Card count mismatch! Expected 52, got ${total}`);
@@ -907,7 +907,7 @@ function checkForClosing() {
   if (playerAllFlipped && !gameState.closer) {
     gameState.closer = true;
     updateGameStatus("You have closed! Opponent gets one more turn.");
-    console.log("Player has closed");
+    debugLog("Player has closed");
     // Notify opponent that player has closed
     sendMessage({
       type: "gameAction",
@@ -921,12 +921,12 @@ function checkForClosing() {
   if (opponentAllFlipped && !gameState.opponentClosed) {
     gameState.opponentClosed = true;
     updateGameStatus("Opponent has closed! You get one more turn.");
-    console.log("Opponent has closed");
+    debugLog("Opponent has closed");
   }
   
   // If both players have closed, end the round immediately
   if (gameState.closer && gameState.opponentClosed) {
-    console.log("Both players have closed, ending round");
+    debugLog("Both players have closed, ending round");
     endRound();
     return;
   }
@@ -935,7 +935,7 @@ function checkForClosing() {
   // The round should end after the opponent completes their turn
   if (gameState.closer && !gameState.isMyTurn && opponentAllFlipped) {
     // Opponent has also closed during their final turn - end immediately
-    console.log("Opponent closed during their final turn, ending round");
+    debugLog("Opponent closed during their final turn, ending round");
     endRound();
     return;
   }

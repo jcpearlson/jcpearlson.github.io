@@ -1,3 +1,11 @@
+// Routine trace logging (connection steps, received actions, dealing) is
+// off by default; add ?debug to the URL to see it. Errors and warnings
+// always log, as do the explicit debug tools in 6cardgolf.js.
+const DEBUG = new URLSearchParams(location.search).has("debug");
+function debugLog(...args) {
+  if (DEBUG) console.log(...args);
+}
+
 // WebRTC configuration
 const rtcConfig = {
   iceServers: [
@@ -50,7 +58,7 @@ async function createGame() {
 
     const offer = await gameState.pc.createOffer();
     await gameState.pc.setLocalDescription(offer);
-    console.log("P1 (Host): Set local description (offer).");
+    debugLog("P1 (Host): Set local description (offer).");
 
     await waitForIceGathering();
 
@@ -87,16 +95,16 @@ async function joinGame() {
     };
 
     await gameState.pc.setRemoteDescription(new RTCSessionDescription(offer));
-    console.log("P2 (Client): Set remote description from HOST's offer.");
+    debugLog("P2 (Client): Set remote description from HOST's offer.");
 
     for (const candidate of candidates) {
       await gameState.pc.addIceCandidate(new RTCIceCandidate(candidate));
     }
-    console.log("P2 (Client): Added all host ICE candidates.");
+    debugLog("P2 (Client): Added all host ICE candidates.");
 
     const answer = await gameState.pc.createAnswer();
     await gameState.pc.setLocalDescription(answer);
-    console.log("P2 (Client): Set local description (answer).");
+    debugLog("P2 (Client): Set local description (answer).");
 
     await waitForIceGathering();
 
@@ -125,12 +133,12 @@ async function completeConnection() {
     const { answer, candidates } = connectionData;
 
     await gameState.pc.setRemoteDescription(new RTCSessionDescription(answer));
-    console.log("P1 (Host): Set remote description from CLIENT's answer.");
+    debugLog("P1 (Host): Set remote description from CLIENT's answer.");
 
     for (const candidate of candidates) {
       await gameState.pc.addIceCandidate(new RTCIceCandidate(candidate));
     }
-    console.log(
+    debugLog(
       "P1 (Host): Added all client ICE candidates. Connection should now establish.",
     );
 
@@ -142,20 +150,20 @@ async function completeConnection() {
 
 function setupPeerConnection(peerId) {
   gameState.pc.onicegatheringstatechange = () =>
-    console.log(
+    debugLog(
       `${peerId}: ICE gathering state:`,
       gameState.pc.iceGatheringState,
     );
 
   gameState.pc.onicecandidate = (event) => {
     if (event.candidate) {
-      console.log(`${peerId}: ICE candidate found:`, event.candidate);
+      debugLog(`${peerId}: ICE candidate found:`, event.candidate);
       gameState.iceCandidates.push(event.candidate);
     }
   };
 
   gameState.pc.onconnectionstatechange = () => {
-    console.log(`${peerId}: Connection state:`, gameState.pc.connectionState);
+    debugLog(`${peerId}: Connection state:`, gameState.pc.connectionState);
     updateConnectionStatus();
     if (
       gameState.pc.connectionState === "disconnected" ||
@@ -172,7 +180,7 @@ function setupPeerConnection(peerId) {
 
   // Add error handling for peer connection
   gameState.pc.oniceconnectionstatechange = () => {
-    console.log(`${peerId}: ICE connection state:`, gameState.pc.iceConnectionState);
+    debugLog(`${peerId}: ICE connection state:`, gameState.pc.iceConnectionState);
     if (gameState.pc.iceConnectionState === "failed") {
       updateGameStatus("ICE connection failed. Please check your network connection.");
       addChatMessage("system", "ICE connection failed. Please check your network connection.");
@@ -182,14 +190,14 @@ function setupPeerConnection(peerId) {
 
 function setupDataChannel(peerId) {
   gameState.dc.onopen = () => {
-    console.log(`${peerId}: Data channel opened`);
+    debugLog(`${peerId}: Data channel opened`);
     gameState.connectionEstablished = true;
     showGameInterface();
     updateConnectionStatus();
     addChatMessage("system", "Connected! You can now chat and play together.");
     startHeartbeat(); // Start heartbeat when connection is established
     if (gameState.isHost) {
-      console.log("Host is starting a new game now that channel is open.");
+      debugLog("Host is starting a new game now that channel is open.");
       startNewGame();
     }
   };
@@ -197,7 +205,7 @@ function setupDataChannel(peerId) {
   gameState.dc.onmessage = (event) => {
     try {
       const message = JSON.parse(event.data);
-      console.log(`${peerId}: Received message:`, message.type);
+      debugLog(`${peerId}: Received message:`, message.type);
       handleMessage(message);
     } catch (e) {
       console.error(`${peerId}: Error parsing message:`, e);
@@ -206,7 +214,7 @@ function setupDataChannel(peerId) {
   };
   
   gameState.dc.onclose = () => {
-    console.log(`${peerId}: Data channel closed`);
+    debugLog(`${peerId}: Data channel closed`);
     gameState.connectionEstablished = false;
     stopHeartbeat(); // Stop heartbeat when connection closes
     updateConnectionStatus();
