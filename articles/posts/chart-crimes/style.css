@@ -1,0 +1,10 @@
+/* Source screenshots, shown at their real size so small originals stay crisp
+   instead of being upscaled to the column width. */
+#quarto-content figure img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+  border: 1px solid var(--t-line);
+  border-radius: 6px;
+}
