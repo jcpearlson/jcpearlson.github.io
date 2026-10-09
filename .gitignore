@@ -6,3 +6,5 @@ blankfile.txt
 .agents/
 AGENTS.MD
 ~$*
+.github/
+.gitignore
