@@ -1,0 +1,415 @@
+---
+title: "Jevons Paradox: The 161-Year-Old Bet Holding Up the AI Boom"
+author: "Josh Pearlson"
+date: "2026-10-24"
+categories: ["Economics", "Finance", "LLM"]
+jupyter: python3
+---
+
+In 1865 a 29-year-old economist argued that making coal engines more efficient would make Britain burn *more* coal, not less. As of October 24, 2026, four tech giants plan roughly \$735 billion of capital spending this year. Much of that buildout supports AI, and part of the bet is that he will keep being right about something he never heard of.
+
+---
+
+In January 2025, a Chinese lab called DeepSeek released [R1, a reasoning model with competitive performance and low API prices](https://deepseek.com/en/news/deepseek-r1/). On January 27, [tech stocks got pummeled](https://apnews.com/article/5d20431d9fc3ac27d054709cf4d2d1a0). If AI is suddenly cheap to run, who needs all those chips?
+
+Microsoft's CEO Satya Nadella had already answered, in [a two-sentence post with a Wikipedia link](https://www.geekwire.com/2025/microsoft-ceo-says-ai-use-will-skyrocket-with-more-efficiency-amid-craze-over-deepseek/):
+
+> "Jevons paradox strikes again! As AI gets more efficient and accessible, we will see its use skyrocket..."
+
+Cheaper AI means more AI gets used, so much more that total spending goes up. Chill out, investors.
+
+This claim has become so widespread that you can see it all over the internet. So I wanted to know three things: 
+
+- Who was Jevons?
+
+- What exactly did he claim?
+
+- What does the math of this paradox look like? 
+
+*Updated October 24, 2026. Figures below come from sources available by that date, with the measurement period stated where it matters. Spending plans are guidance, revenue run rates are snapshots, and the calculations are broad scenarios rather than forecasts.*
+
+## A 29-Year-Old Worries About Coal
+
+[William Stanley Jevons](https://plato.stanford.edu/entries/william-jevons/) was 29 when he published [*The Coal Question*](https://www.econlib.org/library/YPDBooks/Jevons/jvnCQ.html) in 1865. Britain ran on coal, and Jevons was worried they were on the brink of running out of **cheap coal**. The idea being that it would become too costly to dig up the coal that Britain needed to maintain its industrial lead.[^jevons-bio] [^jevons-strange]
+
+The comforting response at the time was efficiency. Engines keep getting better, so each ton of coal does more work, so we will need less coal. Problem solved.
+
+Jevons thought this was backwards, and he [said so bluntly](https://www.econlib.org/library/YPDBooks/Jevons/jvnCQ.html?chapter_num=9):
+
+> "It is wholly a confusion of ideas to suppose that the economical use of fuel is equivalent to a diminished consumption. The very contrary is the truth."
+
+His evidence backing up the claims was history. The earliest steam engines were so wasteful that they saw almost no use. In his words, the Savery engine "consumed no coal, because its rate of consumption was too high."
+
+Then Watt made engines dramatically more efficient, and coal consumption did not fall. It exploded, because now the engines were efficient enough to unlock new uses like milling, mining, locomotives, and shipping. 
+
+Another key example in [his argument](https://www.econlib.org/library/YPDBooks/Jevons/jvnCQ.html?chapter_num=9) was **Scottish iron**. A new smelting process cut the coal needed per ton of iron to less than one third of what it had been. Total coal consumption by the Scottish iron industry then went up *tenfold*.
+
+If each ton of iron needs (at most) one third the coal, and total coal use is ten times higher, then iron output must have grown by at least:
+
+$$\text{Iron output multiple} = \frac{\text{Total coal multiple}}{\text{Coal per ton multiple}} = \frac{10}{1/3} = 30$$
+
+At least thirty times more iron, taking those historical ratios at face value. Efficiency helped make iron cheap enough to find many more buyers, though it was not the only thing changing. 
+
+That is the **Jevons paradox**: when you use a resource more efficiently, the thing it produces gets cheaper, and if people respond by buying enough more of it, total use of the resource goes up (counterintuitively).
+
+## The Paradox as an Inequality
+
+Notice the "if" in that sentence. Jevons is not a law of nature. It only holds when demand responds *enough*.
+
+To quantify this: 
+
+Start with the simplest possible business. You sell $q$ units at a price of $p$ each:
+
+$$\text{Revenue} = p \times q$$
+
+Now efficiency improves and the price falls by a factor of $k$ (so $k = 3$ means the price is one third of what it was). Customers respond by buying $m$ times as many units. Your new revenue is:
+
+$$\text{New revenue} = \frac{p}{k} \times (m \cdot q) = \frac{m}{k} \times \text{Old revenue}$$
+
+So everything comes down to one comparison:
+
+$$m > k$$
+
+If volume grows by more than price falls, total spending goes up. That is the revenue test I will use here. Jevons' original test concerns physical resource use: if resource use per unit falls by a factor of $k$, total resource use rises when $m > k$. The two tests coincide only if the selling price falls in proportion to resource use per unit. AI revenue, compute use, and electricity use can move differently.[^jevons-test]
+
+Economists use **price elasticity of demand** to measure how strongly quantity responds to price, holding other influences fixed. Using its positive magnitude, a logarithmic measure over a large price change is:
+
+$$\varepsilon = \frac{\ln m}{\ln k}$$
+
+An elasticity above 1 means $m > k$, so spending rises in this simplified setup. For Scottish iron, we can calculate an analogous ratio using output and coal efficiency:
+
+$$\varepsilon_{\text{illustrative}} = \frac{\ln 30}{\ln 3} \approx \frac{3.40}{1.10} \approx 3.1$$
+
+That is a large historical response, but it is not a measured price elasticity.[^iron-elasticity]
+
+Food is a useful contrast. There is only so much dinner one person can eat. Agricultural productivity rose while [farming's share of the US workforce fell from 41% in 1900 to 1.9% in 2000](https://ers.usda.gov/sites/default/files/_laserfiche/publications/44197/13566_eib3_1_.pdf?v=73338). That is an illustration of falling labor requirements, not proof that total food spending or resource use fell. Labor share alone cannot settle the Jevons question.
+
+So the question for AI is not whether Jevons is a real effect.
+The question is: 
+
+> Is AI coal or wheat? 
+
+## The Economy 
+
+It is very clear why the answer matters.
+
+Amazon, Alphabet, Microsoft, and Meta have indicated roughly **\$725 to \$745 billion of combined capital spending for calendar 2026**, using each company's own definition. The midpoint is about **\$735 billion**. These are plans for the full year, not money already spent, and the total includes ordinary cloud infrastructure and other businesses alongside AI.[^capex-scope]
+
+| Company | 2026 spending indication | Source and scope |
+|:--|:--|:--|
+| Amazon | About \$220 billion | [July 30 earnings-call remarks](https://www.investing.com/news/transcripts/earningscall-transcript-amazon-tops-q2-2026-estimates-as-aws-growthaccelerates-93CH-4826442): company-wide cash capex, including AWS and non-AWS investment. |
+| Alphabet | \$195–205 billion | [July 22 earnings-call remarks](https://www.investing.com/news/transcripts/earnings-call-transcript-alphabet-beats-q2-2026-estimates-shares-fall-on-capex-surge-93CH-4807140): company-wide capex, largely technical infrastructure. |
+| Microsoft | About \$175 billion | [July 29 earnings call](https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4): calendar-year capex including finance leases; some future leases shift to operating leases. |
+| Meta | \$135–145 billion | [October 21 results](https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/): capex including principal payments on finance leases. |
+
+Using the midpoints, in billions of dollars:
+
+$$\underbrace{220}_{\text{Amazon}} + \underbrace{200}_{\text{Alphabet}} + \underbrace{175}_{\text{Microsoft}} + \underbrace{140}_{\text{Meta}} = 735$$
+
+For scale, a [secondary tracker puts the 2025 total at about \$410 billion](https://valueaddvc.com/ai-spending). On that rough baseline, the increase is about 79%:
+
+$$\frac{735 - 410}{410} \times 100\% \approx 79\%$$
+
+That percentage is a broad comparison, since the companies' spending definitions and lease classifications differ. I use \$735 billion and \$410 billion as rounded inputs below, not as an audited, comparable series of AI-only spending.[^capex-comparison]
+
+Spending on that scale shows up in GDP. [Epoch AI estimates](https://epoch.ai/data-insights/ai-datacenter-share-gdp) that US investment in computing infrastructure (computers, data center construction, and networking gear) hit about 1.5% of GDP in the first quarter of 2026, roughly double its 2015 to 2022 average of 0.7%. Epoch attributes about 0.8% of GDP to AI-related infrastructure specifically. This US investment measure differs from the companies' worldwide capex budgets.
+
+```{python}
+#| echo: false
+import plotly.graph_objects as go
+
+palette = dict(
+    bg='#0a0b09',
+    panel='#0d110b',
+    green='#7cff00',
+    amber='#ffc800',
+    red='#ff5c5c',
+    ink='#c9d1c6',
+    dim='rgba(201,209,198,0.12)',
+    dimline='rgba(201,209,198,0.08)'
+)
+
+BASE_LAYOUT = dict(
+    paper_bgcolor=palette['bg'],
+    plot_bgcolor=palette['panel'],
+    font=dict(family='IBM Plex Mono, monospace', color=palette['ink'], size=12),
+    margin=dict(l=62, r=30, t=62, b=40),
+    hoverlabel=dict(
+        bgcolor='#0d110b',
+        bordercolor=palette['green'],
+        font=dict(family='IBM Plex Mono, monospace', color=palette['ink'])
+    )
+)
+
+AXIS = dict(
+    gridcolor=palette['dimline'],
+    tickcolor=palette['ink'],
+    linecolor=palette['dimline'],
+    zeroline=False,
+    tickfont=dict(color=palette['ink'])
+)
+
+CONFIG = {'displaylogo': False, 'displayModeBar': False, 'responsive': True}
+
+def titled(text, sub):
+    return dict(
+        text=f"{text}<br><span style='font-size:11px;color:rgba(201,209,198,0.55)'>{sub}</span>",
+        font=dict(color=palette['ink'], size=14),
+        x=0.0, xanchor='left', y=0.94, yanchor='top'
+    )
+
+# US computing infrastructure investment as % of nominal GDP (combined:
+# computers & peripherals + data center construction + networking).
+# Source: Epoch AI, "The AI boom has doubled computing infrastructure's share
+# of US GDP" (June 5, 2026). Selected quarters from the published table.
+quarters = ['2015-02-15', '2019-11-15', '2022-02-15', '2023-02-15', '2024-02-15',
+            '2024-11-15', '2025-02-15', '2025-05-15', '2025-08-15', '2025-11-15',
+            '2026-02-15']
+labels = ['2015 Q1', '2019 Q4', '2022 Q1', '2023 Q1', '2024 Q1', '2024 Q4',
+          '2025 Q1', '2025 Q2', '2025 Q3', '2025 Q4', '2026 Q1']
+share = [0.58, 0.60, 0.72, 0.65, 0.72, 0.82, 0.94, 1.06, 1.14, 1.29, 1.49]
+
+fig = go.Figure()
+fig.add_trace(go.Scatter(
+    x=quarters, y=share, text=labels,
+    mode='lines+markers',
+    line=dict(color=palette['green'], width=2),
+    marker=dict(color=palette['green'], size=6),
+    fill='tozeroy', fillcolor='rgba(124,255,0,0.07)',
+    hovertemplate='%{text}: %{y:.2f}% of GDP<extra></extra>'
+))
+fig.add_hline(y=0.7, line=dict(color='rgba(201,209,198,0.4)', width=1, dash='dot'),
+              annotation_text='2015–2022 average ≈ 0.7%',
+              annotation_position='top left',
+              annotation_font=dict(color=palette['ink'], size=11))
+fig.add_annotation(
+    x='2026-02-15', y=1.49, text="2026 Q1<br>1.49%",
+    showarrow=True, arrowhead=2, arrowsize=0.8, arrowcolor=palette['green'],
+    font=dict(color=palette['green'], size=11), ax=-52, ay=-6
+)
+fig.update_layout(
+    title=titled('US Computing Infrastructure Investment as % of GDP',
+                 'Selected quarters, 2015 to 2026 · source: Epoch AI'),
+    xaxis=dict(**AXIS, title=''),
+    yaxis=dict(**AXIS, title='% of nominal GDP', ticksuffix='%', range=[0, 1.7]),
+    height=400, showlegend=False, **BASE_LAYOUT
+)
+fig.show(config=CONFIG)
+```
+
+These figures illustrate why the buildout is significant. The question is whether the investment earns an adequate return.
+
+## Free Intelligence 
+
+How fast is AI getting cheaper?
+
+**Per token.** A token is a chunk of text, [roughly three quarters of an English word](https://help.openai.com/en/articles/4936856-understanding-and-counting-tokens), and it's how AI usage is metered. Stanford's [2025 AI Index](https://hai.stanford.edu/assets/files/hai_ai-index-report-2025_chapter1_final.pdf) found that the price of a model performing at GPT-3.5 level on a general knowledge benchmark fell from \$20 per million tokens in November 2022 to \$0.07 in October 2024:
+
+$$\frac{20}{0.07} \approx 286\times \text{ cheaper in 23 months}$$
+
+To compare that with other figures, convert it to an annual rate:
+
+$$286^{12/23} \approx 286^{0.52} \approx 19\times \text{ per year}$$
+
+Epoch AI's [2025 analysis](https://epoch.ai/data-insights/llm-inference-price-trends) also tracks falling per-token prices at fixed benchmark performance. Those comparisons depend on which capability and interval you select.
+
+**Per task.** Tokens are a misleading unit, because newer "reasoning" models think out loud before answering and burn far more tokens per question. The better question is what it costs to get one problem solved at a given quality. Epoch's September 2026 report, [*The plunging price of thought*](https://epoch.ai/publications/the-plunging-price-of-thought), measures exactly that, counting the reasoning tokens, and finds the cost of a fixed level of performance falling about 47% per quarter. Annualized:
+
+$$\frac{1}{(1 - 0.47)^4} = \frac{1}{0.53^4} \approx \frac{1}{0.0789} \approx 12.7 \approx 13\times \text{ per year}$$
+
+By their comparison that is several times faster than the price declines in DNA sequencing or computing itself.
+
+The rates vary substantially across benchmarks and performance levels. The chart below compares selected estimates from Stanford and Epoch. Annualizing a short historical interval makes the numbers easier to compare, but does not make them forecasts.[^price-method]
+
+```{python}
+#| echo: false
+# Annualized decline in the price/cost of a FIXED level of AI performance.
+# Per-token rows are price per million tokens; per-task rows are cost per
+# task/question including reasoning tokens. Annualization of the two-point
+# examples (AI Index, o3) is mine: (start/end) ** (12 / months).
+rows = [
+    # (label, hover detail, factor per year, unit)
+    ('Science Qs', 'GPQA Diamond at 75%, Epoch o3 example, 725x in ~18 months', 81, 'task'),
+    ('New frontier', 'Newly reached performance level, Epoch 2026, 66%/quarter', 75, 'task'),
+    ('GPT-3.5 level', 'GPT-3.5-level MMLU, Stanford AI Index, over 23 months', 19, 'token'),
+    ('Headline rate', 'All performance levels, Epoch 2026, 47%/quarter', 13, 'task'),
+    ('2 years later', 'Same level two years after it appears, Epoch 2026, 32%/quarter', 4.7, 'task'),
+]
+rows = rows[::-1]
+colors = [palette['green'] if r[3] == 'task' else palette['amber'] for r in rows]
+
+fig2 = go.Figure()
+fig2.add_trace(go.Bar(
+    y=[r[0] for r in rows], x=[r[2] for r in rows],
+    customdata=[r[1] for r in rows],
+    orientation='h',
+    marker=dict(color=colors),
+    text=[f"{r[2]:g}×" for r in rows], textposition='outside',
+    textfont=dict(color=palette['ink']),
+    cliponaxis=False,
+    hovertemplate='%{customdata}<br>%{x}× cheaper per year<extra></extra>'
+))
+fig2.update_layout(
+    title=titled('How Fast a Fixed Level of AI Gets Cheaper',
+                 'Log scale · green = per task, amber = per token'),
+    xaxis=dict(**AXIS, title='× cheaper per year (log scale)', type='log',
+               range=[0, 2.6], tickvals=[1, 3, 10, 30, 100, 300],
+               ticktext=['1×', '3×', '10×', '30×', '100×', '300×']),
+    yaxis=dict(**AXIS, title='', automargin=True),
+    height=440, showlegend=False,
+    **{**BASE_LAYOUT, 'margin': dict(l=110, r=50, t=62, b=50)}
+)
+fig2.show(config=CONFIG)
+```
+
+Look at the "New frontier" and "2 years later" bars, because they matter later. Averaging across five benchmarks, Epoch estimates about 75x annual price reductions when a performance level first appears, slowing to about 4.7x two years later. The pattern is not universal. 
+
+The slowest selected estimate here is about 5x cheaper per year. That is neither a lower bound for all AI work, nor a promise about future prices. If a fixed task kept getting cheaper at one of these rates, the volume sold would have to grow by the same factor for its revenue to stay flat. 
+
+## Estimating Jevons
+
+Let's try an illustrative scenario: how much would paid AI use have to grow to support this level of spending? We need three inputs: investment, revenue, and the price of a comparable task. The figures below show how these assumptions interact, rather than estimate the industry's actual funding needs.[^model-boundary]
+
+**Step 1: What does one year of spending have to earn?**
+
+Suppose the \$735 billion investment is repaid over six years with a 10% annual return. Using the same formula as a mortgage payment:
+
+$$\text{Annual payment} = 735 \times \frac{0.10}{1-(1.10)^{-6}} \approx 735 \times 0.2296 \approx \$169\text{ billion}$$
+
+That's about \$169 billion a year available *after operating costs*, for six years. The lifespan and return are assumptions.[^capital-life]
+
+**Step 2: How fast does spending grow?**
+
+Each new year's investment adds another annual payment. Start with the earlier \$410 billion baseline for 2025 and \$735 billion for 2026. If spending then stays flat, the six investments from 2025 through 2030 require:
+
+$$[410 + 5\times735]\times0.2296 \approx \$938\text{ billion a year}$$
+
+If annual spending keeps growing, the bill gets larger:
+
+| Annual capex growth after 2026 | Capex in 2030 | Annual capital payment in 2030 |
+|:--|--:|--:|
+| 0% | \$735B | \$938B |
+| 10% | \$1,076B | \$1,124B |
+| 25% | \$1,794B | \$1,479B |
+
+These are chosen scenarios, with the same six-year repayment assumption in every row.[^capital-cohorts]
+
+**Step 3: Where is revenue today?**
+
+Reuters reported annualized revenue of [over \$65 billion for Anthropic in July](https://www.investing.com/news/stock-market-news/anthropic-revenue-run-rate-tops-65-billion-source-says-4864031) and [almost \$50 billion for OpenAI in September](https://www.investing.com/news/stock-market-news/openais-annualized-revenue-20-billion-less-than-previously-signaled-ft-reports-4939854). These snapshots show the scale of lab sales, though their accounting differs.
+
+I'll use \$120 billion as a round starting revenue assumption. For a simple comparison, set the 2030 revenue target equal to the flat-spending capital payment:
+
+$$\frac{938}{120}\approx7.8\times,\qquad 7.8^{1/4}\approx1.67$$
+
+That's **67% annual revenue growth** over four years. Equating revenue with the capital payment leaves nothing for operating costs, and the lab revenue base does not match the companies' broad capex. These inputs can be varied; the result is not an industry revenue requirement.[^revenue-scope]
+
+**Step 4: Add the falling price.**
+
+If a task becomes 5x cheaper and customers buy 5x as many, revenue stays flat. At 10x as many tasks, revenue doubles: $10/5=2$.
+
+To grow revenue as well, volume must rise faster. In annual multiples:
+
+$$\text{Task growth} = \text{Price reduction}\times\text{Revenue growth}$$
+
+Here is the annual task growth needed to reach each scenario's 2030 target from \$120 billion:
+
+| Capex growth/year | 2x cheaper/year | 4.7x cheaper/year | 13x cheaper/year |
+|:--|--:|--:|--:|
+| 0% | 3.3x | 7.9x | 21.7x |
+| 10% | 3.5x | 8.2x | 22.7x |
+| 25% | 3.7x | 8.8x | 24.4x |
+
+The 2x rate is a slower hypothetical decline; 4.7x and 13x use the earlier historical estimates as scenarios for customer prices.[^task-prices] **Both faster price declines and faster capex growth raise the volume hurdle.**
+
+The chart shows the flat-capex case: roughly 3,800x today's task volume by 2030 at 4.7x annual price reductions, or 220,000x at 13x.
+
+```{python}
+#| echo: false
+# Toy model: task volume (multiple of 2026) needed for revenue to reach
+# ~$938B by 2030 from an assumed $120B today, under different paths for the
+# price of a fixed task. Revenue path: 120 * g**(t/4), g = 938/120.
+# Price paths (index, 2026 = 1):
+#   fast  : falls 13x/yr through 2030           (Epoch 2026 headline)
+#   slow  : falls 4.7x/yr through 2030          (Epoch 2026, mature capability)
+t = [i / 20 for i in range(81)]
+years = [2026 + x for x in t]
+g = 938 / 120
+rev = [g ** (x / 4) for x in t]
+
+fast = [r * 13 ** x for r, x in zip(rev, t)]
+slow = [r * 4.7 ** x for r, x in zip(rev, t)]
+
+fig3 = go.Figure()
+for y, name, color, dash in [
+    (fast, 'Needed if price falls 13×/yr', palette['red'], 'solid'),
+    (slow, 'Needed if price falls 4.7×/yr', palette['amber'], 'solid'),
+]:
+    fig3.add_trace(go.Scatter(
+        x=years, y=y, mode='lines', name=name,
+        line=dict(color=color, width=2, dash=dash),
+        hovertemplate=name + '<br>%{x:.1f}: %{y:,.0f}× 2026 volume<extra></extra>'
+    ))
+fig3.update_layout(
+    title=titled('Illustrative Fixed-Task Volume Scenarios',
+                 'Assumed revenue: 120B to 938B USD · log scale'),
+    xaxis=dict(**AXIS, title='', dtick=1),
+    yaxis=dict(**AXIS, title='× 2026 volume (log scale)', type='log',
+               tickvals=[1, 10, 100, 1000, 10000, 100000, 1000000],
+               ticktext=['1×', '10×', '100×', '1,000×', '10,000×', '100,000×', '1,000,000×']),
+    height=460,
+    legend=dict(orientation='h', x=0, y=-0.14, font=dict(size=11),
+                bgcolor='rgba(0,0,0,0)'),
+    **{**BASE_LAYOUT, 'margin': dict(l=62, r=30, t=62, b=90)}
+)
+fig3.show(config=CONFIG)
+```
+
+**Step 5: How fast is paid use actually growing?**
+
+This is the most important input, and I don't have a consistent public measure. Tokens, completed tasks, and active users count different things. Longer reasoning can increase tokens per task, and free use does not produce the same revenue as paid use.
+
+A lab could track its own paid usage and prices, but comparing providers also means accounting for differences in task difficulty and quality. Without that, we can calculate the growth a scenario requires, but we cannot reliably compare it with actual market-wide growth.
+
+## Is Cheaper Enough?
+
+The scenario counts comparable tasks at a fixed quality. Demand can grow through more customers, more frequent use, or more ambitious work. I might not need a thousand times more email summaries. But if AI became cheap and reliable enough to handle a project I currently cannot afford to do, that would be a different purchase.
+
+That is what makes the coal comparison interesting. Cheaper steam helped expand existing industries and make new uses practical. AI could follow a similar path through more customers, more frequent use, and harder tasks. **The question is whether those uses create enough paid demand to earn a return on the investment.** Falling prices can make new uses affordable, but they do not tell us how much people will buy.
+
+## Wheat or Coal
+
+Jevons' insight was that efficiency can increase total resource use by making more uses worthwhile. For AI spending, the related test is $m > k$: paid volume has to grow faster than the price of comparable work falls for revenue to rise. Profitability also depends on costs.
+
+The roughly \$735 billion spending plan makes this a large bet. In the flat-capex scenario, reaching the assumed 2030 revenue target takes about 8x annual task growth if prices fall 4.7x a year, or 22x if they fall 13x. Faster investment growth raises those hurdles. We do not have a consistent public measure of comparable paid tasks to tell us how actual growth stacks up.
+
+So I don't think we can call AI wheat or coal yet. The useful question is how much additional work people will pay for as AI gets cheaper and more capable, and whether serving that work earns enough to cover the buildout.
+
+One last thing about Jevons. He worried that continued growth in coal use would undermine Britain's industrial position as extraction became more expensive. British coal production eventually [peaked in 1913 at roughly 290 million tons](https://commonslibrary.parliament.uk/research-briefings/cdp-2025-0028/). Even coal did not keep growing exponentially forever. That's worth remembering when looking at these curves, too.
+
+[^jevons-bio]: He was not yet a famous economist. Born in Liverpool in 1835, he had spent five years in Australia testing the purity of gold at the new Sydney mint, then came home to finish his degree and tutor at a college in Manchester. His coal book is what got him noticed. He went on to become one of the founders of modern economics: his 1871 *Theory of Political Economy* helped launch the idea that value comes from the usefulness of the *next* unit of something, not the labor that went into it, and it pushed the field toward math. See the [Stanford Encyclopedia of Philosophy biography](https://plato.stanford.edu/entries/william-jevons/). 
+
+[^jevons-strange]: For some additional context, he also built a mechanical reasoning machine that looked like an upright piano, and spent years trying to tie business cycles to sunspots, which went about as well as you'd guess. Then he drowned while swimming in 1882, at 46. The [University of St Andrews biography](https://mathshistory.st-andrews.ac.uk/Biographies//Jevons/) covers the machine and his death.
+
+[^iron-elasticity]: The 3.1 ratio uses the rounded threefold efficiency improvement as its denominator, not an observed iron-price change. Britain's population, economy, and technology were also changing. It illustrates the historical scale of expansion; it does not isolate demand caused by a price cut.
+
+
+[^capex-scope]: Source dates: Amazon's July 30 Q2 call, Alphabet's July 22 Q2 call, Microsoft's July 29 fiscal Q4 call, and Meta's October 21 Q3 release. Meta's latest range is \$135–145 billion, replacing \$130–145 billion. The range here sums the endpoints while holding Amazon and Microsoft at their approximate point estimates: $220 + 195 + 175 + 135 = 725$ and $220 + 205 + 175 + 145 = 745$, in billions. It is a guidance envelope, not a confidence interval, and actual spending can fall outside it. These are company-wide budgets, not a separately disclosed AI-only spending total.
+
+[^capex-comparison]: Amazon's figure is cash capex; Alphabet's is company capex; Microsoft includes finance-lease additions; Meta includes finance-lease principal payments. Microsoft's CFO says the move of some leases to operating classification reduces its reported capex plan without a corresponding cut in investment expectations. The roughly \$410 billion 2025 baseline comes from a secondary aggregation, not a harmonized accounting series. Both the 79% comparison and the model inherit that limitation.
+
+[^jevons-test]: Let $a$ be physical resource use per task. Total use is $a q$. If efficiency makes $a$ fall to $a/k$, resource use becomes $(m/k)aq$. Revenue instead depends on the customer price $p$. Equal percentage changes in $a$ and $p$ are an additional assumption, not an accounting identity.
+
+[^price-method]: The rates are selected historical estimates at fixed benchmark performance. The 19x Stanford bar annualizes a 23-month interval. The science-question bar annualizes Epoch's reported roughly 725-fold improvement over approximately 18 months, about 81x per year. The other task bars annualize quarterly declines. They describe benchmark performance, not a uniform price decline for every commercial workflow.
+
+[^model-boundary]: All dollar inputs are nominal USD. This scenario assumes immediate deployment, six annual payments per spending cohort, zero residual value, a constant 10% return, no taxes, and no operating costs. It treats different capex measures as one pool and uses an assumed lab-scale revenue base. Lab revenue and cloud revenue overlap economically and should not simply be added. The model is an illustration of compounding, not a valuation, an audited funding gap, or a forecast of sector revenue or demand.
+
+
+[^capital-life]: The six-year recovery period and 10% return are scenario assumptions. Microsoft's [2026 annual report](https://www.microsoft.com/investor/reports/ar26/index.html) gives server and network equipment accounting lives of two to six years, while buildings can last much longer. One repayment period for the entire mixed investment pool simplifies those differences. Some investment also serves existing cloud and other businesses; treating the whole budget as AI investment overstates that portion of the bill.
+
+[^capital-cohorts]: Each investment enters service immediately and makes six year-end annual payments, the first at the end of its spending year, with no residual value. For annual capex growth $g$ after 2026, the 2030 capital payment, in billions, is $0.229607\times[410+735\sum_{i=0}^{4}(1+g)^i]$. Investments before 2025 are excluded. Table values use the unrounded payment factor.
+
+[^revenue-scope]: The \$120 billion starting point is an illustrative assumption, not a total for AI revenue. The lab snapshots come from different months, use different accounting, and exclude other providers and indirect benefits such as advertising. Lab and cloud revenue can overlap along the supply chain. The table sets revenue equal to the capital payment, effectively assuming all revenue is available for capital recovery. At a 50% cash margin, for example, the same capital payment would require twice as much revenue. Leaving out indirect returns can overstate the need for direct AI sales, while leaving out operating costs understates the revenue needed. Together with the mixed capex pool, these choices mean the scenario is neither an upper nor a lower bound on the actual requirement. Annual task multiples are $k\times(T/120)^{1/4}$, where $k$ is the annual price-reduction factor and $T$ is the chosen 2030 revenue target.
+
+
+[^task-prices]: The curves extend historical benchmark-price declines for four years while holding task quality fixed. Commercial prices also reflect reliability, latency, integration, and the work included in a purchase, so neither curve forecasts the market's average selling price. Customer prices differ from providers' serving costs and can reflect competition or sales at a loss. Falling prices alone establish neither profitability nor a fixed cost floor; a slower price decline for an aging capability does not establish one either.

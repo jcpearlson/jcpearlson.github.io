@@ -533,7 +533,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
-// Subscribe form and share button at the end of each article.
+// Subscribe form and share button after the article text, before endnotes.
 document.addEventListener('DOMContentLoaded', function() {
   const contentArea = document.querySelector('main#quarto-document-content');
   if (!contentArea || document.querySelector('.quarto-listing')) return;
@@ -567,7 +567,12 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="share-article-container">
       <button type="button" class="share-article-button">Share this Article</button>
     </div>`;
-  contentArea.appendChild(footer);
+  const endnotes = contentArea.querySelector('#quarto-appendix, section.footnotes');
+  if (endnotes) {
+    endnotes.before(footer);
+  } else {
+    contentArea.appendChild(footer);
+  }
 
   // --- 3. SHARE ---
   const shareButton = footer.querySelector('.share-article-button');

@@ -142,6 +142,77 @@ body.jcp-article-page #quarto-content section[id] { scroll-margin-top: 85px; }
   margin: 20px 0;
 }
 
+/* ========== FOOTNOTES ========== */
+
+/* Quarto's appendix otherwise inherits Slate's gray background and spacing. */
+body.jcp-article-page #quarto-appendix {
+  background: transparent;
+  border: 0;
+  margin: 42px 0 0;
+  padding: 0;
+}
+body.jcp-article-page #quarto-appendix .footnotes {
+  background: var(--t-panel);
+  border: 1px solid var(--t-line);
+  padding: 22px 24px;
+  margin: 0;
+}
+body.jcp-article-page #quarto-appendix .footnotes h2 {
+  color: var(--t-ink-dim);
+  font: 500 12px/1.5 var(--t-mono);
+  /* Quarto marks its appendix heading size as important. */
+  font-size: 12px !important;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border: 0;
+  margin: 0 0 18px;
+  padding: 0;
+}
+body.jcp-article-page #quarto-appendix .footnotes h2::before {
+  content: "# ";
+  color: var(--t-accent);
+}
+body.jcp-article-page #quarto-appendix .footnotes > ol {
+  padding-left: 1.75em;
+  margin: 0;
+}
+body.jcp-article-page #quarto-appendix .footnotes > :is(h2, ol) { opacity: 1; }
+body.jcp-article-page #quarto-appendix .footnotes :is(p, li) {
+  font-size: 16px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+body.jcp-article-page #quarto-appendix .footnotes > ol > li {
+  padding-left: .4em;
+  scroll-margin-top: 85px;
+}
+body.jcp-article-page #quarto-appendix .footnotes > ol > li + li {
+  border-top: 1px solid var(--t-line);
+  padding-top: 16px;
+  margin-top: 16px;
+}
+body.jcp-article-page #quarto-appendix .footnotes li::marker {
+  font-family: var(--t-mono);
+  font-size: 13px;
+  color: var(--t-accent);
+}
+body.jcp-article-page #quarto-appendix .footnotes li > :last-child { margin-bottom: 0; }
+body.jcp-article-page #quarto-content .footnote-ref { scroll-margin-top: 85px; }
+body.jcp-article-page #quarto-content .footnote-back {
+  display: inline-block;
+  margin-left: .4em;
+  padding: 0 .25em;
+  font-family: var(--t-mono);
+  border-bottom-color: transparent;
+}
+body.jcp-article-page #quarto-content :is(.footnote-ref, .footnote-back):focus-visible {
+  outline: 1px solid var(--t-accent);
+  outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  body.jcp-article-page #quarto-appendix .footnotes { padding: 18px 16px; }
+}
+
 /* ========== FIGURES ========== */
 
 #quarto-content figure { max-width: 100%; margin: 2rem auto; }
