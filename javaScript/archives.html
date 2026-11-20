@@ -1,0 +1,63 @@
+<script>
+(() => {
+  const select = document.getElementById('article-topic');
+  if (!select) return;
+
+  const topics = new Map(Array.from(select.options, option => [option.value.toLowerCase(), option.value]));
+  const hashParams = () => new URLSearchParams(location.hash.slice(1).replace(/\+/g, '%2B'));
+  const topicFrom = params => topics.get(params.get('category')?.toLowerCase()) || '';
+
+  function normalizeCategoryHash() {
+    const params = hashParams();
+    if (!params.has('category')) return;
+    const topic = topicFrom(params);
+    if (topic) params.set('category', topic);
+    else params.delete('category');
+    const url = new URL(location.href);
+    // Quarto decodes percent escapes but treats + as a literal plus.
+    url.hash = params.toString().replace(/\+/g, '%20');
+    if (url.href !== location.href) history.replaceState(history.state, '', url);
+  }
+
+  // Normalize old links before Quarto applies its case-sensitive category filter.
+  normalizeCategoryHash();
+  window.addEventListener('hashchange', normalizeCategoryHash, { capture: true });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = select.closest('.quarto-listing');
+    const listing = window['quarto-listings']?.[container.id];
+    if (!listing) return;
+
+    const status = document.getElementById('article-results');
+    function restoreSelection() {
+      const params = hashParams();
+      const topic = topicFrom(params);
+      select.value = topic;
+      const matchesTopic = topic
+        ? item => item.values().categories?.split(',').includes(topic)
+        : undefined;
+      listing.filter(matchesTopic);
+
+      const count = listing.matchingItems.length;
+      const page = Number(params.get(`${container.id}-page`));
+      const firstItem = (page - 1) * listing.page + 1;
+      if (Number.isSafeInteger(page) && page > 1 && firstItem <= count) {
+        listing.show(firstItem, listing.page);
+      }
+      status.textContent = `${count} ${count === 1 ? 'article' : 'articles'}`;
+    }
+
+    select.addEventListener('change', () => {
+      const url = new URL(location.href);
+      url.hash = select.value ? 'category=' + encodeURIComponent(select.value) : '';
+      history.pushState(null, '', url);
+      restoreSelection();
+    });
+
+    restoreSelection();
+    window.addEventListener('popstate', restoreSelection);
+    window.addEventListener('hashchange', restoreSelection);
+    select.closest('.topic-filter').hidden = false;
+  });
+})();
+</script>

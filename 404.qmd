@@ -1,21 +1,10 @@
 ---
-title: "Page not found"
+title: "404"
 pagetitle: "Page not found | Josh Pearlson"
-title-block-banner: false
-page-layout: full
-css:
-  - css/index.css
+subtitle: "This page may have moved or been renamed."
+body-classes: site-not-found
 ---
 
 ```{=html}
-<div class="jcp-terminal" id="jcp-terminal" data-title="~/404" data-tab="none" data-status="page not found">
-  <div class="t-body">
-    <header class="t-page-heading">
-      <div class="t-command"><span class="t-prompt">$</span>cd ./unknown</div>
-      <h1>404<span class="t-accent">_</span></h1>
-      <p>No such file or directory. This page may have moved or been renamed.</p>
-    </header>
-    <div class="t-actions"><a href="/" class="t-primary">Return home →</a><a href="/articles/" class="t-text-link">Browse articles →</a></div>
-  </div>
-</div>
+<p class="link-pair"><a href="/">Return home</a><a href="/articles/">Browse writing</a></p>
 ```

@@ -1,0 +1,33 @@
+<script>
+(() => {
+  const article = document.getElementById('quarto-document-content');
+  if (!article) return;
+
+  // Keep links from the previous table of contents working when its slug differs
+  // from the actual Quarto section ID.
+  const legacyIds = new Set();
+  article.querySelectorAll('section[id] > :is(h2, h3):first-child').forEach(heading => {
+    const slug = heading.textContent.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+    if (slug && !heading.id && !document.getElementById(slug)) {
+      heading.id = slug;
+      legacyIds.add(slug);
+    }
+  });
+  const target = location.hash.slice(1);
+  if (legacyIds.has(target)) document.getElementById(target).scrollIntoView();
+
+  const toc = article.querySelector('#TOC');
+  if (toc) {
+    const details = document.createElement('details');
+    const summary = document.createElement('summary');
+    details.className = 'article-contents';
+    summary.textContent = toc.querySelector('h2')?.textContent || 'On this page';
+    toc.setAttribute('aria-label', summary.textContent);
+    toc.before(details);
+    details.append(summary, toc);
+  }
+
+  const writing = document.querySelector('.navbar .nav-link[href$="/articles/index.html"]');
+  if (writing) writing.classList.add('active');
+})();
+</script>

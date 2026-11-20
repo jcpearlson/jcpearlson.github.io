@@ -1,18 +1,19 @@
-# options specified here will apply to all posts in this folder
-
-# freeze computational output
-# (see https://quarto.org/docs/projects/code-execution.html#freeze)
+# Reuse computational output on site renders.
 freeze: true
 
-# Enable banner style title blocks
-title-block-banner: true
+title-block-style: default
+date-format: "MMM D, YYYY"
+toc: true
+toc-location: body
+toc-depth: 3
+toc-title: On this page
 
 format:
   html:
-    # Apply the article theme before body scripts or charts finish loading.
+    page-layout: article
     body-classes: jcp-article-page
+    html-math-method: mathjax
     css: ../../css/posts.css
     include-after-body:
-      - ../../javaScript/article-chrome.html
+      - ../../javaScript/article-navigation.html
       - ../../javaScript/share.html
-      - ../../javaScript/toc-scrollspy.html

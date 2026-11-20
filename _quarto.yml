@@ -13,9 +13,9 @@ project:
     - "articles/posts/**/index.md"
     - "articles/posts/**/index.ipynb"
   resources:
-    - "projects/**"
+    - "projects/6CardGolf/**"
+    - "projects/DigDug/**"
     - "media/*"
-    - "css/terminal-theme.css"
     - "artifacts/**"
 
 website:
@@ -23,14 +23,36 @@ website:
   favicon: media/jcp_logo2.png
   search:
     keyboard-shortcut: ["f"]
-  # The Bootstrap navbar is hidden by the terminal chrome (javaScript/terminal.html),
-  # but it still hosts Quarto's search overlay, opened with the "f" key.
-  navbar: true
+    type: overlay
+  navbar:
+    title: "~/jcp"
+    pinned: true
+    collapse: false
+    right:
+      - text: Writing
+        href: articles/index.qmd
+      - text: Projects
+        href: projects/index.qmd
+      - text: About
+        href: about/index.qmd
+      - text: Contact
+        href: contact/index.qmd
+  page-footer:
+    left: "Josh Pearlson"
+    right:
+      - text: Quotes
+        href: quotes/index.qmd
+      - text: GitHub
+        href: https://github.com/jcpearlson
+
 format:
   html:
     theme: slate
-    # Site-wide includes run before page-level ones; terminal.html defines window.JCP.
+    page-layout: full
+    html-math-method: plain
+    css: css/terminal-theme.css
+    include-before-body: _includes/skip-link.html
     include-after-body:
-      - javaScript/terminal.html
+      - javaScript/signup-analytics.html
       - javaScript/console.html
       - javaScript/analytics.html

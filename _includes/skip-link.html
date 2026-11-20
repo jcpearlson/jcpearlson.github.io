@@ -1,0 +1,14 @@
+<a class="skip-link" href="#quarto-document-content" hidden>Skip to content</a>
+<script>
+(() => {
+  const link = document.querySelector('.skip-link');
+  const header = document.getElementById('quarto-header');
+  const main = document.getElementById('quarto-document-content');
+  if (!header || !main) return;
+
+  // Quarto puts before-body includes inside main, after the site header.
+  header.before(link);
+  main.tabIndex = -1;
+  link.hidden = false;
+})();
+</script>

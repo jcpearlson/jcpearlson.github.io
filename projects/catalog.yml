@@ -1,0 +1,28 @@
+- title: FICC Mania
+  url: https://github.com/jcpearlson/FICC-mania
+  description: A Streamlit dashboard for fixed income, currencies, and commodities using free public data.
+  detail: "2026 · Dashboard · Python"
+- title: Pomo
+  url: https://pomo.joshpearlson.com
+  description: A minimal Pomodoro timer. A little structure for focused work.
+  detail: "2025–present · Web app · JavaScript"
+- title: Priors
+  url: /articles/
+  description: My blog on markets, machine learning, and probability.
+  detail: "2024–present · Writing"
+- title: DPFM @ ICLR 2024
+  url: https://openreview.net/forum?id=sfnz81T3pm
+  description: "Using LLMs to recognize DeFi entities. Lead author, DPFM workshop at ICLR 2024."
+  detail: "2024 · Research · LLM"
+- title: MRI Lesion Mapping
+  url: https://doi.org/10.1117/12.2582228
+  description: "CNN-based lesion mapping from MP-MRI. Lead author, SPIE Medical Imaging."
+  detail: "2020 · Research · CNN"
+- title: 6-Card Golf
+  url: /projects/6CardGolf/index.html
+  description: A browser-based 1v1 card game with peer-to-peer networking and in-game chat.
+  detail: "2023 · Card game · P2P"
+- title: Dig Dug
+  url: /projects/DigDug/DigDugGame.html
+  description: Classic arcade game recreation in the browser.
+  detail: "2022 · Arcade · Canvas"

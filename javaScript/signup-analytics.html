@@ -1,0 +1,12 @@
+<script>
+document.addEventListener('submit', event => {
+  const form = event.target.closest('form[data-subscribe]');
+  if (form && window.goatcounter?.count) {
+    window.goatcounter.count({
+      path: form.dataset.subscribe,
+      title: form.dataset.subscribeTitle,
+      event: true
+    });
+  }
+});
+</script>
