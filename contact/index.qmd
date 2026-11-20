@@ -6,16 +6,22 @@ pagetitle: "Contact | Josh Pearlson"
 ```{=html}
 <ul class="index-list contact-links">
   <li class="index-row">
-    <a class="index-title" href="mailto:jcpearlson@gmail.com">Email</a>
-    <div class="index-meta">jcpearlson@gmail.com</div>
+    <a class="index-entry" href="mailto:jcpearlson@gmail.com">
+      <span class="index-title">Email</span>
+      <span class="index-meta">jcpearlson@gmail.com</span>
+    </a>
   </li>
   <li class="index-row">
-    <a class="index-title" href="https://linkedin.com/in/josh-pearlson">LinkedIn <span class="external-arrow" aria-hidden="true">↗</span></a>
-    <div class="index-meta">linkedin.com/in/josh-pearlson</div>
+    <a class="index-entry" href="https://linkedin.com/in/josh-pearlson">
+      <span class="index-title">LinkedIn <span class="external-arrow" aria-hidden="true">↗</span></span>
+      <span class="index-meta">linkedin.com/in/josh-pearlson</span>
+    </a>
   </li>
   <li class="index-row">
-    <a class="index-title" href="https://github.com/jcpearlson">GitHub <span class="external-arrow" aria-hidden="true">↗</span></a>
-    <div class="index-meta">github.com/jcpearlson</div>
+    <a class="index-entry" href="https://github.com/jcpearlson">
+      <span class="index-title">GitHub <span class="external-arrow" aria-hidden="true">↗</span></span>
+      <span class="index-meta">github.com/jcpearlson</span>
+    </a>
   </li>
 </ul>
 

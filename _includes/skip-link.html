@@ -6,7 +6,7 @@
   const main = document.getElementById('quarto-document-content');
   if (!header || !main) return;
 
-  // Quarto puts before-body includes inside main, after the site header.
+  // Keep the link outside the searchable content and first in the tab order.
   header.before(link);
   main.tabIndex = -1;
   link.hidden = false;

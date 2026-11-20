@@ -28,6 +28,19 @@
   }
 
   const writing = document.querySelector('.navbar .nav-link[href$="/articles/index.html"]');
-  if (writing) writing.classList.add('active');
+  if (!writing) return;
+  writing.classList.add('active');
+
+  // Link directly to the archive before Quarto chooses a listing from the referrer.
+  const archive = new URL(writing.href);
+  article.querySelectorAll('#title-block-header .quarto-category').forEach(category => {
+    const topic = category.textContent;
+    archive.hash = 'category=' + encodeURIComponent(topic);
+    const link = document.createElement('a');
+    link.className = 'article-topic';
+    link.href = archive.href;
+    link.textContent = topic;
+    category.replaceWith(link);
+  });
 })();
 </script>

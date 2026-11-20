@@ -145,20 +145,6 @@ window.Quarto = {
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
-<a class="skip-link" href="#quarto-document-content" hidden="">Skip to content</a>
-<script>
-(() => {
-  const link = document.querySelector('.skip-link');
-  const header = document.getElementById('quarto-header');
-  const main = document.getElementById('quarto-document-content');
-  if (!header || !main) return;
-
-  // Quarto puts before-body includes inside main, after the site header.
-  header.before(link);
-  main.tabIndex = -1;
-  link.hidden = false;
-})();
-</script>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -476,6 +462,20 @@ if (outputEl) {{
 </section>
 
 </main> <!-- /main -->
+<a class="skip-link" href="#quarto-document-content" hidden="">Skip to content</a>
+<script>
+(() => {
+  const link = document.querySelector('.skip-link');
+  const header = document.getElementById('quarto-header');
+  const main = document.getElementById('quarto-document-content');
+  if (!header || !main) return;
+
+  // Keep the link outside the searchable content and first in the tab order.
+  header.before(link);
+  main.tabIndex = -1;
+  link.hidden = false;
+})();
+</script>
 <script>
 document.addEventListener('submit', event => {
   const form = event.target.closest('form[data-subscribe]');
@@ -529,7 +529,20 @@ document.addEventListener('submit', event => {
   }
 
   const writing = document.querySelector('.navbar .nav-link[href$="/articles/index.html"]');
-  if (writing) writing.classList.add('active');
+  if (!writing) return;
+  writing.classList.add('active');
+
+  // Link directly to the archive before Quarto chooses a listing from the referrer.
+  const archive = new URL(writing.href);
+  article.querySelectorAll('#title-block-header .quarto-category').forEach(category => {
+    const topic = category.textContent;
+    archive.hash = 'category=' + encodeURIComponent(topic);
+    const link = document.createElement('a');
+    link.className = 'article-topic';
+    link.href = archive.href;
+    link.textContent = topic;
+    category.replaceWith(link);
+  });
 })();
 </script>
 <template id="article-actions-template">

@@ -44,7 +44,7 @@ body.jcp-article-page #title-block-header {
 .jcp-article-page .quarto-title-meta p { margin: 0; }
 .jcp-article-page .quarto-title-meta > div + div { border-left: 1px solid var(--t-line); padding-left: 1rem; }
 .jcp-article-page .quarto-title .quarto-categories { gap: .35rem .85rem; padding-bottom: 0; }
-.jcp-article-page .quarto-title .quarto-category {
+.jcp-article-page .quarto-title :is(.quarto-category, .article-topic) {
   border: 0;
   padding: 0;
   opacity: 1;
@@ -52,6 +52,7 @@ body.jcp-article-page #title-block-header {
   text-transform: none;
   font: .78rem/1.5 var(--t-mono);
 }
+.jcp-article-page .article-topic:hover { color: var(--t-accent); }
 
 .article-contents { margin-bottom: 1.6rem; }
 .jcp-article-page #TOC {

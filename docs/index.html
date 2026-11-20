@@ -170,20 +170,6 @@ ul.task-list li input[type="checkbox"] {
     
 <!-- main -->
 <main class="content column-page" id="quarto-document-content">
-<a class="skip-link" href="#quarto-document-content" hidden="">Skip to content</a>
-<script>
-(() => {
-  const link = document.querySelector('.skip-link');
-  const header = document.getElementById('quarto-header');
-  const main = document.getElementById('quarto-document-content');
-  if (!header || !main) return;
-
-  // Quarto puts before-body includes inside main, after the site header.
-  header.before(link);
-  main.tabIndex = -1;
-  link.hidden = false;
-})();
-</script>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -217,7 +203,7 @@ ul.task-list li input[type="checkbox"] {
 
 <ul class="list index-list" role="list">
   
-  <li class="index-row" data-index="0" data-categories="Economics,Finance,LLM" data-listing-date-sort="1792814400000" data-listing-file-modified-sort="1795122512851" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="23" data-listing-word-count-sort="4434">
+  <li class="index-row" data-index="0" data-categories="Economics,Finance,LLM" data-listing-date-sort="1792814400000" data-listing-file-modified-sort="1795135747000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="23" data-listing-word-count-sort="4434">
     <a class="index-entry" href="./articles/posts/jevons-paradox-ai/index.html" aria-labelledby="post-title-0">
       <span class="index-title listing-title" id="post-title-0">Jevons Paradox: The 161-Year-Old Bet Holding Up the AI Boom</span>
       <span class="index-meta">
@@ -229,7 +215,7 @@ ul.task-list li input[type="checkbox"] {
     </a>
   </li>
   
-  <li class="index-row" data-index="1" data-categories="Machine Learning,Probability" data-listing-date-sort="1791432000000" data-listing-file-modified-sort="1795122512845" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15" data-listing-word-count-sort="2802">
+  <li class="index-row" data-index="1" data-categories="Machine Learning,Probability" data-listing-date-sort="1791432000000" data-listing-file-modified-sort="1795135747000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15" data-listing-word-count-sort="2802">
     <a class="index-entry" href="./articles/posts/Double Descent/index.html" aria-labelledby="post-title-1">
       <span class="index-title listing-title" id="post-title-1">Double Descent: The Most Shocking Curve in Machine Learning</span>
       <span class="index-meta">
@@ -241,7 +227,7 @@ ul.task-list li input[type="checkbox"] {
     </a>
   </li>
   
-  <li class="index-row" data-index="2" data-categories="Machine Learning,LLM" data-listing-date-sort="1790481600000" data-listing-file-modified-sort="1795122512847" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="603">
+  <li class="index-row" data-index="2" data-categories="Machine Learning,LLM" data-listing-date-sort="1790481600000" data-listing-file-modified-sort="1795135747000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="603">
     <a class="index-entry" href="./articles/posts/chart-crimes/index.html" aria-labelledby="post-title-2">
       <span class="index-title listing-title" id="post-title-2">Chart Crimes</span>
       <span class="index-meta">
@@ -297,6 +283,20 @@ No matching items
 
 
 </main> <!-- /main -->
+<a class="skip-link" href="#quarto-document-content" hidden="">Skip to content</a>
+<script>
+(() => {
+  const link = document.querySelector('.skip-link');
+  const header = document.getElementById('quarto-header');
+  const main = document.getElementById('quarto-document-content');
+  if (!header || !main) return;
+
+  // Keep the link outside the searchable content and first in the tab order.
+  header.before(link);
+  main.tabIndex = -1;
+  link.hidden = false;
+})();
+</script>
 <script>
 document.addEventListener('submit', event => {
   const form = event.target.closest('form[data-subscribe]');

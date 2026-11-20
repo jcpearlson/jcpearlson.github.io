@@ -111,20 +111,6 @@ ul.task-list li input[type="checkbox"] {
     
 <!-- main -->
 <main class="content column-page" id="quarto-document-content">
-<a class="skip-link" href="#quarto-document-content" hidden="">Skip to content</a>
-<script>
-(() => {
-  const link = document.querySelector('.skip-link');
-  const header = document.getElementById('quarto-header');
-  const main = document.getElementById('quarto-document-content');
-  if (!header || !main) return;
-
-  // Quarto puts before-body includes inside main, after the site header.
-  header.before(link);
-  main.tabIndex = -1;
-  link.hidden = false;
-})();
-</script>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -237,6 +223,20 @@ ul.task-list li input[type="checkbox"] {
 
 
 </main> <!-- /main -->
+<a class="skip-link" href="#quarto-document-content" hidden="">Skip to content</a>
+<script>
+(() => {
+  const link = document.querySelector('.skip-link');
+  const header = document.getElementById('quarto-header');
+  const main = document.getElementById('quarto-document-content');
+  if (!header || !main) return;
+
+  // Keep the link outside the searchable content and first in the tab order.
+  header.before(link);
+  main.tabIndex = -1;
+  link.hidden = false;
+})();
+</script>
 <script>
 document.addEventListener('submit', event => {
   const form = event.target.closest('form[data-subscribe]');

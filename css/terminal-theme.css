@@ -184,7 +184,7 @@ a:hover { color: var(--t-ink); }
   border-bottom: 1px solid var(--t-line);
   min-width: 0;
 }
-.quarto-listing .index-row { padding: 0; }
+:is(.quarto-listing, .contact-links) .index-row { padding: 0; }
 .index-entry {
   display: block;
   padding: .9rem 0 1rem;

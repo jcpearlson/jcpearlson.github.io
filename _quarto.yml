@@ -51,8 +51,8 @@ format:
     page-layout: full
     html-math-method: plain
     css: css/terminal-theme.css
-    include-before-body: _includes/skip-link.html
     include-after-body:
+      - _includes/skip-link.html
       - javaScript/signup-analytics.html
       - javaScript/console.html
       - javaScript/analytics.html

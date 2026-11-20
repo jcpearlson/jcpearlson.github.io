@@ -111,20 +111,6 @@ ul.task-list li input[type="checkbox"] {
     
 <!-- main -->
 <main class="content column-page" id="quarto-document-content">
-<a class="skip-link" href="#quarto-document-content" hidden="">Skip to content</a>
-<script>
-(() => {
-  const link = document.querySelector('.skip-link');
-  const header = document.getElementById('quarto-header');
-  const main = document.getElementById('quarto-document-content');
-  if (!header || !main) return;
-
-  // Quarto puts before-body includes inside main, after the site header.
-  header.before(link);
-  main.tabIndex = -1;
-  link.hidden = false;
-})();
-</script>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -147,16 +133,22 @@ ul.task-list li input[type="checkbox"] {
 
 <ul class="index-list contact-links">
   <li class="index-row">
-    <a class="index-title" href="mailto:jcpearlson@gmail.com">Email</a>
-    <div class="index-meta">jcpearlson@gmail.com</div>
+    <a class="index-entry" href="mailto:jcpearlson@gmail.com">
+      <span class="index-title">Email</span>
+      <span class="index-meta">jcpearlson@gmail.com</span>
+    </a>
   </li>
   <li class="index-row">
-    <a class="index-title" href="https://linkedin.com/in/josh-pearlson">LinkedIn <span class="external-arrow" aria-hidden="true">↗</span></a>
-    <div class="index-meta">linkedin.com/in/josh-pearlson</div>
+    <a class="index-entry" href="https://linkedin.com/in/josh-pearlson">
+      <span class="index-title">LinkedIn <span class="external-arrow" aria-hidden="true">↗</span></span>
+      <span class="index-meta">linkedin.com/in/josh-pearlson</span>
+    </a>
   </li>
   <li class="index-row">
-    <a class="index-title" href="https://github.com/jcpearlson">GitHub <span class="external-arrow" aria-hidden="true">↗</span></a>
-    <div class="index-meta">github.com/jcpearlson</div>
+    <a class="index-entry" href="https://github.com/jcpearlson">
+      <span class="index-title">GitHub <span class="external-arrow" aria-hidden="true">↗</span></span>
+      <span class="index-meta">github.com/jcpearlson</span>
+    </a>
   </li>
 </ul>
 
@@ -182,6 +174,20 @@ jKjtrAQ=
 
 
 </main> <!-- /main -->
+<a class="skip-link" href="#quarto-document-content" hidden="">Skip to content</a>
+<script>
+(() => {
+  const link = document.querySelector('.skip-link');
+  const header = document.getElementById('quarto-header');
+  const main = document.getElementById('quarto-document-content');
+  if (!header || !main) return;
+
+  // Keep the link outside the searchable content and first in the tab order.
+  header.before(link);
+  main.tabIndex = -1;
+  link.hidden = false;
+})();
+</script>
 <script>
 document.addEventListener('submit', event => {
   const form = event.target.closest('form[data-subscribe]');
