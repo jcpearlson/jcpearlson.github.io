@@ -1,50 +1,34 @@
 ---
-title: "Contact"
-pagetitle: "Contact — Josh Pearlson"
-title-block-banner: false
-page-layout: full
-css:
-  - ../css/index.css
-  - ../css/contact.css
+title: "Say hello"
+pagetitle: "Contact | Josh Pearlson"
 ---
 
 ```{=html}
-<div class="jcp-terminal" id="jcp-terminal">
-  <div class="t-body">
+<ul class="index-list contact-links">
+  <li class="index-row">
+    <a class="index-entry" href="mailto:jcpearlson@gmail.com">
+      <span class="index-title">Email</span>
+      <span class="index-meta">jcpearlson@gmail.com</span>
+    </a>
+  </li>
+  <li class="index-row">
+    <a class="index-entry" href="https://linkedin.com/in/josh-pearlson">
+      <span class="index-title">LinkedIn <span class="external-arrow" aria-hidden="true">↗</span></span>
+      <span class="index-meta">linkedin.com/in/josh-pearlson</span>
+    </a>
+  </li>
+  <li class="index-row">
+    <a class="index-entry" href="https://github.com/jcpearlson">
+      <span class="index-title">GitHub <span class="external-arrow" aria-hidden="true">↗</span></span>
+      <span class="index-meta">github.com/jcpearlson</span>
+    </a>
+  </li>
+</ul>
 
-    <div class="jcp-contact-wrap">
-      <header class="t-page-heading"><div class="t-command"><span class="t-prompt">$</span>cat ~/contact.txt</div><h1>Say hello<span class="t-accent">.</span></h1></header>
-
-      <p class="jcp-contact-intro">
-        The best ways to reach me. I like meeting new people, a cold email or
-        LinkedIn message is always welcome.
-      </p>
-
-      <div class="jcp-contact-list">
-        <a href="https://linkedin.com/in/josh-pearlson" class="jcp-c-row">
-          <span class="jcp-c-label">LINKEDIN</span>
-          <span class="jcp-c-val">linkedin.com/in/josh-pearlson</span>
-          <span class="jcp-c-arrow">→</span>
-        </a>
-        <a href="https://github.com/jcpearlson" class="jcp-c-row">
-          <span class="jcp-c-label">GITHUB</span>
-          <span class="jcp-c-val">github.com/jcpearlson</span>
-          <span class="jcp-c-arrow">→</span>
-        </a>
-        <a href="mailto:jcpearlson@gmail.com" class="jcp-c-row">
-          <span class="jcp-c-label">EMAIL</span>
-          <span class="jcp-c-val">jcpearlson@gmail.com</span>
-          <span class="jcp-c-arrow">→</span>
-        </a>
-      </div>
-
-      <div class="jcp-contact-foot">
-        <div class="jcp-promptblock"><span class="jcp-prompt">$</span> cat .pgp_public_key</div>
-        <details class="jcp-pgp-details">
-          <summary class="jcp-pgp-summary">▸ BEGIN PGP PUBLIC KEY BLOCK — click to expand</summary>
-          <pre class="jcp-sig"># for verifying identity or sending encrypted mail
-
------BEGIN PGP PUBLIC KEY BLOCK-----
+<details class="public-key">
+  <summary>PGP public key</summary>
+  <p>For verifying identity or sending encrypted mail.</p>
+  <pre>-----BEGIN PGP PUBLIC KEY BLOCK-----
 mDMEaeTnVxYJKwYBBAHaRw8BAQdARVFp9LoP+4AUEx1O3gODffsExyzGSe0IH1BL
 QCYpDsS0LUpvc2h1YSBDYXJ0ZXIgUGVhcmxzb24gPGpjcGVhcmxzb25AZ21haWwu
 Y29tPoivBBMWCgBXFiEEgWAjX4zTXG3leHTbYtplFo09g6sFAmnk51cbFIAAAAAA
@@ -58,10 +42,5 @@ Imr1Z3pdqoDsptaneScOaw7YpgEAyVpsp5toE8IzTiGO6vVTEu4yYngLJQTxUMdN
 jKjtrAQ=
 =YJ8n
 -----END PGP PUBLIC KEY BLOCK-----</pre>
-        </details>
-      </div>
-    </div>
-
-  </div>
-</div>
+</details>
 ```

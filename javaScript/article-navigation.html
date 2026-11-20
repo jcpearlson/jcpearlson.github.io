@@ -1,0 +1,46 @@
+<script>
+(() => {
+  const article = document.getElementById('quarto-document-content');
+  if (!article) return;
+
+  // Keep links from the previous table of contents working when its slug differs
+  // from the actual Quarto section ID.
+  const legacyIds = new Set();
+  article.querySelectorAll('section[id] > :is(h2, h3):first-child').forEach(heading => {
+    const slug = heading.textContent.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+    if (slug && !heading.id && !document.getElementById(slug)) {
+      heading.id = slug;
+      legacyIds.add(slug);
+    }
+  });
+  const target = location.hash.slice(1);
+  if (legacyIds.has(target)) document.getElementById(target).scrollIntoView();
+
+  const toc = article.querySelector('#TOC');
+  if (toc) {
+    const details = document.createElement('details');
+    const summary = document.createElement('summary');
+    details.className = 'article-contents';
+    summary.textContent = toc.querySelector('h2')?.textContent || 'On this page';
+    toc.setAttribute('aria-label', summary.textContent);
+    toc.before(details);
+    details.append(summary, toc);
+  }
+
+  const writing = document.querySelector('.navbar .nav-link[href$="/articles/index.html"]');
+  if (!writing) return;
+  writing.classList.add('active');
+
+  // Link directly to the archive before Quarto chooses a listing from the referrer.
+  const archive = new URL(writing.href);
+  article.querySelectorAll('#title-block-header .quarto-category').forEach(category => {
+    const topic = category.textContent;
+    archive.hash = 'category=' + encodeURIComponent(topic);
+    const link = document.createElement('a');
+    link.className = 'article-topic';
+    link.href = archive.href;
+    link.textContent = topic;
+    category.replaceWith(link);
+  });
+})();
+</script>

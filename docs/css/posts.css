@@ -1,385 +1,175 @@
-/* Article pages: terminal chrome around a proportional reading column. */
-@import url('terminal-theme.css');
-
-/* ========== PAGE FRAME ========== */
-
-/* article-chrome.html replaces Quarto's title block with the terminal header. */
-body.jcp-article-page :is(#quarto-header, .navbar, header.headroom, #title-block-header, .quarto-title-banner, .quarto-title, .quarto-title-block) { display: none !important; }
-body.jcp-article-page {
-  background: var(--t-bg);
-  color: var(--t-ink);
-  font-family: var(--t-reading);
-  /* Quarto writes an inline padding-top for its (hidden) fixed navbar; reserve the tab bar instead. */
-  padding-top: 56px !important;
-  padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+/* Reading pages share the same header and footer as the site index. */
+body.jcp-article-page #quarto-content {
+  display: block;
+  min-width: 0;
+  width: min(var(--t-width), 46rem);
 }
-.jcp-article-tabbar { position: fixed; inset: 0 0 auto; z-index: 1000; }
-.jcp-article-statusbar { position: fixed; inset: auto 0 0; z-index: 1000; background: var(--t-panel); padding-bottom: env(safe-area-inset-bottom, 0px); }
-
-body.jcp-article-page main#quarto-document-content {
-  font-family: var(--t-reading);
+body.jcp-article-page main.content {
   width: 100%;
   min-width: 0;
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 0;
+  margin: 0;
+  padding: 0 0 3.5rem;
 }
-body.jcp-article-page #quarto-content { display: block; padding: 0 var(--t-frame-pad); }
+body.jcp-article-page #quarto-margin-sidebar { display: none; }
 
-@media (min-width: 1200px) {
-  body.jcp-article-page #quarto-content.page-layout-article {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 760px) minmax(0, 1fr);
-    gap: 28px;
-    padding: 0 20px;
-  }
-  body.jcp-article-page main#quarto-document-content { grid-column: 2 / 3; }
+body.jcp-article-page #title-block-header {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  margin: 0 0 1.4rem;
+  padding: clamp(2.35rem, 7vw, 4.75rem) 0 1.45rem;
+  border-bottom: 1px solid var(--t-line);
 }
-@media (max-width: 1199px) {
-  body.jcp-article-page { --t-frame-pad: 28px; }
-}
-@media (max-width: 600px) {
-  body.jcp-article-page { --t-frame-pad: 22px; padding-top: 46px !important; }
-}
-
-/* ========== ARTICLE HEADER ========== */
-
-.t-art-header { margin: 0 0 36px; padding: 48px 0 0; font-family: var(--t-mono); }
-.t-art-prompt { font-size: 12px; color: var(--t-ink-dim); margin-bottom: 14px; overflow-wrap: anywhere; }
-.t-art-header .t-prompt { font-weight: 700; }
-body.jcp-article-page #quarto-content h1.t-art-title { font-size: clamp(32px, 3.8vw, 48px); line-height: 1.18; margin: 0 0 20px; }
-.t-art-meta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 22px; font-size: 12px; }
-.t-art-date { color: var(--t-ink-dim); font-variant-numeric: tabular-nums; }
-.t-art-meta .t-chip { color: #8fa28a; padding: 2px 8px; letter-spacing: .06em; }
-.t-art-rule { border-top: 1px solid var(--t-line); margin-top: 4px; }
-@media (max-width: 600px) {
-  .t-art-header { padding-top: 32px; }
-}
-
-/* ========== TABLE OF CONTENTS (toc-scrollspy.html) ========== */
-
-.scrollspy-nav { display: none; }
-@media (min-width: 1200px) {
-  .scrollspy-nav {
-    display: block;
-    grid-column: 1 / 2;
-    justify-self: end;
-    align-self: start;
-    position: sticky;
-    top: 68px;
-    width: 100%;
-    max-width: 250px;
-    max-height: calc(100vh - 120px);
-    overflow-y: auto;
-    border-left: 1px solid var(--t-line);
-    padding: 15px 0 15px 16px;
-  }
-}
-body.jcp-article-page #quarto-content .scrollspy-header {
-  font: 11px/1.5 var(--t-mono);
-  color: var(--t-ink-dim);
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  margin: 0 0 15px;
-  padding: 0;
-}
-.scrollspy-list { list-style: none; padding: 0; margin: 0; }
-.scrollspy-item { margin-bottom: 5px; }
-.toc-level-h3 { padding-left: 15px; }
-body.jcp-article-page #quarto-content .scrollspy-link {
-  display: block;
-  padding: 7px 0;
-  border: 0;
-  color: var(--t-ink-dim);
-  font: 12px/1.7 var(--t-mono);
-  letter-spacing: .02em;
+.jcp-article-page #title-block-header h1 {
+  margin: 0;
+  font: 500 clamp(1.9rem, 4.7vw, 3rem)/1.16 var(--t-mono);
+  letter-spacing: -.05em;
   overflow-wrap: anywhere;
-  transition: all .3s ease;
 }
-body.jcp-article-page #quarto-content .scrollspy-link:hover { color: var(--t-ink); }
-body.jcp-article-page #quarto-content .scrollspy-link.active {
-  color: var(--t-accent);
-  font-weight: 600;
-  box-shadow: inset 5px 0 10px -5px rgba(124, 255, 0, .2);
+.jcp-article-page #title-block-header.quarto-title-block .quarto-title-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem 1rem;
+  margin: 0;
+  color: var(--t-muted);
+  font: .82rem/1.5 var(--t-mono);
 }
+.jcp-article-page .quarto-title-meta-heading {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.jcp-article-page .quarto-title-meta p { margin: 0; }
+.jcp-article-page .quarto-title-meta > div + div { border-left: 1px solid var(--t-line); padding-left: 1rem; }
+.jcp-article-page .quarto-title .quarto-categories { gap: .35rem .85rem; padding-bottom: 0; }
+.jcp-article-page .quarto-title :is(.quarto-category, .article-topic) {
+  border: 0;
+  padding: 0;
+  opacity: 1;
+  color: var(--t-muted);
+  text-transform: none;
+  font: .78rem/1.5 var(--t-mono);
+}
+.jcp-article-page .article-topic:hover { color: var(--t-accent); }
 
-/* ========== BODY TEXT ========== */
+.article-contents { margin-bottom: 1.6rem; }
+.jcp-article-page #TOC {
+  margin: .4rem 0 0;
+  padding: 0 0 0 .9rem;
+  border: 0;
+  border-left: 1px solid var(--t-line);
+  font-size: .9rem;
+}
+.article-contents #TOC h2 { display: none; }
+.jcp-article-page #TOC ul {
+  padding-left: .8rem;
+  margin: 0;
+  list-style: none;
+}
+.jcp-article-page #TOC > ul { padding-left: 0; }
+.jcp-article-page #TOC li { margin: .15rem 0; }
+.jcp-article-page #TOC a { color: var(--t-muted); }
+.jcp-article-page #TOC a:hover { color: var(--t-accent); }
 
-#quarto-content :is(p, li) { color: var(--t-ink); line-height: 1.85; font-size: 18px; }
-body.jcp-article-page main#quarto-document-content > p:first-of-type { font-size: 21px; color: var(--t-ink-bright); line-height: 1.7; }
-body.jcp-article-page #quarto-content :is(h1, h2, h3, h4, h5, h6) {
-  color: var(--t-ink-bright);
+.jcp-article-page main.content { font: clamp(1rem, 2.5vw, 1.125rem)/1.75 var(--t-reading); }
+.jcp-article-page main.content > p:first-of-type { color: var(--t-ink); font-size: 1.115em; }
+.jcp-article-page main.content :is(h2, h3, h4) {
+  color: var(--t-ink);
   font-family: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: -.035em;
   line-height: 1.35;
-  scroll-margin-top: 85px;
+  letter-spacing: -.035em;
 }
-body.jcp-article-page #quarto-content h2 { font-size: 25px; margin-top: 42px; padding-bottom: 12px; border-bottom: 1px solid var(--t-line); }
-body.jcp-article-page #quarto-content h3 { font-size: 21px; margin-top: 32px; }
-body.jcp-article-page #quarto-content section[id] { scroll-margin-top: 85px; }
-@media (max-width: 600px) {
-  #quarto-content :is(p, li) { font-size: 17px; }
-  body.jcp-article-page main#quarto-document-content > p:first-of-type { font-size: 19px; }
-  body.jcp-article-page #quarto-content h2 { font-size: 22px; }
+.jcp-article-page main.content section > h2 {
+  font-size: clamp(1.25rem, 3.2vw, 1.55rem);
+  border-bottom: 1px solid var(--t-line);
+  padding-bottom: .5rem;
+  margin-top: 2.65rem;
 }
+.jcp-article-page main.content section > h3 { font-size: 1.17rem; margin-top: 1.7rem; }
+.jcp-article-page main.content :is(section[id], h2[id], h3[id], li[id], .footnote-ref) {
+  scroll-margin-top: 1rem;
+}
+.jcp-article-page blockquote {
+  color: var(--t-muted);
+  border-left: 2px solid var(--t-line);
+  padding-left: 1.1em;
+}
+.jcp-article-page hr { border-color: var(--t-line); opacity: 1; }
 
-#quarto-content a {
-  color: var(--t-accent);
-  text-decoration: none;
-  border-bottom: 1px solid var(--t-line-strong);
-  transition: all .3s ease;
-}
-#quarto-content a:hover { border-bottom-color: var(--t-accent); }
-#quarto-content strong { color: var(--t-ink-bright); font-weight: 700; }
-#quarto-content li::marker { color: rgba(124, 255, 0, .95); }
-#quarto-content blockquote {
-  border-left: 3px solid rgba(124, 255, 0, .95);
-  background: var(--t-panel);
-  padding: 15px 20px;
-  font-style: italic;
-  color: rgba(255, 255, 255, .9);
-  margin: 20px 0;
-}
-
-/* ========== FOOTNOTES ========== */
-
-/* Quarto's appendix otherwise inherits Slate's gray background and spacing. */
-body.jcp-article-page #quarto-appendix {
-  background: transparent;
-  border: 0;
-  margin: 42px 0 0;
-  padding: 0;
-}
-body.jcp-article-page #quarto-appendix .footnotes {
-  background: var(--t-panel);
-  border: 1px solid var(--t-line);
-  padding: 22px 24px;
-  margin: 0;
-}
-body.jcp-article-page #quarto-appendix .footnotes h2 {
-  color: var(--t-ink-dim);
-  font: 500 12px/1.5 var(--t-mono);
-  /* Quarto marks its appendix heading size as important. */
-  font-size: 12px !important;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  border: 0;
-  margin: 0 0 18px;
-  padding: 0;
-}
-body.jcp-article-page #quarto-appendix .footnotes h2::before {
-  content: "# ";
-  color: var(--t-accent);
-}
-body.jcp-article-page #quarto-appendix .footnotes > ol {
-  padding-left: 1.75em;
-  margin: 0;
-}
-body.jcp-article-page #quarto-appendix .footnotes > :is(h2, ol) { opacity: 1; }
-body.jcp-article-page #quarto-appendix .footnotes :is(p, li) {
-  font-size: 16px;
-  line-height: 1.75;
-  overflow-wrap: anywhere;
-}
-body.jcp-article-page #quarto-appendix .footnotes > ol > li {
-  padding-left: .4em;
-  scroll-margin-top: 85px;
-}
-body.jcp-article-page #quarto-appendix .footnotes > ol > li + li {
-  border-top: 1px solid var(--t-line);
-  padding-top: 16px;
-  margin-top: 16px;
-}
-body.jcp-article-page #quarto-appendix .footnotes li::marker {
-  font-family: var(--t-mono);
-  font-size: 13px;
-  color: var(--t-accent);
-}
-body.jcp-article-page #quarto-appendix .footnotes li > :last-child { margin-bottom: 0; }
-body.jcp-article-page #quarto-content .footnote-ref { scroll-margin-top: 85px; }
-body.jcp-article-page #quarto-content .footnote-back {
-  display: inline-block;
-  margin-left: .4em;
-  padding: 0 .25em;
-  font-family: var(--t-mono);
-  border-bottom-color: transparent;
-}
-body.jcp-article-page #quarto-content :is(.footnote-ref, .footnote-back):focus-visible {
-  outline: 1px solid var(--t-accent);
-  outline-offset: 3px;
-}
-@media (max-width: 600px) {
-  body.jcp-article-page #quarto-appendix .footnotes { padding: 18px 16px; }
-}
-
-/* ========== FIGURES ========== */
-
-#quarto-content figure { max-width: 100%; margin: 2rem auto; }
-#quarto-content figure img { width: 100%; height: auto; }
-#quarto-content figcaption { text-align: center; color: var(--t-ink-dim); font-size: 13px; font-style: italic; margin-top: 8px; }
-
-/* ========== TABLES ========== */
-
-/* display:block lets wide tables scroll horizontally instead of squishing cells. */
-#quarto-content table {
-  display: block;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  width: max-content;
+.jcp-article-page figure {
   max-width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1em;
-  color: rgba(255, 255, 255, .85);
-  background-color: rgba(0, 0, 0, .2);
-  /* Override Bootstrap's .table top/bottom rules. */
-  border-top: none;
-  border-bottom: none;
+  margin: 1.65rem auto;
 }
-#quarto-content table > thead { border-bottom: 1px solid rgba(255, 255, 255, .1); }
-#quarto-content th {
-  background-color: rgba(0, 51, 0, .7);
-  color: rgba(124, 255, 0, .95);
-  font-weight: bold;
-  padding: .8em .5em;
-  text-align: left;
-  border: 1px solid rgba(255, 255, 255, .1);
-  white-space: nowrap;
-}
-#quarto-content td { padding: .6em .5em; border: 1px solid rgba(255, 255, 255, .1); white-space: nowrap; }
-#quarto-content tbody tr.odd { background-color: rgba(0, 51, 0, .3); }
-#quarto-content tbody tr.even { background-color: rgb(58 203 58 / 10%); }
-#quarto-content .caption-top { color: rgba(124, 255, 0, .95); font-weight: bold; text-align: left; margin-bottom: .5em; }
-@media (max-width: 768px) {
-  #quarto-content table { font-size: 12px; }
-  #quarto-content :is(th, td) { padding: 6px 8px; }
-}
-@media (max-width: 520px) {
-  #quarto-content table { font-size: 11px; }
-}
+.jcp-article-page figure img { max-width: 100%; height: auto; }
+.jcp-article-page figcaption { color: var(--t-muted); font-size: .825rem; }
 
-/* ========== MATH ========== */
-
-/* Long display equations scroll instead of widening the page. */
-body.jcp-article-page mjx-container[display="true"] {
+/* Use one horizontal scroller so vertical gestures scroll the article. */
+.jcp-article-page .math.display { display: block; }
+.jcp-article-page :is(.math.display, mjx-container[display="true"], .katex-display):not(.math.display *) {
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 4px;
 }
-@media (max-width: 768px) { mjx-container[display="true"] { font-size: 90%; } }
-@media (max-width: 520px) { mjx-container[display="true"] { font-size: 80%; } }
 
-/* ========== CODE ========== */
-
-.quarto-figure.quarto-figure-center,
-.cell-output.cell-output-stdout,
-div.sourceCode {
-  background: var(--t-panel);
-  border: 1px solid var(--t-line);
-  border-radius: 0;
-  padding: 1.2em;
-  margin: 20px 0;
-  box-shadow: none;
+.jcp-article-page .cell,
+.jcp-article-page :is(.cell-output-display, .cell-output-stdout, .quarto-figure),
+.jcp-article-page :is(table, pre) {
+  max-width: 100%;
+  min-width: 0;
+}
+.jcp-article-page :is(.cell-output-display, .cell-output-stdout, .quarto-figure, pre) {
   overflow-x: auto;
 }
-/* The accent stripe marks code; figures and stdout keep the plain panel edge. */
-div.sourceCode { border-left: 2px solid var(--t-accent); }
-/* Wrap long lines rather than scrolling code sideways. */
-div.sourceCode > pre.sourceCode { white-space: pre-wrap; overflow-wrap: break-word; }
-div.sourceCode pre {
-  color: rgba(255, 255, 255, .85);
-  text-shadow: 0 0 5px rgba(0, 0, 0, .5);
-  background-color: transparent;
-  line-height: 1.5;
-}
-.cell-output.cell-output-stdout pre { color: rgba(124, 255, 0, .95); }
-.sourceCode .line-numbers { color: rgba(124, 255, 0, .5); }
-
-/* Syntax highlighting: keywords, numbers and functions in accent green, literals in light blue. */
-#quarto-content div.sourceCode :is(.kw, .dv, .fl, .fu, .dt, .bn, .cn) { color: rgba(124, 255, 0, .95); }
-#quarto-content div.sourceCode :is(.st, .bu, .at, .ty, .ch) { color: #add8e6; }
-#quarto-content div.sourceCode :is(.op, .va) { color: rgba(255, 255, 255, .95); }
-#quarto-content div.sourceCode .co { color: rgba(124, 255, 0, .5); font-style: italic; }
-#quarto-content div.sourceCode .al { color: #ff6347; }
-
-#quarto-content :not(pre) > code {
-  background-color: var(--t-raised);
-  color: var(--t-ink-bright);
-  padding: .2em .4em;
-  border-radius: 0;
-  font-size: .9em;
-  text-shadow: 0 0 5px rgba(0, 0, 0, .5);
-}
-
-#quarto-content :is(div.sourceCode, .cell-output-stdout)::-webkit-scrollbar { height: 10px; width: 10px; background-color: transparent; }
-#quarto-content :is(div.sourceCode, .cell-output-stdout)::-webkit-scrollbar-track { background-color: #000; border-radius: 5px; }
-#quarto-content :is(div.sourceCode, .cell-output-stdout)::-webkit-scrollbar-thumb { background-color: rgba(124, 255, 0, .95); border-radius: 5px; border: 2px solid #000; }
-#quarto-content :is(div.sourceCode, .cell-output-stdout)::-webkit-scrollbar-thumb:hover { background-color: var(--t-accent); }
-#quarto-content :is(div.sourceCode, .cell-output-stdout)::-webkit-scrollbar-corner { background-color: #000; }
-
-/* ========== SUBSCRIBE + SHARE FOOTER (share.html) ========== */
-
-.article-footer {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 48px;
-  padding: 28px 0 30px;
-  border-top: 1px solid var(--t-line);
-  font-family: var(--t-mono);
-}
-.article-footer :is(.subscribe-section, .share-article-container) {
-  min-width: 0;
-  background: var(--t-panel);
-  border: 1px solid var(--t-line);
-}
-.subscribe-section { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 18px 22px; }
-#quarto-content .subscribe-label { color: var(--t-ink); font-size: 14px; margin: 0 0 12px; }
-.subscribe-form { display: flex; gap: 8px; align-items: center; }
-.subscribe-form input[type="email"] {
-  width: 220px;
-  min-width: 0;
-  background: transparent;
-  border: 1px solid var(--t-line);
+.jcp-article-page table {
+  display: block;
+  width: max-content;
+  overflow-x: auto;
   color: var(--t-ink);
-  font: 14px/1.5 var(--t-mono);
-  padding: 8px 12px;
-  outline: none;
-  transition: border-color .2s ease;
+  font-size: .875rem;
+  --bs-table-color: var(--t-ink);
+  --bs-table-bg: transparent;
+  --bs-table-border-color: var(--t-line);
+  --bs-table-striped-bg: var(--t-panel);
+  --bs-table-striped-color: var(--t-ink);
 }
-.subscribe-form button[type="submit"] { white-space: nowrap; }
-.subscribe-form input[type="email"]::placeholder { color: rgba(255, 255, 255, .3); }
-.subscribe-form input[type="email"]:focus { border-color: var(--t-accent); }
-.share-article-container { display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 18px 28px; }
-.subscribe-form button[type="submit"],
-.share-article-button {
+.jcp-article-page :is(th, td) { white-space: nowrap; }
+.jcp-article-page pre { color: var(--t-ink); }
+.jcp-article-page div.sourceCode { background: var(--t-panel); border: 1px solid var(--t-line); }
+.jcp-article-page :not(pre) > code { background: var(--t-panel); color: var(--t-ink); }
+
+.jcp-article-page .article-footer { margin-bottom: 2rem; }
+.article-footer .newsletter-form { margin-top: .4rem; }
+.article-actions {
+  display: flex;
+  align-items: center;
+  align-self: end;
+  flex-wrap: wrap;
+  gap: .45rem 1rem;
+}
+.share-article-button { min-width: 7.75rem; }
+.article-actions a { font: .8125rem/1.5 var(--t-mono); }
+.jcp-article-page #quarto-appendix {
   background: transparent;
-  border: 1px solid var(--t-accent);
-  color: var(--t-accent);
-  font: 600 14px/1.5 var(--t-mono);
-  letter-spacing: .05em;
-  padding: 8px 18px;
-  cursor: pointer;
-  transition: background .15s, color .15s;
+  color: var(--t-ink);
+  border-top: 1px solid var(--t-line);
+  padding: 1.2rem 0 0;
+  margin: 2rem 0 0;
 }
-.subscribe-form button[type="submit"]:hover,
-.share-article-button:hover,
-.share-article-button.copied {
-  background: var(--t-accent);
-  color: var(--t-bg);
-}
-.subscribe-form button[type="submit"]:hover { box-shadow: 0 0 10px rgba(124, 255, 0, .15); }
-.share-article-button:hover { box-shadow: 0 0 15px rgba(124, 255, 0, .3); }
-@media (max-width: 768px) {
-  .subscribe-form { flex-direction: column; align-items: stretch; }
-  .subscribe-form :is(input[type="email"], button[type="submit"]),
-  .share-article-container,
-  .share-article-button { width: 100%; }
-}
-@media (max-width: 700px) {
-  .article-footer { flex-direction: column; }
+.jcp-article-page #quarto-appendix :is(h2, p, li) { color: var(--t-muted); opacity: 1; }
+.jcp-article-page .footnotes { font-size: .925rem; overflow-wrap: anywhere; }
+.jcp-article-page .footnotes ol { padding-left: 1.55rem; }
+
+@media (max-width: 480px) {
+  .jcp-article-page #title-block-header { padding-top: 2.2rem; }
+  .jcp-article-page .newsletter-form { width: 100%; }
+  /* Keep long inline MathJax formulas within the reading column. */
+  .jcp-article-page .math.inline:has(> mjx-container) {
+    display: inline-block;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    vertical-align: middle;
+  }
 }

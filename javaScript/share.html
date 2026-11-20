@@ -1,82 +1,92 @@
-<script>
-// Subscribe form and share button after the article text, before endnotes.
-document.addEventListener('DOMContentLoaded', function() {
-  const contentArea = document.querySelector('main#quarto-document-content');
-  if (!contentArea || document.querySelector('.quarto-listing')) return;
-  const { SUBSCRIBE_URL } = window.JCP;
-
-  // --- 1. GATHER METADATA ---
-  const title = document.querySelector('.quarto-title h1.title')?.textContent.trim() || document.title;
-  let author = 'Josh Pearlson';
-  let date = '';
-  const url = window.location.href;
-  document.querySelectorAll('.quarto-title-meta-heading').forEach(heading => {
-    const contents = heading.nextElementSibling;
-    if (!contents || !contents.classList.contains('quarto-title-meta-contents')) return;
-    const label = heading.textContent.trim();
-    if (label === 'Author') author = contents.querySelector('p')?.textContent.trim() || author;
-    if (label === 'Published') date = contents.querySelector('p.date')?.textContent.trim() || date;
-  });
-
-  // --- 2. BUILD FOOTER ---
-  const footer = document.createElement('div');
-  footer.className = 'article-footer';
-  footer.innerHTML = `
-    <div class="subscribe-section">
-      <p class="subscribe-label">Get notified when a new article drops.</p>
-      <form action="${SUBSCRIBE_URL}" method="post" class="subscribe-form" target="_blank"
+<template id="article-actions-template">
+  <section class="article-footer newsletter" aria-label="Article actions">
+    <div>
+      <p>Get new articles in your inbox.</p>
+      <form action="https://buttondown.com/api/emails/embed-subscribe/jcp" method="post" class="newsletter-form" target="_blank"
             data-subscribe="subscribe-article" data-subscribe-title="Newsletter Signup - Article">
-        <input type="email" name="email" placeholder="your@email.com" aria-label="Email address" autocomplete="email" required />
-        <button type="submit">Subscribe →</button>
+        <input type="email" name="email" placeholder="you@domain.com" aria-label="Email address" autocomplete="email" required />
+        <button type="submit">Subscribe</button>
       </form>
     </div>
-    <div class="share-article-container">
-      <button type="button" class="share-article-button">Share this Article</button>
-    </div>`;
-  const endnotes = contentArea.querySelector('#quarto-appendix, section.footnotes');
-  if (endnotes) {
-    endnotes.before(footer);
-  } else {
-    contentArea.appendChild(footer);
-  }
+    <div class="article-actions">
+      <button type="button" class="share-article-button">Share article</button>
+      <a href="/articles/">All writing <span aria-hidden="true">→</span></a>
+      <span class="visually-hidden" role="status"></span>
+    </div>
+  </section>
+</template>
 
-  // --- 3. SHARE ---
-  const shareButton = footer.querySelector('.share-article-button');
-  const label = shareButton.textContent;
-  const citation = `"${title}" by ${author}${date ? ` (Published: ${date})` : ''}`;
+<script>
+(() => {
+  const article = document.getElementById('quarto-document-content');
+  const template = document.getElementById('article-actions-template');
+  const footer = template.content.firstElementChild.cloneNode(true);
+  const endnotes = article.querySelector('#quarto-appendix, section.footnotes');
+  if (endnotes) endnotes.before(footer);
+  else article.append(footer);
 
-  function flash(text, copied) {
-    shareButton.textContent = text;
-    shareButton.classList.toggle('copied', copied);
-    setTimeout(() => {
-      shareButton.textContent = label;
-      shareButton.classList.remove('copied');
+  const title = article.querySelector('h1.title').textContent.trim();
+  const authors = Array.from(document.querySelectorAll('meta[name="author"]'), meta => meta.content);
+  const date = article.querySelector('.quarto-title-meta .date')?.textContent.trim();
+  const citation = [`"${title}"`, authors.length ? `by ${authors.join(', ')}` : '', date ? `(Published: ${date})` : '']
+    .filter(Boolean).join(' ');
+  const button = footer.querySelector('.share-article-button');
+  const status = footer.querySelector('[role="status"]');
+  const label = button.textContent;
+  let feedbackTimer;
+
+  function giveFeedback(buttonLabel, message) {
+    clearTimeout(feedbackTimer);
+    button.textContent = buttonLabel;
+    status.textContent = message;
+    feedbackTimer = setTimeout(() => {
+      button.textContent = label;
+      status.textContent = '';
     }, 3000);
   }
 
-  // navigator.clipboard needs a secure context; fall back to a hidden textarea.
-  function copy(text) {
-    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
-    return new Promise((resolve, reject) => {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.setAttribute('readonly', '');
-      ta.style.cssText = 'position:fixed;opacity:0';
-      document.body.appendChild(ta);
-      ta.select();
-      const ok = document.execCommand('copy');
-      ta.remove();
-      ok ? resolve() : reject(new Error('copy failed'));
-    });
+  async function copyCitation(text) {
+    if (navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return;
+      } catch {
+        // Clipboard permissions vary. Try the fallback below.
+      }
+    }
+
+    const previousFocus = document.activeElement;
+    const field = document.createElement('textarea');
+    field.value = text;
+    field.readOnly = true;
+    field.style.cssText = 'position:fixed;opacity:0';
+    document.body.append(field);
+    try {
+      field.select();
+      if (!document.execCommand('copy')) throw new Error('Copy failed');
+    } finally {
+      field.remove();
+      previousFocus?.focus({ preventScroll: true });
+    }
   }
 
-  shareButton.addEventListener('click', function() {
-    // Phones get the native share sheet; everything else copies a citation line.
-    if (navigator.share && window.matchMedia('(pointer: coarse)').matches) {
-      navigator.share({ title, text: citation, url }).catch(() => {});
-      return;
+  button.addEventListener('click', async () => {
+    const url = location.href;
+    if (navigator.share && matchMedia('(pointer: coarse)').matches) {
+      try {
+        await navigator.share({ title, text: citation, url });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
     }
-    copy(`${citation}: ${url}`).then(() => flash('Copied to clipboard!', true), () => flash('Copy failed!', false));
+
+    try {
+      await copyCitation(`${citation}: ${url}`);
+      giveFeedback('Copied', 'Citation copied to clipboard.');
+    } catch {
+      giveFeedback('Copy failed', 'Could not copy the citation.');
+    }
   });
-});
+})();
 </script>

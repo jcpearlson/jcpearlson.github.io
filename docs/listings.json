@@ -15,5 +15,26 @@
       "/articles/posts/deepseek-ocr/index.html",
       "/articles/posts/coin-flip-game/index.html"
     ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/articles/posts/jevons-paradox-ai/index.html",
+      "/articles/posts/Double Descent/index.html",
+      "/articles/posts/chart-crimes/index.html",
+      "/articles/posts/us-debt-trap/index.html",
+      "/articles/posts/no-two-shuffles-alike/index.html",
+      "/articles/posts/closest-galaxy-time-dilation/index.html",
+      "/articles/posts/impossible-bracket/index.html",
+      "/articles/posts/crypto-perps/index.html",
+      "/articles/posts/base-64-encoding/index.html",
+      "/articles/posts/mortgage-from-market/index.html",
+      "/articles/posts/deepseek-ocr/index.html",
+      "/articles/posts/coin-flip-game/index.html"
+    ]
+  },
+  {
+    "listing": "/projects/index.html",
+    "items": []
   }
 ]

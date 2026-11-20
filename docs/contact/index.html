@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Contact — Josh Pearlson – Josh Pearlson</title>
+<title>Contact | Josh Pearlson – Josh Pearlson</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,11 +20,11 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
 </style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -66,24 +66,41 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../css/index.css">
-<link rel="stylesheet" href="../css/contact.css">
+<link rel="stylesheet" href="../css/terminal-theme.css">
 </head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Josh Pearlson</span>
+    <span class="navbar-title">~/jcp</span>
     </a>
   </div>
-        <div class="quarto-navbar-tools tools-end">
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../articles/index.html"> 
+<span class="menu-text">Writing</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../projects/index.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about/index.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../contact/index.html" aria-current="page"> 
+<span class="menu-text">Contact</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
 </div>
-          <div id="quarto-search" class="" title="Search"></div>
+            <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -97,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Contact</h1>
+<h1 class="title">Say hello</h1>
 </div>
 
 
@@ -114,42 +131,31 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="jcp-terminal" id="jcp-terminal">
-  <div class="t-body">
+<ul class="index-list contact-links">
+  <li class="index-row">
+    <a class="index-entry" href="mailto:jcpearlson@gmail.com">
+      <span class="index-title">Email</span>
+      <span class="index-meta">jcpearlson@gmail.com</span>
+    </a>
+  </li>
+  <li class="index-row">
+    <a class="index-entry" href="https://linkedin.com/in/josh-pearlson">
+      <span class="index-title">LinkedIn <span class="external-arrow" aria-hidden="true">↗</span></span>
+      <span class="index-meta">linkedin.com/in/josh-pearlson</span>
+    </a>
+  </li>
+  <li class="index-row">
+    <a class="index-entry" href="https://github.com/jcpearlson">
+      <span class="index-title">GitHub <span class="external-arrow" aria-hidden="true">↗</span></span>
+      <span class="index-meta">github.com/jcpearlson</span>
+    </a>
+  </li>
+</ul>
 
-    <div class="jcp-contact-wrap">
-      <header class="t-page-heading"><div class="t-command"><span class="t-prompt">$</span>cat ~/contact.txt</div><h1>Say hello<span class="t-accent">.</span></h1></header>
-
-      <p class="jcp-contact-intro">
-        The best ways to reach me. I like meeting new people, a cold email or
-        LinkedIn message is always welcome.
-      </p>
-
-      <div class="jcp-contact-list">
-        <a href="https://linkedin.com/in/josh-pearlson" class="jcp-c-row">
-          <span class="jcp-c-label">LINKEDIN</span>
-          <span class="jcp-c-val">linkedin.com/in/josh-pearlson</span>
-          <span class="jcp-c-arrow">→</span>
-        </a>
-        <a href="https://github.com/jcpearlson" class="jcp-c-row">
-          <span class="jcp-c-label">GITHUB</span>
-          <span class="jcp-c-val">github.com/jcpearlson</span>
-          <span class="jcp-c-arrow">→</span>
-        </a>
-        <a href="mailto:jcpearlson@gmail.com" class="jcp-c-row">
-          <span class="jcp-c-label">EMAIL</span>
-          <span class="jcp-c-val">jcpearlson@gmail.com</span>
-          <span class="jcp-c-arrow">→</span>
-        </a>
-      </div>
-
-      <div class="jcp-contact-foot">
-        <div class="jcp-promptblock"><span class="jcp-prompt">$</span> cat .pgp_public_key</div>
-        <details class="jcp-pgp-details">
-          <summary class="jcp-pgp-summary">▸ BEGIN PGP PUBLIC KEY BLOCK — click to expand</summary>
-          <pre class="jcp-sig"># for verifying identity or sending encrypted mail
-
------BEGIN PGP PUBLIC KEY BLOCK-----
+<details class="public-key">
+  <summary>PGP public key</summary>
+  <p>For verifying identity or sending encrypted mail.</p>
+  <pre>-----BEGIN PGP PUBLIC KEY BLOCK-----
 mDMEaeTnVxYJKwYBBAHaRw8BAQdARVFp9LoP+4AUEx1O3gODffsExyzGSe0IH1BL
 QCYpDsS0LUpvc2h1YSBDYXJ0ZXIgUGVhcmxzb24gPGpjcGVhcmxzb25AZ21haWwu
 Y29tPoivBBMWCgBXFiEEgWAjX4zTXG3leHTbYtplFo09g6sFAmnk51cbFIAAAAAA
@@ -163,147 +169,36 @@ Imr1Z3pdqoDsptaneScOaw7YpgEAyVpsp5toE8IzTiGO6vVTEu4yYngLJQTxUMdN
 jKjtrAQ=
 =YJ8n
 -----END PGP PUBLIC KEY BLOCK-----</pre>
-        </details>
-      </div>
-    </div>
-
-  </div>
-</div>
+</details>
 
 
 
 </main> <!-- /main -->
+<a class="skip-link" href="#quarto-document-content" hidden="">Skip to content</a>
 <script>
-// Shared terminal chrome for every page: the tab bar, the status bar and the
-// helpers the page-specific includes use (window.JCP). Included site-wide from
-// _quarto.yml, so it runs before any page-level include.
-window.JCP = (function() {
-  const NAV = [
-    ['home', '/'],
-    ['about', '/about/'],
-    ['articles', '/articles/'],
-    ['projects', '/projects/'],
-    ['contact', '/contact/'],
-  ];
-  const LOCATION = 'New York, NY';
-  const WEATHER_URL = 'https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current=temperature_2m&temperature_unit=fahrenheit';
-  const SUBSCRIBE_URL = 'https://buttondown.com/api/emails/embed-subscribe/jcp';
+(() => {
+  const link = document.querySelector('.skip-link');
+  const header = document.getElementById('quarto-header');
+  const main = document.getElementById('quarto-document-content');
+  if (!header || !main) return;
 
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  }
-
-  // Path segments without a trailing index.html, e.g. ['articles', 'posts', 'slug'].
-  function pathParts() {
-    const parts = location.pathname.split('/').filter(Boolean);
-    if (/^index\.html?$/.test(parts[parts.length - 1])) parts.pop();
-    return parts;
-  }
-
-  function tabBar(title, section) {
-    const tabs = NAV.map(([name, href]) => {
-      const active = name === section;
-      return `<a href="${href}" class="t-tab${active ? ' t-tab-active' : ''}"${active ? ' aria-current="page"' : ''}>` +
-        `<span class="t-tab-indicator" aria-hidden="true">${active ? '▸' : '&nbsp;'}</span>${name}</a>`;
-    }).join('');
-    return `<nav class="t-tabs" aria-label="Main navigation">${tabs}` +
-      `<div class="t-tabs-spacer"></div><div class="t-title">jcp@joshpearlson: ${esc(title)}</div></nav>`;
-  }
-
-  function statusBar(label, middle, middleId) {
-    return `<div class="t-status"><span><span class="t-status-dot">●</span> ${esc(label)}</span>` +
-      `<span id="${middleId}">${esc(middle)}</span>` +
-      `<span class="t-status-weather" id="t-status-weather">${LOCATION}</span></div>`;
-  }
-
-  function el(html) {
-    const t = document.createElement('template');
-    t.innerHTML = html.trim();
-    return t.content.firstChild;
-  }
-
-  function fetchDoc(path) {
-    return fetch(new URL(path, location.origin))
-      .then(r => { if (!r.ok) throw new Error(path + ' unavailable'); return r.text(); })
-      .then(html => new DOMParser().parseFromString(html, 'text/html'));
-  }
-
-  // Resolve with the rendered article listing, reusing this page's copy when present.
-  function articleListing() {
-    return document.querySelector('.quarto-listing') ? Promise.resolve(document) : fetchDoc('/articles/');
-  }
-
-  // Count items on this page when it is the listing (read now, before Quarto's
-  // category filter can remove any), otherwise on the fetched listing page.
-  function countOf(listingSelector, path, itemSelector) {
-    if (document.querySelector(listingSelector)) return Promise.resolve(document.querySelectorAll(itemSelector).length);
-    return fetchDoc(path).then(doc => doc.querySelectorAll(itemSelector).length);
-  }
-
-  function updateWeather() {
-    const w = document.getElementById('t-status-weather');
-    if (!w) return;
-    fetch(WEATHER_URL)
-      .then(r => { if (!r.ok) throw new Error('Weather unavailable'); return r.json(); })
-      .then(d => {
-        const t = d.current && d.current.temperature_2m;
-        if (typeof t === 'number' && Number.isFinite(t)) w.textContent = `NYC ${Math.round(t)}°F`;
-      }).catch(() => {});
-  }
-
-  function updateCounts() {
-    const count = document.getElementById('t-status-count');
-    if (!count) return;
-    Promise.all([
-      countOf('.quarto-listing', '/articles/', '.quarto-post'),
-      countOf('.jcp-proj-grid', '/projects/', '.jcp-proj-card'),
-    ]).then(([a, p]) => { count.textContent = `${a} articles / ${p} projects`; }).catch(() => {});
-  }
-
-  // Terminal pages mark their content with #jcp-terminal; data-title, data-tab
-  // and data-status override the defaults (used by the 404 page, which GitHub
-  // Pages serves at whatever URL was requested).
-  function renderPageChrome(mount) {
-    const title = mount.dataset.title || '~/' + pathParts().join('/');
-    mount.prepend(el(tabBar(title, mount.dataset.tab || pathParts()[0] || 'home')));
-    if (mount.dataset.status) {
-      mount.append(el(statusBar('online', mount.dataset.status, 't-status-note')));
-    } else {
-      mount.append(el(statusBar('online', '— articles / — projects', 't-status-count')));
-      updateCounts();
-    }
-  }
-
-  // Article pages are Quarto documents, so the bars are fixed to the viewport.
-  function renderArticleChrome() {
-    const slug = pathParts().filter(p => p !== 'posts').join('/');
-    const top = document.createElement('div');
-    top.className = 'jcp-article-tabbar';
-    top.innerHTML = tabBar('~/' + slug, 'articles');
-    document.body.prepend(top);
-    const bottom = document.createElement('div');
-    bottom.className = 'jcp-article-statusbar';
-    bottom.innerHTML = statusBar('reading', '', 't-art-read-time');
-    document.body.append(bottom);
-  }
-
-  // Count newsletter signups from any form that opts in with data-subscribe.
-  document.addEventListener('submit', e => {
-    const form = e.target.closest && e.target.closest('form[data-subscribe]');
-    if (form && window.goatcounter && window.goatcounter.count) {
-      window.goatcounter.count({ path: form.dataset.subscribe, title: form.dataset.subscribeTitle, event: true });
-    }
-  });
-
-  // These includes run at the end of <body>, so the page markup already exists;
-  // drawing the bars now avoids a flash of the page without them.
-  const mount = document.getElementById('jcp-terminal');
-  if (mount) renderPageChrome(mount);
-  else if (document.body.classList.contains('jcp-article-page')) renderArticleChrome();
-  updateWeather();
-
-  return { esc, el, pathParts, articleListing, SUBSCRIBE_URL };
+  // Keep the link outside the searchable content and first in the tab order.
+  header.before(link);
+  main.tabIndex = -1;
+  link.hidden = false;
 })();
+</script>
+<script>
+document.addEventListener('submit', event => {
+  const form = event.target.closest('form[data-subscribe]');
+  if (form && window.goatcounter?.count) {
+    window.goatcounter.count({
+      path: form.dataset.subscribe,
+      title: form.dataset.subscribeTitle,
+      event: true
+    });
+  }
+});
 </script>
 <script>
   <!-- A message to others like me! -->
@@ -737,6 +632,30 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Josh Pearlson</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../quotes/index.html">
+<p>Quotes</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/jcpearlson">
+<p>GitHub</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
 
 
 

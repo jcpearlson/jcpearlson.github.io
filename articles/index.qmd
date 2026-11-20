@@ -1,48 +1,29 @@
 ---
 title: "Priors"
-pagetitle: "Priors — Josh Pearlson"
-title-block-banner: false
-page-layout: full
+pagetitle: "Priors | Josh Pearlson"
+subtitle: "Updating beliefs on markets and machines."
 listing:
   contents: posts
   sort: "date desc"
-  type: default
-  categories: true
-  sort-ui: false
-  filter-ui: false
-css:
-  - ../css/index.css
-  - ../css/blog_homepage.css
-include-after-body:
-  - ../javaScript/articles-table.html
+  template: ../_includes/posts.ejs.md
+  template-params:
+    archive: true
+include-after-body: ../javaScript/archives.html
 ---
 
+::: {#listing}
+:::
+
 ```{=html}
-<div class="jcp-terminal" id="jcp-terminal">
-  <div class="t-body">
-
-    <header class="t-page-heading">
-      <div class="t-command"><span class="t-prompt">$</span>ls ~/articles</div>
-      <h1>Priors<span class="t-accent">.</span></h1>
-      <p>Updating beliefs on markets and machines.</p>
-    </header>
-
-    <div id="jcp-articles-mount"></div>
-
-    <div class="jcp-subscribe">
-      <div class="jcp-sub-copy"><span class="jcp-sub-label">New ideas, occasionally.</span><span class="jcp-sub-hint">Get new articles in your inbox.</span></div>
-      <form action="https://buttondown.com/api/emails/embed-subscribe/jcp"
-            method="post"
-            class="jcp-sub-form"
-            target="_blank"
-            data-subscribe="subscribe-blog"
-            data-subscribe-title="Newsletter Signup - Blog">
-        <input type="email" name="email" placeholder="you@domain.com" aria-label="Email address" autocomplete="email" required class="jcp-sub-input" />
-        <button type="submit" class="jcp-sub-btn" aria-label="Subscribe to Priors">Subscribe →</button>
-      </form>
-    </div>
-
+<section class="newsletter" aria-labelledby="archive-newsletter">
+  <div>
+    <h2 id="archive-newsletter">New ideas, occasionally.</h2>
+    <p>Get new articles in your inbox.</p>
   </div>
-</div>
-
+  <form action="https://buttondown.com/api/emails/embed-subscribe/jcp" method="post" target="_blank"
+        class="newsletter-form" data-subscribe="subscribe-blog" data-subscribe-title="Newsletter Signup - Blog">
+    <input type="email" name="email" placeholder="you@domain.com" aria-label="Email address" autocomplete="email" required />
+    <button type="submit">Subscribe</button>
+  </form>
+</section>
 ```

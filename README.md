@@ -23,33 +23,19 @@ Python environment available; the new results are saved to `_freeze/`.
 
 | Path | Contents |
 | --- | --- |
-| `_quarto.yml` | Site config: pages to render, site-wide includes, theme |
-| `index.qmd`, `about/`, `articles/`, `projects/`, `contact/`, `quotes/`, `404.qmd` | Pages. Each wraps its content in `<div id="jcp-terminal">` |
+| `_quarto.yml` | Site navigation, search, footer, theme, and render targets |
+| `index.qmd`, `about/`, `articles/`, `projects/`, `contact/`, `quotes/`, `404.qmd` | Site pages |
 | `articles/posts/<slug>/` | One folder per article (`index.md`, `.qmd` or `.ipynb`) |
-| `articles/posts/_metadata.yml` | Options and includes shared by every article |
-| `css/terminal-theme.css` | Palette tokens (`--t-*`), tab bar and status bar |
-| `css/index.css` | Layout shared by the terminal pages, plus the home page |
-| `css/posts.css` | Article pages |
-| `css/<page>.css` | Styles for a single page |
-| `javaScript/` | HTML includes (see below) |
+| `articles/posts/_metadata.yml` | Shared article options and includes |
+| `_includes/*.ejs.md` | Quarto listing templates for writing and projects |
+| `projects/catalog.yml` | Project descriptions and links, in display order |
+| `css/terminal-theme.css` | Shared palette, type, navigation, and index layout |
+| `css/posts.css` | Article typography and reading layout |
+| `javaScript/` | Archive topic filter, article contents and sharing, and analytics includes |
 | `media/` | Images used by pages and articles |
-| `projects/` | Self-contained browser games, copied to `docs/` as-is |
-| `artifacts/` | Standalone interactive pages, copied to `docs/` as-is (e.g. `/artifacts/population-trends/`) |
-| `_future_work/` | Drafts; not rendered |
-
-### JavaScript includes
-
-| File | Included by | Does |
-| --- | --- | --- |
-| `terminal.html` | every page (`_quarto.yml`) | Draws the tab bar and status bar, fetches the NYC temperature and article/project counts, tracks newsletter signups, and exposes shared helpers as `window.JCP` |
-| `console.html`, `analytics.html` | every page | Console greeting; GoatCounter analytics |
-| `home.html` | `index.qmd` | Home page hero, ASCII logo and latest-article card |
-| `articles-table.html` | `articles/index.qmd` | Replaces Quarto's listing with the filterable article table |
-| `article-chrome.html` | articles | Terminal-style article header and read time |
-| `toc-scrollspy.html` | articles | Table of contents that follows the scroll position |
-| `share.html` | articles | Subscribe form and share button at the end of an article |
-
-The navigation tabs are defined once, in `NAV` at the top of `terminal.html`.
+| `projects/6CardGolf/`, `projects/DigDug/` | Self-contained browser games, copied to `docs/` |
+| `artifacts/` | Standalone interactive pages, copied to `docs/` |
+| `_future_work/` | Drafts |
 
 ## Adding an article
 
@@ -64,15 +50,13 @@ The navigation tabs are defined once, in `NAV` at the top of `terminal.html`.
    ---
    ```
 
-2. Put images in `media/` and reference them as `../../../media/<file>`. The first image is
-   used as the listing thumbnail.
+2. Put images in `media/` and reference them as `../../../media/<file>`.
 3. `quarto render`, check the page with `quarto preview`, and commit the source and `docs/`.
 
-The home page's latest-article card, the article table and the status-bar counts all read
-Quarto's rendered listing, so nothing else needs updating.
+Quarto builds the homepage’s recent writing and the archive from post front matter.
 
 ## Adding a page
 
 Create `<name>/index.qmd` following an existing page such as `contact/index.qmd`, add it to
-`project.render` in `_quarto.yml`, and add it to `NAV` in `javaScript/terminal.html` if it
-should appear in the tab bar.
+`project.render` in `_quarto.yml`. Add it under `website.navbar` or `website.page-footer`
+when it needs a site-wide link.

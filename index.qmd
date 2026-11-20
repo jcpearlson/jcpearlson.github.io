@@ -1,14 +1,44 @@
 ---
-title: "JCP"
+title: "Josh Pearlson"
 pagetitle: "Josh Pearlson"
-title-block-banner: false
-page-layout: full
-css:
-  - css/index.css
-include-after-body:
-  - javaScript/home.html
+subtitle: "Quant at BlackRock. I write about [markets & machines.]{.accent}"
+body-classes: site-home
+listing:
+  - id: recent-writing
+    contents: articles/posts
+    sort: "date desc"
+    max-items: 3
+    template: _includes/posts.ejs.md
+  - id: selected-projects
+    contents: projects/catalog.yml
+    max-items: 2
+    template: _includes/projects.ejs.md
 ---
 
-```{=html}
-<div class="jcp-terminal" id="jcp-terminal"></div>
-```
+::: {.home-index}
+
+::: {.index-section}
+
+<div class="index-heading">
+  <h2><span class="accent" aria-hidden="true">/</span> Writing</h2>
+  <a href="/articles/">Archive <span aria-hidden="true">→</span></a>
+</div>
+
+::: {#recent-writing}
+:::
+
+:::
+
+::: {.index-section}
+
+<div class="index-heading">
+  <h2><span class="accent" aria-hidden="true">/</span> Projects</h2>
+  <a href="/projects/">View all <span aria-hidden="true">→</span></a>
+</div>
+
+::: {#selected-projects}
+:::
+
+:::
+
+:::
